@@ -1,0 +1,35 @@
+{
+  "name": "fandango",
+  "version": "1.0.0",
+  "description": "project for cmpe 273",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Anuragis/fandango.git"
+  },
+  "keywords": [
+    "nodejs",
+    "mongodb"
+  ],
+  "author": "Amey Totawar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Anuragis/fandango/issues"
+  },
+  "homepage": "https://github.com/Anuragis/fandango#readme",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "mongodb": "^3.0.6",
+    "mongodb-autoincrement": "^1.0.1",
+    "mysql": "^2.15.0",
+    "passport": "^0.4.0",
+    "passport-http": "^0.3.0",
+    "passport-local": "^1.0.0"
+  }
+}
