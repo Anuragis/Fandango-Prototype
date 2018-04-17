@@ -24,4 +24,4 @@ var bookingSchema = new Schema({
 //     step: 1                   // auto increment step 
 // });
 
-module.exports = mongoose.model('Bookings', bookingSchema);
+module.exports = mongoose.model('bookings', bookingSchema);

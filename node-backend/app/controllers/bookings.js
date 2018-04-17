@@ -5,7 +5,7 @@ var auto = require('mongodb-autoincrement');
 
 module.exports.createBooking = function(req,res,next){
     console.log("req body", req.body);
-    mongodb.connect(function(err,db){
+    // mongodb.connect(function(err,db){
         var newBooking = new bookingsModel();
         newBooking.bid = 0;
         newBooking.bdate = req.body.bdate;
@@ -25,5 +25,5 @@ module.exports.createBooking = function(req,res,next){
             }
             console.log("bookin: ", booking);
         })
-        })
+        // })
 }
