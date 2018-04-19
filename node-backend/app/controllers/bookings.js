@@ -1,5 +1,4 @@
 var bookingsModel = require('../models/bookingsModel');
-var auto = require('mongodb-autoincrement');
 const {ObjectId} = require('mongodb');
 
 
