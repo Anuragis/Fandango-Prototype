@@ -10,5 +10,9 @@ var users = require('../controllers/users.js');
 router
     .route('/booking')
     .post(bookings.createBooking);
+
+router
+    .route('/booking/:bid')
+    .delete(bookings.deleteBooking);    
     
 module.exports = router;

@@ -1,12 +1,15 @@
-var mongoose = require('mongoose')
-    , Schema = mongoose.Schema
-    , Mixed = Schema.Types.Mixed;
+var mongoose = require('../connections/mongo');
+const Schema = mongoose.Schema;
+const Mixed = Schema.Types.Mixed;
 
-var autoIncrement = require("mongodb-autoincrement");   
+var autoIncrement = require("mongoose-auto-increment"); 
+var connection = mongoose.createConnection('mongodb://cmpeuser:cmpepass@ds247569.mlab.com:47569/fandango_system');
+
+autoIncrement.initialize(connection);
 
 var bookingSchema = new Schema({
 
-   bid: { type : Number, unique : true },
+   bid: { type : Number, required : true },
    bdate: { type : String, required : true },
    bamount: { type : Number, required : true },
    btax: { type : Number, required : true },
@@ -19,9 +22,5 @@ var bookingSchema = new Schema({
    status: { type : String, required : true }
 });
 
-// bookingSchema.plugin(autoIncrement.mongoosePlugin, {
-//     field: bookingSchema.bid,               // auto increment field name, default: _id 
-//     step: 1                   // auto increment step 
-// });
-
+bookingSchema.plugin(autoIncrement.plugin, { model: 'bookings', field: 'bid', startAt: 1, });
 module.exports = mongoose.model('bookings', bookingSchema);
