@@ -3,7 +3,7 @@ import {Switch,Route} from 'react-router-dom';
 import movies from './movies';
 import ticketboxoffice from './ticketboxoffice';
 
-import headers from './header';
+import headers from './headers';
 const Main = () => (
     <Switch>
         <Route exact path = '/movies' component={movies}/>
