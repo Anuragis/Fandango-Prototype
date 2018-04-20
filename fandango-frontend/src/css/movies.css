@@ -1,0 +1,144 @@
+.page-header {
+    color: #fff;
+    margin: 20px 0 2px;
+    margin-left: 30px;
+}
+
+h1 {
+    font-size: 48px;
+    line-height: 45px;
+}
+
+h1, h2, h3 {
+    font-family: "alternate-gothic-no-1-d","Futura Condensed","Arial Narrow",Arial,sans-serif;
+    text-transform: uppercase;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 400;
+    margin: 0;
+    color: #4c4c4c;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.page-header-emphasis {
+    color: #ff7900;
+}
+
+.large-12 {
+    width: 100%;
+}
+
+.body {
+    background: #fff;
+    color: #333;
+    padding: 0;
+    margin: 0;
+    font-family: "Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1;
+    position: relative;
+    cursor: default;
+}column, .columns {
+    position: relative;
+    padding-left: .714em;
+    padding-right: .714em;
+    float: left;
+}
+
+.column, .columns {
+    position: relative;
+    padding-left: .714em;
+    padding-right: .714em;
+    float: left;
+}
+.column, .columns {
+    padding-left: .714em;
+    padding-right: .714em;
+    width: 100%;
+    float: left;
+}
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+user agent stylesheet
+div {
+    display: block;
+}
+
+.genre-menu.tabs .filter-wrap {
+    height: 45px;
+    overflow: hidden;
+}
+
+
+.page-header-container {
+    background: no-repeat scroll center 0 / cover rgba(0,0,0,0);
+    background-image: url('../assets/images/download.png');
+    padding: 0;
+}
+
+.space{
+    margin-right: 10px;
+}
+
+.heading-size-l {
+    font-size: 38px;
+    line-height: 35px;
+}
+
+.heading-style-1 {
+    color: #4c4c4c;
+    font-family: "alternate-gothic-no-1-d","Futura Condensed","Arial Narrow",Arial,sans-serif;
+    font-size: inherit;
+    font-weight: 300;
+    text-transform: uppercase;
+}
+
+.inline {
+    display: inline-block;
+}
+
+hr { 
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+border-color:black;
+} 
+
+.movie-list {
+    margin: 0 -30px 20px 0;
+    overflow: auto;
+    list-style: none;
+}
+
+.visual-list {
+    list-style-type: none;
+    margin: 0;
+}
+
+ul {
+    padding: 0;
+}
+
+.main{
+    margin-left:15px;
+}
+
+h3{
+    margin-left: 8px;
+}
