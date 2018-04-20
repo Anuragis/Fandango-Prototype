@@ -1,13 +1,17 @@
 //schema
 
-var mongoose = require('mongoose')
-    , Schema = mongoose.Schema;
+var mongoose = require('../connections/mongo');
+const Schema = mongoose.Schema;
+const Mixed = Schema.Types.Mixed;
 
+var autoIncrement = require("mongoose-auto-increment");
+var connection = mongoose.createConnection('mongodb://cmpeuser:cmpepass@ds247569.mlab.com:47569/fandango_system');
 
-    var autoIncrement = require("mongodb-autoincrement");   
+autoIncrement.initialize(connection);
 
-    var userSchema = new Schema({
+    var usersSchema = new Schema({
        userId: { type : Number, unique : true },
+       password: { type : String, required : true },
        fName: { type :  String, required : true },
        lName: { type : String, required : true },
        address: { type : String, required : true },
@@ -19,3 +23,6 @@ var mongoose = require('mongoose')
        profileImage: { type : String, required : true },
        type: { type : String, required : true }
     });
+
+    usersSchema.plugin(autoIncrement.plugin, { model: 'users', field: 'userId', startAt: 1, });
+module.exports = mongoose.model('users', usersSchema);
