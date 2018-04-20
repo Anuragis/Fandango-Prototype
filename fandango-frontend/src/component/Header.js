@@ -6,7 +6,7 @@ export default class Header extends React.Component {
       }
     render() {
         return (
-            <div>
+            <div class>
                 <div id="brand-bar" class="hide-on-mobile">
                     <div class="row">
                         <div class="width-25 right">
