@@ -122,6 +122,37 @@ div {
     max-width: 91.429em;
 }
 
+.module-stacked {
+    border-bottom: 1px solid #ccc;
+}
+
+.module-stacked .module-standard {
+    margin-bottom: 0px;
+    border-bottom: none;
+}
+
+body.seating .main .helplink {
+    padding: 0;
+    margin: 5px 0 0px;
+    /* padding: 0 20px; */
+    float: right;
+    display: inline-block;
+}
+
+h2, h2.header-secondary {
+    line-height: 23px;
+}
+
+.module h2, .module-standard h2, h2.header-secondary {
+    /* color: #4C4C4C; */
+    font-size: 26px;
+    line-height: 21px;
+    margin-bottom: 14px;
+    margin-top: 0;
+}
+
+
+
 input[type=text], input[type=password], select {
     font-size: 14px;
     line-height: 16px;
@@ -473,57 +504,7 @@ ul.breadcrumb {
     opacity: 1.0;
 }
 
-.reservedMessage {
-    padding: 0 0 10px 0;
-}
 
-table.quantityTable {
-    background: none;
-    border: none;
-}
-
-tbody {
-    display: table-row-group;
-    vertical-align: middle;
-    border-color: inherit;
-}
-
-tr {
-    display: table-row;
-    vertical-align: inherit;
-    border-color: inherit;
-}
-
-table.quantityTable tr th.ticketType {
-    color: #4C4C4C;
-    font-size: 14px;
-    padding-bottom: 7px;
-    padding-right: 10px;
-    text-align: right;
-    font-weight: 600;
-}
-
-table.quantityTable tr td.numberofTickets {
-    width: 75px;
-}
-
-table.quantityTable tr td.equals, table.quantityTable tr td.timesX {
-    width: 10px;
-}
-
-table.quantityTable tr td.pricePerTicket {
-    width: 50px;
-}
-
-table.quantityTable tr td.rowTotal {
-    width: 100px;
-}
-
-.buttonContainer {
-    border-top: 1px solid #ccc;
-    padding-top: 25px;
-    margin-top: 20px;
-}
 
 .offers {
     margin-top: 25px;
