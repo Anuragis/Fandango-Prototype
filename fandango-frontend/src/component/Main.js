@@ -2,7 +2,7 @@ import React from 'react';
 import {Switch,Route} from 'react-router-dom';
 import movies from './movies';
 import ticketboxoffice from './ticketboxoffice';
-import ticketboxoffice from './Headers';
+import ticketboxoffice from './headers';
 
 const Main = () => (
     <Switch>
