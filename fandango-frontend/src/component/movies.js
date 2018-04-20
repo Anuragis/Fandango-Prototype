@@ -1,5 +1,4 @@
 import React,{Component} from 'react';
-import img from '../assets/images/movie_header.png';
 import '../css/movies.css';
 class movies extends Component{
 
@@ -33,8 +32,8 @@ class movies extends Component{
 <br></br>
 <ul class="visual-list movie-list">
                             
-                                    <li class="visual-item">
-                                        <a class="visual-container" href="http://www.fandango.com/traffik_208806/movieoverview">
+                                    <li className="visual-item">
+                                        <a className="visual-container" href="http://www.fandango.com/traffik_208806/movieoverview">
                                             <img data-src="https://images.fandango.com/r1.0.431/ImageRenderer/168/250/redesign/static/img/default_poster.png/208806/images/masterrepository/fandango/208806/onesheetfinaltraffik.jpg" class="visual-thumb" alt="Traffik showtimes and tickets" src="https://images.fandango.com/r1.0.431/ImageRenderer/168/250/redesign/static/img/default_poster.png/208806/images/masterrepository/fandango/208806/onesheetfinaltraffik.jpg"/>
                                         </a>
                                     </li>
