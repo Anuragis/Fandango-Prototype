@@ -1,11 +1,10 @@
 import React from 'react';
 import {Switch,Route} from 'react-router-dom';
-import signin from './signin';
-
+import movies from './movies';
 
 const Main = () => (
     <Switch>
-        <Route exact path = '/' component = {signin}/>
+        <Route exact path = '/movies' component={movies}/>
     </Switch>
 )
 
