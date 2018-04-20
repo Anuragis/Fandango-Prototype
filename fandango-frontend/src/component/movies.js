@@ -44,9 +44,9 @@ class movies extends Component{
 <hr></hr>
 <h3><b>Playing</b></h3>
 <br></br>
-<ul class="visual-list movie-list">
+<ul>
                         
-                                <li class="visual-item">
+                                <li class="col-lg-2 col-sm-1">
                                     <a class="visual-container" href="http://www.fandango.com/rampage2018_207628/movieoverview">
                                         <img src="https://images.fandango.com/r1.0.431/ImageRenderer/168/250/redesign/static/img/default_poster.png/207628/images/masterrepository/fandango/207628/rmpge_vert_online_teaser_dom_2764x4096_master.jpg" class="visual-thumb"/>
                                     </a>
@@ -57,7 +57,7 @@ class movies extends Component{
                                     </div>
                                 </li>
                             
-                                <li class="visual-item">
+                                <li class="col-lg-2 col-sm-1">
                                     <a class="visual-container" href="http://www.fandango.com/readyplayerone_204139/movieoverview">
                                         <img src="https://images.fandango.com/r1.0.431/ImageRenderer/168/250/redesign/static/img/default_poster.png/204139/images/masterrepository/fandango/204139/rpo_new_main_vert_dom_2764x.jpg" class="visual-thumb"/>
                                     </a>
@@ -68,7 +68,29 @@ class movies extends Component{
                                     </div>
                                 </li>
                             
-                                <li class="visual-item">
+                                <li class="col-lg-2 col-sm-1">
+                                    <a class="visual-container" href="http://www.fandango.com/isleofdogs_205852/movieoverview">
+                                        <img src="https://images.fandango.com/r1.0.431/ImageRenderer/168/250/redesign/static/img/default_poster.png/205852/images/masterrepository/fandango/205852/iod-rated-one-sheet.jpg" class="visual-thumb"/>
+                                    </a>
+                                    <div class="visual-detail">
+                                        <a class="visual-title dark" href="http://www.fandango.com/isleofdogs_205852/movieoverview">
+                                            Isle of Dogs
+                                        </a>
+                                    </div>
+                                </li>   
+
+                                <li class="col-lg-2 col-sm-1">
+                                    <a class="visual-container" href="http://www.fandango.com/isleofdogs_205852/movieoverview">
+                                        <img src="https://images.fandango.com/r1.0.431/ImageRenderer/168/250/redesign/static/img/default_poster.png/205852/images/masterrepository/fandango/205852/iod-rated-one-sheet.jpg" class="visual-thumb"/>
+                                    </a>
+                                    <div class="visual-detail">
+                                        <a class="visual-title dark" href="http://www.fandango.com/isleofdogs_205852/movieoverview">
+                                            Isle of Dogs
+                                        </a>
+                                    </div>
+                                </li>   
+
+                                    <li class="col-lg-2 col-sm-1">
                                     <a class="visual-container" href="http://www.fandango.com/isleofdogs_205852/movieoverview">
                                         <img src="https://images.fandango.com/r1.0.431/ImageRenderer/168/250/redesign/static/img/default_poster.png/205852/images/masterrepository/fandango/205852/iod-rated-one-sheet.jpg" class="visual-thumb"/>
                                     </a>
