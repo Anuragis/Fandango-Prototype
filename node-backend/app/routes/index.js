@@ -26,4 +26,29 @@ router
     .route('/signin')
     .post(signin.signIn);
 
+
+router
+    .route('/movie')
+    .post(movies.createMovie);
+
+router
+    .route('/movie/:mid')
+    .delete(movies.deleteMovie);
+
+router
+    .route('/movies')
+    .get(movies.getAllMovies);
+
+router
+    .route('/movieByCategory/:category')
+    .get(movies.getMovieByCategory);
+
+router
+    .route('/movieById/:mid')
+    .get(movies.getMovieById);
+
+router
+    .route('/movie/:mid')
+    .put(movies.updateMovie);
+
 module.exports = router;
