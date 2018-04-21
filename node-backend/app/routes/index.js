@@ -49,6 +49,6 @@ router
 
 router
     .route('/movie/:mid')
-    .put(movies.updateMovie);
+    .put(movies.updateMovie)
 
 module.exports = router;

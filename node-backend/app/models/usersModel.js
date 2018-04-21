@@ -1,5 +1,4 @@
 //schema
-
 var mongoose = require('../connections/mongo');
 const Schema = mongoose.Schema;
 

@@ -116,36 +116,42 @@ module.exports.getMovieByCategory =function(req,res,next){
 
 
 module.exports.getMovieById=function(req,res,next){
-    console.log("Inside Movie Get by id ");
-    moviesModel.findOne({_id:req.params.mid}, function(err, movies) {
+    console.log("Inside Movie Get by id ",req.params.mid);
+    moviesModel.findOne({_id:req.params.mid}, function(err, movie) {
 
     if(err){
         console.log("Get movie id error", err);
     }else{
-        var movieMap = [];
-        movies.map(movie=>{
-            var ob = {};
-        if(movie.status==="active"){
-            ob = {_id:movie._id,
-                movieTitle:movie.movieTitle,
-                movieCategory:movie.movieCategory,
-                trailerLink: movie.trailerLink,
-                movieDescription: movie.movieDescription,
-                cast: movie.cast,
-                movieLength: movie.movieLength,
-                releaseDate: movie.releaseDate,
-                movieRating: movie.movieRating,
-                moviePhoto: movie.moviePhoto,
-                screen:movie.screen,
-                reviews:movie.reviews,
-                status:movie.status
-            };
-                movieMap.push(ob);
-            }
-        });
-
-        res.send(JSON.stringify(movieMap));  
+        res.send(JSON.stringify(movie));  
         }
     })
 }
 
+
+module.exports.updateMovie=function(req,res,next){
+    console.log("req body for update a movie", req.params);
+    var mid =  req.params.mid;
+    console.log("Movie Id in update:" ,mid);
+
+    moviesModel.findOneAndUpdate({ _id : req.params.mid}, { $set : { 
+        movieTitle:req.body.movieTitle,
+        movieCategory:req.body.movieCategory,
+        movieCategory:req.body.movieCategory,
+        trailerLink: req.body.trailerLink,
+        movieDescription: req.body.movieDescription,
+        cast: req.body.cast,
+        movieLength: req.body.movieLength,
+        releaseDate: req.body.releaseDate,
+        movieRating: req.body.movieRating,
+        moviePhoto: req.body.moviePhoto,
+        screen:req.body.screen,
+        reviews:req.body.reviews
+    
+    } }, {new:true}, function(err, movie) {
+        console.log("Movie id",mid);
+        if (err)
+            throw err;
+        console.log("Movie affected", movie);
+        res.end();
+    })
+}
