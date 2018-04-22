@@ -8,102 +8,75 @@ export default class Latestmovies extends React.Component {
     render() {
         return (
             <div>
-      <div id="homeMovieCarousel" class="carousel jcarousel carousel-style-strip">
-        <ol class="carousel-items js-items">
-          <li>
-            <div class="fluid poster">
-              <a href="/rampage-2018-207628/movie-overview" class="visual-container">
-              <img class="poster-thumb-size-s visual-thumb" src="//images.fandango.com/ImageRenderer/200/0/redesign/static/img/default_poster.png/0/images/masterrepository/Fandango/207628/RMPGE_VERT_ONLINE_TEASER_DOM_2764x4096_master.jpg" alt="Rampage (2018) poster" />
+                <section class="footer-coming-soon row width-100 hide-on-mobile" style = {{paddingBottom : '30px', font : 'normal normal 400 normal 14px / normal proxima-nova, Helvetica, Arial, sans-serif'}}>
+          <ul class="inline-items panel footer-coming-soon--list">
+            <li class="media narrow footer-coming-soon--list-item">
+              <a class="visual-container poster-thumb-size-s" href="http://www.fandango.com/pacificrimuprising2018_183505/movieoverview">
+              <img class="visual-thumb" src="https://images.fandango.com/r1.0.409/ImageRenderer/131/200/redesign/static/img/default_poster.png/0/images/masterrepository/fandango/183505/pru_advrtd1sheet_rgb_1.jpg" alt="Pacific Rim Uprising (2018) poster" />
               </a>
-              <div>
-                <a class="heading-style-1 movie-header heading-size-s heading__movie-carousel" href="/rampage-2018-207628/movie-overview">Rampage (2018)</a>
-                <time datetime="Fri, Apr 13">Fri, Apr 13</time>
+              <div class="footer-coming-soon--info-block poster-thumb-size-s">
+                <a class="heading-style-1 movie-header footer-coming-soon--heading" href="http://www.fandango.com/pacificrimuprising2018_183505/movieoverview">Pacific Rim Uprising (2018)</a>
               </div>
-            </div>
-          </li>
-          <li>
-            <div class="fluid poster">
-              <a href="/a-quiet-place-207769/movie-overview" class="visual-container">
-              <img class="poster-thumb-size-s visual-thumb" src="//images.fandango.com/ImageRenderer/200/0/redesign/static/img/default_poster.png/0/images/masterrepository/Fandango/207769/AQuietPlace2018.jpg" alt="A Quiet Place poster" />
+            </li>
+            <li class="media narrow footer-coming-soon--list-item">
+              <a class="visual-container poster-thumb-size-s" href="http://www.fandango.com/readyplayerone_204139/movieoverview">
+              <img class="visual-thumb" src="https://images.fandango.com/r1.0.409/ImageRenderer/131/200/redesign/static/img/default_poster.png/0/images/masterrepository/fandango/204139/rpo_new_main_vert_dom_2764x.jpg" alt="Ready Player One poster" />
               </a>
-              <div>
-                <a class="heading-style-1 movie-header heading-size-s heading__movie-carousel" href="/a-quiet-place-207769/movie-overview">A Quiet Place</a>
-                <time datetime="Fri, Apr 6">Fri, Apr 6</time>
+              <div class="footer-coming-soon--info-block poster-thumb-size-s">
+                <a class="heading-style-1 movie-header footer-coming-soon--heading" href="http://www.fandango.com/readyplayerone_204139/movieoverview">Ready Player One</a>
               </div>
-            </div>
-          </li>
-          <li>
-            <div class="fluid poster">
-              <a href="/ready-player-one-204139/movie-overview" class="visual-container">
-              <img class="poster-thumb-size-s visual-thumb" src="//images.fandango.com/ImageRenderer/200/0/redesign/static/img/default_poster.png/0/images/masterrepository/Fandango/204139/RPO_new_MAIN_VERT_DOM_2764x.jpg" alt="Ready Player One poster" />
+            </li>
+            <li class="media narrow footer-coming-soon--list-item">
+              <a class="visual-container poster-thumb-size-s" href="http://www.fandango.com/aquietplace_207769/movieoverview">
+              <img class="visual-thumb" src="https://images.fandango.com/r1.0.409/ImageRenderer/131/200/redesign/static/img/default_poster.png/0/images/masterrepository/fandango/207769/aquietplace2018.jpg" alt="A Quiet Place poster" />
               </a>
-              <div>
-                <a class="heading-style-1 movie-header heading-size-s heading__movie-carousel" href="/ready-player-one-204139/movie-overview">Ready Player One</a>
-                <time datetime="Thu, Mar 29">Thu, Mar 29</time>
+              <div class="footer-coming-soon--info-block poster-thumb-size-s">
+                <a class="heading-style-1 movie-header footer-coming-soon--heading" href="http://www.fandango.com/aquietplace_207769/movieoverview">A Quiet Place</a>
               </div>
-            </div>
-          </li>
-          <li>
-            <div class="fluid poster">
-              <a href="/blumhouses-truth-or-dare-2018-208538/movie-overview" class="visual-container">
-              <img class="poster-thumb-size-s visual-thumb" src="//images.fandango.com/ImageRenderer/200/0/redesign/static/img/default_poster.png/0/images/masterrepository/Fandango/208538/TruthOrDare2018.jpg" alt="Blumhouse&#39;s Truth or Dare (2018) poster" />
+            </li>
+            <li class="media narrow footer-coming-soon--list-item">
+              <a class="visual-container poster-thumb-size-s" href="http://www.fandango.com/rampage2018_207628/movieoverview">
+              <img class="visual-thumb" src="https://images.fandango.com/r1.0.409/ImageRenderer/131/200/redesign/static/img/default_poster.png/0/images/masterrepository/fandango/207628/rmpge_vert_online_teaser_dom_2764x4096_master.jpg" alt="Rampage (2018) poster" />
               </a>
-              <div>
-                <a class="heading-style-1 movie-header heading-size-s heading__movie-carousel" href="/blumhouses-truth-or-dare-2018-208538/movie-overview">Blumhouse&#39;s Truth or Dare (2018)</a>
-                <time datetime="Fri, Apr 13">Fri, Apr 13</time>
+              <div class="footer-coming-soon--info-block poster-thumb-size-s">
+                <a class="heading-style-1 movie-header footer-coming-soon--heading" href="http://www.fandango.com/rampage2018_207628/movieoverview">Rampage (2018)</a>
               </div>
-            </div>
-          </li>
-          <li>
-            <div class="fluid poster">
-              <a href="/blockers-206654/movie-overview" class="visual-container">
-              <img class="poster-thumb-size-s visual-thumb" src="//images.fandango.com/ImageRenderer/200/0/redesign/static/img/default_poster.png/0/images/masterrepository/Fandango/206654/Blockers-Full.jpg" alt="Blockers poster" />
+            </li>
+            <li class="media narrow footer-coming-soon--list-item">
+              <a class="visual-container poster-thumb-size-s" href="http://www.fandango.com/avengers:infinitywar_199925/movieoverview">
+              <img class="visual-thumb" src="https://images.fandango.com/r1.0.409/ImageRenderer/131/200/redesign/static/img/default_poster.png/0/images/masterrepository/fandango/199925/avengersinfinitywar-postera.jpg" alt="Avengers: Infinity War poster" />
               </a>
-              <div>
-                <a class="heading-style-1 movie-header heading-size-s heading__movie-carousel" href="/blockers-206654/movie-overview">Blockers</a>
-                <time datetime="Fri, Apr 6">Fri, Apr 6</time>
+              <div class="footer-coming-soon--info-block poster-thumb-size-s">
+                <a class="heading-style-1 movie-header footer-coming-soon--heading" href="http://www.fandango.com/avengers:infinitywar_199925/movieoverview">Avengers: Infinity War</a>
               </div>
-            </div>
-          </li>
-          <li>
-            <div class="fluid poster">
-              <a href="/isle-of-dogs-205852/movie-overview" class="visual-container">
-              <img class="poster-thumb-size-s visual-thumb" src="//images.fandango.com/ImageRenderer/200/0/redesign/static/img/default_poster.png/0/images/masterrepository/Fandango/205852/IOD-rated-one-sheet.jpg" alt="Isle of Dogs poster" />
+            </li>
+            <li class="media narrow footer-coming-soon--list-item">
+              <a class="visual-container poster-thumb-size-s" href="http://www.fandango.com/deadpool2_200520/movieoverview">
+              <img class="visual-thumb" src="https://images.fandango.com/r1.0.409/ImageRenderer/131/200/redesign/static/img/default_poster.png/0/images/masterrepository/fandango/200520/untitleddeadpoolsequel2018.jpg" alt="Deadpool 2 poster" />
               </a>
-              <div>
-                <a class="heading-style-1 movie-header heading-size-s heading__movie-carousel" href="/isle-of-dogs-205852/movie-overview">Isle of Dogs</a>
-                <time datetime="Fri, Mar 23">Fri, Mar 23</time>
+              <div class="footer-coming-soon--info-block poster-thumb-size-s">
+                <a class="heading-style-1 movie-header footer-coming-soon--heading" href="http://www.fandango.com/deadpool2_200520/movieoverview">Deadpool 2</a>
               </div>
-            </div>
-          </li>
-          <li>
-            <div class="fluid poster">
-              <a href="/avengers-infinity-war-199925/movie-overview" class="visual-container">
-              <img class="poster-thumb-size-s visual-thumb" src="//images.fandango.com/ImageRenderer/200/0/redesign/static/img/default_poster.png/0/images/masterrepository/Fandango/199925/AvengersInfinityWar-postera.jpg" alt="Avengers: Infinity War poster" />
+            </li>
+            <li class="media narrow footer-coming-soon--list-item">
+              <a class="visual-container poster-thumb-size-s" href="http://www.fandango.com/solo:astarwarsstory_203806/movieoverview">
+              <img class="visual-thumb"  src="https://images.fandango.com/r1.0.409/ImageRenderer/131/200/redesign/static/img/default_poster.png/0/images/masterrepository/fandango/203806/solo2018.jpg" alt="Solo: A Star Wars Story poster" />
               </a>
-              <div>
-                <a class="heading-style-1 movie-header heading-size-s heading__movie-carousel" href="/avengers-infinity-war-199925/movie-overview">Avengers: Infinity War</a>
-                <time datetime="Fri, Apr 27">Fri, Apr 27</time>
+              <div class="footer-coming-soon--info-block poster-thumb-size-s">
+                <a class="heading-style-1 movie-header footer-coming-soon--heading" href="http://www.fandango.com/solo:astarwarsstory_203806/movieoverview">Solo: A Star Wars Story</a>
               </div>
-            </div>
-          </li>
-          <li>
-            <div class="fluid poster">
-              <a href="/chappaquiddick-206369/movie-overview" class="visual-container">
-              <img class="poster-thumb-size-s visual-thumb" src="//images.fandango.com/ImageRenderer/200/0/redesign/static/img/default_poster.png/0/images/masterrepository/Fandango/206369/Chappaquiddick_final.jpg" alt="Chappaquiddick poster" />
+            </li>
+            <li class="media narrow footer-coming-soon--list-item">
+              <a class="visual-container poster-thumb-size-s" href="http://www.fandango.com/theincredibles2_185805/movieoverview">
+              <img class="visual-thumb" src="https://images.fandango.com/r1.0.409/ImageRenderer/131/200/redesign/static/img/default_poster.png/0/images/masterrepository/fandango/185805/theincredibles2.jpg" alt="The Incredibles 2 poster" />
               </a>
-              <div>
-                <a class="movie-header heading-style-1 heading-size-s heading__movie-carousel" href="/chappaquiddick-206369/movie-overview">Chappaquiddick</a>
-                <time datetime="Fri, Apr 6">Fri, Apr 6</time>
+              <div class="footer-coming-soon--info-block poster-thumb-size-s">
+                <a class="heading-style-1 movie-header footer-coming-soon--heading" href="http://www.fandango.com/theincredibles2_185805/movieoverview">The Incredibles 2</a>
               </div>
+            </li>
+          </ul>
+        </section>  
             </div>
-          </li>
-          
-          
-        </ol>
-        
-      </div>
-    </div>
         );
     }
 }

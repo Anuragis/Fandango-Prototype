@@ -33,7 +33,7 @@ export default class userHome extends React.Component {
                         <div class="ad" data-unit="boxaddt" data-responsive="true" data-media="desktop,tablet">
                         </div>
                       </div>
-                      <div class="tablet-width-100 content homeMovieCarousel--wrapper">
+                      <div style = {{width : '100%'}} class="tablet-width-100 content homeMovieCarousel--wrapper">
                         <button class="icon style-none left js-flipper-left">Previous Films</button>
                             <Latestmovies />
                         <button class="icon style-none right js-flipper-right">More Films</button>
