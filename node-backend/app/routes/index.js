@@ -21,6 +21,14 @@ router
 router
     .route('/bookingByUserId/:userid')
     .get(bookings.findBookingsByUserid);
+    
+router
+    .route('/bookingByMovieId/:moviename')
+    .get(bookings.findBookingsByMoviename);
+
+router
+    .route('/bookingByHallId/:hallname')
+    .get(bookings.findBookingsByHallname);
 
 router
     .route('/signup')

@@ -53,3 +53,24 @@ module.exports.findBookingsByUserid = function(req,res,next){
     
 }
 
+module.exports.findBookingsByMoviename = function(req,res,next){
+    console.log("req body", req.params);
+    bookingsModel.find({ moviename : req.params.moviename}, function(err, booking) {
+        if (err)
+            throw err;
+        console.log("affected movies", booking);
+        res.send(booking);
+    })
+    
+}
+
+module.exports.findBookingsByHallname = function(req,res,next){
+    console.log("req body", req.params);
+    bookingsModel.find({ hallname : req.params.hallname}, function(err, booking) {
+        if (err)
+            throw err;
+        console.log("affected halls", booking);
+        res.send(booking);
+    })
+    
+}

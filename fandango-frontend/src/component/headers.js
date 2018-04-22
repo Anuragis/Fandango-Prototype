@@ -7,11 +7,8 @@ export default class Header extends React.Component {
       }
     render() {
         return (
-<<<<<<< HEAD
             <div class="logged-in  no-touch">
-=======
             <div>
->>>>>>> fc519f7da7f2ff8a32dcaee77041c475dd2ecff3
       <div id="brand-bar" class="hide-on-mobile">
         <div class="row">
           <div class="width-25 right">
@@ -24,7 +21,6 @@ export default class Header extends React.Component {
         </div>
       </div>
       <div id="header-wrap">
-<<<<<<< HEAD
     <header id="global-header" role="banner">
         <nav class="row" role="navigation">
             <i class="left icon grip"></i>
@@ -623,7 +619,6 @@ export default class Header extends React.Component {
         </nav>
     </header>
 </div>
-=======
         <header id="global-header" role="banner">
           <nav class="row" role="navigation">
             <i class="left icon grip"></i>
@@ -680,7 +675,6 @@ export default class Header extends React.Component {
           </nav>
         </header>
       </div>
->>>>>>> fc519f7da7f2ff8a32dcaee77041c475dd2ecff3
       
     </div>
         );
