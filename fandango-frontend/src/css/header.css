@@ -230,4 +230,24 @@
     .dark-nav .list .categories .drop-down .seprator {background-color: #2a2d38}
   
   }
-  
+
+.no-touch .has-dropdown:hover>.mega-menu {
+    height: auto;
+    opacity: 1;
+}
+.mega-menu {
+    position: absolute;
+    top: 68px;
+    right: 0;
+    left: 0;
+    overflow: hidden;
+    height: 0;
+    background-color: #333;
+    font-size: 14px;
+    line-height: normal;
+    opacity: 0;
+    }
+
+ul li h6{
+  color: white;
+}
