@@ -1,0 +1,1532 @@
+/**
+ * Registration Master
+ */
+body {
+    background-color: #000;
+}
+
+.site-wrap {
+    background-size: cover;
+}
+
+    .site-wrap.signin {
+        min-height: 960px;
+    }
+
+footer {
+    padding-bottom: 70px;
+}
+
+    footer .legal small {
+        font-size: 12px;
+        line-height: 15px;
+        color: #929292;
+    }
+
+    footer p {
+        text-align: center;
+    }
+
+    footer small.copyright {
+        font-size: 13px;
+    }
+
+/**
+ * Header Area
+ */
+.registration-header {
+    background: none repeat scroll 0 0 rgba(34, 34, 34, 0.8);
+    box-shadow: 0 2px 2px rgba(50, 50, 50, 0.3);
+    height: auto;
+    max-height: 74px;
+    position: relative;
+    transition: background-color 0.2s ease-in-out 0s;
+    width: 100%;
+}
+
+.registration label, .registration small {
+    color: #FFF;
+}
+
+.registration-mode {
+    height: 66px;
+    text-align: right;
+    padding-top: 24px;
+}
+
+    .registration-mode span, .registration-mode .cta {
+        color: #FFF;
+    }
+
+/**
+ * Page Area
+ */
+
+.header-registration {
+    margin-bottom: 0.1rem;
+    text-align: center;
+}
+
+.header-registration.done {
+    text-align: left;
+    margin-bottom: 14px;
+}
+
+h5.header-registration {
+    color: #FFF;
+}
+
+small.subtitle-registration {
+    font-style: italic;
+    font-size: 13px;
+}
+
+.page.registration {
+    padding: 80px 0 136px;
+}
+
+#ConfirmPasswordBox, #PasswordBox {
+    margin-bottom: 5px;
+}
+
+.signin #PasswordBox {
+    margin-bottom: 15px;
+}
+
+.signin .btn-cta.full-width {
+    margin-top: 15px;
+}
+
+.password-section {
+    margin-bottom: 3px;
+}
+
+    .password-section small {
+        color: #E6E6E6;
+    }
+
+    .password-section .password-instruction {
+        font-style: italic;
+    }
+
+    .password-section .confirm-password {
+        margin-top: 10px;
+    }
+
+.join-header {
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 3px;
+}
+
+.intercept-container {
+    color: #FFF;
+    border: none;
+    padding: 0 !important;
+    overflow: hidden;
+}
+
+    .intercept-container h3 {
+        color: #FFF;
+        text-align: center;
+    }
+
+    .intercept-container.columns {
+        width: 48%;
+    }
+
+    .intercept-container .content-title {
+        color: #FFF;
+        text-align: center;
+    }
+
+    .intercept-container .vip-perks div {
+        margin-bottom: 5px !important;
+    }
+
+    .intercept-container header,
+    .intercept-container .theater-info {
+        padding: 20px 30px 20px 30px;
+        text-align: center;
+    }
+
+    .intercept-container .movie-info {
+        padding: 20px;
+    }
+
+    .intercept-container header {
+        border-bottom: 1px solid #929292;
+    }
+
+        .intercept-container header strong {
+            color: #FFF;
+        }
+
+.theater-intercept .theater-info .address1 {
+    margin-top: 5px 0 2px 0;
+}
+
+.theater-intercept .theater-logo {
+    padding: 15px 0 !important;
+    background-color: #FFF;
+    text-align: center;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+.theater-intercept h4 {
+    margin-bottom: 10px;
+}
+
+.theater-intercept,
+.movie-intercept,
+.review-intercept {
+    border-bottom: 1px solid #929292;
+}
+
+.rsvp-intercept p {
+    font-weight: 600;
+}
+
+.action-details {
+    padding: 15px !important;
+}
+
+.vip-perks {
+    background: transparent;
+}
+
+    .vip-perks h4 {
+        color: #FFF;
+        text-align: center;
+        padding: 0 15px 20px 0;
+        text-transform: none;
+    }
+
+        .vip-perks .light:hover {
+            opacity: 1;
+        }
+
+.movie-info {
+    padding: 25px 25px 25px 30px !important;
+}
+
+    .movie-info img {
+        border: 1px solid #929292;
+        padding: 0 !important;
+    }
+
+    .movie-info h2 {
+        margin-bottom: 15px;
+        color: #FFF;
+    }
+
+    .movie-info p {
+        color: #FFF;
+    }
+
+    .movie-info > div {
+        padding-left: 15px !important;
+    }
+
+.error-msg {
+    margin: 25px 0 5px;
+    color: #fff;
+    background-color: #99301a;
+    padding: 10px;
+    position: relative;
+}
+
+    .error-msg:after {
+        content: "";
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 13px 17px 0 17px;
+        border-color: #992f1a transparent transparent transparent;
+        position: absolute;
+        bottom: -13px;
+        right: 0;
+    }
+
+    .error-msg a {
+        color: #fff;
+        font-weight: bold;
+    }
+
+    .error-msg a.acc-not-found {
+        color: #4aa7f6;
+        font-weight: bold;
+    }
+
+        .error-msg a:hover {
+            opacity: 0.8;
+        }
+
+input.error {
+    border-color: #99301a;
+    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9Ii0xMS4xIC02IDMxLjcgMzEuNiIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAtMTEuMSAtNiAzMS43IDMxLjYiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxnPjxyZWN0IHg9IjIuNyIgeT0iMTYuNiIgZmlsbD0iI0VGNEYyNCIgd2lkdGg9IjQuMyIgaGVpZ2h0PSI0LjIiLz48cG9seWdvbiBmaWxsPSIjRUY0RjI0IiBwb2ludHM9IjYuOSwxMi41IDIuNywxMi41IDEuNSwtMS4yIDguMSwtMS4yICIvPjwvZz48Y2lyY2xlIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0VGNEYyNCIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBjeD0iNC44IiBjeT0iOS44IiByPSIxNS4zIi8+PC9zdmc+);
+    background-position: right 5px center;
+    background-repeat: no-repeat;
+    background-size: 22px 22px;
+}
+
+.social-signin p {
+    color: #FFF;
+}
+
+.social-signin {
+    padding-bottom: 15px !important;
+    font-style: italic;
+    text-align: center;
+}
+
+
+.panel {
+    background: none repeat scroll 0 0 rgba(34, 34, 34, 0.8);
+    border: 1px solid #929292;
+    overflow: visible;
+}
+
+    .panel.action-details {
+        padding: 15px !important;
+    }
+
+    .panel.sign-up-form {
+        padding: 0 !important;
+    }
+
+        .panel.sign-up-form small {
+            font-size: 12px;
+            color: #929292;
+        }
+
+.sign-up {
+    padding-left: 0.714em;
+    padding-right: 0.714em;
+    float: right;
+    width: 33.33%;
+}
+
+.panel .btn-cta {
+    margin: 0;
+    margin-bottom: 25px;
+    padding: 18px;
+    font-size: 18px;
+}
+
+    .panel .btn-cta:before {
+        background: rgba(74, 167, 246, 0.8);
+    }
+
+.sub-panel {
+    padding: 25px 25px 0;
+}
+
+    .sub-panel h2 {
+        color: #FFF;
+    }
+
+.social-join-header {
+    text-align: center;
+}
+
+.registration-caption,
+.free-caption {
+    font-family: "Times New Roman",Times,Baskerville,Georgia,serif;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: normal;
+    line-height: 22px;
+    color: #FFF;
+}
+
+.registration-caption {
+    display: block;
+    margin: 10px auto 25px auto;
+}
+
+#ConfirmPasswordBox {
+    margin-bottom: 12px;
+}
+
+.responsive-ruler {
+    display: none;
+}
+
+.security-update-panel {
+    border-bottom: none;
+}
+
+.security-update-header {
+    margin-top: 1%;
+    font-family: proxima-nova, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+div.sub-panel p.security-update-message {
+    text-align: center;
+    width: 90%;
+    margin: 0 auto 20px auto;
+}
+
+.reset-password-header {
+    margin-bottom: 20px;
+}
+
+.reset-instructions {
+    margin-top: 25px;
+}
+
+small span.password-directions {
+    font-size: 12px;
+    color: #929292;
+    font-style: italic;
+}
+
+.panel .security-update {
+    margin-top: 10px;
+}
+
+input[type="password"].security-forgot-pw-label {
+    margin-bottom: 0;
+}
+
+.security-forgot-pw-link {
+    text-align: right;
+    font-size: 0.9em;
+}
+
+.intercept-container .content-title-modified {
+    margin-left: 0px !important;
+    text-align: center !important;
+}
+
+/*icon-security-lock.svg*/
+.icon-security-lock {
+    background: no-repeat 0 0;
+    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSItMjk4IDM4Ny4yIDEzLjUgMTkuOCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAtMjk4IDM4Ny4yIDEzLjUgMTkuOCIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0iTS0yODYsMzk1LjJ2LTIuOGMwLTIuOS0yLjMtNS4yLTUuMi01LjJjLTMsMC01LjMsMi4zLTUuMyw1LjJ2Mi44aC0xLjVWNDA3aDYuOGg2Ljh2LTExLjhILTI4NnogTS0yODkuNyw0MDQuMWgtMS41aC0xLjZsMC45LTMuM2MtMC41LTAuMy0wLjktMC44LTAuOS0xLjRjMC0wLjksMC43LTEuNiwxLjYtMS42YzAuOSwwLDEuNiwwLjcsMS42LDEuNmMwLDAuNi0wLjQsMS4yLTAuOSwxLjRMLTI4OS43LDQwNC4xeiBNLTI4Ny42LDM5NS4yaC0zLjdoLTMuNnYtMi44YzAtMiwxLjYtMy43LDMuNy0zLjdjMi4xLDAsMy43LDEuNiwzLjcsMy43djIuOEgtMjg3LjZ6Ii8+PC9zdmc+);
+    background-size: auto;
+    padding: 0 0 0 16px;
+    position: relative;
+    left: 10px;
+}
+
+/**
+ * SOCIAL BUTTONS
+ */
+.signin {
+    border-radius: 4px;
+    color: #fff;
+    margin: 0 0 19px 0;
+}
+
+.signin-avatar {
+    border-radius: 4px 0 0 4px;
+    width: 58px;
+    height: 58px;
+}
+
+.signin-message {
+    margin-left: 58px;
+    padding: 14px 0 0 10px;
+    text-transform: uppercase;
+}
+
+.signin-username,
+.signin-connection {
+    margin-bottom: 2px;
+}
+
+.signin-facebook {
+    background: #3b5b9c;
+    min-height: 58px;
+}
+
+.signin-gplus {
+    background: #df4b38;
+    min-height: 58px;
+}
+
+.social-login-button {
+    position: relative;
+    font-style: normal;
+    height: 40px;
+    padding: 12px;
+    background-color: rgba(223, 223, 223, 0.2);
+    border-radius: 4px;
+    color: #FFF;
+    display: block;
+    margin: 0 0 13px 0;
+    padding-left: 44px;
+    font-weight: normal;
+    cursor: pointer;
+}
+.social-login-facebook::before {
+    content: "";
+    position: absolute;
+    /*background: url("../../../static/img/icon-social-facebook-2016.png") no-repeat scroll center center;*/
+    /*background-size: contain;*/
+    height: 40px;
+    width: 40px;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.social-login-gplus::before {
+    content: "";
+    position: absolute;
+    /*background: url("../../../static/img/icon-social-google-2016.svg") no-repeat scroll center center;*/
+    height: 40px;
+    width: 40px;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+.divider {
+    position: relative;
+    overflow: hidden;
+    height: 62px;
+}
+
+    .divider:after {
+        font-style: italic;
+        font-family: "proxima-nova", Helvetica, Arial, sans-serif;
+        font-weight: bold;
+        background: none repeat scroll 0 0 #A9A9A9;
+        border-radius: 20px;
+        bottom: 0;
+        color: #FFF;
+        content: "OR";
+        display: block;
+        font-size: 15px;
+        height: 38px;
+        left: 0;
+        line-height: 36px;
+        margin: auto;
+        position: absolute;
+        right: 0;
+        top: -12px;
+        width: 38px;
+        padding-left: 7px;
+    }
+
+
+.input-checkbox-label {
+    line-height: 0px;
+    padding-bottom: 15px;
+}
+
+/*Action icon */
+.action-icon.icon {
+    line-height: 45px;
+    padding: 5px 0;
+    margin: 0;
+    left: -42px;
+    position: absolute;
+    top: 10px;
+}
+
+    .action-icon.icon:before {
+        border: 1px solid #929292;
+        border-radius: 40px;
+        content: "";
+        display: inline-block;
+        height: 80px;
+        margin-right: 5px;
+        vertical-align: top;
+        width: 80px;
+    }
+
+    .action-icon.icon:before {
+        /*background: url("../../../static/img/icon-follow.svg") no-repeat scroll center center rgba(34, 34, 34, 1);*/
+    }
+
+    /*.action-icon.icon.fancy-rope:before {*/
+        /*background: url("../../../static/img/screenings_icon.png") no-repeat scroll center center rgba(34, 34, 34, 1);*/
+
+/* Star Icon */
+
+.star-icon.icon {
+    line-height: 45px;
+    padding: 5px 0;
+    margin: 0;
+    left: -42px;
+    position: absolute;
+    top: 10px;
+}
+
+    .star-icon.icon:before {
+        border: 1px solid #929292;
+        border-radius: 40px;
+        content: "";
+        display: inline-block;
+        height: 80px;
+        margin-right: 5px;
+        vertical-align: top;
+        width: 80px;
+    }
+
+    .star-icon.icon:before {
+        /*background: url("../img/icon-star.svg") no-repeat scroll center center rgba(34, 34, 34, 1);*/
+    }
+
+/* Ticket Icon */
+/* Star Icon */
+
+.ticket-icon.icon {
+    line-height: 45px;
+    padding: 5px 0;
+    margin: 0;
+    left: -42px;
+    position: absolute;
+    top: 10px;
+}
+
+    .ticket-icon.icon:before {
+        border: 1px solid #929292;
+        border-radius: 40px;
+        content: "";
+        display: inline-block;
+        height: 80px;
+        margin-right: 5px;
+        vertical-align: top;
+        width: 80px;
+    }
+
+    .ticket-icon.icon:before {
+        /*background: url("../img/icon-ticket.svg") no-repeat scroll center center rgba(34, 34, 34, 1);*/
+    }
+
+
+/* Worry Free Tickets Icon */
+.worry-free-tickets.icon, .insider-perks.icon, .theater-rewards.icon, .my-fandango.icon {
+    line-height: 45px;
+    padding: 5px 0;
+}
+
+.worry-free-tickets.icon, .insider-perks.icon, .theater-rewards.icon, .my-fandango.icon {
+    margin: 0;
+}
+
+    .worry-free-tickets:before,
+    .insider-perks.icon:before,
+    .theater-rewards.icon:before,
+    .my-fandango.icon:before {
+        border: 1px solid #929292;
+        border-radius: 19px;
+        content: "";
+        display: inline-block;
+        height: 38px;
+        margin-right: 5px;
+        vertical-align: top;
+        width: 38px;
+        border: 1px solid #929292;
+        border-radius: 23px;
+        content: "";
+        display: inline-block;
+        height: 47px;
+        margin-right: 5px;
+        vertical-align: top;
+        width: 47px;
+    }
+
+    .my-fandango.icon:before {
+        /*background: url("../img/myfandango-icon.svg") no-repeat scroll center center transparent;*/
+    }
+
+    .insider-perks.icon:before {
+        /*background: url("../img/insider-perks-icon.svg") no-repeat scroll center center transparent;*/
+    }
+
+    .theater-rewards.icon:before {
+        /*background: url("../img/theater-rewards-icon.svg") no-repeat scroll center center transparent;*/
+    }
+
+    .worry-free-tickets.icon:before {
+        /*background: url("../img/worry-free-tickets-icon.svg") no-repeat scroll center center transparent;*/
+    }
+
+
+@media (max-width: 600px) {
+    .action-container.columns, .sign-up-form.columns {
+        width: 100%;
+    }
+}
+
+
+.signin #ForgotPasswordLink {
+    float: right;
+}
+
+.signin .join-header {
+    text-align: center;
+}
+
+.signin .consent-container {
+    visibility: hidden;
+}
+
+
+/* VIP Benefits page */
+.page.vipbenefits {
+    /*background: url("../img/vipbg.jpg") transparent;*/
+    background-size: cover;
+}
+
+.vip-logo {
+    height: 110px;
+    /*background: url("../img/fandangovip.svg") no-repeat 25px 25px transparent;*/
+    background-size: 400px;
+}
+
+.viph1 {
+    text-indent: -999px;
+}
+
+.logo-headline {
+    font-size: 18px;
+    color: white;
+    padding-top: 25px;
+    padding-left: 29px;
+}
+
+.free-white {
+    font-weight: bold;
+}
+
+.page.vipbenefits .sub-panel {
+    padding: 20px;
+}
+
+@media only screen and (min-width: 40em) {
+    .refund .join-header {
+        margin-bottom: 34px;
+    }
+}
+
+@media only screen and (max-width: 40em) {
+    .refund .intercept-container.columns {
+        display: block;
+    }
+
+    .refund .movie-info {
+        padding: 15px !important;
+    }
+}
+
+.vipbenefits label, .vipbenefits small {
+    color: #FFF;
+}
+
+.page.vipbenefits .free-caption {
+    display: block;
+}
+
+.benefits-overview {
+    background-color: white;
+    padding: 40px 25px 20px 25px;
+    min-height: 495px;
+}
+
+.benefits-preview {
+    padding: 24px;
+    width: 25%;
+    float: left;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -ms-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+}
+
+    .benefits-preview:hover {
+        margin-top: -20px;
+    }
+
+.benefits-preview-title {
+    text-align: center;
+}
+
+.benefits-snippet {
+    padding: 10px 0;
+    font-style: italic;
+    font-family: times-new-roman;
+    line-height: 15px;
+    color: #333333;
+    text-align: center;
+}
+
+.benefits-body {
+    overflow: auto;
+    padding-bottom: 30px;
+}
+
+.benefits-description {
+    padding: 70px 25px 70px 0px;
+    color: white;
+}
+
+    .benefits-description#insider-perks {
+        padding-bottom: 100px;
+    }
+
+.benefits-description-title {
+    color: #ff7900;
+    padding: 15px 0;
+}
+
+.benefits-description-tagline {
+    color: white;
+    font-size: 20px;
+    padding-bottom: 15px;
+    text-transform: none;
+}
+
+
+.benefit-wft {
+    /*background: url("../img/worry-free-tickets-oj.svg") no-repeat scroll center center transparent;*/
+}
+
+.benefit-tr {
+    /*background: url("../img/theater-rewards-oj.svg") no-repeat scroll center center transparent;*/
+}
+
+.benefit-mf {
+    /*background: url("../img/my-fandango-oj.svg") no-repeat scroll center center transparent;*/
+}
+
+.benefit-ip {
+    /*background: url("../img/insider-perks-oj.svg") no-repeat scroll center center transparent;*/
+}
+
+.preview-image {
+    background-size: 145px 145px;
+    height: 145px;
+    width: 145px;
+    margin: 5px 15px;
+}
+
+.benefits-image {
+    background-size: 90%;
+    height: 210px;
+    width: 100%;
+}
+
+.theater-rewards {
+    padding: 10px 0px;
+}
+
+.rewards-amc {
+    /*background: url("../img/theater-rewards-amc.png") no-repeat center;*/
+}
+
+.rewards-cinema-west {
+    /*background: url("../img/theater-rewards-cinema-west.png") no-repeat center;*/
+}
+
+.rewards-harkins {
+    /*background: url("../../profile/img/theater-rewards-harkins.png") no-repeat center;*/
+}
+
+.rewards-marcus {
+    /*background: url("../../profile/img/theater-rewards-marcus.png") no-repeat center;*/
+}
+
+.rewards-cinemark {
+    /*background: url("../img/theater-rewards-cinemark.png") no-repeat center;*/
+}
+
+.rewards-cobb {
+    /*background: url("../img/theater-rewards-cobb.png") no-repeat center;*/
+}
+
+.rewards-extras {
+    /*background: url("../img/theater-rewards-extras.png") no-repeat center;*/
+}
+
+.rewards-pennperks {
+    /*background: url("../img/theater-rewards-pennperks.png") no-repeat center;*/
+}
+
+.rewards-reel {
+    /*background: url("../img/theater-rewards-reel.png") no-repeat center;*/
+}
+
+.rewards-regal {
+    /*background: url("../img/theater-rewards-regal.png") no-repeat center;*/
+}
+
+.rewards-wehrenberg {
+    /*background: url("../img/theater-rewards-wehrenberg.png") no-repeat center;*/
+}
+
+.rewards-carmike {
+    /*background: url("../img/theater-rewards-carmike.png") no-repeat center;*/
+}
+.rewards-disney {
+    /*background: url("../img/theater-rewards-disney-v2-white.png") no-repeat center*/
+}
+
+.theater-rewards-icon.rewards-disney {
+    background-size: contain;
+}
+
+.theater-rewards-icon {
+    width: 110px;
+    height: 67px;
+    background-size: 110px 67px;
+    display: inline-block;
+    margin-top: 5px;
+    margin-right: 10px;
+}
+
+
+.vip-copyright, .vip-consent {
+    text-align: center;
+    padding: 25px;
+    color: #929292;
+}
+
+.vip-consent {
+    font-size: 12px;
+    line-height: 14px;
+    padding: 15px;
+}
+
+.sweepstake-art {
+    width: 100%;
+    min-height: 232px;
+    margin-left: 1px;
+    margin-top: 6px;
+    bottom: 0;
+    left: 0;
+    display: block;
+    background-size: contain;
+    background-position-y: 20px;
+    background-position-x: 50%;
+    background-repeat: no-repeat;
+}
+
+.sign-up {
+    min-height: 724px;
+}
+
+    .sign-up > div {
+        min-height: 724px;
+    }
+
+@media only screen and (max-width: 1024px) {
+    .benefits-overview {
+        padding: 5px;
+    }
+
+    .preview-image {
+        background-size: 110px 110px;
+        height: 110px;
+        width: 110px;
+        margin: 3px -5px;
+    }
+
+    .benefits-preview-title {
+        font-size: 36px;
+        line-height: 36px;
+    }
+
+    .benefits-description {
+        padding: 15px 5px 5px 5px;
+    }
+
+    .theater-rewards-icon {
+        width: 60px;
+        height: 36px;
+        background-size: 60px 36px;
+        margin-top: 5px;
+        margin-right: 5px;
+    }
+
+    .benefits-description#insider-perks {
+        padding-bottom: 10px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .panel .btn-cta {
+        font-size: 16px;
+    }
+
+    .mobile-join-now {
+        margin: auto;
+        display: block;
+    }
+
+    .headline-btn {
+        margin-top: 15px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .sweepstake-art {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    .vip-logo {
+        height: auto;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .logo-headline {
+        font-size: 16px;
+        padding-top: 10px;
+        padding-left: 0;
+    }
+
+    .vip-logo {
+        margin-top: 15px;
+        background-size: 100%;
+        background-position: center 10px;
+        height: auto;
+    }
+}
+
+/*Forgot password*/
+.vipforgotpassword .inline-items {
+    width: 100%;
+    text-align: center;
+}
+
+.vipforgotpassword .registration-mode {
+    width: 0;
+}
+
+.forgot-container h3,
+.forgot-container h3,
+.forgot-container span {
+    color: #fff;
+    text-align: center;
+}
+
+.forgot-container p {
+    color: #fff;
+    text-align: left;
+}
+
+.forgot-container .sub-panel {
+    padding-left: 15%;
+    padding-right: 15%;
+}
+
+.vipforgotpassword .forgot-container .password-sent p,
+.vipresetpassword .reset-password p {
+    text-align: left;
+}
+/*override last p tag*/
+.reset-password .panel > p {
+    text-align: center;
+}
+
+.vipforgotpassword .forgot-container .panel-footer {
+    border-top: 0;
+    text-align: center;
+}
+
+    .vipforgotpassword .forgot-container .panel-footer .sub-panel {
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+.vipforgotpassword .forgot-container span {
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+/*mobile / responsive edits*/
+.password-section .mobile-legal {
+    display: none;
+}
+
+@media only screen and (max-width: 40em) {
+    div.reset-password.security-update {
+        margin-bottom: 0;
+    }
+
+    div.reset-password.security-update-ctn {
+        margin-top: 0;
+    }
+
+    .registration-mode {
+        padding-top: 0;
+        height: auto;
+    }
+
+        .registration-mode span {
+            display: none;
+        }
+
+        .registration-mode .cta {
+            padding: 20px 20px 20px 20px;
+            display: inline-block;
+        }
+
+    .page.registration {
+        padding: 0;
+    }
+
+    .intercept-container.columns,
+    .sign-up-form.columns,
+    .forgot-container.columns {
+        width: 95%;
+        margin: 2.5%;
+    }
+
+    .forgot-container.columns {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .action-icon.icon,
+    .star-icon.icon,
+    .ticket-icon.icon {
+        position: relative;
+        top: auto;
+        left: auto;
+        padding: 0;
+        line-height: 30px;
+    }
+
+        .action-icon.icon:before,
+        .star-icon.icon:before,
+        .ticket-icon.icon:before {
+            border: none;
+            background-color: transparent;
+            border-radius: 0;
+            width: 30px;
+            height: 30px;
+        }
+
+        .star-icon.icon:before {
+            background-size: 50px;
+        }
+
+        .ticket-icon.icon:before {
+            background-size: 30px;
+        }
+
+    .intercept-container .content-title {
+        display: inline-block;
+    }
+
+    .intercept-container header {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .movie-intercept {
+        border-bottom: none;
+    }
+
+    .sub-panel {
+        padding: 15px 15px 0;
+    }
+
+    .intercept-container .action-details {
+        display: none;
+    }
+
+    .password-section .desktop-legal {
+        display: none;
+    }
+
+    .password-section .mobile-legal {
+        display: block;
+    }
+
+    form .row .row .columns.social-signin {
+        padding: 0 10%;
+    }
+
+    #facebookSignIn:after, #googlePlusSignIn:after {
+        left: auto;
+    }
+
+    footer {
+        padding-bottom: 0;
+    }
+
+    .legal {
+        display: none;
+    }
+
+    .free-caption {
+        display: block;
+    }
+
+    .intercept-container header {
+        position: relative;
+    }
+
+    .action-icon.icon, .star-icon.icon, .ticket-icon.icon {
+        position: absolute;
+    }
+
+    .intercept-container .content-title {
+        margin-left: 40px;
+        text-align: left;
+    }
+    /*regular join*/
+    .joinnow .intercept-container {
+        display: none;
+    }
+    /*.join-header:before {
+        width: 30px;
+        height: 30px;
+        background: url("../../../static/img/icon-follow.svg") no-repeat scroll center center rgba(34, 34, 34, 1);
+        content: "";
+        display: inline-block;
+        margin: 0 5px 0 0;
+        vertical-align: bottom;
+        top: 5px;
+        position: relative;
+    }*/
+    /*intercept activity join*/
+    .joinnow.intercept-activity .intercept-container {
+        display: block;
+    }
+
+    .joinnow.intercept-activity .join-header:before {
+        display: none;
+    }
+    /*regular sign-in*/
+    .site-wrap.signin {
+        min-height: 0;
+    }
+
+    .signin .intercept-container {
+        display: none;
+    }
+
+    .signin .join-header:before {
+        display: none;
+    }
+    /*intercept activity sign-in*/
+    .signin.intercept-activity .intercept-container {
+        display: block;
+    }
+
+    .signin.intercept-activity .join-header:before {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    .brand-img {
+        width: 200px;
+    }
+
+    .registration-mode .cta {
+        padding: 20px 10px 20px 0px;
+    }
+
+    .forgot-container .sub-panel {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .joinnow.intercept-activity .join-header,
+    .joinnow .refund .join-header {
+        font-size: 20px;
+    }
+
+    .joinnow.intercept-activity .free-caption,
+    .joinnow .refund .free-caption {
+        font-size: 16px;
+        display: inline;
+    }
+
+    .joinnow .join-header {
+        font-size: 17px;
+    }
+
+    .joinnow .free-caption {
+        font-size: 14px;
+    }
+}
+
+/*mobile / responsive edits*/
+@media only screen and (min-width: 64.063em) {
+    .sign-up {
+        width: 25%;
+    }
+}
+
+.sweepstakes-art:before {
+    margin-top: 20px;
+}
+
+.sweepstakes-art {
+    text-align: center;
+    color: white;
+    height: 232px;
+    display: block;
+    background-size: 100%;
+}
+
+.sweepstakes-text {
+    height: 232px;
+}
+
+.sweepstakes-art > div {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 33%;
+    margin: auto;
+}
+
+.legal-text {
+    float: right;
+    text-transform: uppercase;
+}
+
+.sweepstake-art-container{
+    background-color: black;
+    border-top: 1px solid #929292;
+}
+
+.sweepstake-art-positioning{
+    background-position-x: center; height: 225px; background-position-y: center; background-size: 100% 100%; background-repeat: no-repeat;
+}
+
+/* Forgot Password page */
+.forgotpassword-recaptcha {
+    margin-bottom: 8px;
+}
+.forgotpassword-g-recaptcha {
+    transform-origin:0 0;
+    -ms-transform-origin: 0 0;
+    -webkit-transform-origin:0 0;
+    transform: scale(0.93);
+    -ms-transform: scale(0.93);
+    -webkit-transform:scale(0.93);
+}
+a.forgotpassword-btn-alink-disable {
+    cursor: default;
+}
+a.forgotpassword-btn-alink-disable:before {
+    background: rgba(138, 184, 241, 1) !important;
+}
+a.forgotpassword-btn-alink-disable:after {
+    background: rgba(138, 184, 241, 1) !important;
+}
+@media (max-width: 1300px) {
+    .forgotpassword-recaptcha {
+        margin-bottom: 0px;
+    }
+    .forgotpassword-g-recaptcha {
+        transform: scale(0.73);
+        -ms-transform: scale(0.73);
+        -webkit-transform:scale(0.73);
+    }
+}
+@media (max-width: 1025px) {
+    .forgotpassword-recaptcha {
+        margin-bottom: 8px;
+    }
+    .forgotpassword-g-recaptcha {
+        transform: scale(0.93);
+        -ms-transform: scale(0.93);
+        -webkit-transform:scale(0.93);
+    }
+}
+@media (max-width: 640px) {
+    .forgotpassword-recaptcha {
+        margin-bottom: 0px;
+    }
+    .forgotpassword-g-recaptcha {
+        transform: scale(0.79);
+        -ms-transform: scale(0.79);
+        -webkit-transform:scale(0.79);
+    }
+}
+
+.pad-bottom25 { padding-bottom: 25px; }
+
+/* VIP Perks customizations for Sign In / Join Now */
+.vip-perks--authentication .perks__list {
+    width: 280px;
+}
+.vip-perks--authentication .perk:before {
+    border-color: #929292;
+    width: 47px;
+    height: 47px;
+}
+.vip-perks--authentication .perk--vip-plus:before {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg id='Layer_1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 170.1 85.6'%3E%3Cstyle%3E.st0{fill:%23929292}%3C/style%3E%3Cg id='Layer_2_1_'%3E%3Cg id='Layer_1-2'%3E%3Cpath class='st0' d='M17.5 52L0 4.5h16.3l10.3 32 10.3-32h16.3L35.7 52H17.5zM55.8 52V4.5h14.4V52H55.8zM75.3 52V4.5h25.4c11.1 0 17.1 7.4 17.1 16.3s-6 16.2-17.1 16.2h-11v15H75.3zm27.9-31.2c0-2.6-1.9-3.8-4.3-3.8h-9.1v7.5h9.1c2.4 0 4.3-1.2 4.3-3.7zM151.8 18.3V0h-20v18.3h-9.1c.1.8.1 1.7.1 2.5 0 7.5-3.3 13.7-8.7 17.4h17.7v18.3h20V38.2h18.3v-20l-18.3.1z'/%3E%3Cpath class='st0' d='M75.3 52V4.5h25.4c11.1 0 17.1 7.4 17.1 16.3s-6 16.2-17.1 16.2h-11v15H75.3zm27.9-31.2c0-2.6-1.9-3.8-4.3-3.8h-9.1v7.5h9.1c2.4 0 4.3-1.2 4.3-3.7zM16 85.2V62.6h11.3c5.1 0 7.9 3.4 7.9 7.5s-2.8 7.5-7.9 7.5h-5.5v7.6H16zm13.2-15.1c0-1.6-1.3-2.4-2.8-2.4h-4.6v4.8h4.6c1.6 0 2.8-.9 2.8-2.4zM40 73.9c0-6.9 5.2-11.7 12.1-11.7S64.2 67 64.2 73.9 59 85.6 52.1 85.6 40 80.8 40 73.9zm18.2 0c0-3.7-2.4-6.5-6.1-6.5s-6.2 2.8-6.2 6.5 2.4 6.5 6.2 6.5 6.1-2.8 6.1-6.5zM70.5 85.2V62.6h5.8v22.6h-5.8zM99.2 85.2l-9.6-13.1v13.1h-5.8V62.6h6L98.9 75V62.6h5.9v22.6h-5.6zM117.3 85.2V67.7H111v-5.1h18.5v5.1h-6.3v17.5h-5.9zM133.7 82l3.1-4.5c1.9 1.9 4.5 3 7.2 3 2 0 3.2-.7 3.2-1.8 0-3-12.8-.5-12.8-9.2 0-3.8 3.2-7.2 9-7.2 3.3-.1 6.6 1 9.2 3.1l-3.2 4.4c-1.9-1.5-4.2-2.4-6.6-2.4-1.7 0-2.4.6-2.4 1.6 0 2.8 12.8.7 12.8 9.1 0 4.5-3.4 7.6-9.4 7.6-4.7-.1-7.8-1.5-10.1-3.7z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.vip-perks--authentication .perk--rope:before {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 42.1 44.3'%3E%3Cpath fill='%23A8A8A8' d='M30.4 33.1V14.6h1.2V14h-1.2v-.5c.8-.3 1.4-1 1.4-1.9 0-1.1-.9-2-2-2s-2 .9-2 2c0 .9.6 1.6 1.4 1.9v.5h-1.7c0 1.6-2.7 2.9-6 2.9s-6-1.3-6-2.9h-1.8v-.5c.8-.3 1.4-1 1.4-1.9 0-1.1-.9-2-2-2s-2 .9-2 2c0 .9.6 1.6 1.4 1.9v.5h-1.2v.7h1.2v18.5h-2v1.4h5.4v-1.4h-2V14.6h1.2v-.1c.6 1.7 3.3 3 6.7 3 3.3 0 6.1-1.2 6.7-2.9h.5v18.5h-2v1.4h5.4v-1.4h-2z'/%3E%3C/svg%3E");
+}
+.vip-perks--authentication .perk--popcorn:before {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50.2 59.2'%3E%3Cpath fill='%23A8A8A8' d='M12.7 22.5L16 47.6h18.4l3.3-25.1h-25zm5.4 24.4L16 25.2h3.8L21 46.9h-2.9zm8.5 0h-2.8l-.5-21.7H27l-.4 21.7zm5.7 0h-2.8l1.2-21.7h3.8l-2.2 21.7zM24.4 16.2s.1 0 0 0c.1.2.4.4.6.4.1 0 .2 0 .3-.1.1 0 .2.1.3.1.4 0 .7-.3.7-.7 0-.2-.1-.4-.2-.5.4-.1.6-.5.6-.9 0-.5-.4-.9-.9-.9-.3 0-.5.1-.7.3-.1-.2-.3-.3-.5-.3-.3 0-.6.3-.6.6 0 .2.1.3.2.4-.3.1-.5.4-.5.8-.1.4.2.8.7.8m.9-1M30.1 13.6c0 .3.2.6.6.7.2 0 .3 0 .4-.1.1.3.4.5.7.5.5 0 .9-.3.9-.8v-.1c.2-.1.4-.3.4-.5 0-.1 0-.2-.1-.3 0-.1.1-.2.1-.3 0-.4-.2-.7-.6-.7-.2 0-.4.1-.5.2-.1-.4-.4-.6-.8-.7-.5 0-1 .4-1 .9 0 .3.1.5.3.7-.2.1-.3.3-.4.5m1.8-.6'/%3E%3Cpath fill='%23A8A8A8' d='M35.4 21.5c0-.3-.2-.6-.6-.7-.2 0-.3 0-.4.1-.1-.3-.4-.5-.7-.5-.3 0-.5.1-.7.3-.1-.3-.5-.6-.9-.6-.3 0-.5.1-.7.3 0-.1-.1-.1-.1-.2.3-.1.4-.4.5-.7.1 0 .3-.1.4-.2.1.4.5.6.9.6.5 0 .9-.4.9-.9 0-.3-.1-.5-.3-.7.2-.1.3-.3.3-.5 0-.3-.3-.6-.6-.6-.2 0-.3.1-.4.2-.1-.3-.4-.5-.8-.5-.5 0-.9.4-.9.8v.1c-.2 0-.3.2-.3.4v.2h-.2c-.3 0-.5.1-.7.3l-.1-.1c-.2-.2-.4-.3-.7-.3h-.2c-.1-.1-.2-.3-.4-.3.3-.3.3-.7.2-1.1-.2-.5-.8-.7-1.3-.4-.3.1-.4.3-.5.6-.2-.1-.4-.2-.6-.1-.3.2-.4.5-.3.8l.3.3c-.2.3-.2.6-.1.9.2.4.6.6 1 .5-.2.2-.3.4-.3.6 0 .5.4.8.8.9-.1 0-.1.1-.2.2-.1-.2-.3-.3-.5-.3v-.2c0-.5-.4-.9-.9-.9 0-.1-.1-.2-.2-.3-.2-.2-.4-.3-.7-.3.1-.2.1-.4-.1-.6-.2-.3-.6-.3-.9-.1-.1.1-.2.2-.2.4-.3-.1-.6-.1-.9.1-.4.3-.4.8-.1 1.2-.1.1-.1.3 0 .5-.1 0-.1.1-.1.1H23c.1-.1.1-.3.1-.4 0-.5-.4-.9-.9-.9-.3 0-.5.1-.7.3.2-.1.3-.3.3-.6 0-.2-.1-.4-.2-.5.1 0 .1-.1.2-.1.2.1.3.1.5 0 .1-.1.3-.2.3-.3.2.2.6.3.9.1.4-.2.7-.7.5-1.1.2-.2.2-.4.1-.6 0-.1-.1-.2-.2-.3v-.3c-.1-.3-.5-.5-.9-.4-.2.1-.3.2-.4.4-.3-.3-.7-.4-1-.2-.4.2-.7.6-.6 1.1-.1.1-.3.1-.4.3-.1-.2-.3-.3-.5-.3-.3 0-.6.3-.6.6 0 .2.1.3.2.4-.5 0-.7.2-.7.6 0 .3.2.6.4.7-.2 0-.3.1-.4.2v-.1c0-.3-.1-.5-.3-.7 0-.2 0-.3-.1-.5-.1-.3-.3-.4-.6-.5.1-.2.2-.4.1-.6-.2-.3-.5-.4-.8-.3l-.3.3c-.2-.2-.6-.2-.9-.1-.4.2-.6.7-.4 1.1-.1.2-.2.4-.1.7.1.1.1.2.2.3 0 .1 0 .2.1.3v.1c-.3 0-.6.3-.6.6 0 .2.1.3.2.4-.3.2-.5.5-.5.8 0 .5.4.9.9.9h.1c.1.2.3.4.6.4.1 0 .2 0 .3-.1.1 0 .1 0 .2.1-.3.1-.5.4-.5.8 0 .5.4.9.9.9h.1c.1.2.3.4.6.4.1 0 .2 0 .3-.1.1 0 .2.1.3.1.4 0 .7-.3.7-.7v-.2H19.8c.1.2.3.4.6.4.1 0 .2 0 .3-.1.1 0 .2.1.3.1.4 0 .7-.3.7-.7H22c.1.2.3.4.6.4.1 0 .2 0 .3-.1.1 0 .2.1.3.1.3 0 .6-.2.6-.5h.2c.1.2.3.4.6.4.1 0 .2 0 .3-.1.1 0 .2.1.3.1.4 0 .7-.3.7-.7V23h.2c.1 0 .2 0 .3-.1.1 0 .2.1.3.1h.1c0 .4.4.8.9.8h.1c.1.2.3.4.6.4.1 0 .2 0 .3-.1.1 0 .2.1.3.1.2 0 .5-.1.6-.3h.2c.1 0 .2 0 .3-.1.1 0 .2.1.3.1.4 0 .7-.3.7-.7V23c.1.1.3.1.4.1h.1c.1.2.3.4.6.4.1 0 .2 0 .3-.1.1 0 .2.1.3.1.2 0 .4-.1.5-.2.1.1.3.2.4.2.2 0 .4-.1.5-.2.1.4.4.7.8.7.5 0 1-.3 1-.8 0-.3-.1-.5-.3-.7-.4-.6-.3-.8-.3-1M33.6 22.1'/%3E%3C/svg%3E");
+}
+.vip-perks--authentication .perk--ticket:before {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44.9 38.2'%3E%3Cpath fill='%23A8A8A8' d='M14.366 16.587l13.716-3.675 2.33 8.694-13.716 3.674z'/%3E%3Cpath fill='%23A8A8A8' d='M32.6 13.9l-1.1-4.2-21.6 5.8 1.1 4.2c1.2-.3 2.5.4 2.8 1.6.3 1.2-.4 2.5-1.6 2.8l1.2 4.3 21.5-5.8-1.2-4.3c-1.2.3-2.5-.4-2.8-1.6-.3-1.2.4-2.4 1.7-2.8m-1.4 8.2l-14.9 4-2.7-9.9 14.9-4 2.7 9.9z'/%3E%3C/svg%3E");
+}
+.vip-perks--authentication .perk__header {
+    margin-left: 60px;
+}
+
+/* VIP Benefits Join Page */
+.benefits-body .perks__list {
+    padding-left: 10px;
+}
+.benefits-body .perk {
+    min-height: 250px;
+    margin-bottom: 60px;
+}
+.benefits-body .perk:before {
+    border-width: 8px;
+    width: 220px;
+    height: 220px;
+}
+.benefits-body .perk__header {
+    color: #ff7300;
+    font-family: "alternate-gothic-no-1-d","Futura Condensed","Arial Narrow",Arial,sans-serif;
+    font-size: 40px;
+    font-weight: normal;
+    margin-left: 250px;
+    padding: 36px 0 20px 0;
+}
+.benefits-body .perk__description {
+    color: #fff;
+    margin-left: 250px;
+}
+
+.perk__platforms {
+    color: #fff;
+    font-family: "alternate-gothic-no-1-d","Futura Condensed","Arial Narrow",Arial,sans-serif;
+    font-size: 26px;
+    margin-top: 30px;
+    text-transform: uppercase
+}
+.perk__platforms .platform {
+    display: inline-block;
+    padding-right: 30px;
+}
+.perk__platforms .platform-icon {
+    background-color: mediumpurple;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 65%;
+    border-radius: 50%;
+    display: inline-block;
+    height: 40px;
+    margin-right: 5px;
+    margin-top: -3px;
+    vertical-align: middle;
+    width: 40px;
+}
+.perk__platforms .platform-icon--fandango {
+    background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgd2lkdGg9IjMycHgiIGhlaWdodD0iMjZweCIgdmlld0JveD0iMCAwIDMyIDI2IiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgogICAgPCEtLSBHZW5lcmF0b3I6IFNrZXRjaCA0OSAoNTEwMDIpIC0gaHR0cDovL3d3dy5ib2hlbWlhbmNvZGluZy5jb20vc2tldGNoIC0tPgogICAgPHRpdGxlPmljX1RoZWF0ZXJzPC90aXRsZT4KICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPgogICAgPGRlZnM+CiAgICAgICAgPHBvbHlnb24gaWQ9InBhdGgtMSIgcG9pbnRzPSIwLjAyNDA2OTU2NTIgMCAxMi4yODQ1MjE3IDAgMTIuMjg0NTIxNyAyMC42NTk0ODQ0IDAuMDI0MDY5NTY1MiAyMC42NTk0ODQ0IDAuMDI0MDY5NTY1MiA1LjA1Mjc0ODM0ZS0xNSI+PC9wb2x5Z29uPgogICAgICAgIDxwb2x5Z29uIGlkPSJwYXRoLTMiIHBvaW50cz0iMS44ODU1NjllLTIwIDAuNzk1MzA2NjY3IDEuODg1NTY5ZS0yMCAyNC4xNzcxMjkyIDIyLjYyNjc4MjYgMjQuMTc3MTI5MiAyMi42MjY3ODI2IDAuNzk1MzA2NjY3Ij48L3BvbHlnb24+CiAgICA8L2RlZnM+CiAgICA8ZyBpZD0iUGFnZS0xIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8ZyBpZD0iTVdfU3VicGFnZSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTYwLjAwMDAwMCwgLTE1My4wMDAwMDApIj4KICAgICAgICAgICAgPGcgaWQ9IkZER08iIHRyYW5zZm9ybT0idHJhbnNsYXRlKDQ2LjAwMDAwMCwgMTM2LjAwMDAwMCkiPgogICAgICAgICAgICAgICAgPGcgaWQ9ImljX1RoZWF0ZXJzIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNC4wMDAwMDAsIDE3LjAwMDAwMCkiPgogICAgICAgICAgICAgICAgICAgIDxnIGlkPSJHcm91cC0zIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxOS40NDY5NTcsIDAuMDAwMDAwKSI+CiAgICAgICAgICAgICAgICAgICAgICAgIDxtYXNrIGlkPSJtYXNrLTIiIGZpbGw9IndoaXRlIj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI3BhdGgtMSI+PC91c2U+CiAgICAgICAgICAgICAgICAgICAgICAgIDwvbWFzaz4KICAgICAgICAgICAgICAgICAgICAgICAgPGcgaWQ9IkNsaXAtMiI+PC9nPgogICAgICAgICAgICAgICAgICAgICAgICA8cGF0aCBkPSJNMTIuMjUyMjQzNSwxNy42MTU5Mjg5IEwxMC45NTEzNzM5LDEyLjQ0MzMwNjcgQzEwLjc4NDQxNzQsMTEuOTI0MTk1NiAxMC4yNDA0MTc0LDExLjg5MTQ4NDQgMTAuMTE5MzczOSwxMS45MTcwODQ0IEM4LjkzMzk4MjYxLDEyLjE2NTk3MzMgNy44NDU5ODI2MSwxMS45MTg1MDY3IDcuMTUxNzIxNzQsMTAuOTIwMTA2NyBDNi41MDQ3NjUyMiw5Ljk5MTM5NTU2IDYuNTUzNDYwODcsOC42NTAyNCA3LjI4NjY3ODI2LDcuNzkxMjE3NzggQzcuNjkwMTU2NTIsNy4zMTYxOTU1NiA4LjE3NTcyMTc0LDcuMDQwMjg0NDQgOC42NzkzNzM5MSw2LjkyNzkyODg5IEM5LjE0MjY3ODI2LDYuODI1NTI4ODkgOS40MTEyLDYuMzI3NzUxMTEgOS4yOTI5MzkxMyw1Ljg1NTU3MzMzIEw4LjAxNTcyMTc0LDAuNzg1MzUxMTExIEM3Ljg3NTIsMC4yMjQ5OTU1NTYgNy4zMTg2NzgyNiwtMC4xMTA2NDg4ODkgNi43NzE4OTU2NSwwLjAzMjk5NTU1NTYgTDAuMDI0MDY5NTY1MiwxLjgwMDgxNzc4IEw0Ljc2OTgwODcsMjAuNjU5NDg0NCBMMTEuNTE3NjM0OCwxOC44ODczOTU2IEMxMi4wNjQ0MTc0LDE4Ljc0Mzc1MTEgMTIuMzk0MTU2NSwxOC4xNzQ4NjIyIDEyLjI1MjI0MzUsMTcuNjE1OTI4OSIgaWQ9IkZpbGwtMSIgZmlsbD0iI0ZGRkZGRiIgbWFzaz0idXJsKCNtYXNrLTIpIj48L3BhdGg+CiAgICAgICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICAgICAgICAgIDxnIGlkPSJHcm91cC02IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjAwMDAwMCwgMS40MjIyMjIpIj4KICAgICAgICAgICAgICAgICAgICAgICAgPG1hc2sgaWQ9Im1hc2stNCIgZmlsbD0id2hpdGUiPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPHVzZSB4bGluazpocmVmPSIjcGF0aC0zIj48L3VzZT4KICAgICAgICAgICAgICAgICAgICAgICAgPC9tYXNrPgogICAgICAgICAgICAgICAgICAgICAgICA8ZyBpZD0iQ2xpcC01Ij48L2c+CiAgICAgICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0xNS4zMzYzNDc4LDEuNDYyMzI4ODkgTDE1LjMzNDk1NjUsMS40NTgwNjIyMiBMMC43NjkzOTEzMDQsNS4yODUyNjIyMiBDMC4yMjI2MDg2OTYsNS40Mjc0ODQ0NCAtMC4xMDg1MjE3MzksNS45OTYzNzMzMyAwLjAzMiw2LjU1NTMwNjY3IEwxLjMwMjI2MDg3LDExLjYyODM3MzMgQzEuNDIwNTIxNzQsMTIuMDk5MTI4OSAxLjg4OTM5MTMsMTIuNDAzNDg0NCAyLjM0NTczOTEzLDEyLjI2NTUyODkgQzIuODM5NjUyMTcsMTIuMTE2MTk1NiAzLjM5NDc4MjYxLDEyLjExOTA0IDMuOTczNTY1MjIsMTIuMzM2NjQgQzUuMDE4NDM0NzgsMTIuNzI5MTczMyA1LjY5MzIxNzM5LDEzLjg3OTc1MTEgNS41NjUyMTczOSwxNS4wMTE4NCBDNS40MjYwODY5NiwxNi4yMjkyNjIyIDQuNTg4NTIxNzQsMTYuOTgzMDQgMy40MzM3MzkxMywxNy4zNDcxMjg5IEMzLjMxNDA4Njk2LDE3LjM4NDEwNjcgMi44NTIxNzM5MSwxNy42ODEzNTExIDIuOTUwOTU2NTIsMTguMjE4OTUxMSBMNC4yNDc2NTIxNywyMy4zOTE1NzMzIEM0LjM4ODE3MzkxLDIzLjk1MTkyODkgNC45NDQ2OTU2NSwyNC4yODc1NzMzIDUuNDkxNDc4MjYsMjQuMTQzOTI4OSBMMTYuMTI2NjA4NywyMS4zNTc3OTU2IEwxNi4xMjgsMjEuMzYyMDYyMiBMMjIuNjI2NzgyNiwxOS42NTUzOTU2IEwxNy44ODEwNDM1LDAuNzk1MzA2NjY3IEwxNS4zMzYzNDc4LDEuNDYyMzI4ODkgWiIgaWQ9IkZpbGwtNCIgZmlsbD0iI0ZGRkZGRiIgbWFzaz0idXJsKCNtYXNrLTQpIj48L3BhdGg+CiAgICAgICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICA8L2c+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4=');
+}
+.perk__platforms .platform-icon--fanshop {
+    background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgd2lkdGg9IjMxcHgiIGhlaWdodD0iMjZweCIgdmlld0JveD0iMCAwIDMxIDI2IiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgogICAgPCEtLSBHZW5lcmF0b3I6IFNrZXRjaCA0OSAoNTEwMDIpIC0gaHR0cDovL3d3dy5ib2hlbWlhbmNvZGluZy5jb20vc2tldGNoIC0tPgogICAgPHRpdGxlPlNoYXBlIENvcHk8L3RpdGxlPgogICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+CiAgICA8ZGVmcz48L2RlZnM+CiAgICA8ZyBpZD0iUGFnZS0xIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8ZyBpZD0iTVdfU3VicGFnZSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTI4NC4wMDAwMDAsIC0xNTMuMDAwMDAwKSIgZmlsbD0iI0ZGRkZGRiIgZmlsbC1ydWxlPSJub256ZXJvIj4KICAgICAgICAgICAgPGcgaWQ9IkZTSE9QIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyNjkuMDAwMDAwLCAxMzYuMDAwMDAwKSI+CiAgICAgICAgICAgICAgICA8cGF0aCBkPSJNMzAuMzEzOTkxMywxOC4wNDg3NDcgQzI3LjM5MDE3NiwxOC4wNDg3NDcgMjQuNTYyMjk1MywxNi4yODc2NDcxIDIyLjE2ODc1NCwxNy4zMjk3MDk4IEMyMi4wMjQ0NDA2LDE3LjM4OTU4NCAyMS44OTU2Mjk5LDE3LjQ4MTMxNjcgMjEuNzkyMDE4MSwxNy41OTgwMDMgTDE1LjI0NzU3NjksMjUuMTUzMTM4NiBDMTQuODg2NTk5NSwyNS41NzQ1NzU0IDE0LjkyNDY0NTQsMjYuMjA1MiAxNS4zMzM2ODc5LDI2LjU4MDQ1ODIgTDE5LjQ2NzAxOTIsMzAuMzU4MDI2IEMxOS44NTM3ODcyLDMwLjcxMzk0MTUgMjAuNDQ3MDY0MiwzMC43MjMxODM3IDIwLjg0NDc5NjQsMzAuMzc5NDg5NCBMMjEuODg4ODkzMSwyOS40NjcyOTI3IEwyMS44ODg4OTMxLDQwLjU5NjA5MzIgQzIxLjg4ODg5MzEsNDEuMzIwMTI4MyAyMi4xMTc3NzE1LDQyLjEyMjI1MSAyMi42MzYzNDkxLDQyLjU2NTM2OSBDMjMuMDU4ODU5MSw0Mi45MjYzOTg1IDIzLjcwODMyODIsNDMgMjQuMzAwMDAzLDQzIEwzNi42OTk5OTcsNDMgQzM3LjM4Mzg2OSw0MyAzOC4xNjAyNDU1LDQyLjg4MDM2NDkgMzguNjAxNzYyOCw0Mi40MTQzNjg3IEMzOS4wMTEwODc4LDQxLjk4MjM0OTcgMzkuMTExMTA2OSw0MS4yMjgyMDY4IDM5LjExMTEwNjksNDAuNTk2MDkzMiBMMzkuMTExMTA2OSwyOS40NjcyOTI3IEw0MC4xNTUyMDM2LDMwLjM3OTQ4OTQgQzQwLjU1MjkzNTgsMzAuNzIzMTgzNyA0MS4xNDYyMTI4LDMwLjcxMzk0MTUgNDEuNTMyOTgwOCwzMC4zNTgwMjYgTDQ1LjY2NjMxMjEsMjYuNTgwNDU4MiBDNDYuMDc1MzU0NiwyNi4yMDUyIDQ2LjExMzQwMDUsMjUuNTc0NTc1NCA0NS43NTI0MjMxLDI1LjE1MzEzODYgTDM5LjIwNzk4MTksMTcuNTk4MDAzIEMzOS4xMDQzNzAxLDE3LjQ4MTMxNjcgMzguOTc1NTU5NCwxNy4zODk1ODQgMzguODMxMjQ2LDE3LjMyOTcwOTggQzM2LjQzNzcwNDcsMTYuMjg3NjQ3MSAzMy4yMzc4MDY1LDE4LjA0ODc0NyAzMC4zMTM5OTEzLDE4LjA0ODc0NyBaIiBpZD0iU2hhcGUtQ29weSI+PC9wYXRoPgogICAgICAgICAgICA8L2c+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4=');
+}
+.perk__platforms .platform-icon--fandangonow {
+    background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgd2lkdGg9IjMzcHgiIGhlaWdodD0iMjJweCIgdmlld0JveD0iMCAwIDMzIDIyIiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgogICAgPCEtLSBHZW5lcmF0b3I6IFNrZXRjaCA0OSAoNTEwMDIpIC0gaHR0cDovL3d3dy5ib2hlbWlhbmNvZGluZy5jb20vc2tldGNoIC0tPgogICAgPHRpdGxlPmljX0Zub3c8L3RpdGxlPgogICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+CiAgICA8ZGVmcz48L2RlZnM+CiAgICA8ZyBpZD0iUGFnZS0xIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8ZyBpZD0iTVdfU3VicGFnZSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTE2OS4wMDAwMDAsIC0xNTUuMDAwMDAwKSI+CiAgICAgICAgICAgIDxnIGlkPSJGTk9XIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNTUuMDAwMDAwLCAxMzYuMDAwMDAwKSI+CiAgICAgICAgICAgICAgICA8ZyBpZD0iaWNfRm5vdyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTQuMDAwMDAwLCAxOS4wMDAwMDApIj4KICAgICAgICAgICAgICAgICAgICA8ZyBpZD0iR3JvdXAtNSI+CiAgICAgICAgICAgICAgICAgICAgICAgIDxnIGlkPSJHcm91cC03Ij4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxnIGlkPSJHcm91cC03LUNvcHkiPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxnIGlkPSJQYWdlLTEiPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8cGF0aCBkPSJNMCwxOSBMMzMsMTkgTDMzLDAgTDAsMCBMMCwxOSBaIE0xLDE4IEwzMiwxOCBMMzIsMSBMMSwxIEwxLDE4IFoiIGlkPSJGaWxsLTEiIGZpbGw9IiNBRTY3QkUiPjwvcGF0aD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPHJlY3QgaWQ9IlJlY3RhbmdsZS00IiB4PSIwIiB5PSIxIiB3aWR0aD0iMzMiIGhlaWdodD0iMTgiPjwvcmVjdD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPHBvbHlnb24gaWQ9IkZpbGwtMiIgZmlsbD0iI0ZGRkZGRiIgcG9pbnRzPSI4IDIyIDI2IDIyIDI2IDIxIDggMjEiPjwvcG9seWdvbj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGcgaWQ9Ikdyb3VwLTQiIG9wYWNpdHk9IjAuOCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTQuMDAwMDAwLCA2LjAwMDAwMCkiPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8ZyBpZD0iR3JvdXAtMyI+PC9nPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgICAgICAgICA8cmVjdCBpZD0iUmVjdGFuZ2xlLTUiIGZpbGw9IiNGRkZGRkYiIHg9IjAiIHk9IjAiIHdpZHRoPSIzMyIgaGVpZ2h0PSIxOSI+PC9yZWN0PgogICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0xOS45MjA3NTgyLDkuODY5NzU3ODIgTDE1LjMxODc1OTIsNy4wMzI4MjgwOCBDMTUuMjU4NDMxOSw2Ljk5NTQ5MTQ4IDE1LjE3NzM5ODIsNi45ODk2MjE5NyAxNS4xMTAxMDIzLDcuMDE3MTc2MDUgQzE1LjA0MjYwNzQsNy4wNDQ3MzAxNCAxNSw3LjEwMTMwNTY5IDE1LDcuMTYzMDk4NTkgTDE1LDEyLjgzNjk1ODEgQzE1LDEyLjg5ODc1MSAxNS4wNDI2MDc0LDEyLjk1NTE2MzUgMTUuMTEwMTAyMywxMi45ODI4ODA2IEMxNS4xMzgxNzU0LDEyLjk5NDI5MzUgMTUuMTY4NjM3OCwxMyAxNS4xOTkxMDAxLDEzIEMxNS4yNDE1MDg0LDEzIDE1LjI4MzUxODUsMTIuOTg4OTEzMSAxNS4zMTg3NTkyLDEyLjk2NzIyODYgTDE5LjkyMDc1ODIsMTAuMTMwMjk4OCBDMTkuOTcwNzMyMywxMC4wOTk0ODM5IDIwLDEwLjA1MTIyMzUgMjAsMTAuMDAwMDI4MyBDMjAsOS45NDg4MzMxNiAxOS45NzA3MzIzLDkuOTAwNTcyNzQgMTkuOTIwNzU4Miw5Ljg2OTc1NzgyIiBpZD0iRmlsbC02LUNvcHkiIGZpbGw9IiNBRTY3QkUiPjwvcGF0aD4KICAgICAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgPC9nPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+');
+}
+.perk__platforms .platform a:hover,
+.perk__platforms .platform a:visited,
+.perk__platforms .platform a {
+    color: #fff;
+}
+@media only screen and (max-width: 1248px) {
+    .benefits-body .perk__header {
+        margin-left: 200px;
+        padding: 12px 0 5px 0;
+    }
+    .benefits-body .perk__description {
+        margin-left: 200px;
+    }
+    .benefits-body .perk:before {
+        width: 170px;
+        height: 170px;
+    }
+}
+@media only screen and (max-width: 1050px) {
+    .benefits-body .perk {
+        margin-bottom: 40px;
+    }
+    .perk__platforms .platform {
+        display: block;
+        margin-bottom: 20px;
+    }
+}
+@media only screen and (max-width: 900px) {
+    .benefits-body .perk {
+        margin-bottom: 20px;
+    }
+    .benefits-body .perk__header {
+        margin-left: 120px;
+        padding: 12px 0 5px 0;
+    }
+    .benefits-body .perk__description {
+        margin-left: 120px;
+    }
+    .benefits-body .perk:before {
+        width: 100px;
+        height: 100px;
+    }
+}
+@media only screen and (max-width: 650px) {
+    .benefits-body .perk {
+        min-height: 200px;
+    }
+    .benefits-body .perks__list {
+        padding-top: 30px;
+    }
+}
+@media only screen and (max-width: 520px) {
+    .benefits-body .perk:before {
+        border-width: 2px;
+        margin-top: 10px;
+    }
+    .benefits-body .perk__header {
+        font-size: 34px;
+        margin-left: 80px;
+        padding: 0px 0 5px 0;
+    }
+    .benefits-body .perk__description {
+        margin-left: 80px;
+    }
+    .benefits-body .perk:before {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+/* Registration Promo Unit */
+.registration-promo-unit {
+    border-top: 1px solid #929292;
+    clear: both;
+}
+.registration-promo-unit img {
+    width: 100%;
+}
+.sign-up-form .registration-promo-unit {
+    border: none;
+}
+.sign-up-form .registration-promo-unit img {
+    display: block;
+    margin: 0 auto 25px auto;
+    width: 80%;
+}

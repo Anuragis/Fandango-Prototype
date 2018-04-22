@@ -1,0 +1,178 @@
+/*
+ * A Base rule is applied to an element using an element selector, a
+ * descendent selector, or a child selector, along with any pseudo-classes.
+ * It shouldn't include any class or ID selectors.
+ */
+
+/*
+*/
+
+/*
+ * COLORS
+ * F15500 - Orange
+ * FF7900 - Orange (Hover)
+ * 4AA7F6 - Blue
+ * 0286F2 - Blue (Hover)
+ * 929292 - Dark Grey
+ * EBEBEB - Header BG Grey
+ * CCCCCC - Background Grey
+ * 4C4C4C - Dark Text
+ */
+
+/*
+* FONTS
+* Headers 1-3 - Alternate Gothic No 1.
+* Headers 4 - Times New Roman Italic
+* Headers 5 - proxima-nova Bold
+* Body - proxima-nova
+*/
+body {
+  color: #4c4c4c;
+  font-family: "proxima-nova", Helvetica, Arial, sans-serif;
+  font-size: 14px;   /* 91.429em = 1280 */
+  font-weight: 400;
+}
+
+/**
+ * HEADERS
+ */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 400;
+  margin: 0;
+  color: #4c4c4c;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3 {
+  font-family: "alternate-gothic-no-1-d", "Futura Condensed", "Arial Narrow", Arial, sans-serif;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: 48px;
+  line-height: 45px;
+}
+
+h2 {
+  font-size: 38px;
+  line-height: 35px;
+}
+
+h3 {
+  font-size: 28px;
+  line-height: 25px;
+}
+
+h4 {
+  font-family: "Times New Roman", Times, Baskerville, Georgia, serif;
+  font-size: 18px;
+  font-style: italic;
+  font-weight: normal;
+  line-height: 22px;
+  text-transform: capitalize;
+}
+
+h5 {
+  color: #929292;
+  font-family: "proxima-nova", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19px;
+  text-transform: uppercase;
+}
+
+/**
+ * PARAGRAPHS
+ */
+p {
+  color: #4c4c4c;
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 400;
+  margin: 0 0 1em 0;
+}
+
+/**
+ * LINKS
+ */
+a {
+  color: #4aa7f6;
+  text-decoration: none;
+  -webkit-transition: all .3s linear;
+  -moz-transition: all .3s linear;
+  -o-transition: all .3s linear;
+  transition: all .3s linear;
+}
+
+a:hover {
+  color: #0286f2;
+}
+.cta {
+  color: #4aa7f6;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.cta:hover {
+  color: #0286f2;
+}
+/* light to dark */
+.light {
+  color: #fff;
+}
+
+.light:hover {
+  color: #fff;
+  opacity: 0.8;
+}
+
+/* dark to light */
+.dark {
+  color: #4c4c4c;
+}
+
+.dark:hover {
+  color: #333;
+}
+
+ul {
+  padding: 0;
+}
+
+/**
+ * FORMS
+ */
+label {
+  /*
+  color: #4c4c4c;
+  font-family: "alternate-gothic-no-1-d", "Futura Condensed", "Arial Narrow", Arial, sans-serif;
+  font-size: 26px;
+  line-height: 18px;
+  text-transform: uppercase;
+  */
+}
+
+input[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], textarea, select {
+  border-radius: 4px;
+}
+
+form {
+  margin: 0;
+}
+
+img {
+  opacity: 1;
+  transition: opacity .3s ease-in;
+}
+
+a img{
+  border: none;
+}
+
+hr {
+  border: solid #dddddd;
+  border-width: 1px 0 0;
+  clear: both;
+  margin: 1.25rem 0 1.1875rem;
+  height: 0;
+}
