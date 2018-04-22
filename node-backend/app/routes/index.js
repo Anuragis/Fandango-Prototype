@@ -15,8 +15,12 @@ router
     .post(bookings.createBooking);
 
 router
-    .route('/booking/:bid')
+    .route('/booking/:_id')
     .delete(bookings.deleteBooking);
+
+router
+    .route('/bookingByUserId/:userid')
+    .get(bookings.findBookingsByUserid);
 
 router
     .route('/signup')

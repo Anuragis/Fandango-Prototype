@@ -5,48 +5,51 @@ const {ObjectId} = require('mongodb');
 module.exports.createBooking = function(req,res,next){
     console.log("req body", req.body);
         var newBooking = new bookingsModel();
-        // newBooking.bid = 0;
         newBooking.bdate = req.body.bdate;
         newBooking.bamount = req.body.bamount;
         newBooking.btax = req.body.btax;
         newBooking.userid = req.body.userid;
-        newBooking.mid = req.body.mid;
-        newBooking.hid = req.body.hid;
-        newBooking.screenid = req.body.screenid; 
+        newBooking.fname = req.body.fname;
+        newBooking.lname = req.body.lname;
         newBooking.showtime = req.body.showtime;
-        newBooking.seats = req.body.seats;
+        newBooking.moviename = req.body.moviename;
+        newBooking.screenid = req.body.screenid; 
+        newBooking.hallname = req.body.hallname;
+        newBooking.seatsbooked = req.body.seatsbooked;
         newBooking.status = req.body.status;
-        //save booking
-        // console.log("here");
+        newBooking.hallcity = req.body.hallcity;
         newBooking.save(function(err,booking) {
             console.log("here");
             if (err){
                 throw err;
             }
             console.log("booking: ", booking);
+            res.send(booking);
         })
 }
 
 module.exports.deleteBooking = function(req,res,next){
     console.log("req body", req.params);
-    // var newBooking = new bookingsModel();
     var bid =  req.params.bid;
-    console.log(bid);
-    // bookingsModel.findOne({bid}, function(err, booking) {
-    //     //if(err) 
-    //     //throw err;
-    //     console.log(booking);
-    // })
-    bookingsModel.findOneAndUpdate({ bid : req.params.bid}, { $set : { status : 'cancel' } }, {new:true}, function(err, booking) {
+    bookingsModel.findByIdAndUpdate({ _id : req.params._id}, { $set : { status : 'cancel' } }, {new:true}, function(err, booking) {
         console.log("asd",bid);
         if (err)
             throw err;
         console.log("affected", booking);
+        res.send(booking);
     })
-    // bookingsModel.findById(id, function (err, doc) {
-    //     if (err) ..
-    //     doc.name = 'jason bourne';
-    //     doc.save(callback);
-    //   });
+    
+}
+
+module.exports.findBookingsByUserid = function(req,res,next){
+    console.log("req body", req.params);
+    var bid =  req.params.bid;
+    bookingsModel.find({ userid : req.params.userid}, function(err, booking) {
+        if (err)
+            throw err;
+        console.log("affected users", booking);
+        res.send(booking);
+    })
+    
 }
 
