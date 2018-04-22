@@ -20,27 +20,6 @@ class Seathover extends React.Component {
             zIndex: '3000'
         }
         
-        // if(this.props.hover==this.props.index) {
-        //     return (
-        //         <div id={this.props.index} onMouseOver={this.addFlyout}> 
-        //             <div id="flyoutContainer" style={styleFlyout} className="seatFlyout">
-        //                 <div id="flyoutContent">
-        //                     <span class="flyoutSeat"><strong>Seat:  {this.props.index}<br/></strong></span>
-        //                     <p>This seat is available</p>
-        //                 </div>
-        //                 <div id="flyoutBoxTailLeft"></div>
-        //             </div>
-        //         </div>
-        //     );
-        // }
-        // else 
-        // <div id="flyoutContainer" style="display:none;" class="seatFlyout">
-        //     <div id="flyoutContent">
-        //         <span class="flyoutSeat"><strong>Seat:  DIV_175<br/></strong></span>
-        //         <p>This seat is available</p>
-        //     </div>
-        //     <div id="flyoutBoxTailLeft"></div>
-        // </div>
         let hoverBox = null;
         if(this.props.hover==this.props.index) {
             var rect = ReactDOM.findDOMNode(this.refs.flyout).getBoundingClientRect()
