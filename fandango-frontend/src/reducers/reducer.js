@@ -1,25 +1,22 @@
 const initialState = {
     id : null,
     error : false,
-    
 }
 
 const reducer = (state = initialState, action) => {
     if(action.type === 'SUCCESS'){
         return{
             ...initialState,
-            id : action.payload.data    
+            id : action.payload.data
         }
-        
-    }
 
+    }
     if(action.type === 'ERROR'){
         return{
             ...initialState,
             error : 'error msg'
         }
     }
-
     if(action.type === 'LOGIN_SUCCESS'){
         console.log("In Reducer",action);
         console.log("Action Payload:  ",action.payload.data);
@@ -35,11 +32,8 @@ const reducer = (state = initialState, action) => {
                 error : true
             }
         }
-        
     }
-
 
     return state;
 }
-
 export default reducer;
