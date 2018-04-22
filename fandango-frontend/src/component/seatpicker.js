@@ -6,10 +6,17 @@ class Seathover extends React.Component {
     constructor(props) {
         super();
         this.addFlyout = this.addFlyout.bind(this);
-        // this.flyout = this.flyout.bind(this);
+        this.toggleSelected = this.toggleSelected.bind(this);
     }
     addFlyout = () => {
         this.props.onHover(this.props.index);
+    }
+    toggleSelected = (index) => {
+        this.props.toggleSelected(this.props.index);
+        // if(this.props.selected.includes(index)) {
+        //     this.setState({ selected: false });
+        // }
+        // else this.setState({ selected: this.state.selected.concat(index) })
     }
     render() {
         const styleFlyout = {
@@ -24,21 +31,22 @@ class Seathover extends React.Component {
         if(this.props.hover==this.props.index) {
             var rect = ReactDOM.findDOMNode(this.refs.flyout).getBoundingClientRect()
             styleFlyout.left = -28;//rect.left - 20 - 5;
-            styleFlyout.top = -82;//rect.top - (rect.height + 8);
+            styleFlyout.top = -92;//rect.top - (rect.height + 8);
             console.log("rect", rect);
             console.log("style", styleFlyout);
             hoverBox = ( 
                     <div id="flyoutContainer" style={styleFlyout} className="seatFlyout" >
                         <div id="flyoutContent">
-                            <span class="flyoutSeat"><strong>Seat:  {this.props.index}<br/></strong></span>
+                            <span className="flyoutSeat"><strong>Seat:  {this.props.index}<br/></strong></span>
                             <p>This seat is available</p>
                         </div>
                         <div id="flyoutBoxTailLeft"></div>
                     </div>
             )
         }
+        let bgStyle = null
             return (
-                <div id={this.props.index} onMouseOver={this.addFlyout} ref="flyout">
+                <div id={this.props.index} onMouseOver={this.addFlyout} ref="flyout" style={bgStyle} onClick={this.toggleSelected}>
                     {hoverBox}
                 </div>
             );
@@ -50,20 +58,20 @@ export default class seatpicker extends React.Component {
         super();
 
         this.state = {
-             selected: "", hover: "" 
+             selected: [], hover: "" , convenienceFlyout: false
         }
 
         this.onHover = this.onHover.bind(this);
         this.drawCanvas = this.drawCanvas.bind(this);
+        this.toggleConvenienceFlyout = this.toggleConvenienceFlyout.bind(this);
+        
     }
     
     componentDidMount() {
-        // let loadCanvas = function() {
             let ctx = ReactDOM.findDOMNode(this.refs.map).getContext('2d');
             console.log("ctx",ctx);
             this.drawCanvas(ctx);
             ReactDOM.findDOMNode(this.refs.mapZoom).style.display='none';
-        // }
     }
 
     drawCanvas = function (ctx) {
@@ -90,7 +98,17 @@ export default class seatpicker extends React.Component {
         this.setState({ hover: index });
     }
     toggleConvenienceFlyout = () => {
-        this.setState({ convenienceFlyout: true })
+        if(this.state.convenienceFlyout) this.setState({ convenienceFlyout: false })
+        else this.setState({ convenienceFlyout: true })
+    }
+    toggleSelected = (index) => {
+        if(this.state.selected.includes(index)) {
+            console.log("includes",index);
+            this.setState({
+                selected: this.state.selected.filter((i) => i !== index)
+              });
+        }
+        else this.setState({ selected: this.state.selected.concat(index) })
     }
 
     render() {
@@ -100,11 +118,12 @@ export default class seatpicker extends React.Component {
         const styleCanvas = {
             width:'100%', height:'100%'
         }
-        let seatArray = [];
-        for(var i=7; i<176; i++) {
-            seatArray.push("DIV_" + i);
-        }
+        let seatArray = ['M9','M8','M7','M6','M5','M4','M3','M2','M1','L9','L8','L7','L6','L5','L4','L3','L2','L1','K9','K8','K7','K6','K5','K4','K3','K2','K1','J10','J9','J8','J7','J6','J5','J4','J3','J2','J1','I11','I10','I9','I8','I7','I6','I5','I4','I3','I2','I1','H13','H12','H11','H10','H9','H8','H7','H6','H5','H4','H3','H2','H1','G14','G13','G12','G11','G10','G9','G8','G7','G6','G5','G4','G3','G2','G1','F15','F14','F13','F12','F11','F10','F9','F8','F7','F6','F5','F4','F3','F2','F1','E16','E15','E14','E13','E12','E11','E10','E9','E8','E7','E6','E5','E4','E3','E2','E1','D14','D13','D12','D11','D10','D9','D8','D7','D6','D5','D4','D3','D2','D1','C17','C16','C15','C14','C13','C12','C11','C10','C9','C8','C7','C6','C5','C4','C3','C2','C1','B17','B16','B15','B14','B13','B12','B11','B10','B9','B8','B7','B6','B5','B4','B3','B2','B1','A15','A14','A13','A12','A11','A10','A9','A8','A7','A6','A5','A4','A3','A2','A1'];
         
+        const styleModuleStandard = {
+            marginTop: 0
+        }
+
         let seatsArrangement = seatArray.map(seat => {
             return (
                
@@ -112,6 +131,8 @@ export default class seatpicker extends React.Component {
                         index={seat}
                         onHover={this.onHover}
                         hover={this.state.hover}
+                        toggleSelected={this.toggleSelected}
+                        selected={this.state.selected}
                     ></Seathover>
                 
             );
@@ -120,20 +141,20 @@ export default class seatpicker extends React.Component {
         let convenienceFlyout = null;
         if(this.state.convenienceFlyout) {
             convenienceFlyout = (
-                <div class="convenienceFeeFlyout">
+                <div className="convenienceFeeFlyout">
                     <table>
                         <tbody>
-                            <tr class="close">
-                                <td colspan="4"><a href="">X</a></td>
+                            <tr className="closeBox">
+                                <td colspan="4"><a onClick={this.toggleConvenienceFlyout}>X</a></td>
                             </tr>
                             <tr>
-                                <td colspan="4" class="heading">Convenience fee includes:</td>
+                                <td colspan="4" className="heading">Convenience fee includes:</td>
                             </tr>
-                            <tr class="feesRow pricing">
-                                <td class="type">General</td>
-                                <td class="amt">3 x </td>
-                                <td class="price">$1.50 = </td>
-                                <td class="math">$4.50</td>
+                            <tr className="feesRow pricing">
+                                <td className="type">General</td>
+                                <td className="amt">3 x </td>
+                                <td className="price">$1.50 = </td>
+                                <td className="math">$4.50</td>
                             </tr>
                         </tbody>    
                     </table>
@@ -143,7 +164,7 @@ export default class seatpicker extends React.Component {
 
         return (
             <div id="siteContainer" className="ticketBoxoffice">
-                <div id="headerContainer" class="purchase detail on-order" name="HeaderContainer">
+                <div id="headerContainer" className="purchase detail on-order" name="HeaderContainer">
                     <div id="headerPurchase">
                         <div className="commonContainer"> 
                             <div id="logo">
@@ -166,28 +187,28 @@ export default class seatpicker extends React.Component {
                     </div>
                     <div className="row">
                         <div className="main">
-                            <div class="module-stacked">
-                                <div class="module-standard">
-                                    <span class="helplink">
-                                    <a  class="help">
+                            <div className="module-stacked">
+                                <div className="module-standard">
+                                    <span className="helplink">
+                                    <a  className="help">
                                     Need help picking your seat?</a>
                                     </span>
-                                    <h2 class="header-secondary">Pick Your Seats</h2>
+                                    <h2 className="header-secondary">Pick Your Seats</h2>
                                     <div id="seatpickerHeader"> 
                                         <div id="seatLegend">
-                                            <ul class="seatDivs">
-                                                <li><div class="availableSeat"></div> Available</li>
-                                                <li><div class="unavailableSeat"></div> Unavailable</li>
-                                                <li><div class="selectedSeat"></div> Selected</li>
-                                                <li><div class="availableSeat wheelchair"></div> Accessible</li>
+                                            <ul className="seatDivs">
+                                                <li><div className="availableSeat"></div> Available</li>
+                                                <li><div className="unavailableSeat"></div> Unavailable</li>
+                                                <li><div className="selectedSeat"></div> Selected</li>
+                                                <li><div className="availableSeat wheelchair"></div> Accessible</li>
                                             </ul>
                                         </div>
                                         <div id="TitleManualSelection">
-                                            <p class="notes">Note that the system will not allow you to leave a single unoccupied seat in between selected seats.</p>
+                                            <p className="notes">Note that the system will not allow you to leave a single unoccupied seat in between selected seats.</p>
                                         </div>
                                     </div>   
                                 </div>
-                                <div id="seatPickerContainerDesktop" class="module-standard module-no-padding">
+                                <div id="seatPickerContainerDesktop" className="module-standard module-no-padding">
                                     <div id="mapZoom" style={styleseatPicker} ref="mapZoom">
                                     </div>
                                     <div onMouseOut={this.onMouseOut}>
@@ -195,75 +216,75 @@ export default class seatpicker extends React.Component {
                                     </div>
                                     <canvas id="map" width="1600" height="1600" style={styleCanvas}  ref="map" ></canvas>
                                 </div> 
-                                <div id="seatpickerFooter" class="module-standard">
+                                <div id="seatpickerFooter" className="module-standard">
                                     <section>
-                                        <div id="navigation-bar" class="buttonContainer">
-                                            <span class="newshowtimelink"><a href="ticketboxoffice.aspx?mid=209375&amp;tid=AAFQQ">Select new showtime</a></span>
-                                            <input type="submit" name="NextButton" value="Continue" onclick="" id="NextButton" class="button primary medium"/>
+                                        <div id="navigation-bar" className="buttonContainer">
+                                            <span className="newshowtimelink"><a href="ticketboxoffice.aspx?mid=209375&amp;tid=AAFQQ">Select new showtime</a></span>
+                                            <input type="submit" name="NextButton" value="Continue" onclick="" id="NextButton" className="button primary medium"/>
                                         </div>
                                     </section>
                                 </div>
                             </div>
                         </div>
-                        <div class="side">                   
-                            <div class="module-standard module-timer collapseEmpty"> 
-                                <div id="timer" class="remove">
-                                    <span class="timerText">Time to complete your order: </span>
-                                    <span class="countdown" id="countdownTimer">6:41</span>
+                        <div className="side">                   
+                            <div className="module-standard module-timer collapseEmpty"> 
+                                <div id="timer" className="remove">
+                                    <span className="timerText">Time to complete your order: </span>
+                                    <span className="countdown" id="countdownTimer">6:41</span>
                                 </div>
                             </div>
-                            <div class="module-standard">  
+                            <div style={styleModuleStandard} className="module-standard">  
                                 <div id="movieTicketSummary"> 
-                                    <div class="moviePoster">
+                                    <div className="moviePoster">
                                         <img id="moviePosterImage" alt="" src="https://images.fandango.com/r1.0.589/ImageRenderer/180/272/redesign/static/img/default_poster_128x190.png/209375/images/masterrepository/fandango/209375/ifeelpretty_onesheet_rgb_10.jpg"/>
                                     </div>
-                                    <div class="movieInfo"> 
-                                        <ul class="movie-specs">
-                                            <li class="title"><h3 id="movieTitle">I Feel Pretty</h3></li>
-                                            <li class="info"><span id="ratingInfo" class="emptyCheck">PG-13</span><span id="ratingSeparator" class="separator emptyCheck">, </span><span class="emptyCheck" id="runtimeInfo">1 hr 50 min</span></li>
+                                    <div className="movieInfo"> 
+                                        <ul className="movie-specs">
+                                            <li className="title"><h3 id="movieTitle">I Feel Pretty</h3></li>
+                                            <li className="info"><span id="ratingInfo" className="emptyCheck">PG-13</span><span id="ratingSeparator" className="separator emptyCheck">, </span><span className="emptyCheck" id="runtimeInfo">1 hr 50 min</span></li>
                                         </ul>
-                                        <ul class="movie-other-specs">
+                                        <ul className="movie-other-specs">
                                             <li><h2 id="movieDate"></h2></li>
                                             <li>
                                                 <h2 id="movieTime"></h2>
-                                                <span class=""></span>                
-                                                <div class="emptyCheck remove" id="lateNightShowtimeMesg"></div>
+                                                <span className=""></span>                
+                                                <div className="emptyCheck remove" id="lateNightShowtimeMesg"></div>
                                             </li>
                                         </ul>
-                                        <ul class="movie-other-specs">
+                                        <ul className="movie-other-specs">
                                             <li><h2 id="theaterName">CineLux Almaden Cafe &amp; Lounge</h2></li>
                                             <li id="theaterAddress">
-                                                <a id="maplink" href="#" target="_blank" class="emptyCheck">2306 Almaden Road<br/>San Jose, CA 95125</a> 
+                                                <a id="maplink" href="#" target="_blank" className="emptyCheck">2306 Almaden Road<br/>San Jose, CA 95125</a> 
                                             </li>
-                                            <li class="auditorium"><h2 id="auditoriumInfo" class="emptyCheck">Auditorium 1</h2></li>
-                                            <li class="seats"><div id="selectedSeatIDsLabel" class="faded">Seats not selected</div> <div id="selectedSeatIDs"></div></li>
-                                            <li class="agePolicy emptyCheck"><a href="#">Cinelux Theatres Age Policy</a></li>
+                                            <li className="auditorium"><h2 id="auditoriumInfo" className="emptyCheck">Auditorium 1</h2></li>
+                                            <li className="seats"><div id="selectedSeatIDsLabel" className="faded">Seats not selected</div> <div id="selectedSeatIDs"></div></li>
+                                            <li className="agePolicy emptyCheck"><a href="#">Cinelux Theatres Age Policy</a></li>
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="module-standard">
+                                <div className="module-standard">
                                     <div id="orderSummary">
                                         <div id="IDRequiredMessage">
                                         <table>
-                                            <tbody><tr class="ticketTypeRow pricing">
-                                                <td class="type heading">
-                                                    <span class="ticketTypeHeading">General</span>
+                                            <tbody><tr className="ticketTypeRow pricing">
+                                                <td className="type heading">
+                                                    <span className="ticketTypeHeading">General</span>
                                                 </td>
-                                                <td class="price">3 x $10.00  = </td>
-                                                <td class="math">$30.00</td>
+                                                <td className="price">3 x $10.00  = </td>
+                                                <td className="math">$30.00</td>
                                             </tr>
-                                            <tr class="feesRow pricing">
-                                                <td class="type heading" colspan="2">
-                                                    <a onClick="this.toggleConvenienceFlyout">Convenience Fee</a>
+                                            <tr className="feesRow pricing">
+                                                <td className="type heading" colspan="2">
+                                                    <a onClick={this.toggleConvenienceFlyout}>Convenience Fee</a>
                                                     {convenienceFlyout}
                                                 </td>
-                                                <td class="math">$4.50</td>
+                                                <td className="math">$4.50</td>
                                             </tr>
-                                            <tr class="totalRow">
-                                                <td class="paymentLogo"><span class=""></span></td>
-                                                <td class="total-wrap">Total:</td>
-                                                <td class="">
-                                                    <span class="total" id="purchaseTotal">$34.50</span>
+                                            <tr className="totalRow">
+                                                <td className="paymentLogo"><span className=""></span></td>
+                                                <td className="total-wrap">Total:</td>
+                                                <td className="">
+                                                    <span className="total" id="purchaseTotal">$34.50</span>
                                                     <input name="OrderSummaryView$purchaseTotalHidden" type="hidden" id="OrderSummaryView_purchaseTotalHidden" value="34.50"/>
                                                 </td>
                                             </tr>
@@ -272,19 +293,19 @@ export default class seatpicker extends React.Component {
                                     </div>
                                     </div>
                             </div>
-                            <div class="module-standard module-cutout">  
-                                <p><a class="help helplink" href="">Need Help With Checkout?</a></p>                
+                            <div className="module-standard module-cutout">  
+                                <p><a className="help helplink" href="">Need Help With Checkout?</a></p>                
                             </div>
                         </div>
                     </div>
                 </div>
                 <div id="footerContainer">
-                    <div id="footer" class="commonContainer">
+                    <div id="footer" className="commonContainer">
                         <div id="contents">         
                             <p> 
-                                <a onclick="" class="purchaseFooterLink" href="http://www.fandango.com/privacypolicy.aspx"> Your Privacy Rights - Privacy Policy</a> |                  
-                                <a onclick="" class="purchaseFooterLink" href="http://www.fandango.com/terms-and-policies">Terms and Policies</a> | 
-                                <a onclick="" class="purchaseFooterLink" href="http://www.fandango.com/movie-ticket-policy">Movie Ticket Policy</a> | 
+                                <a onclick="" className="purchaseFooterLink" href="http://www.fandango.com/privacypolicy.aspx"> Your Privacy Rights - Privacy Policy</a> |                  
+                                <a onclick="" className="purchaseFooterLink" href="http://www.fandango.com/terms-and-policies">Terms and Policies</a> | 
+                                <a onclick="" className="purchaseFooterLink" href="http://www.fandango.com/movie-ticket-policy">Movie Ticket Policy</a> | 
                                 <a href="#" data-reveal-id="lb_worryFreeTickets" onclick="$('#lb_worryFreeTickets').foundation('reveal','open');return false;">Refunds and Exchanges</a>
                             </p>    
                             
