@@ -49,6 +49,24 @@ router
 
 router
     .route('/movie/:mid')
-    .put(movies.updateMovie)
+    .put(movies.updateMovie);
+
+router
+    .route('/hall')
+    .post(moviehalls.createMovieHall);
+
+router
+    .route('/hall/:mid')
+    .get(moviehalls.getMovieHallSeats);
+
+router
+    .route('/halls')
+    .get(moviehalls.getMovieHalls);
+
+
+router
+    .route('/hall/:hid')
+    .put(moviehalls.updateMovieHall);
+
 
 module.exports = router;
