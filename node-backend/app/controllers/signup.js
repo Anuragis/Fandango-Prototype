@@ -15,21 +15,25 @@ module.exports.signUp = function(req,res,next){
         console.log('Password must be at least 4 characters');
     }
     usersModel.findOne({email: req.body.email},function(err, user) {
+        let type= req.body.type;
+        type=type||"user";
+
         if(user){
             console.log('email already exist');
             res.send();
         } else {
-                newUser.userId          = req.body.username,
-                newUser.fName           = req.body.fName,
-                newUser.lName           = req.body.lName,
-                newUser.address         = req.body.address,
-                newUser.city            = req.body.city,
-                newUser.state           = req.body.state,
-                newUser.zipCode         = req.body.zipCode,
-                newUser.phoneNumber     = req.body.phoneNumber,
-                newUser.email           = req.body.email,
-                newUser.profileImage    = req.body.profileImage,
-                newUser.type            = req.body.type,
+                newUser.fName           = req.body.fName;
+                newUser.lName           = null;
+                newUser.address         = null;
+                newUser.city            = null;
+                newUser.state           = null;
+                newUser.zipCode         = null;
+                newUser.phoneNumber     = null;
+                newUser.email           = req.body.email;
+                newUser.profileImage    = null;
+                newUser.creditCard      = null;
+                newUser.userType        = type;
+                newUser.status          ="active";
 
                 bcrypt.genSalt(10, (err, salt) => {
                   bcrypt.hash(req.body.password, salt, (err, hash) => {
