@@ -67,9 +67,6 @@ router
     .route('/hall')
     .post(moviehalls.createMovieHall);
 
-router
-    .route('/hall/:mid')
-    .get(moviehalls.getMovieHallSeats);
 
 router
     .route('/halls')
@@ -79,6 +76,11 @@ router
 router
     .route('/hall/:hid')
     .put(moviehalls.updateMovieHall);
+
+
+router
+    .route('/hall/:moviename')
+    .get(moviehalls.getHallByMovieName);
 
 
 module.exports = router;
