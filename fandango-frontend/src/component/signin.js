@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-export default class Signin extends Component {
+export default class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -10,7 +10,9 @@ export default class Signin extends Component {
 
   render() {
     return(
-      <div>Sign In Page</div>
+      <div>
+
+      </div>
     );
   }
 }
