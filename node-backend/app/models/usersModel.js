@@ -9,21 +9,22 @@ var connection = mongoose.createConnection('mongodb://cmpeuser:cmpepass@ds247569
     var usersSchema = new Schema({
        password: { type : String, required : true },
        fName: { type :  String, required : true },
-       lName: { type : String, required : true },
+       lName: { type : String, required : false },
        email: { type : String, required : true },
-       address: { type : String, required : true },
-       city: { type : String, required : true },
-       state: { type : String, required : true },
-       zipCode: { type : String, required : true },
-       phoneNumber: { type : String, required : true },
-       profileImage: { type : String, required : true },
+       address: { type : String, required : false },
+       city: { type : String, required : false },
+       state: { type : String, required : false },
+       zipCode: { type : String, required : false },
+       phoneNumber: { type : String, required : false},
+       profileImage: { type : String, required : false },
        creditCard:{
-           cardNumber:{type:String,required:true},
-           nameOnCard: {type:String,required:true},
-           expiry:{type:String,required:true},
-           cvv:{type:String,required:true}
+           cardNumber:{type:String,required:false},
+           nameOnCard: {type:String,required:false},
+           expiry:{type:String,required:false},
+           cvv:{type:String,required:false}
        },
-       userType: { type : String, required : true }
+       userType: { type : String, required : true },
+       status:{type:String, required:true}
     });
 
     
