@@ -190,8 +190,7 @@ export default class seatpicker extends React.Component {
                             <div className="module-stacked">
                                 <div className="module-standard">
                                     <span className="helplink">
-                                    <a  className="help">
-                                    Need help picking your seat?</a>
+                                    <a  className="help">Need help picking your seat?</a>
                                     </span>
                                     <h2 className="header-secondary">Pick Your Seats</h2>
                                     <div id="seatpickerHeader"> 
