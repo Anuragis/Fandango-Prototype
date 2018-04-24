@@ -56,11 +56,10 @@ module.exports.createMovieHall = function(req,res,next){
     newMovieHall.status="active";
    // console.log("Halle", newMovieHall);
    newMovieHall.save(function(err,hall) {
-        console.log("Error in movie hall Creation");
         if (err){
             throw err;
         }
-        console.log("Movie Hall Created: ", hall);
+       
         res.send();
     })
    
@@ -71,7 +70,7 @@ module.exports.getMovieHalls=function(req,res,next){
     movieHallsModel.find({}, function(err, halls) {
 
     if(err){
-        console.log("Get movie error", err);
+       // console.log("Get movie error", err);
     }else{
         var movieHallMap = [];
         halls.map(hall=>{
@@ -100,8 +99,6 @@ module.exports.getMovieHalls=function(req,res,next){
 module.exports.updateMovieHall=function(req,res,next){
     
     var hid =  req.params.hid;
-
-    console.log("Screens",req.body.screens);
     movieHallsModel.findOneAndUpdate({ _id : req.params.hid}, { $set : { 
         hallName:req.body.hallName,
         hallAddress:req.body.hallAddress,
@@ -128,7 +125,6 @@ module.exports.getHallByMovieName=function(req,res,next){
             throw err;
 
             halls.map(function(hall){ 
-                console.log("One hall object",hall);
                 return hall.screens.filter(function(screen){ 
                         if(screen.movieName===req.params.moviename){
                            resHall.push(hall);

@@ -24,7 +24,7 @@ module.exports.createMovie = function(req,res,next){
             if (err){
                 throw err;
             }
-            console.log("Movie Created: ", movie);
+           
             res.send();
         })
 
@@ -46,8 +46,6 @@ module.exports.deleteMovie = function(req,res,next){
 
 
 module.exports.getAllMovies = function(req,res,next){
-
-    console.log("Inside Movie Get all");
     moviesModel.find({}, function(err, movies) {
 
     if(err){
@@ -81,7 +79,7 @@ module.exports.getAllMovies = function(req,res,next){
 }
 
 module.exports.getMovieByCategory =function(req,res,next){
-    console.log("Inside Movie Get by category all");
+    
     moviesModel.find({}, function(err, movies) {
 
     if(err){
@@ -116,7 +114,7 @@ module.exports.getMovieByCategory =function(req,res,next){
 
 
 module.exports.getMovieById=function(req,res,next){
-    console.log("Inside Movie Get by id ",req.params.mid);
+
     moviesModel.findOne({_id:req.params.mid}, function(err, movie) {
 
     if(err){
@@ -129,9 +127,9 @@ module.exports.getMovieById=function(req,res,next){
 
 
 module.exports.updateMovie=function(req,res,next){
-    console.log("req body for update a movie", req.params);
+   
     var mid =  req.params.mid;
-    console.log("Movie Id in update:" ,mid);
+   
 
     moviesModel.findOneAndUpdate({ _id : req.params.mid}, { $set : { 
         movieTitle:req.body.movieTitle,
@@ -151,7 +149,7 @@ module.exports.updateMovie=function(req,res,next){
         console.log("Movie id",mid);
         if (err)
             throw err;
-        console.log("Movie affected", movie);
+     
         res.end();
     })
 }
