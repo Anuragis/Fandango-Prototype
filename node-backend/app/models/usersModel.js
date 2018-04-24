@@ -24,7 +24,7 @@ autoIncrement.initialize(connection);
            expiry:{type:String,required:true},
            cvv:{type:String,required:true}
        },
-       usertype: { type : String, required : true }
+       userType: { type : String, required : true }
     });
 
     usersSchema.plugin(autoIncrement.plugin, { model: 'users', field: 'userId', startAt: 1, });
