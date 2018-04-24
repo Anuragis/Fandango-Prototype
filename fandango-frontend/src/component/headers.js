@@ -268,7 +268,7 @@ export default class Header extends React.Component {
                 </li>
                 <li id="theatersTab" class="tablet-width-30 nonstandard-width">
                     <section class="has-dropdown"  style={{height:'70px',paddingTop : '25px'}}>
-                        <h3><a style = {{color : 'white'}} id="local-movies-link" href="/95126_movietimes">Movie Times + Tickets</a></h3>
+                        <h3><a style = {{color : 'white'}} id="local-movies-link" href="/movieTimeTicket">Movie Times + Tickets</a></h3>
                         <div class="mega-menu">
                             <div class="row">
                                 <div id="theatersList" class="width-75 tablet-width-100"><header class="list-local-theaters">
