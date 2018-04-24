@@ -2,10 +2,9 @@
 var mongoose = require('../connections/mongo');
 const Schema = mongoose.Schema;
 
-var autoIncrement = require("mongoose-auto-increment");
 var connection = mongoose.createConnection('mongodb://cmpeuser:cmpepass@ds247569.mlab.com:47569/fandango_system');
 
-autoIncrement.initialize(connection);
+
 
     var usersSchema = new Schema({
        password: { type : String, required : true },
@@ -27,5 +26,5 @@ autoIncrement.initialize(connection);
        userType: { type : String, required : true }
     });
 
-    usersSchema.plugin(autoIncrement.plugin, { model: 'users', field: 'userId', startAt: 1, });
+    
 module.exports = mongoose.model('users', usersSchema);
