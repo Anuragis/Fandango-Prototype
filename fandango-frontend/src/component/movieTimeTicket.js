@@ -1,14 +1,33 @@
 import React, { Component } from 'react';
 import Header from './headers';
 import Footer from './footer';
+import axios from 'axios';
 
 
 class MovieTimeTicket extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+        halls : []
+    }
   }
   
   componentDidMount(){
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
+    axios('http://localhost:8900/halls', {
+            method: 'get',
+            mode: 'cors',
+            // redirect: 'follow',
+            // withCredentials: true,
+            headers: headers,
+        })
+        .then((response) => {
+            this.setState({
+                halls : this.state.halls.concat(response.data)
+            });
+        });
     document.getElementById("scroll-date-picker__list").style.left = "0px";
   }
 
@@ -34,7 +53,98 @@ class MovieTimeTicket extends Component {
     }
   }
 
+  
+
+
   render() {
+    let movieData = null, movieTimings = null;
+let hallData = this.state.halls.map(hall => {
+	movieData = hall.screens.map(movie => {
+		movieTimings = movie.movieTimings.map(timings => {
+			return(
+				
+					<li class="fd-movie__btn-list-item">
+                        <a class="btn showtime-btn showtime-btn--available" href="#">{timings.movieTime}</a>
+                    </li>
+				
+			)
+		})
+		return(
+			<ul>
+				<li class="fd-movie">
+					<div class="fd-movie__poster">
+						<a href="/mercury-2018-210358/movie-overview">
+							<img src="https://images.fandango.com/ImageRenderer/200/0/redesign/static/img/default_poster.png/0/images/MasterRepository/fandango/210358/mercury-Vertical3.jpg" alt="" />
+						</a>
+					</div>
+					<div class="fd-movie__details">
+						<h3 class="fd-movie__title font-sans-serif font-lg font-300 uppercase">
+							<a class="dark" href="/mercury-2018-210358/movie-overview">{movie.movieName}</a>
+							{/*<button class="icon icon-follow-gray fd-movie__follow-icon js-heartsAndStars-heart" data-type="Movie" data-id="210358" data-name="Mercury (2018)" data-is-favorite="false"></button>*/}
+						</h3>
+						<div class="fd-star-rating__container">
+							{/*<div class="js-fd-star-rating fd-star-rating " data-star-rating="5">
+								<a class="fd-star-rating__star icon icon-star-rating-small js-heartsAndStars-star" data-action="rate" data-id="210358" data-isnew="true" data-show-caption="true" data-value="5" title="Loved It"></a>
+								<a class="fd-star-rating__star icon icon-star-rating-small js-heartsAndStars-star" data-action="rate" data-id="210358" data-isnew="true" data-show-caption="true" data-value="4" title="Really Liked It"></a>
+								<a class="fd-star-rating__star icon icon-star-rating-small js-heartsAndStars-star" data-action="rate" data-id="210358" data-isnew="true" data-show-caption="true" data-value="3" title="Liked It"></a>
+								<a class="fd-star-rating__star icon icon-star-rating-small js-heartsAndStars-star" data-action="rate" data-id="210358" data-isnew="true" data-show-caption="true" data-value="2" title="Disliked It"></a>
+								<a class="fd-star-rating__star icon icon-star-rating-small js-heartsAndStars-star" data-action="rate" data-id="210358" data-isnew="true" data-show-caption="true" data-value="1" title="Hated It"></a>
+                            </div>*/}
+						</div>
+						<p class="fd-movie__rating-runtime">
+								{movie.movieLength}<br />
+								{movie.movieCategory}
+							  </p>
+						</div>
+						<ul class="fd-movie__showtimes">
+							<li	class="fd-movie__showtimes-variant">
+								<h3 class="fd-movie__showtimes__tick-headline font-serif">
+									<span class="icon icon-ticket"></span>
+									Select a movie time to buy Standard Showtimes
+								</h3>
+								<ul class="fd-movie__amentiy-list"></ul>
+								<ol class="fd-movie__btn-list">
+									{movieTimings}
+								</ol>
+								
+							</li>
+						</ul>
+				</li>
+			</ul>
+		);
+		
+	})
+	return(
+		<ul>
+			<li class="fd-theater" data-theater-id="AAFRF">
+				<div class="fd-theater__header">
+					<div class="fd-theater__promoted-amenity-wrap">
+						<span class="icon icon-amenity-print-at-home-tickets fd-theater__promoted-amenity js-amenity" data-amenity-name="Print at Home Tickets" data-amenity-desc="Print your tickets, go directly to the ticket taker and skip the box office line at many theaters.">Print at Home Tickets</span>
+						<span class="icon icon-amenity-mobile-tickets fd-theater__promoted-amenity js-amenity" data-amenity-name="Mobile Tickets" data-amenity-desc="Send your ticket to your mobile device, go directly to the ticket taker and skip the box office line at many theaters.">Mobile Tickets</span>
+					</div>
+					<div class="fd-theater__name-wrap">
+						<h3 class="fd-theater__name font-sans-serif font-lg font-300 uppercase">
+							<a class="light">{hall.hallName}</a>
+							<button class="icon icon-follow-white fd-theater__follow-icon js-heartsAndStars-heart" data-type="Theater" data-id="AAFRF" data-name="Towne 3 Cinemas" data-is-favorite="false"></button>
+						</h3>
+					</div>
+					<div class="fd-theater__address-wrap">
+                        <span>{hall.hallAddress},</span>
+                        <span>{hall.hallCity},{hall.hallState} {hall.hallZipCode}</span>
+                    </div>
+					<div class="fd-theater__links">
+                        <a rel="nofollow" class="font-sans-serif-cond font-sm">MAP</a>
+                        <a class="fd-theater__amenities js-amenity font-sans-serif-cond font-sm" href="#" data-amenity-name="Theater Amenities" data-amenity-desc="<ul class=&quot;fd-theater__amenities-list&quot;><li>Print at Home Tickets</li><li>Mobile Tickets</li></ul>">AMENITIES</a>
+                    </div>
+				</div>
+				{movieData}
+				
+			</li>
+		</ul>
+	)
+	
+})
+    console.log("Response Recieved : ", this.state.halls);
     return (
     <div>
       <Header />
@@ -691,7 +801,7 @@ class MovieTimeTicket extends Component {
                             Printer Friendly
                         </a>
                     </div>
-                    <ul>
+                    {/*<ul>
                       <li class="fd-theater" data-theater-id="AAFRF">
                         <div class="fd-theater__header">
                             <div class="fd-theater__promoted-amenity-wrap">
@@ -786,7 +896,8 @@ class MovieTimeTicket extends Component {
                             <a href="/towne-3-cinemas-AAFRF/theater-page" class="btn">See Coming Attractions</a>
                         </div>
                       </li>
-                    </ul>
+                    </ul>*/}
+                    {hallData}
                     {/* <div class="csspinner js-spinner"></div> */}
                     <div class="hide fd-showtimes__error-msg js-fd-showtimes__error-msg"></div>
                   </div>

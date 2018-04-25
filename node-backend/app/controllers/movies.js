@@ -38,7 +38,7 @@ module.exports.deleteMovie = function(req,res,next){
         console.log("Movie id",mid);
         if (err)
             throw err;
-        console.log("Movie affected", movie);
+        res.send();
     })
 }
 
