@@ -27,8 +27,6 @@ module.exports.createMovie = function(req,res,next){
            
             res.send();
         })
-
-
 }
 
 module.exports.deleteMovie = function(req,res,next){
