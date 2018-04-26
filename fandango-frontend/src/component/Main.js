@@ -11,6 +11,8 @@ import signup from './signup';
 import MovieTimeTicket from './movieTimeTicket';
 import checkout from './checkout';
 import confirmation from './confirmation';
+import adminMovieDash from './adminMovieDash';
+import adminAddMovie from './adminAddMovie';
 
 const Main = () => (
     <Switch>
@@ -25,6 +27,8 @@ const Main = () => (
         <Route path = '/movieTimeTicket' component={MovieTimeTicket}/>
         <Route path = '/transaction/checkout' component={checkout} />
         <Route path = '/transaction/confirmation' component={confirmation} />
+        <Route path = '/moviedash' component={adminMovieDash} />
+        <Route path = '/addmovie' component={adminAddMovie} />
     </Switch>
 )
 
