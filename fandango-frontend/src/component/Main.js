@@ -8,7 +8,8 @@ import seatpicker from './seatpicker';
 import admin from './admin';
 import signin from './signin';
 import signup from './signup';
-import MovieTimeTicket from './movieTimeTicket';
+//import MovieTimeTicket from './movieTimeTicket';
+import MovieTimeHalls from './movieTimeHalls';
 
 const Main = () => (
     <Switch>
@@ -20,7 +21,7 @@ const Main = () => (
         <Route path = '/admin' component={admin}/>
         <Route path = '/signin' component={signin}/>
         <Route path = '/signup' component={signup}/>
-        <Route path = '/movieTimeTicket' component={MovieTimeTicket}/>
+        <Route path = '/movieTimeTicket' component={MovieTimeHalls}/>
     </Switch>
 )
 
