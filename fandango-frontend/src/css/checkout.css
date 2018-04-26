@@ -1,0 +1,182 @@
+.fandangoCredit {
+    margin: -25px 0 25px 0;
+    display: block;
+}
+
+fieldset {
+    border: none;
+    padding: 0;
+    position: relative;
+    margin: 0;
+}
+
+h3.payment-subheader {
+    font-size: 22px;
+}
+
+label#creditcard .visa, .totalRow .paymentLogo span.visa {
+    background-position: 0 0;
+    height: 38px;
+    width: 53px;
+}
+
+label#creditcard .amex, .totalRow .paymentLogo span.amex {
+    background-position: 0 -38px;
+    height: 39px;
+    width: 40px;
+}
+
+label#creditcard .mastercard, .totalRow .paymentLogo span.mastercard {
+    background-position: 0 -77px;
+    height: 33px;
+    width: 52px;
+}
+
+label#creditcard .discover, .totalRow .paymentLogo span.discover {
+    background-position: 0 -110px;
+    height: 32px;
+    width: 51px;
+}
+
+ul.payment li {
+    margin-top: 15px;
+}
+
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+
+.paymentRadio {
+    display: inline-block;
+}
+
+.form-stacked {
+    margin-top: 30px;
+}
+
+#creditCardNoInput {
+    font-size: 14px;
+    line-height: 16px;
+    font-family: "proxima-nova", Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    color: #4c4c4c;
+    border-radius: 3px;
+    background: #ebebeb;
+    border: 1px solid #929292;
+    padding: 9px 4px;
+    width: 50%;
+    display: inline;
+}
+
+.co-checkbox .checkbox input[type=checkbox], .checkbox-inline input[type=checkbox], .radio input[type=radio], .radio-inline input[type=radio] {
+    margin: 0px;
+}
+
+label {
+    display: block;
+    margin-bottom: 15px;
+    color: #4d4d4d;
+}
+
+label {
+    font-size: 0.875rem;
+    color: #4d4d4d;
+    cursor: pointer;
+    display: block;
+    font-weight: normal;
+    line-height: 1.5;
+    margin-bottom: 0;
+}
+
+label#creditcard span, .totalRow .paymentLogo span.creditcard {
+    background: url(../assets/images/credit-card-sprite.png) no-repeat scroll 0 0 transparent;
+    display: inline-block;
+    margin: 0;
+    vertical-align: middle;
+    margin-right: 9px;
+}
+label span {
+    text-transform: lowercase;
+}
+
+.expMonthDropdown select, .expYearDropdown select {
+    background: url(../assets/images/redesign_sprite.png) no-repeat scroll 100% -135px #ebebeb;
+    border: 1px solid #4c4c4c;
+    -webkit-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+}
+
+.form-stacked label {
+    display: block;
+    margin-bottom: 1px;
+}
+
+.fieldContainer {
+    display: inline-block;
+    float: none;
+    margin-right: 10 px;
+}
+
+.inline {
+    display: inline-block;
+}
+
+.expMonthDropdown {
+    display: inline-block;
+    margin-right: 7px;
+    width: 142px;
+}
+
+.expYearDropdown {
+    display: inline-block;
+    width: 106px;
+}
+
+.customerInfo {
+    display: table;
+    vertical-align: bottom;
+    margin-bottom: 10px;
+}
+
+.fieldContainer input {
+    font-size: 14px;
+    line-height: 16px;
+    font-family: "proxima-nova", Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    color: #4c4c4c;
+    border-radius: 3px;
+    background: #ebebeb;
+    border: 1px solid #929292;
+    padding: 9px 4px;
+}
+
+.customerInfo .fieldContainer {
+    float: none;
+    margin-bottom: 0px;
+    margin-right: 20px;
+    width: 250px;   
+}
+
+.co-buttonContainer button, .co-buttonContainer .button {
+    margin-bottom: 0px;
+    float: right;
+    font-size: 16px;
+    background: #ff7900;
+    color: #fff;
+    padding: 13px 17px 10px;
+}
+
+.completePurchase p {
+    font-family: inherit;
+    font-weight: normal;
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+    text-rendering: optimizeLegibility;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+#completePurchase {
+    margin-top: -22px;
+}

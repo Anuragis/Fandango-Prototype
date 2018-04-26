@@ -25,11 +25,16 @@ passport.use(new LocalStrategy( function(username, password, done) {
 }));
 
 module.exports.signIn = function(req,res,next){
-
+  Object.keys(req.body).forEach(function(key){
+    req.body = JSON.parse(key);
+});  
+  console.log("req body", req.body);
     console.log('signIN ROUTE');
     var username = req.body.username;
     var password = req.body.password;
     var resData;
+    console.log("u", username);
+    console.log("p", password);
     passport.authenticate('local',function(err,result){
         console.log("pass auth");
         if(err){

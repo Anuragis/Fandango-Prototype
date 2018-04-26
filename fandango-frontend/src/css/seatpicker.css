@@ -415,7 +415,7 @@ h2, h2.header-secondary {
     display: block;
 }
 
-.section-header {
+.sp-section-header {
     border-bottom: 10px solid #4c4c4c;
     color: #4c4c4c;
     margin: 10 0 20px;
@@ -425,10 +425,10 @@ h2, h2.header-secondary {
     font-size: 38px;
     display: inline-block;
     line-height: 29px;
-    margin-top: 20px;
+    margin-top: 5px;
 }
 
-.section-header:after {
+.sp-section-header:after {
     background: none repeat scroll 0 0 #ebebeb;
     width: 12px;
     content: "";
@@ -618,11 +618,12 @@ section:after {
     display: block;
 }
 
-.buttonContainer {
+.sp-buttonContainer {
     display: block;
+    margin-top: -30px;
 }
 
-.buttonContainer .buttonHolder, .buttonContainer .button:after, .buttonContainer button:after, .buttonContainer:after {
+.sp-buttonContainer .sp-buttonHolder, .sp-buttonContainer .sp-button:after, .sp-buttonContainer button:after, .sp-buttonContainer:after {
     content: "";
     clear: both;
     height: 1px;
@@ -630,7 +631,7 @@ section:after {
     display: block;
 }
 
-.button, button, .btn {
+.sp-button, button, .btn {
     background: none repeat scroll 0 0 #F15500;
     border: medium none;
     border-radius: 4px;
@@ -651,12 +652,12 @@ section:after {
     transition: all 0.3s ease 0s;
 }
 
-.button.disabled:hover, button.disabled:hover, .button[disabled]:hover, button[disabled]:hover, button.disabled, button[disabled], .button.disabled, .button[disabled], button:focus, .button:focus, button:hover, .button:hover, .button, button {
+.sp-button.disabled:hover, button.disabled:hover, .sp-button[disabled]:hover, button[disabled]:hover, button.disabled, button[disabled], .sp-button.disabled, .sp-button[disabled], button:focus, .sp-button:focus, button:hover, .sp-button:hover, .sp-button, button {
     font-size: 16px;
     padding: 14px 17px 11px;
 }
 
-.buttonContainer .buttonHolder, .buttonContainer button, .buttonContainer .button {
+.sp-buttonContainer .sp-buttonHolder, .sp-buttonContainer button, .sp-buttonContainer .sp-button {
     margin-bottom: 0px;
     float: right;
 }
@@ -780,6 +781,13 @@ h3.movieTitle, h3#movieTitle {
 
 #timer span {
     display: inline-block;
+    font-weight: normal;
+    float: right;
+    font-size: 28px;
+    vertical-align: bottom;
+    font-family: "alternate-gothic-no-1-d", "Futura Condensed", "Arial Narrow", Arial, sans-serif;
+    line-height: 27px;
+    margin-right: 10px;
 }
 
 #timer .timerText {

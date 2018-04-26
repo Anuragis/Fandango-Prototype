@@ -1,10 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Countdown from 'react-countdown-now';
+import {Link} from 'react-router-dom';
 import '../css/seatpicker.css';
 
 class Seathover extends React.Component {
     constructor(props) {
         super();
+        this.state = {
+            bgColor: '#4aa7f5', prevdisable: false, disable: false, msg : 'This seat is available'
+        }
         this.addFlyout = this.addFlyout.bind(this);
         this.toggleSelected = this.toggleSelected.bind(this);
     }
@@ -12,11 +17,39 @@ class Seathover extends React.Component {
         this.props.onHover(this.props.index);
     }
     toggleSelected = (index) => {
-        this.props.toggleSelected(this.props.index);
-        // if(this.props.selected.includes(index)) {
-        //     this.setState({ selected: false });
-        // }
-        // else this.setState({ selected: this.state.selected.concat(index) })
+        if(!this.state.disable) {
+            this.props.toggleSelected(this.props.index);
+            this.setState({
+                bgColor : '#f15500'==this.state.bgColor?(this.props.booked==2?'#085aa4':'#4aa7f5'):'#f15500', msg : ("You Selected this seat"==this.state.msg)?"This seat is available":"You Selected this seat"
+            })
+        }
+    }
+
+    componentWillMount() {
+        if(this.props.booked==1) {
+            this.setState({
+                bgColor: '#DDDDDD', msg: 'This seat is not available', disable: true, prevdisable: true
+            })
+        }
+        if(this.props.booked==2) {
+            this.setState({
+                bgColor: '#085aa4', msg: 'This seat is available', disable: false, prevdisable: false
+            })
+        }
+    }
+
+    componentWillReceiveProps() {
+        console.log("will mount");
+        if(this.props.disabling && (!this.props.selected.includes(this.props.index))) {
+            this.setState({
+                disable: true
+            })
+        }
+        else {
+            this.setState({
+                disable: this.state.prevdisable
+            })
+        }
     }
     render() {
         const styleFlyout = {
@@ -26,7 +59,9 @@ class Seathover extends React.Component {
             top: '326.087px',
             zIndex: '3000'
         }
-        
+
+        let bgStyle = {};
+        bgStyle['backgroundColor'] = this.state.bgColor;
         let hoverBox = null;
         if(this.props.hover==this.props.index) {
             var rect = ReactDOM.findDOMNode(this.refs.flyout).getBoundingClientRect()
@@ -34,22 +69,23 @@ class Seathover extends React.Component {
             styleFlyout.top = -92;//rect.top - (rect.height + 8);
             console.log("rect", rect);
             console.log("style", styleFlyout);
+            if(!this.state.disable) bgStyle['backgroundColor'] = '#f15500'
             hoverBox = ( 
                     <div id="flyoutContainer" style={styleFlyout} className="seatFlyout" >
                         <div id="flyoutContent">
                             <span className="flyoutSeat"><strong>Seat:  {this.props.index}<br/></strong></span>
-                            <p>This seat is available</p>
+                            <p>{this.state.msg}</p>
                         </div>
                         <div id="flyoutBoxTailLeft"></div>
                     </div>
             )
         }
-        let bgStyle = null
-            return (
-                <div id={this.props.index} onMouseOver={this.addFlyout} ref="flyout" style={bgStyle} onClick={this.toggleSelected}>
-                    {hoverBox}
-                </div>
-            );
+        
+        return (
+            <div id={this.props.index} onMouseOver={this.addFlyout} ref="flyout" style={bgStyle} onClick={this.toggleSelected}>
+                {hoverBox}
+            </div>
+        );
     }
 }
 
@@ -58,13 +94,19 @@ export default class seatpicker extends React.Component {
         super();
 
         this.state = {
-             selected: [], hover: "" , convenienceFlyout: false
+             selected: [], hover: "" , convenienceFlyout: false, disable: false
         }
 
         this.onHover = this.onHover.bind(this);
         this.drawCanvas = this.drawCanvas.bind(this);
         this.toggleConvenienceFlyout = this.toggleConvenienceFlyout.bind(this);
-        
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    componentWillMount() {
+        this.setState({
+            prevState: JSON.parse(localStorage.getItem('ticketBoxOfficeState'))
+        })
     }
     
     componentDidMount() {
@@ -91,6 +133,12 @@ export default class seatpicker extends React.Component {
         ctx.strokeRect(930.709, 601.374, 37.275, 37.249);
     }
 
+    handleSubmit = (e) => {
+        let storeObject = {};
+        storeObject['seats'] = this.state.selected;
+        localStorage.setItem('seatPicker', JSON.stringify(storeObject));
+    }
+
     onMouseOut = () => {
         this.setState({ hover: "" });
     }
@@ -108,7 +156,19 @@ export default class seatpicker extends React.Component {
                 selected: this.state.selected.filter((i) => i !== index)
               });
         }
-        else this.setState({ selected: this.state.selected.concat(index) })
+        else this.setState({ selected: this.state.selected.concat(index) });
+        console.log("totalticket",this.state.prevState.totalTickets);
+        console.log("selected length",this.state.selected.length);
+        if(this.state.prevState.totalTickets == (this.state.selected.length+1)) {
+            this.setState({
+                disable: true
+            })
+        }
+        else {
+            this.setState({
+                disable: false
+            })
+        }
     }
 
     render() {
@@ -120,11 +180,29 @@ export default class seatpicker extends React.Component {
         }
         let seatArray = ['M9','M8','M7','M6','M5','M4','M3','M2','M1','L9','L8','L7','L6','L5','L4','L3','L2','L1','K9','K8','K7','K6','K5','K4','K3','K2','K1','J10','J9','J8','J7','J6','J5','J4','J3','J2','J1','I11','I10','I9','I8','I7','I6','I5','I4','I3','I2','I1','H13','H12','H11','H10','H9','H8','H7','H6','H5','H4','H3','H2','H1','G14','G13','G12','G11','G10','G9','G8','G7','G6','G5','G4','G3','G2','G1','F15','F14','F13','F12','F11','F10','F9','F8','F7','F6','F5','F4','F3','F2','F1','E16','E15','E14','E13','E12','E11','E10','E9','E8','E7','E6','E5','E4','E3','E2','E1','D14','D13','D12','D11','D10','D9','D8','D7','D6','D5','D4','D3','D2','D1','C17','C16','C15','C14','C13','C12','C11','C10','C9','C8','C7','C6','C5','C4','C3','C2','C1','B17','B16','B15','B14','B13','B12','B11','B10','B9','B8','B7','B6','B5','B4','B3','B2','B1','A15','A14','A13','A12','A11','A10','A9','A8','A7','A6','A5','A4','A3','A2','A1'];
         
+        let seatBooked = [1,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,1,2,2,2,2,0,0,2,2,2,2,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0];
+
         const styleModuleStandard = {
             marginTop: 0
         }
 
-        let seatsArrangement = seatArray.map(seat => {
+        let styleCont = null; let seatsError = null;
+        if(this.state.selected.length!=this.state.prevState.totalTickets) {
+            console.log("inside continue");
+            styleCont = {
+                pointerEvents: 'none'
+            }
+            seatsError = (
+                <p style={{color: 'red'}}>Seats selected does not match total number of Tickets</p>
+            )
+        }
+        else {
+            styleCont = {
+                marginTop: '10px'
+            }
+        }
+
+        let seatsArrangement = seatArray.map((seat, index) => {
             return (
                
                     <Seathover
@@ -133,35 +211,70 @@ export default class seatpicker extends React.Component {
                         hover={this.state.hover}
                         toggleSelected={this.toggleSelected}
                         selected={this.state.selected}
+                        disabling={this.state.disable}
+                        booked={seatBooked[index]}
                     ></Seathover>
                 
             );
         })
 
-        let convenienceFlyout = null;
-        if(this.state.convenienceFlyout) {
-            convenienceFlyout = (
-                <div className="convenienceFeeFlyout">
-                    <table>
-                        <tbody>
-                            <tr className="closeBox">
-                                <td colspan="4"><a onClick={this.toggleConvenienceFlyout}>X</a></td>
-                            </tr>
-                            <tr>
-                                <td colspan="4" className="heading">Convenience fee includes:</td>
-                            </tr>
-                            <tr className="feesRow pricing">
-                                <td className="type">General</td>
-                                <td className="amt">3 x </td>
-                                <td className="price">$1.50 = </td>
-                                <td className="math">$4.50</td>
-                            </tr>
-                        </tbody>    
-                    </table>
-                </div>
-            );
-        }
+            let arr3 = ['General', 'Student', 'Child/Senior'];
+            let ticketPricing =  []; let ConveniencePricing = [];
+            arr3.forEach((heading, index) => {
+            // onePrice = () => {
+                index += 1;
+                if(this.state.prevState['row'+index+'Sum']!=0 && !isNaN(this.state.prevState['row'+index+'Sum'])) {
+                    let num = Number(this.state.prevState['row'+index+'Sum'])/10;
+                    if(index!=1) num *= 2;
+                    ticketPricing.push(
+                        <tr className="ticketTypeRow pricing">
+                            <td className="type heading">
+                                <span className="ticketTypeHeading">{heading}</span>
+                            </td>
+                            <td className="price">{num} x $10.00  = </td>
+                            <td className="math">${this.state.prevState['row'+index+'Sum'].toFixed(2)}</td>
+                        </tr>
+                    )
+                    ConveniencePricing.push (
+                        <tr className="feesRow pricing">
+                            <td className="type">{heading}</td>
+                            <td className="amt">{num} x </td>
+                            <td className="price">$1.50 = </td>
+                            <td className="math">${(num*1.5).toFixed(2)}</td>
+                        </tr>
+                    )
+                }
+            })
 
+            let convenienceFlyout = null;
+            if(this.state.convenienceFlyout) {
+                convenienceFlyout = (
+                    <div className="convenienceFeeFlyout">
+                        <table>
+                            <tbody>
+                                <tr className="closeBox">
+                                    <td colspan="4"><a onClick={this.toggleConvenienceFlyout}>X</a></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" className="heading">Convenience fee includes:</td>
+                                </tr>
+                                {ConveniencePricing}
+                            </tbody>    
+                        </table>
+                    </div>
+                );
+            }
+
+            const renderer = ({ minutes, seconds, completed }) => {
+                // if (completed) {
+                //   // Render a completed state
+                //   return <Completionist />;
+                // } else {
+                  // Render a countdown
+                  return <span>{minutes}:{seconds}</span>;
+                // }
+              }; 
+        
         return (
             <div id="siteContainer" className="ticketBoxoffice">
                 <div id="headerContainer" className="purchase detail on-order" name="HeaderContainer">
@@ -177,7 +290,7 @@ export default class seatpicker extends React.Component {
                 <div id="container" className="commonContainer">
                     <div className="row">
                         <div id="heading" className="main">
-                                <h1 className="section-header inline">Checkout</h1> 
+                                <h1 className="sp-section-header inline">Checkout</h1> 
                                 <ul className="breadcrumb">
                                     <li className="tickets complete"><i className="icon"></i>Tickets</li> 
                                     <li className="payment "><i className="icon"></i>Payment</li> 
@@ -217,9 +330,10 @@ export default class seatpicker extends React.Component {
                                 </div> 
                                 <div id="seatpickerFooter" className="module-standard">
                                     <section>
-                                        <div id="navigation-bar" className="buttonContainer">
-                                            <span className="newshowtimelink"><a href="ticketboxoffice.aspx?mid=209375&amp;tid=AAFQQ">Select new showtime</a></span>
-                                            <input type="submit" name="NextButton" value="Continue" onclick="" id="NextButton" className="button primary medium"/>
+                                        <span className="newshowtimelink"><a href="">Select new showtime</a>{seatsError}</span>
+                                        <div id="navigation-bar" className="sp-buttonContainer">
+                                            
+                                            <Link type="submit" to="/transaction/checkout" name="NextButton" value="Continue" onclick="this.handleSubmit" id="NextButton" style={styleCont} className="sp-button primary medium">Continue</Link>
                                         </div>
                                     </section>
                                 </div>
@@ -229,7 +343,7 @@ export default class seatpicker extends React.Component {
                             <div className="module-standard module-timer collapseEmpty"> 
                                 <div id="timer" className="remove">
                                     <span className="timerText">Time to complete your order: </span>
-                                    <span className="countdown" id="countdownTimer">6:41</span>
+                                    <span className="countdown" id="countdownTimer"><Countdown date={Date.now() + 500000} renderer={renderer} /></span>
                                 </div>
                             </div>
                             <div style={styleModuleStandard} className="module-standard">  
@@ -256,7 +370,7 @@ export default class seatpicker extends React.Component {
                                                 <a id="maplink" href="#" target="_blank" className="emptyCheck">2306 Almaden Road<br/>San Jose, CA 95125</a> 
                                             </li>
                                             <li className="auditorium"><h2 id="auditoriumInfo" className="emptyCheck">Auditorium 1</h2></li>
-                                            <li className="seats"><div id="selectedSeatIDsLabel" className="faded">Seats not selected</div> <div id="selectedSeatIDs"></div></li>
+                                            <li className="seats"><div id="selectedSeatIDsLabel" className="faded">Seats {this.state.selected.length==0?"not selected":this.state.selected.toString()}</div> <div id="selectedSeatIDs"></div></li>
                                             <li className="agePolicy emptyCheck"><a href="#">Cinelux Theatres Age Policy</a></li>
                                         </ul>
                                     </div>
@@ -265,25 +379,20 @@ export default class seatpicker extends React.Component {
                                     <div id="orderSummary">
                                         <div id="IDRequiredMessage">
                                         <table>
-                                            <tbody><tr className="ticketTypeRow pricing">
-                                                <td className="type heading">
-                                                    <span className="ticketTypeHeading">General</span>
-                                                </td>
-                                                <td className="price">3 x $10.00  = </td>
-                                                <td className="math">$30.00</td>
-                                            </tr>
-                                            <tr className="feesRow pricing">
-                                                <td className="type heading" colspan="2">
-                                                    <a onClick={this.toggleConvenienceFlyout}>Convenience Fee</a>
-                                                    {convenienceFlyout}
-                                                </td>
-                                                <td className="math">$4.50</td>
-                                            </tr>
+                                            <tbody>
+                                                {ticketPricing}
+                                                <tr className="feesRow pricing">
+                                                    <td className="type heading" colspan="2">
+                                                        <a onClick={this.toggleConvenienceFlyout}>Convenience Fee</a>
+                                                        {convenienceFlyout}
+                                                    </td>
+                                                    <td className="math">${(Number(this.state.prevState.totalTickets)*1.5).toFixed(2)}</td>
+                                                </tr>
                                             <tr className="totalRow">
                                                 <td className="paymentLogo"><span className=""></span></td>
                                                 <td className="total-wrap">Total:</td>
                                                 <td className="">
-                                                    <span className="total" id="purchaseTotal">$34.50</span>
+                                                    <span className="total" id="purchaseTotal">${(this.state.prevState.totalSum+Number(this.state.prevState.totalTickets)*1.5).toFixed(2)}</span>
                                                     <input name="OrderSummaryView$purchaseTotalHidden" type="hidden" id="OrderSummaryView_purchaseTotalHidden" value="34.50"/>
                                                 </td>
                                             </tr>
