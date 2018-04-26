@@ -9,6 +9,8 @@ import admin from './admin';
 import signin from './signin';
 import signup from './signup';
 import MovieTimeTicket from './movieTimeTicket';
+import checkout from './checkout';
+import confirmation from './confirmation';
 
 const Main = () => (
     <Switch>
@@ -21,6 +23,8 @@ const Main = () => (
         <Route path = '/signin' component={signin}/>
         <Route path = '/signup' component={signup}/>
         <Route path = '/movieTimeTicket' component={MovieTimeTicket}/>
+        <Route path = '/transaction/checkout' component={checkout} />
+        <Route path = '/transaction/confirmation' component={confirmation} />
     </Switch>
 )
 

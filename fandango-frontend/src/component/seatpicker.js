@@ -244,9 +244,6 @@ export default class seatpicker extends React.Component {
                         </tr>
                     )
                 }
-            // } 
-            //kal karenge
-            console.log("convi", ConveniencePricing);
             })
 
             let convenienceFlyout = null;
