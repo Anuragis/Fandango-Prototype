@@ -9,7 +9,25 @@ class checkout extends React.Component {
     }
     handleSubmit = (events) => {
         this.props.submitBooking({
-            seats: 'seats'
+            bdate: new Date().toDateString,
+            bamount: localStorage.getItem('ticketBoxOfficeState').totalSum,
+            btax: Number(localStorage.getItem('ticketBoxOfficeState').totalTickets)*1.5,
+            userid: localStorage.getItem('allDetails').userid,
+            fname: localStorage.getItem('allDetails').fname,
+            lname: localStorage.getItem('allDetails').lname,
+            showtime: localStorage.getItem('allDetails').showtime,
+            moviename: localStorage.getItem('allDetails').moviename,
+            screenid: localStorage.getItem('allDetails').screenid,
+            hallname: localStorage.getItem('allDetails').hallname,
+            seatsbooked: localStorage.getItem('seatpicker').seats,
+            status: 'active',
+            hallcity: localStorage.getItem('allDetails').hallcity
+        })
+        this.props.updateHall({
+            showtime: localStorage.getItem('allDetails').showtime,
+            moviename: localStorage.getItem('allDetails').moviename,
+            screenid: localStorage.getItem('allDetails').screenid,
+            hallname: localStorage.getItem('allDetails').hallname,
         })
     } 
     render() {

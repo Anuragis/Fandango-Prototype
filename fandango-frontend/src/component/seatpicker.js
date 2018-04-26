@@ -8,7 +8,7 @@ class Seathover extends React.Component {
     constructor(props) {
         super();
         this.state = {
-            bgColor: '#4aa7f5', prevdisable: false, disable: false, msg : 'This seat is available'
+            bgColor: '#4aa7f5', prevdisable: false, disable: false, msg : 'This seat is available', movieHall: null
         }
         this.addFlyout = this.addFlyout.bind(this);
         this.toggleSelected = this.toggleSelected.bind(this);
@@ -105,7 +105,8 @@ export default class seatpicker extends React.Component {
 
     componentWillMount() {
         this.setState({
-            prevState: JSON.parse(localStorage.getItem('ticketBoxOfficeState'))
+            prevState: JSON.parse(localStorage.getItem('ticketBoxOfficeState')),
+            movieHall: JSON.parse(localStorage.getItem('movieHall'))
         })
     }
     
@@ -134,9 +135,10 @@ export default class seatpicker extends React.Component {
     }
 
     handleSubmit = (e) => {
+        console.log("Inside Submit for local");
         let storeObject = {};
         storeObject['seats'] = this.state.selected;
-        localStorage.setItem('seatPicker', JSON.stringify(storeObject));
+        localStorage.setItem('seatpicker', JSON.stringify(storeObject));
     }
 
     onMouseOut = () => {
@@ -333,7 +335,7 @@ export default class seatpicker extends React.Component {
                                         <span className="newshowtimelink"><a href="">Select new showtime</a>{seatsError}</span>
                                         <div id="navigation-bar" className="sp-buttonContainer">
                                             
-                                            <Link type="submit" to="/transaction/checkout" name="NextButton" value="Continue" onclick="this.handleSubmit" id="NextButton" style={styleCont} className="sp-button primary medium">Continue</Link>
+                                            <Link type="submit" to="/transaction/checkout" name="NextButton" value="Continue" onClick={this.handleSubmit} id="NextButton" style={styleCont} className="sp-button primary medium">Continue</Link>
                                         </div>
                                     </section>
                                 </div>
@@ -352,26 +354,18 @@ export default class seatpicker extends React.Component {
                                         <img id="moviePosterImage" alt="" src="https://images.fandango.com/r1.0.589/ImageRenderer/180/272/redesign/static/img/default_poster_128x190.png/209375/images/masterrepository/fandango/209375/ifeelpretty_onesheet_rgb_10.jpg"/>
                                     </div>
                                     <div className="movieInfo"> 
-                                        <ul className="movie-specs">
-                                            <li className="title"><h3 id="movieTitle">I Feel Pretty</h3></li>
-                                            <li className="info"><span id="ratingInfo" className="emptyCheck">PG-13</span><span id="ratingSeparator" className="separator emptyCheck">, </span><span className="emptyCheck" id="runtimeInfo">1 hr 50 min</span></li>
+                                        <ul class="movie-specs">
+                                            <li class="title"><h3 id="movieTitle">{this.state.movieHall.movieName}</h3></li>
+                                            <li class="info"><span id="ratingInfo" class="emptyCheck">{this.state.movieHall.movieRating}</span><span id="ratingSeparator" class="separator emptyCheck">, </span><span class="emptyCheck" id="runtimeInfo">{this.state.movieHall.movieLength}</span></li>
                                         </ul>
                                         <ul className="movie-other-specs">
-                                            <li><h2 id="movieDate"></h2></li>
-                                            <li>
-                                                <h2 id="movieTime"></h2>
-                                                <span className=""></span>                
-                                                <div className="emptyCheck remove" id="lateNightShowtimeMesg"></div>
-                                            </li>
-                                        </ul>
-                                        <ul className="movie-other-specs">
-                                            <li><h2 id="theaterName">CineLux Almaden Cafe &amp; Lounge</h2></li>
+                                            <li><h2 id="theaterName">{this.state.movieHall.hallName}</h2></li>
                                             <li id="theaterAddress">
-                                                <a id="maplink" href="#" target="_blank" className="emptyCheck">2306 Almaden Road<br/>San Jose, CA 95125</a> 
+                                                <a id="maplink" href="#" target="_blank" class="emptyCheck">{this.state.movieHall.hallAddress}<br/>{this.state.movieHall.hallCity}, {this.state.movieHall.hallState} {this.state.movieHall.hallZipCode}</a> 
                                             </li>
                                             <li className="auditorium"><h2 id="auditoriumInfo" className="emptyCheck">Auditorium 1</h2></li>
                                             <li className="seats"><div id="selectedSeatIDsLabel" className="faded">Seats {this.state.selected.length==0?"not selected":this.state.selected.toString()}</div> <div id="selectedSeatIDs"></div></li>
-                                            <li className="agePolicy emptyCheck"><a href="#">Cinelux Theatres Age Policy</a></li>
+                                            <li className="agePolicy emptyCheck"><a href="#">{this.state.movieHall.hallName.split(" ")[0]} Theatres Age Policy</a></li>
                                         </ul>
                                     </div>
                                 </div>
