@@ -9,6 +9,7 @@ var users = require('../controllers/users.js');
 var signin = require('../controllers/signin.js');
 var signup = require('../controllers/signup.js');
 var logout = require('../controllers/logout.js');
+var logs=require('../controllers/logs.js');
 
 
 /**routes for bookings start */
@@ -121,4 +122,18 @@ router
     .put(users.updateUser);
 
 /**routes for user end */
+
+
+/**routes for logs start*/
+
+router
+    .route('/logs')
+    .get(logs.getLogs);
+
+router
+    .route('/log')
+    .post(logs.createLog);
+
+
+/**routes for logs end */
 module.exports = router;

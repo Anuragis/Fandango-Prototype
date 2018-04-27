@@ -78,7 +78,7 @@ class SignUp extends Component {
                   </div>
                 </nav>
               </header>
-            </div>
+            </div>  
             <div className="container">
 
               <form className="form-signin" onSubmit = {this.handleSubmit.bind(this)}>
