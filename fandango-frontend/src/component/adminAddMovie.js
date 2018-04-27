@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import Head from './gauravHeader';
 export default class AddMovie extends Component {
     constructor(props) {
         super(props);
@@ -12,10 +12,10 @@ export default class AddMovie extends Component {
     render() {
         return(
             <div>
+                <Head />
                 <div style={{textAlign : 'center'}}>
-                <h3>Add Movie</h3>
+                    <h3>Add Movie</h3>
                 </div>
-                
                 <div className="container" style={{width:"60%", border: "5px solid"}}> 
 
                 <form>
