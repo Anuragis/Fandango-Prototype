@@ -11,25 +11,32 @@ module.exports.signUp = function(req,res,next){
     var newUser = new usersModel();
     
     usersModel.findOne({email: req.body.email},function(err, user) {
-        let type= req.body.type;
+
+        console.log("Inside Signu p");
+        let type= req.body.userType;
         type=type||"user";
 
         if(user){
             console.log('email already exist');
             res.send();
         } else {
-                newUser.fName           = req.body.fName;
-                newUser.lName           = null;
-                newUser.address         = null;
-                newUser.city            = null;
-                newUser.state           = null;
-                newUser.zipCode         = null;
-                newUser.phoneNumber     = null;
-                newUser.email           = req.body.email;
-                newUser.profileImage    = null;
-                newUser.creditCard      = null;
-                newUser.userType        = type;
-                newUser.status          ="active";
+                newUser.fName = req.body.fName;
+                newUser.lName = req.body.lName;
+                newUser.email = req.body.email;
+                newUser.address = req.body.address;
+                newUser.city = req.body.city;
+                newUser.state = req.body.state;
+                newUser.zipCode = req.body.zipCode;
+                newUser.phoneNumber = req.body.phoneNumber;
+                newUser.profileImage = req.body.profileImage;
+                newUser.creditCard = {
+                  cardNumber:req.body.cardnumber||"",
+                  nameOnCard:req.body.nameoncard||"",
+                  expiry:req.body.expiry||"",
+                  cvv:req.body.cvv||""
+                }
+                newUser.userType=type;
+                newUser.status="active";
 
                 bcrypt.genSalt(10, (err, salt) => {
                   bcrypt.hash(req.body.password, salt, (err, hash) => {

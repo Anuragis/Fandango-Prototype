@@ -1,3 +1,11 @@
 .errMsg{
     color:red
 }
+
+.success{
+    color:green
+}
+
+.headerBg{
+    background-color: orange
+}

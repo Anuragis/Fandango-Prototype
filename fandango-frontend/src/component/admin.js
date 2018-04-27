@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
+import '../css/admin.css';
 //import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 
 class admin extends Component{
@@ -64,16 +65,22 @@ class admin extends Component{
 
     render(){
         return(
-            <div>
-                 <div className="container">
-
-
-              
-               <Link to="/signup" className= "btn btn-block" style={{textDecoration:'none',color:'white'}}>Add User</Link>
-          
+            <div >
+            <div id="headerContainer" class="purchase detail on-order" name="HeaderContainer">
+                <div id="headerPurchase">
+                    <div className="commonContainer"> 
+                        <div id="logo">
+                            <a href="http://www.fandango.com/" title="Click to go to Fandango homepage">Fandango Home</a>
+                        </div>
+                        <div id="bannerMessage">You're a guaranteed ticket away from the perfect movie night.</div>
+                    </div>
+                </div>
+            </div>
+                <Link to={{pathname:"/user", state:{id: "0"}}} className= "btn btn-primary pull-center" style={{textDecoration:'none',color:'white'}}>Add User</Link>
+                 <div className="container">     
                 <table className="table table-striped">
             <thead>
-              <tr>
+              <tr className="headerBg">
                 <th>#</th>
                 <th>First Name</th>
                 <th>Last Name</th>

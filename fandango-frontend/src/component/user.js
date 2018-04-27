@@ -26,7 +26,8 @@ class user extends React.Component {
         firstNameError: "",
         emailError:"",
         zipCodeError:"",
-        stateError:""
+        stateError:"",
+        cardNumberError:""
       }
        
     }
@@ -38,6 +39,7 @@ class user extends React.Component {
         emailError: "",
         zipCodeError: "",
         stateError: "",
+        cardNumberError:""
       };
       
       if (this.state.fname.length ===0) {
@@ -48,6 +50,11 @@ class user extends React.Component {
       if (this.state.email.indexOf("@") === -1) {
         isError = true;
         errors.emailError = "Requires valid email";
+      }
+
+      if( this.state.cardnumber.length!==0 && this.state.cardnumber.length!==16){
+        isError = true;
+        errors.cardNumberError = "Card Number must be 16 digit and numeric only";
       }
       
       var isZipValid = /\d{5}-\d{4}$|^\d{5}$/.test(this.state.zipCode);
@@ -72,6 +79,8 @@ class user extends React.Component {
     };
 
     componentDidMount(){
+
+        if(this.props.location.state.id!="0"){
         var url = 'http://localhost:8900/user/' + this.props.location.state.id;
         
         axios(url, {
@@ -99,6 +108,7 @@ class user extends React.Component {
           console.log("Response",res);
         }
           )
+        }
     }
     updateProfile(){
 
@@ -139,12 +149,68 @@ class user extends React.Component {
        })
     }
   }
+
+  createProfile(){
+    console.log("Inside Create Profile");
+    const err = this.validate();
+    if (!err) {
+
+     var url = 'http://localhost:8900/signup/';
+     axios(url, {
+       method: 'POST',
+       mode: 'cors',
+       headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+       },
+       data: JSON.stringify({fName: this.state.fname, lName: this.state.lname,
+        email: this.state.email, address: this.state.address, 
+        city: this.state.city, state: this.state.state,
+        zipCode: this.state.zipCode, phoneNumber: this.state.phoneNumber,
+        password: this.state.password, profileImage: this.state.profileImage,
+        userType: this.state.userType,
+        password:this.state.password,
+        creditCard:{
+          cardNumber:this.state.cardnumber,
+          nameOnCard:this.state.nameoncard,
+          expiry:this.state.expiry,
+          cvv:this.state.cvv
+        }
+
+        })
+        
+        
+     }).then((res) => {
+      if(res.status === 200){
+        this.setState({message: "User created successfully"});
+      }
+      else{
+        this.setState({message: "Couldn't create the user"});
+      }
+     })
+  }
+  }
  
     getProfile(){
  
     }
      
     render() {
+    let showPassword="";
+    let displayButton="";
+      if(this.props.location.state.id==="0") {
+        showPassword=( <div className="form-group">
+                  <input  type="password" className="form-control" placeholder="Password" value={this.state.password} onChange={(event)=>{
+                    this.setState({password: event.target.value,message:""});
+                  }} required />
+                  </div>);
+        displayButton=(<button type="button" id="submit" name="submit" className="btn btn-primary pull-right" onClick={this.createProfile.bind(this)}>Create</button>);
+      }else{
+        showPassword=( <div></div>);
+        displayButton=(<button type="button" id="submit" name="submit" className="btn btn-primary pull-right" onClick={this.updateProfile.bind(this)}>Update</button>);
+      };
+
+  
       return (
         <div id="siteContainer" className="ticketBoxoffice">
         <div id="headerContainer" class="purchase detail on-order" name="HeaderContainer">
@@ -185,6 +251,7 @@ class user extends React.Component {
                     this.setState({email: event.target.value,message:""});
                   }} required />
                 </div>
+                {showPassword}
                 <div className="form-group">
                   <input  type="text" className="form-control" placeholder="Address" value={this.state.address} onChange={(event)=>{
                     this.setState({address: event.target.value,message:""});
@@ -217,24 +284,25 @@ class user extends React.Component {
                 <input  type="text" className="form-control" placeholder="user type" value={this.state.userType} onChange={(event)=>{
                     this.setState({userType: event.target.value,message:""});
                   }} required />
-                  <h3>Card Details</h3>
-                  <input  type="text" className="form-control" placeholder="Card Number" value={this.state.cardnumber} onChange={(event)=>{
-                    this.setState({cardnumber: event.target.value,message:""});
+                  <h3><b>Card Details</b></h3>
+                  <p className="errMsg">{this.state.cardNumberError}</p>
+                  <input style = {{width : '300px', height:'45px'}} type="text" className="form-control" placeholder="Card Number" value={this.state.cardnumber} onChange={(event)=>{
+                    this.setState({cardnumber: event.target.value,cardNumberError:"",message:""});
                   }} required />
-                  <input  type="text" className="form-control" placeholder="Name on Card" value={this.state.nameoncard} onChange={(event)=>{
+                  <input style = {{width : '300px', height:'45px'}} type="text" className="form-control" placeholder="Name on Card" value={this.state.nameoncard} onChange={(event)=>{
                     this.setState({nameoncard: event.target.value,message:""});
                   }} required />
-                  <input  type="text" className="form-control" placeholder="Expiry MM/YYYY" value={this.state.expiry} onChange={(event)=>{
+                  <input  style = {{width : '125px', height:'45px'}}  maxlength="7" size="7" type="text" className="form-control" placeholder="Expiry MM/YYYY" value={this.state.expiry} onChange={(event)=>{
                     this.setState({expiry: event.target.value,message:""});
                   }} required />
-                  <input  type="password" className="form-control" placeholder="CVV" value={this.state.cvv} onChange={(event)=>{
+                  <input  type="password"  maxlength="3" size="3"  style = {{width:'50px',textAlign:'center', display: 'inline-block',marginRight : '20px'}}className="form-control" placeholder="CVV" value={this.state.cvv} onChange={(event)=>{
                     this.setState({cvv: event.target.value,message:""});
                   }} required />
                 </div>
-                
-                <button type="button" id="submit" name="submit" className="btn btn-primary pull-right" onClick={this.updateProfile.bind(this)}>Update</button>
-              </form>
-              <div>{this.state.message}</div>
+                {displayButton}
+             </form>
+              <div className="success">{this.state.message}</div>
+              <br></br>
           </div>
         </div>
 

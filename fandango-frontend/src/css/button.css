@@ -21,6 +21,7 @@
   -ms-transition: all 0.3s;
   transition: all 0.3s;
 }
+
 div-inline {
   display: inline-block;
   margin: 0;
