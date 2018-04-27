@@ -1,5 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { submitBooking } from '../actions/actions';
+import { updateHall } from '../actions/actions';
 import '../css/checkout.css';
 
 class checkout extends React.Component {
@@ -8,7 +12,7 @@ class checkout extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     handleSubmit = (events) => {
-        this.props.submitBooking({
+        let submitBooking = {
             bdate: new Date().toDateString,
             bamount: localStorage.getItem('ticketBoxOfficeState').totalSum,
             btax: Number(localStorage.getItem('ticketBoxOfficeState').totalTickets)*1.5,
@@ -22,12 +26,32 @@ class checkout extends React.Component {
             seatsbooked: localStorage.getItem('seatpicker').seats,
             status: 'active',
             hallcity: localStorage.getItem('allDetails').hallcity
-        })
-        this.props.updateHall({
+        }
+        let updateHall = {
             showtime: localStorage.getItem('allDetails').showtime,
             moviename: localStorage.getItem('allDetails').moviename,
             screenid: localStorage.getItem('allDetails').screenid,
             hallname: localStorage.getItem('allDetails').hallname,
+        }
+        axios('http://localhost:8900/booking', {
+            method: 'post',
+            mode: 'cors',
+            redirect: 'follow',
+            headers: headers,
+            data: JSON.stringify(submitBooking)
+        })
+        .then((res) => {
+            console.log("booking res",res);
+        })
+        axios('http://localhost:8900//hall/' + updateHall.hallname, {
+            method: 'post',
+            mode: 'cors',
+            redirect: 'follow',
+            headers: headers,
+            data: JSON.stringify(updateHall)
+        })
+        .then((res) => {
+            console.log("hall update res",res);
         })
     } 
     render() {
@@ -175,4 +199,18 @@ class checkout extends React.Component {
     }
 }
 
-export default checkout;
+function mapDispatchToProps(dispatch) {
+    return {
+        submitBooking: (project) => {
+            console.log("Selected Project : ",project);
+            dispatch({type: 'SUBMIT_BOOKING',payload : project})
+        },
+        updateHall: (project) => {
+            console.log("Selected Project : ",project);
+            dispatch({type: 'UPDATE_HALL',payload : project})
+        }
+        // actions: bindActionCreators(Object.assign({}, submitBooking, updateHall), dispatch)
+    }
+}
+
+export default connect(null,mapDispatchToProps)(checkout);
