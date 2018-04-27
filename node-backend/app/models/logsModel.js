@@ -18,7 +18,8 @@ var logsSchema = new Schema({
     hallticketcount:{type:Number},
     hallbooking:{type:Number, default:0},
     moviebooking:{type:Number,default:0},
-    bookingdate:{type:String}
+    bookingdate:{type:String},
+    bookingNumber:{type:String}
  });
 
 

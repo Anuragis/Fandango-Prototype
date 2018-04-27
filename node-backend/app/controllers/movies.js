@@ -122,7 +122,7 @@ module.exports.getMovieById=function(req,res,next){
     }else{
         res.send(JSON.stringify(movie));  
         }
-    })
+    });
 }
 
 
