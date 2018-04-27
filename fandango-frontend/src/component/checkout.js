@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { submitBooking } from '../actions/actions';
 import { updateHall } from '../actions/actions';
+import axios from 'axios';
 import '../css/checkout.css';
 
 class checkout extends React.Component {
@@ -33,6 +34,9 @@ class checkout extends React.Component {
             screenid: localStorage.getItem('allDetails').screenid,
             hallname: localStorage.getItem('allDetails').hallname,
         }
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Accept', 'application/json');
         axios('http://localhost:8900/booking', {
             method: 'post',
             mode: 'cors',
