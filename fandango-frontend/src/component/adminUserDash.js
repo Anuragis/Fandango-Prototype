@@ -76,8 +76,11 @@ class admin extends Component{
                     </div>
                 </div>
             </div>
-                <Link to={{pathname:"/user", state:{id: "0"}}} className= "btn btn-primary pull-center" style={{textDecoration:'none',color:'white'}}>Add User</Link>
-                 <div className="container">     
+                <Link to={{pathname:"/adduser", state:{id: "0"}}} className= "btn btn-primary buttonAlign" style={{textDecoration:'none',color:'white'}}>Add User</Link>
+                
+                 <div className="container">  
+
+                  <h3><b>List of Users</b></h3>   
                 <table className="table table-striped">
             <thead>
               <tr className="headerBg">
@@ -104,7 +107,7 @@ class admin extends Component{
                               <span className="glyphicon glyphicon-pencil"><Link to="/user"></Link></span>
                             </td>*/}
                             <td>
-                                <Link to={{pathname:"/user", state:{id: user._id}}}><span className="glyphicon glyphicon-pencil"></span></Link>
+                                <Link to={{pathname:"/adduser", state:{id: user._id}}}><span className="glyphicon glyphicon-pencil"></span></Link>
                             </td>
                             <td>
                               <span className="glyphicon glyphicon-remove" onClick={this.deleteUser.bind(this, user._id)}></span>
