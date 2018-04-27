@@ -22,7 +22,7 @@ class confirmation extends React.Component {
                                 <ul className="breadcrumb">
                                     <li className="tickets complete"><i className="icon"></i>Tickets</li> 
                                     <li className="payment complete"><i className="icon"></i>Payment</li> 
-                                    <li className="confirmation "><i className="icon"></i>Confirmation</li> 
+                                    <li className="confirmation complete"><i className="icon"></i>Confirmation</li> 
                                 </ul>
                         </div>
                     </div>
@@ -49,8 +49,8 @@ class confirmation extends React.Component {
                                     </div>
                                 </div>
                                 <fieldset class="form-stacked">
-                                    <h2 class="header-secondary">Order Confirmation <span class="paymentlock"></span></h2>
-                                    <h3 class="payment-subheader">Congratulations, Your order is successfully placed</h3>
+                                    <h2 class="header-secondary" style={{color:'green'}}>Order Confirmation <span class="paymentlock"></span></h2>
+                                    <h3 class="payment-subheader" style={{marginTop: '20px'}}>Congratulations, Your order is successfully placed</h3>
                                     {/*likho Ticket Summary*/}
                                             
                                 </fieldset>

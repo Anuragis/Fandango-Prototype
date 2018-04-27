@@ -11,9 +11,16 @@ export default class ticketboxoffice extends React.Component {
             row1Sum: 0,
             row2Sum: 0,
             row3Sum: 0,
+            movieHall: null
         }
         this.ticketNumberChange = this.ticketNumberChange.bind(this);
         this.HandleState = this.HandleState.bind(this);
+    }
+
+    componentWillMount() {
+        this.setState({
+            movieHall: JSON.parse(localStorage.getItem('movieHall'))
+        })
     }
 
     ticketNumberChange = (events, heading) => {
@@ -53,6 +60,7 @@ export default class ticketboxoffice extends React.Component {
     }
 
     render() {
+
         const styleborder = {
             border:'0px'
         }
@@ -130,7 +138,7 @@ export default class ticketboxoffice extends React.Component {
                                     <input name="ShowTimeListHidden" type="hidden" id="ShowTimeListHidden"/>
                                 </div>
                                 <section className="newShowtimeContainer">
-                                    <a href="https://tickets.fandango.com/transaction/ticketing/express/ticketboxoffice.aspx?mid=209375&amp;tid=AAFQQ">Select new showtime</a>
+                                    <a href="">Select new showtime</a>
                                 </section>
                                 <section>
                                     <h2 className="tb-header-secondary">HOW MANY TICKETS?</h2>
@@ -143,8 +151,8 @@ export default class ticketboxoffice extends React.Component {
                                         </tbody>
                                     </table>
                                 </section>
-                                <div class="buttonContainer">
-                                    <Link onClick={this.HandleState} id="NewCustomerCheckoutButton" type="button" class="button primary medium" to="/transaction/seatpicker">Continue to Seat Selection</Link>                 
+                                <div class="tb-buttonContainer">
+                                    <Link onClick={this.HandleState} id="NewCustomerCheckoutButton" type="button" class="tb-button primary medium" to="/transaction/seatpicker">Continue to Seat Selection</Link>                 
                                 </div>
                                 <section class="tb-offers">
                                     <h3 class="tb-offerHeading">For Fandango VIPs</h3>
@@ -169,23 +177,15 @@ export default class ticketboxoffice extends React.Component {
                                     </div>
                                     <div class="movieInfo"> 
                                         <ul class="movie-specs">
-                                            <li class="title"><h3 id="movieTitle">I Feel Pretty</h3></li>
-                                            <li class="info"><span id="ratingInfo" class="emptyCheck">PG-13</span><span id="ratingSeparator" class="separator emptyCheck">, </span><span class="emptyCheck" id="runtimeInfo">1 hr 50 min</span></li>
+                                            <li class="title"><h3 id="movieTitle">{this.state.movieHall.movieName}</h3></li>
+                                            <li class="info"><span id="ratingInfo" class="emptyCheck">{this.state.movieHall.movieRating}</span><span id="ratingSeparator" class="separator emptyCheck">, </span><span class="emptyCheck" id="runtimeInfo">{this.state.movieHall.movieLength}</span></li>
                                         </ul>
                                         <ul class="movie-other-specs">
-                                            <li><h2 id="movieDate"></h2></li>
-                                            <li>
-                                                <h2 id="movieTime"></h2>
-                                                <span class=""></span>                
-                                                <div class="emptyCheck remove" id="lateNightShowtimeMesg"></div>
-                                            </li>
-                                        </ul>
-                                        <ul class="movie-other-specs">
-                                            <li><h2 id="theaterName">CineLux Almaden Cafe &amp; Lounge</h2></li>
+                                            <li><h2 id="theaterName">{this.state.movieHall.hallName}</h2></li>
                                             <li id="theaterAddress">
-                                                <a id="maplink" href="#" target="_blank" class="emptyCheck">2306 Almaden Road<br/>San Jose, CA 95125</a> 
+                                                <a id="maplink" href="#" target="_blank" class="emptyCheck">{this.state.movieHall.hallAddress}<br/>{this.state.movieHall.hallCity}, {this.state.movieHall.hallState} {this.state.movieHall.hallZipCode}</a> 
                                             </li>
-                                            <li class="agePolicy emptyCheck"><a href="#">Cinelux Theatres Age Policy</a></li>
+                                            <li class="agePolicy emptyCheck"><a href="#">{this.state.movieHall.hallName.split(" ")[0]} Theatres Age Policy</a></li>
                                         </ul>
                                     </div>
                                 </div>
