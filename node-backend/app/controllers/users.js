@@ -94,7 +94,6 @@ module.exports.updateUser=function(req,res,next){
    
     var uid =  req.params.uid;
    
-
     usersModel.findOneAndUpdate({ _id : req.params.uid}, { $set : { 
         fName : req.body.fName,
         lName : req.body.lName,

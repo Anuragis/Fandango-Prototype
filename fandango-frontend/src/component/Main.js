@@ -9,6 +9,7 @@ import admin from './admin';
 import signin from './signin';
 import signup from './signup';
 import MovieTimeTicket from './movieTimeTicket';
+import user from './user';
 import checkout from './checkout';
 import confirmation from './confirmation';
 import MovieTimeHalls from './movieTimeHalls';
@@ -24,7 +25,8 @@ const Main = () => (
         <Route path = '/signin' component={signin}/>
         <Route path = '/signup' component={signup}/>
         <Route path = '/movieTimeTicket' component={MovieTimeTicket}/>
-        <Route path = '/movieTimeHalls' component={MovieTimeHalls}/>
+	<Route path = '/user' component={user}/>        
+	<Route path = '/movieTimeHalls' component={MovieTimeHalls}/>
         <Route path = '/transaction/checkout' component={checkout} />
         <Route path = '/transaction/confirmation' component={confirmation} />
     </Switch>
