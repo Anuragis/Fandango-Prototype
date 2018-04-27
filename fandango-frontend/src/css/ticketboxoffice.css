@@ -66,7 +66,7 @@ body {
     width: 222px;
 }
 
-  input, textarea, select, button {
+  input, textarea, .tb-qtyDropDown, button {
     text-rendering: auto;
     color: initial;
     letter-spacing: normal;
@@ -122,7 +122,7 @@ div {
     max-width: 91.429em;
 }
 
-input[type=text], input[type=password], select {
+input[type=text], input[type=password], .tb-qtyDropDown {
     font-size: 14px;
     line-height: 16px;
     font-family: "proxima-nova", Helvetica, Arial, sans-serif;
@@ -134,7 +134,7 @@ input[type=text], input[type=password], select {
     padding: 9px 4px;
 }
 
-input[type="file"], input[type="checkbox"], input[type="radio"], select {
+input[type="file"], input[type="checkbox"], input[type="radio"], .tb-qtyDropDown {
     margin: 0 0 1rem 0;
 }
 
@@ -142,7 +142,7 @@ input[type="file"], input[type="checkbox"], input[type="radio"], select {
     vertical-align: top;
 }
 
-select {
+.tb-qtyDropDown {
     width: 68px;
     padding: 6px 4px;
 }
@@ -160,19 +160,21 @@ table {
     border-color: grey;
 }
 
-table.quantityTable tr td.rowTotal {
+table.tb-quantityTable tr td.tb-rowTotal {
     width: 100px;
 }
 
-table.quantityTable tr td.rowTotal input[type="text"] {
+table.tb-quantityTable tr td.tb-rowTotal .tb-sub {
     background: none;
     cursor: text;
     font-weight: 600;
     width: auto;
     border-radius: 0px;
+    margin: 0px;
+    box-shadow: none;
 }
 
-table.quantityTable tr th.ticketType {
+table.tb-quantityTable tr th.ticketType {
     color: #4C4C4C;
     font-size: 14px;
     padding-bottom: 7px;
@@ -181,7 +183,7 @@ table.quantityTable tr th.ticketType {
     font-weight: 600;
 }
 
-.form-inline select, select {
+.form-inline .tb-qtyDropDown, .tb-qtyDropDown {
     -webkit-appearance: button;
     -webkit-border-radius: 2px;
     -webkit-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.1);
@@ -199,6 +201,7 @@ table.quantityTable tr th.ticketType {
     text-overflow: ellipsis;
     white-space: nowrap;
     margin-bottom: 0px;
+    height: 32px;
 }
 
 option {
@@ -209,7 +212,7 @@ option {
     padding: 0px 2px 1px;
 }
 
-table.quantityTable {
+table.tb-quantityTable {
     background: none;
     border: none;
 }
@@ -226,7 +229,7 @@ tr {
     border-color: inherit;
 }
 
-table.quantityTable tr td {
+table.tb-quantityTable tr td {
     color: #4C4C4C;
     font-size: 14px;
     padding: 0px;
@@ -234,7 +237,7 @@ table.quantityTable tr td {
     font-weight: 600;
 }
 
-table.quantityTable tr th.ticketType {
+table.tb-quantityTable tr th.ticketType {
     color: #4C4C4C;
     font-size: 14px;
     padding-bottom: 7px;
@@ -243,7 +246,7 @@ table.quantityTable tr th.ticketType {
     font-weight: 600;
 }
 
-table.quantityTable tr td.numberofTickets {
+table.tb-quantityTable tr td.numberofTickets {
     width: 60px;
 }
 
@@ -274,7 +277,7 @@ h1, h2, h3 {
     text-transform: uppercase;
 }
 
-h2, h2.header-secondary {
+h2, h2.tb-header-secondary {
     line-height: 23px;
 }
 
@@ -295,7 +298,7 @@ h2, h2.header-secondary {
     display: block;
 }
 
-.section-header {
+.tb-section-header {
     border-bottom: 10px solid #4c4c4c;
     color: #4c4c4c;
     margin: 10 0 20px;
@@ -305,15 +308,14 @@ h2, h2.header-secondary {
     font-size: 38px;
     display: inline-block;
     line-height: 29px;
-    margin-top: 20px;
+    margin-top: 5px;
 }
 
-.section-header:after {
+.tb-section-header:after {
     background: none repeat scroll 0 0 #ebebeb;
     width: 12px;
     content: "";
     border-radius: 5px;
-    background: #fff;
     position: absolute;
     width: 10px;
     height: 10px;
@@ -333,11 +335,11 @@ h2, h2.header-secondary {
     border: 1px solid #ccc;
 }
 
-h2, h2.header-secondary {
+h2, h2.tb-header-secondary {
     line-height: 23px;
 }
 
-.module h2, .module-standard h2, h2.header-secondary {
+.module h2, .module-standard h2, h2.tb-header-secondary {
     /* color: #4C4C4C; */
     font-size: 26px;
     line-height: 21px;
@@ -475,9 +477,10 @@ ul.breadcrumb {
 
 .reservedMessage {
     padding: 0 0 10px 0;
+    margin-top: 20px;
 }
 
-table.quantityTable {
+table.tb-quantityTable {
     background: none;
     border: none;
 }
@@ -494,7 +497,7 @@ tr {
     border-color: inherit;
 }
 
-table.quantityTable tr th.ticketType {
+table.tb-quantityTable tr th.ticketType {
     color: #4C4C4C;
     font-size: 14px;
     padding-bottom: 7px;
@@ -503,29 +506,29 @@ table.quantityTable tr th.ticketType {
     font-weight: 600;
 }
 
-table.quantityTable tr td.numberofTickets {
+table.tb-quantityTable tr td.numberofTickets {
     width: 75px;
 }
 
-table.quantityTable tr td.equals, table.quantityTable tr td.timesX {
+table.tb-quantityTable tr td.equals, table.tb-quantityTable tr td.timesX {
     width: 10px;
 }
 
-table.quantityTable tr td.pricePerTicket {
+table.tb-quantityTable tr td.pricePerTicket {
     width: 50px;
 }
 
-table.quantityTable tr td.rowTotal {
+table.tb-quantityTable tr td.tb-rowTotal {
     width: 100px;
 }
 
-.buttonContainer {
+.tb-buttonContainer {
     border-top: 1px solid #ccc;
     padding-top: 25px;
     margin-top: 20px;
 }
 
-.offers {
+.tb-offers {
     margin-top: 25px;
     padding-top: 25px;
     border-top: 1px solid #ccc;
@@ -539,11 +542,11 @@ section:after {
     display: block;
 }
 
-.buttonContainer {
+.tb-buttonContainer {
     display: block;
 }
 
-.buttonContainer .buttonHolder, .buttonContainer .button:after, .buttonContainer button:after, .buttonContainer:after {
+.tb-buttonContainer .buttonHolder, .tb-buttonContainer .tb-button:after, .tb-buttonContainer button:after, .tb-buttonContainer:after {
     content: "";
     clear: both;
     height: 1px;
@@ -572,14 +575,32 @@ section:after {
     transition: all 0.3s ease 0s;
 }
 
-.button.disabled:hover, button.disabled:hover, .button[disabled]:hover, button[disabled]:hover, button.disabled, button[disabled], .button.disabled, .button[disabled], button:focus, .button:focus, button:hover, .button:hover, .button, button {
+.tb-button.disabled:hover, button.disabled:hover, .tb-button[disabled]:hover, button[disabled]:hover, button.disabled, button[disabled], .tb-button.disabled, .tb-button[disabled], button:focus, .tb-button:focus, button:hover, .tb-button:hover, .tb-button, button {
     font-size: 16px;
     padding: 14px 17px 11px;
 }
 
-.buttonContainer .buttonHolder, .buttonContainer button, .buttonContainer .button {
+.tb-buttonContainer .tb-buttonHolder, .tb-buttonContainer button, .tb-buttonContainer .tb-button {
     margin-bottom: 0px;
     float: right;
+    background: none repeat scroll 0 0 #F15500;
+    border: medium none;
+    border-radius: 4px;
+    box-shadow: none;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "proxima-nova",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    font-weight: 600 !important;
+    line-height: 14px;
+    overflow: hidden;
+    padding: 13px 17px 10px;
+    position: relative;
+    -moz-transition: all 0.3s ease 0s;
+    -o-transition: all 0.3s ease 0s;
+    -webkit-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
 }
 
 .offer-info strong:hover {
@@ -805,4 +826,8 @@ h3.movieTitle, h3#movieTitle {
     height: 1px;
     width: 1px;
     display: block;
+}
+
+.tb-offerHeading {
+    margin-bottom: 15px;
 }

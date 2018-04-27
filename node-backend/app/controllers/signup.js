@@ -5,15 +5,11 @@ const {ObjectId} = require('mongodb');
 
 module.exports.signUp = function(req,res,next){
 
-    console.log("Inside SignUp Recieved, signup body",  req.body);
+    // console.log("Inside SignUp Recieved, signup body",  req.body);
+    console.log(req.body.password);
+    console.log(req.body.passwordTwo);
     var newUser = new usersModel();
-    if(req.body.password != req.body.password2){
-        console.log('Passwords do not match');
-    }
-
-    if(req.body.password.length < 4){
-        console.log('Password must be at least 4 characters');
-    }
+    
     usersModel.findOne({email: req.body.email},function(err, user) {
         let type= req.body.type;
         type=type||"user";
