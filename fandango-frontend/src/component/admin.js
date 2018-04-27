@@ -47,6 +47,16 @@ class admin extends Component{
             }
             
         }).then((res) => {
+            var array=[];
+            this.state.users.map(function(key){
+                if(key._id!==id){
+                    array.push(key);
+                    }
+                });
+
+            this.setState({
+                users:array
+            });
             console.log(res);
         })
     }
@@ -58,16 +68,16 @@ class admin extends Component{
                  <div className="container">
 
 
-               <button className= "btn btn-block">
-               <Link to="/signup" style={{textDecoration:'none',color:'white'}}>Add User</Link>
-                </button>
+              
+               <Link to="/signup" className= "btn btn-block" style={{textDecoration:'none',color:'white'}}>Add User</Link>
+          
                 <table className="table table-striped">
             <thead>
               <tr>
                 <th>#</th>
                 <th>First Name</th>
                 <th>Last Name</th>
-                <th>?</th>
+                <th>Email</th>
                 <th>Edit</th>
                 <th>Delete</th>
               </tr>
@@ -82,7 +92,7 @@ class admin extends Component{
                             <td>{id}</td>
                             <td>{user.fName}</td>
                             <td>{user.lName}</td>
-                            <td></td>
+                            <td>{user.email}</td>
                             {/*<td>
                               <span className="glyphicon glyphicon-pencil"><Link to="/user"></Link></span>
                             </td>*/}
