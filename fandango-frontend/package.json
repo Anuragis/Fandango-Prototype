@@ -4,15 +4,11 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
-<<<<<<< HEAD
     "chart.js": "^2.7.2",
     "chartjs": "^0.3.24",
-    "react": "^16.2.0",
     "react-chartjs-2": "^2.7.0",
-=======
     "react": "^16.3.2",
     "react-alert": "^2.4.0",
->>>>>>> eef6fbb99864be819063cfea5741724a835e4072
     "react-cookies": "^0.1.0",
     "react-countdown-now": "^1.3.0",
     "react-dom": "^16.3.2",
