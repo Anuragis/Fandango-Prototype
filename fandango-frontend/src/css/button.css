@@ -21,7 +21,10 @@
   -ms-transition: all 0.3s;
   transition: all 0.3s;
 }
-
+div-inline {
+  display: inline-block;
+  margin: 0;
+}
 .btn:hover {
   background: #ff7900;
   color: #fff;

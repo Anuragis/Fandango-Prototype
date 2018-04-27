@@ -9,10 +9,13 @@ import admin from './admin';
 import signin from './signin';
 import signup from './signup';
 import MovieTimeTicket from './movieTimeTicket';
+import admindashboard from './admindashboard';
+import user from './user';
 import checkout from './checkout';
 import confirmation from './confirmation';
 import adminMovieDash from './adminMovieDash';
 import adminAddMovie from './adminAddMovie';
+import MovieTimeHalls from './movieTimeHalls';
 
 const Main = () => (
     <Switch>
@@ -25,6 +28,9 @@ const Main = () => (
         <Route path = '/signin' component={signin}/>
         <Route path = '/signup' component={signup}/>
         <Route path = '/movieTimeTicket' component={MovieTimeTicket}/>
+        <Route path='/admindashboard' component={admindashboard}/>
+	<Route path = '/user' component={user}/>        
+	<Route path = '/movieTimeHalls' component={MovieTimeHalls}/>
         <Route path = '/transaction/checkout' component={checkout} />
         <Route path = '/transaction/confirmation' component={confirmation} />
         <Route path = '/moviedash' component={adminMovieDash} />

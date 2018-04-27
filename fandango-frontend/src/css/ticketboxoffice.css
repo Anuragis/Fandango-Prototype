@@ -522,7 +522,7 @@ table.tb-quantityTable tr td.tb-rowTotal {
     width: 100px;
 }
 
-.buttonContainer {
+.tb-buttonContainer {
     border-top: 1px solid #ccc;
     padding-top: 25px;
     margin-top: 20px;
@@ -542,11 +542,11 @@ section:after {
     display: block;
 }
 
-.buttonContainer {
+.tb-buttonContainer {
     display: block;
 }
 
-.buttonContainer .buttonHolder, .buttonContainer .button:after, .buttonContainer button:after, .buttonContainer:after {
+.tb-buttonContainer .buttonHolder, .tb-buttonContainer .tb-button:after, .tb-buttonContainer button:after, .tb-buttonContainer:after {
     content: "";
     clear: both;
     height: 1px;
@@ -575,14 +575,32 @@ section:after {
     transition: all 0.3s ease 0s;
 }
 
-.button.disabled:hover, button.disabled:hover, .button[disabled]:hover, button[disabled]:hover, button.disabled, button[disabled], .button.disabled, .button[disabled], button:focus, .button:focus, button:hover, .button:hover, .button, button {
+.tb-button.disabled:hover, button.disabled:hover, .tb-button[disabled]:hover, button[disabled]:hover, button.disabled, button[disabled], .tb-button.disabled, .tb-button[disabled], button:focus, .tb-button:focus, button:hover, .tb-button:hover, .tb-button, button {
     font-size: 16px;
     padding: 14px 17px 11px;
 }
 
-.buttonContainer .buttonHolder, .buttonContainer button, .buttonContainer .button {
+.tb-buttonContainer .tb-buttonHolder, .tb-buttonContainer button, .tb-buttonContainer .tb-button {
     margin-bottom: 0px;
     float: right;
+    background: none repeat scroll 0 0 #F15500;
+    border: medium none;
+    border-radius: 4px;
+    box-shadow: none;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "proxima-nova",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    font-weight: 600 !important;
+    line-height: 14px;
+    overflow: hidden;
+    padding: 13px 17px 10px;
+    position: relative;
+    -moz-transition: all 0.3s ease 0s;
+    -o-transition: all 0.3s ease 0s;
+    -webkit-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
 }
 
 .offer-info strong:hover {
