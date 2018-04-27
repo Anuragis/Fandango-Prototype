@@ -99,21 +99,25 @@ module.exports.getMovieHalls=function(req,res,next){
 module.exports.updateMovieHall=function(req,res,next){
     
     var hid =  req.params.hid;
-    movieHallsModel.findOneAndUpdate({ _id : req.params.hid}, { $set : { 
-        hallName:req.body.hallName,
-        hallAddress:req.body.hallAddress,
-        hallCity:req.body.hallCity,
-        hallZipCode: req.body.hallZipCode,
-        hallState: req.body.hallState,
-        screens: req.body.screens,
-        status: req.body.status
-    } }, {new:true}, function(err, hall) {
-       
-        if (err)
-            throw err;
+    movieHallsModel.findOne({hallName: req.body.hallName}, function(err, res){
+        
+        movieHallsModel.findOneAndUpdate({ _id : req.params.hid}, { $set : { 
+            hallName:req.body.hallName,
+            hallAddress:req.body.hallAddress,
+            hallCity:req.body.hallCity,
+            hallZipCode: req.body.hallZipCode,
+            hallState: req.body.hallState,
+            screens: req.body.screens,
+            status: req.body.status
+        } }, {new:true}, function(err, hall) {
+           
+            if (err)
+                throw err;
+        
+            res.end();
+        })
+   })
     
-        res.end();
-    })
 }
 
 module.exports.getHallByMovieName=function(req,res,next){
