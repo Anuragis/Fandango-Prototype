@@ -88,13 +88,13 @@ export default class admindashboard extends Component{
         this.handleSubmitForMovieRevenuePerYear=this.handleSubmitForMovieRevenuePerYear.bind(this);
         this.handleSubmitForMovieRevenuePerCityPerYear=this.handleSubmitForMovieRevenuePerCityPerYear.bind(this);
     }
-    handleChange = (events) => {
+handleChange = (events) => {
 
         console.log("Here", events.target.name);
         if(events.target.name === "city"){
             this.setState({
                 ...this.state,
-                cityName : events.target.value
+                cityName : events.target.value.trim()
             });
            
         }
@@ -102,35 +102,35 @@ export default class admindashboard extends Component{
         if(events.target.name === "username"){
             this.setState({
                 ...this.state,
-                userName : events.target.value
-            });
+                userName : events.target.value.trim()
+            });    
         }
 
         if(events.target.name === "moviename"){
             this.setState({
                 ...this.state,
-                movieName : events.target.value
+                movieName : events.target.value.trim()
             });
         }
 
         if(events.target.name==="year"){
             this.setState({
                 ...this.state,
-                year : events.target.value
+                year : events.target.value.trim()
             });
         }
 
         if(events.target.name==="movie"){
             this.setState({
                 ...this.state,
-                movie : events.target.value
+                movie : events.target.value.trim()
             });
         }
 
         if(events.target.name==="movieYear"){
             this.setState({
                 ...this.state,
-                movieYear : events.target.value
+                movieYear : events.target.value.trim()
             });
         }
 
@@ -142,7 +142,7 @@ export default class admindashboard extends Component{
         let city=this.state.cityName;
         this.state.masterRepo.map(function(log){ 
 
-           if(log.city===city){
+           if(log.city.toUpperCase()===city.toUpperCase()){
                 if(log.page==="home"){
                     pagesTimeArray[0]+=(log.time/1000);
                 }else  if(log.page==="movies"){
@@ -180,7 +180,7 @@ export default class admindashboard extends Component{
         let movie=this.state.movieName;
         this.state.masterRepo.map(function(log){ 
 
-           if(log.movie===movie){
+           if(log.movie.toUpperCase()===movie.toUpperCase()){
                 if(log.movierating===1){
                     pagesTimeArray[0]++;
                 }else  if(log.movierating===2){
@@ -216,7 +216,7 @@ export default class admindashboard extends Component{
         let username=this.state.userName;
         this.state.masterRepo.map(function(log){ 
 
-           if(log.fname===username){
+           if(log.fname.toUpperCase()===username.toUpperCase()){
                 if(log.page==="home"){
                     pagesTimeArray[0]+=(log.time/1000);
                 }else  if(log.page==="movies"){
@@ -327,7 +327,7 @@ export default class admindashboard extends Component{
         let movie=this.state.movie;
         var cityMap= new Map();
         this.state.masterRepo.map(function(log){ 
-        if(log.movie===movie && log.bookingdate.split("-")[0]===year){
+        if(log.movie.toUpperCase()===movie.toUpperCase() && log.bookingdate.split("-")[0]===year){
             if(cityMap.has(log.city)){
                 cityMap.set(log.city, cityMap.get(log.city)+log.moviebooking);
             }else{

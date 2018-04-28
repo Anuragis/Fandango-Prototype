@@ -1,161 +1,215 @@
 import React,{Component} from 'react';
 import '../css/moviedetails.css';
+import Header from './headers';
+import Footer from './footer';
+import axios from 'axios';
+
+
 class moviedetails extends Component{
-
+	constructor(props) {
+        super(props);
+        this.state = {
+            movieDetails : [],
+        }
+    }
+	componentDidMount(){
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Accept', 'application/json');
+        axios('http://localhost:8900/movieById/5adbab45ba59886b4baa6bc6', {
+                method: 'get',
+                mode: 'cors',
+                headers: headers,
+            })
+            .then((response) => {
+                this.setState({
+                    movieDetails : this.state.movieDetails.concat(response.data)
+                });
+            });
+    }
     render(){
-       return ( 
-        <div class="page-bg">
-       <div class="alignment">
-        <h4 id="H4_4">
-	        Avengers: Infinity War 
-        </h4>
-        <br></br>
-        <br></br>
-      
-        <div id="DIV_1">
-	<div id="DIV_2">
-		<section id="SECTION_3">
-			 <a href="/avengers-infinity-war-199925/movie-overview" id="A_4"><img src="//images.fandango.com/ImageRenderer/200/0/redesign/static/img/default_poster.png/0/images/masterrepository/Fandango/199925/AvengersInfinityWar-postera.jpg" alt="Avengers: Infinity War Movie Poster" id="IMG_5" /></a>
-			<ul id="UL_6">
-				<li id="LI_7">
-					Opens
-				</li>
-				
-				<li id="LI_9">
-					PG-13, 2 hr 29 min
-				</li>
-				<li id="LI_10">
-					Action/Adventure
-				</li>
-				<li id="LI_11">
-					Sci-Fi/Fantasy
-				</li>
-				<li id="LI_12">
-				</li>
-				<li id="LI_13">
-				</li>
-			</ul>
-			<ul id="UL_14">
-				<h3 id="H3_15">
-					SEE IT IN
-				</h3>
-				<li id="LI_16">
-					<span id="SPAN_17">35MM</span>
-				</li>
-				<li id="LI_18">
-					<span id="SPAN_19">Digital 3D</span>
-				</li>
-				<li id="LI_20">
-					<span id="SPAN_21">IMAX</span>
-				</li>
-				<li id="LI_22">
-					<span id="SPAN_23">IMAX 3D</span>
-				</li>
-			</ul>
-			<section id="SECTION_24">
-				 <a id="A_25">FREE* EXCLUSIVE POSTER</a>
-				<div id="DIV_26">
-					with ticket purchase (S&amp;H not included).
-				</div>
-
-			</section>
-			<div id="DIV_29">
-				<div id="DIV_30">
-					<div id="DIV_31">
-						<span id="SPAN_32"></span> <span id="SPAN_33">SPECIAL OFFER</span>
-					</div> 
-					<button id="BUTTON_34">
-						<span id="SPAN_35">X</span>
-					</button><img src="https://images.fandango.com/images/offers/282/1/FD_Avengers_620x350_v2_lg.jpg" alt="FREE* EXCLUSIVE POSTER" id="IMG_36" />
-					<div id="DIV_37">
-						<h4 id="H4_38">
-							Buy tickets to 'Avengers: Infinity War' and choose 1 of 5 FREE* exclusive posters from Fandango FanShop!
-						</h4>
-					</div> <small id="SMALL_39">*PLUS $6.95 STANDARD SHIPPING &amp; HANDLING. Offer is valid from 6:00 a.m. PT on 3/16/2018 through 9:00 a.m. PT on 6/29/2018, subject to ticket availability. Purchase must be made with a Fandango VIP account. Fandango VIP is free to join. Offer valid in the U.S. only to residents 18 years of age or older. Each ‘Avengers: Infinity War’ VIP ticket purchaser on Fandango.com or via the Fandango App, will receive an email with one (1) code ("Code") valid for a FREE ‘Avengers: Infinity Wars’ poster available here: https://www.fandangofanshop.com/avengers-infinity-war-movie-poster (not including shipping and handling) AND 10% discount on all Marvel merchandise on Fandango FanShop, when Code is used during the same transaction. Code is not valid on the purchase of Fandango Passes, gift cards, applicable taxes, or shipping charges. Code can only be used once. One Code per Fandango ticket purchase transaction, regardless of number of tickets purchased in a single transaction. Code expires on 7/31/2018. Codes are available during the offer period while supplies last. This is a promotional code and is not to be shared, is not for resale, has no cash value, and will not be replaced if lost or stolen. This offer is non-transferable and cannot be combined with other offers. This offer is subject to Fandango’s Terms and Policies and Privacy Policy at https://www.fandango.com/terms-and-policies. © 2018 Marvel. All Rights Reserved.</small>
-				</div>
-			</div>
-		</section>
-		<div id="DIV_40">
-			<div id="DIV_41">
-				<div id="DIV_42">
-				</div>
-				<div id="DIV_43">
-					<h3 id="H3_44">
-						<i id="I_45"></i> Tell us where you are
-					</h3>
-					<p id="P_46">
-						Looking for movie tickets? Enter your location to see which movie theaters are playing Avengers: Infinity War near you.
-					</p>
-				</div> <span id="SPAN_47">ENTER CITY, STATE OR ZIP CODE</span>
-				<input placeholder="City, State or Zip Code" type="text" id="INPUT_48" /> <a href="#" id="A_49">GO</a>
-			</div>
-		</div>
-		<section id="SECTION_50">
-		
-			<div id="DIV_53">
-				 <a href="/cinearts-santana-row-AASUR/theater-page" id="A_54">CinéArts @ Santana Row</a>
-			</div>
-			<div id="DIV_55">
-				Movie Times for Thursday, April 26, 2018
-			</div>
-
-			<ol id="OL_65">
-				<li id="LI_66">
-					 <a href="https://tickets.fandango.com/Transaction/Ticketing/ticketboxoffice.aspx?row_count=217593152&amp;tid=AASUR&amp;sdate=2018-04-26+19:15&amp;mid=210073&amp;from=mov_det_showtimes" id="A_67">7:15p</a>
-				</li>
-				<li id="LI_68">
-					 <a href="https://tickets.fandango.com/Transaction/Ticketing/ticketboxoffice.aspx?row_count=217528614&amp;tid=AASUR&amp;sdate=2018-04-26+22:30&amp;mid=210073&amp;from=mov_det_showtimes" id="A_69">10:30p</a>
-				</li>
-			</ol> <a href="/avengers-infinity-war-199925/movie-times" id="A_70">SEE ALL THEATERS + MOVIE TIMES</a>
-		</section>
-		<section id="SECTION_71">
-			<h3 id="H3_72">
-				<span id="SPAN_73"></span> Fandango Fanalert™
-			</h3>
-			<div id="DIV_74">
-				<p id="P_75">
-					This movie releases on April 27, 2018. Sign up for a FanAlert and be the first to know when tickets and other exclusives are available in your area.
-				</p>
-				<div id="DIV_76">
-				</div>
-				<input type="text" placeholder="Email Address" id="INPUT_77" />
-				<input type="text" placeholder="Zip Code or City, State" maxlength="200" id="INPUT_78" /> 
-				<label id="LABEL_79">
-					<input type="checkbox" id="INPUT_80" /> Also sign me up for FanMail to get updates on all things movies: tickets, special offers, screenings + more.
-				</label> <a href="/policies/privacy-policy" id="A_81">Privacy Policy</a> 
-				<button type="button" name="button" id="BUTTON_82">
-					Sign Up For FanAlert™
-				</button>
-			</div>
-			<div id="DIV_83">
-				 <a href="/movietimes" id="A_84">CHECK OUT WHAT'S PLAYING NEAR YOU</a>
-			</div>
-		</section>
-	</div>
-	<div id="DIV_85">
-		<section id="SECTION_86">
+		console.log("Response Data : ", this.state.movieDetails);
+		let releaseData = null, movieLength = null, movieCategory = null, trailerLink = null;
+		var today = new Date();
+		this.state.movieDetails.map(movie => {
+			console.log("Movie Data : ", movie.releaseDate);
+			let releaseDate = new Date(movie.releaseDate);
 			
+			if(releaseDate > today){
 				
-        <iframe width="560" height="500" src="https://www.youtube.com/embed/6ZfuNTqbHE8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        
-		</section>
-		<div id="DIV_146">
-			<div id="DIV_147">
-			</div>
-			<div id="DIV_148">
-				<div id="DIV_149">
-					<div id="DIV_150">
-						<div id="DIV_151">
+				releaseData = "Opens on   " + releaseDate.toLocaleDateString();
+			}else{
+				releaseData = "Released on " + releaseDate.toLocaleDateString();
+			}
+			movieLength = movie.movieLength;
+			movieCategory = movie.movieCategory;
+			trailerLink = movie.trailerLink;
+
+		})
+
+		let castData = null;
+		this.state.movieDetails.map(movie => {
+			castData = movie.cast.map(cast =>{
+				return(
+					<li style = {{float : 'left', margin : '0 26px 20px 0', height : '200px', width : '125px', float : 'left'}} class="visual-item">
+						<a style = {{background : '#000', display:'block', overflow : 'hidden', width : '100%'}} class="visual-container" href="http://www.fandango.com/avengers:infinitywar_199925/movieoverview">
+							<img data-src="https://images.fandango.com/r1.0.444/ImageRenderer/168/250/redesign/static/img/default_poster.png/199925/images/masterrepository/fandango/199925/avengersinfinitywar-postera.jpg" class="visual-thumb" alt="Avengers: Infinity War showtimes and tickets" src="https://images.fandango.com/r1.0.444/ImageRenderer/168/250/redesign/static/img/default_poster.png/199925/images/masterrepository/fandango/199925/avengersinfinitywar-postera.jpg"/>
+						</a>
+						<div style = {{display : 'block', padding : '5px', background : '#fff'}} class="visual-detail">
+							<a style = {{fontSize : '20px', lineHeight : '20px', overflow : 'hidden', padding : '0 10px 0 0', maxHeight: '40px', whiteSpace: 'normal'}} class="visual-title dark" href="http://www.fandango.com/avengers:infinitywar_199925/movieoverview">
+								{cast.castName}
+							</a>
 						</div>
-					</div>
+                    </li>
+				)
+			})
+		})
+		
+		let reviewData = null;
+		this.state.movieDetails.map(movie => {
+			reviewData = movie.reviews.map(review =>{
+				return(
+					<li class="fan-reviews__item" style = {{paddingBottom : '20px', paddingTop : '20px'}}>
+						{/*Display Stars Logic here*/}         
+						<div class="fan-reviews__user-name">
+							{review.fName + '  ' + review.lName}
+						</div>
+						<div class="fan-reviews__review">{review.reviewText}</div>
+					</li>
+				)
+			})
+		});
+    	return ( 
+			<div>
+				<Header />
+				<div>
+					<section class="subnav">
+						<div class="row">
+							<div class="width-100">
+								<h3  style = {{color : 'white', fontSize : '35px'}} class="subnav__title heading-style-1 heading-size-xl timing-header">
+									{localStorage.getItem('movieName') + '   '}
+									<span class="subnav__title--accent">
+										NOW PLAYING
+										<span class="js-subnav__user-location"></span>
+									</span>
+								</h3>
+								<ul class="subnav__link-list">
+									<li class="subnav__link-item">
+										<a class="subnav__link subnav__link--active" href="/95101_movietimes">
+											Overview
+										</a>
+									</li>
+									<li class="subnav__link-item">
+										<a class="subnav__link" href="/95101_movietimes?ticketedonly=true">
+											Movie Time + Tickets
+										</a>
+									</li>
+									<li class="subnav__link-item">
+										<a class="subnav__link" href="/95101_movietimes?mytheaters=true">
+											Synopsis
+										</a>
+									</li>
+									<li class="subnav__link-item">
+										<a class="subnav__link" href="/95101_movietimes?mytheaters=true">
+											Movie Review
+										</a>
+									</li>
+									<li class="subnav__link-item">
+										<a class="subnav__link" href="/95101_movietimes?mytheaters=true">
+											Trailers
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</section>
+					<br/>
+					<div style = {{width : '370px', float : 'left', paddingLeft : '50px'}} class="msp__movie-details-container">
+					<section class="movie-details">
+						<a class="movie-details__mop-link" href="/avengers-infinity-war-199925/movie-overview">
+							<img class="movie-details__movie-img visual-thumb" src="//images.fandango.com/ImageRenderer/200/0/redesign/static/img/default_poster.png/0/images/masterrepository/Fandango/199925/AvengersInfinityWar-postera.jpg" alt="Avengers: Infinity War Movie Poster"/>
+						</a>
+						<ul class="movie-details__detail">
+							<li></li> 
+							<li class="movie-details__release-date">{releaseData}</li>
+							<li>
+								{movieLength}
+							</li>
+							<li>{movieCategory}</li>
+							
+						<li>
+						</li>
+						
+						</ul>
+						<ul class="movie-details__film-formats">
+							<h3 class="movie-details__film-formats-header">SEE IT IN</h3>   
+							<li class="movie-details__format"><span class="movie-details__format-logo">35MM</span></li>
+							<li class="movie-details__format"><span class="movie-details__format-logo">Digital 3D</span></li>
+							<li class="movie-details__format"><span class="movie-details__format-logo">IMAX</span></li>
+							<li class="movie-details__format"><span class="movie-details__format-logo">IMAX 3D</span></li>
+						</ul>
+						<section class="movie-offer">
+							<a class="js-offer-cta movie-offer__label" data-offer-id="282">FREE* EXCLUSIVE POSTER</a>
+							<div class="movie-offer__title">with ticket purchase (S&amp;H not included).</div>
+							<div class="movie-offer__disclaimer">LIMITED TIME. SUBJECT TO AVAILABILITY. TERMS APPLY.</div>
+							<a class="js-offer-cta movie-offer__flag icon-gift-box-white" data-offer-id="282">SPECIAL OFFER</a>
+						</section>
+					</section> 
 				</div>
+				<div id="DIV_85" style = {{width : '560px', height : '500px', float : 'left'}}>
+						<section id="SECTION_86">
+							
+								
+						<iframe width="560" height="500" src={trailerLink} frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+						
+						</section>
+					</div>
+
+					<div style = {{width : '380px',position : 'relative',float : 'right'}}>
+						<h2>Fan Reviews</h2>
+						<ul>
+							{reviewData}
+						</ul>
+						<br/><br/><br/>
+						<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Submit a Review</button>
+						<div class="modal fade" id="myModal" role="dialog">
+							<div class="modal-dialog">
+							
+
+							<div class="modal-content">
+								<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Submit Your Review</h4>
+								</div>
+								<div class="modal-body">
+								<div class="form-group">
+  									<label for="comment">Review:</label>
+  									<textarea class="form-control" rows="5" id="comment"></textarea>
+								</div>
+								</div>
+								<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								</div>
+							</div>
+							
+							</div>
+  						</div>
+					</div>
+					<br/><br/>
+					<div class="carousel-cast-crew" style = {{paddingLeft : '50px',paddingTop : '50px',overflow : 'hidden', marginBottom : '20px', width : '100%'}}>
+                    <h2 style = {{color : '#4c4c4c', margin : '0 0 15px', padding : '0 30px', position : 'relative', textAlign : 'center'}} class="inline heading-style-stub heading-style-1 heading-size-l section-header">Cast + Crew</h2>
+                    <ul style = {{margin : '0 -30px 20px 0', overflow : 'auto', lifeStyle : 'none', height : '300px'}}>
+						{castData}
+                    </ul>
+
+					
+                </div>
+				
+				</div>
+				
+				<Footer />
 			</div>
-		</div>
-	</div>
-</div>
-</div>
-   </div>
-       );
+    	);
     }
 }
 

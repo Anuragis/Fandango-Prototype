@@ -2,10 +2,9 @@ var moviesModel = require('../models/moviesModel');
 const {ObjectId} = require('mongodb');
 
 
-module.exports.createMovie = function(req,res,next){
-    console.log("req body", req.body);
+module.exports.createMovie = function(req,res,next){    
         var newMovie = new moviesModel();
-
+        console.log('req', req.body.cast);
         newMovie.movieTitle = req.body.movieTitle;
         newMovie.movieCategory = req.body.movieCategory;
         newMovie.trailerLink = req.body.trailerLink;
