@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
-import Head from './gauravHeader';
+import Head from './Header';
 import MovieBookings from './adminMovieBookings';
 export default class AdminMovieDash extends Component {
     constructor(props) {
@@ -79,9 +79,9 @@ export default class AdminMovieDash extends Component {
                             <tr key={movie._id}>
                                 <td>{id}</td>
                                 <td>
-                                    <Link to={"/moviebookings"}>
-                                        {movie.movieTitle}
-                                    </Link>
+                                <Link to={{pathname:"/addmovie", state:{name: movie.movieTitle}}}>
+                                    {movie.movieTitle}
+                                </Link>
                                 </td>
                                 <td>{movie.movieCategory}</td>
                                 <td>{movie.releaseDate}</td>
