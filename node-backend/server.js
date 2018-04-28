@@ -7,6 +7,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var session = require('express-session');
 var app = express();
+var path = require ('path');
 var mongoStore = require("connect-mongo")(session);
 
 app.use('/static', express.static('./public'));
@@ -41,6 +42,7 @@ app.set('port', 8900);
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use('/',express.static(path.join(__dirname, 'public','data')))
 
 app.use('/', routes);
 app.set('port', 8900);

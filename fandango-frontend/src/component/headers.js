@@ -1,22 +1,32 @@
 import React from 'react';
-import '../css/header.css';
+import {Link} from 'react-router-dom';
 
 export default class Header extends React.Component {
     constructor(props) {
         super(props);
       }
     render() {
+        function handleSignout(e){
+            window.location.reload();
+            localStorage.removeItem('userid');
+            alert('User Signed Out Successfully!!!');
+        }
+        let userID = null,barToggle = null;
+        userID = localStorage.getItem('userid');
+        if(userID){
+            barToggle = <Link onClick = {(e) => handleSignout(e)}  to = "/"class="show-logged-in">Sign Out</Link>
+        }else{
+            barToggle = <Link to = "/signin"class="show-logged-in">Sign In</Link>
+        }
         return (
             <div class="logged-in  no-touch">
-           x` <div>
+        <div>
       <div id="brand-bar" class="hide-on-mobile">
         <div class="row">
           <div class="width-25 right">
             <a href="/fandango-gift-cards">Gift Cards</a> |
             <a href="/freemovietickets">Offers</a> |
-            {/*<a href="https://www.fandango.com/account/signin?from=%2F" class="hide-logged-in">Sign In</a>*/}
-            <a href="/login" class="hide-logged-in">Sign In</a>
-            <a href="/signout" class="show-logged-in">Sign Out</a>
+            {barToggle}
           </div>
         </div>
       </div>
@@ -52,8 +62,8 @@ export default class Header extends React.Component {
             <ul id="global-menu" class="inline-items tablet-width-100 right nonstandard-width">
                 <li id="movies-tab" class="tablet-width-20 nonstandard-width">
                     <section class="has-dropdown" style={{height:'70px',paddingTop : '25px'}}>
-                        <h3><a href="/moviesintheaters" style = {{color : 'white'}}>Movies</a></h3>
-                        <div class="mega-menu">
+                        <h3><Link to="/movies" style = {{color : 'white'}}>Movies</Link></h3>
+                        <div style = {{height : '500px'}} class="mega-menu">
                             <div class="row">
                                 <div class="width-25">
                                     <h4 class="heading-style-1 heading-size-m">Now Playing</h4>
@@ -268,7 +278,7 @@ export default class Header extends React.Component {
                 </li>
                 <li id="theatersTab" class="tablet-width-30 nonstandard-width">
                     <section class="has-dropdown"  style={{height:'70px',paddingTop : '25px'}}>
-                        <h3><a style = {{color : 'white'}} id="local-movies-link" href="/movieTimeTicket">Movie Times + Tickets</a></h3>
+                        <h3><Link to="/movieTimeHalls" style = {{color : 'white'}} id="local-movies-link" >Movie Times + Tickets</Link></h3>
                         <div class="mega-menu">
                             <div class="row">
                                 <div id="theatersList" class="width-75 tablet-width-100"><header class="list-local-theaters">

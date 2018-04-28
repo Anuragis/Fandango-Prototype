@@ -1,7 +1,18 @@
 var usersModel = require('../models/usersModel');
+var multer = require('multer');
+var path = require('path');
 const {ObjectId} = require('mongodb');
 
-
+const storage = multer.diskStorage({
+        destination: 'public/data/userImages',
+        filename: function (req, file, cb) {
+           console.log("req inside" + req.params.uid); 
+           cb(null, req.params.uid + path.extname(file.originalname))
+        }
+    });
+    // create the multer instance that will be used to upload/save the file
+    const upload = multer({ storage }).single('iFile');
+module.exports.sImg = multer({ storage }).single('iFile');
 
 module.exports.createUser = function(req,res,next){
    
@@ -15,7 +26,7 @@ module.exports.createUser = function(req,res,next){
         newUser.state = req.body.state;
         newUser.zipCode = req.body.zipCode;
         newUser.phoneNumber = req.body.phoneNumber;
-        newUser.profileImage = req.body.profileImage;
+        newUser.profileImage = "preview.jpg";
         newUser.creditCard = req.body.creditCard;
         newUser.userType=req.body.userType;
         newUser.status="active";
@@ -95,6 +106,16 @@ module.exports.updateUser=function(req,res,next){
    
     var uid =  req.params.uid;
     console.log("Inside update user");
+    if(req.file.originalname!=undefined) {
+        var values = {$set : {
+            profileImage : req.params.uid + path.extname(req.file.originalname)}};
+        usersModel.findOneAndUpdate({ _id : req.params.uid},values, function(err, user) {
+            console.log("Movie id",uid);
+            if (err)
+                throw err;
+            res.end();
+        })
+    } else {
     usersModel.findOneAndUpdate({ _id : req.params.uid}, { $set : { 
         fName : req.body.fName,
         lName : req.body.lName,
@@ -104,7 +125,6 @@ module.exports.updateUser=function(req,res,next){
         state : req.body.state,
         zipCode : req.body.zipCode,
         phoneNumber : req.body.phoneNumber,
-        profileImage : req.body.profileImage,
         creditCard : req.body.creditCard,
         userType:req.body.userType,
         status:"active"
@@ -114,6 +134,7 @@ module.exports.updateUser=function(req,res,next){
             throw err;
         res.end();
         })
+    }
     
 }
 

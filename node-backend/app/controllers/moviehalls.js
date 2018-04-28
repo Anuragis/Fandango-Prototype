@@ -1,7 +1,9 @@
+
+
 var movieHallsModel = require('../models/moviehallsModel');
 const {ObjectId} = require('mongodb');
 var mongoose = require('../connections/mongo');
-
+var moviesModel = require('../models/moviesModel');
 
 module.exports.createMovieHall = function(req,res,next){
     
@@ -129,19 +131,26 @@ module.exports.updateMovieHall=function(req,res,next){
 
 module.exports.getHallByMovieName=function(req,res,next){
     console.log("req body", req.params);
+    moviesModel.findById({_id : req.params.moviename},function(err,movie){
+        if(err){
 
-    var resHall=[];
-    movieHallsModel.find({}, function(err, halls) {
-        if (err)
-            throw err;
+        }else{
+            var resHall=[];
+            movieHallsModel.find({}, function(err, halls) {
+                if (err)
+                    throw err;
 
-            halls.map(function(hall){ 
-                return hall.screens.filter(function(screen){ 
-                        if(screen.movieName===req.params.moviename){
-                           resHall.push(hall);
-                        }
+                    halls.map(function(hall){ 
+                        return hall.screens.filter(function(screen){ 
+                                if(screen.movieName===movie.movieTitle){
+                                resHall.push(hall);
+                                }
+                            });
                     });
-            });
-        res.send(resHall);
-    })
+                console.log("Response : ", resHall);
+                res.send(resHall);
+            })
+        }
+    });
+    
 }

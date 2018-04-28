@@ -12,10 +12,11 @@ class MovieTimeHalls extends Component {
     }
   }
   
-  componentDidMount(){
+  componentWillMount(){
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    headers.append('Accept', 'application/json');
+	headers.append('Accept', 'application/json');
+	console.log("Inside Will Mount");
     axios('http://localhost:8900/hall/' + localStorage.getItem('movieName'), {
             method: 'get',
             mode: 'cors',
@@ -24,9 +25,11 @@ class MovieTimeHalls extends Component {
         .then((response) => {
             this.setState({
                 movieHallsData : this.state.movieHallsData.concat(response.data)
-            });
-        });
-    document.getElementById("scroll-date-picker__list").style.left = "0px";
+			});
+			console.log("Respnse after set state: ", response.data);
+		});
+		
+    //document.getElementById("scroll-date-picker__list").style.left = "0px";
   }
 
   
@@ -60,6 +63,7 @@ class MovieTimeHalls extends Component {
 
 
   render() {
+	console.log("Response : " + this.state.movieHallsData);
 	let movieData = null, movieTimings= null;
 	let movieReleaseDate = '26 April 2018', movieCategory = null, movieDuration = null;
 	let hallData = this.state.movieHallsData.map(hall => {

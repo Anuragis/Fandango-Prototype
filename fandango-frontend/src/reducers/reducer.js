@@ -19,6 +19,7 @@ const reducer = (state = initialState, action) => {
     }
     if(action.type === 'LOGIN_SUCCESS'){
         console.log("In Reducer",action);
+        localStorage.setItem('userid',action.payload.data);
         console.log("Action Payload:  ",action.payload.data);
         if(action.payload.data !== null){
             return{
