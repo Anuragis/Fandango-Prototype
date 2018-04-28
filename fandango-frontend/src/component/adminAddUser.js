@@ -248,7 +248,7 @@ class user extends React.Component {
                 <div className="form-group">
                   <p className="errMsg">{this.state.emailError}</p>
                   <input  type="text" className="form-control" placeholder="Email" value={this.state.email} onChange={(event)=>{
-                    this.setState({email: event.target.value,message:""});
+                    this.setState({email: event.target.value,message:"",emailError:""});
                   }} required />
                 </div>
                 {showPassword}
