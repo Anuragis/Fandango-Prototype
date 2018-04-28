@@ -78,7 +78,7 @@ class halls extends Component{
                               <span className="glyphicon glyphicon-pencil"><Link to="/user"></Link></span>
                             </td>*/}
                             <td>
-                                <Link to={{pathname:"/viewbooking", state:{id: hall._id}}}><span className="glyphicon glyphicon-pencil"></span></Link>
+                                <Link to={{pathname:"/addhall", state:{id: hall._id}}}><span className="glyphicon glyphicon-pencil"></span></Link>
                             </td>
                         </tr>
                     )

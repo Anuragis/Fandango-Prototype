@@ -154,3 +154,15 @@ module.exports.getHallByMovieName=function(req,res,next){
     });
     
 }
+
+module.exports.getHallById=function(req,res,next){
+    
+    movieHallsModel.find({_id:req.params.hid}, function(err, hall) {
+
+    if(err){
+       // console.log("Get movie error", err);
+    }else{
+        res.send(JSON.stringify(hall));  
+        }
+    });
+}

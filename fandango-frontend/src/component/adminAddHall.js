@@ -65,7 +65,7 @@ class hall extends React.Component {
     componentWillMount(){
 
         if(this.props.location.state.id!="0"){
-        var url = 'http://localhost:8900/user/' + this.props.location.state.id;
+        var url = 'http://localhost:8900/hallById/' + this.props.location.state.id;
         
         axios(url, {
           method: 'GET',
@@ -74,29 +74,15 @@ class hall extends React.Component {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
           }
-        }).then((res) => {this.setState({fname: res.data.fName, 
-          lname: res.data.lName,
-          email: res.data.email,
-          address: res.data.address,
-          city: res.data.city,
-          state: res.data.state,
-          zipCode: res.data.zipCode,
-          phoneNumber: res.data.phoneNumber,
-          password: res.data.password,
-          profileImage: res.data.profileImage,
-          cardnumber: res.data.creditCard.cardNumber,
-          nameoncard:res.data.creditCard.nameOnCard,
-          expiry:res.data.creditCard.expiry,
-          cvv:res.data.creditCard.cvv,
-          userType: res.data.userType});
-          console.log("Response",res);
-          if(this.state.imagePreview=="") {
-            console.log("profileImage"+this.state.fname);
-            this.setState({
-              imagePreview: "http://localhost:8900/userImages/"+this.state.profileImage
-            })
-          }
-        }
+        }).then((res) => {this.setState({hallName: res.data[0].hallName, 
+            hallAddress: res.data[0].hallAddress,
+            hallCity: res.data[0].hallCity,
+            hallZipCode: res.data[0].hallZipCode,
+            hallState: res.data[0].hallState,
+
+        
+                });
+            }
           )
         }
 
@@ -191,50 +177,11 @@ class hall extends React.Component {
     let showPassword="";
     let displayButton="";
       if(this.props.location.state.id==="0") {
-        showPassword=( <div className="form-group">
-                  <input  type="password" className="form-control" placeholder="Password" value={this.state.password} onChange={(event)=>{
-                    this.setState({password: event.target.value.trim(),message:""});
-                  }} required />
-                  </div>);
         displayButton=(<button type="button" id="submit" name="submit" className="btn btn-primary pull-right" onClick={this.createProfile.bind(this)}>Create</button>);
       }else{
-        showPassword=( <div></div>);
         displayButton=(<button type="button" id="submit" name="submit" className="btn btn-primary pull-right" onClick={this.updateProfile.bind(this)}>Update</button>);
       };
-      const styleUpl = {
-        display : 'none'
-    }
-    const styleBorder = {
-        marginRight: '10px'
-    }
-      let uplImg = null;
-      if(this.state.fileSelected==='') {
-        uplImg = (
-          <div id='imageUploader' style={{marginTop:'5px'}} > 
-            <label  htmlFor="uplbtn" id="btn-file-uploader" className="btn btn-warning">
-                  <span> <b>Update</b></span>
-              </label>
-            <input style={{display:'none'}} type="file" className="btn pull-left btn-block" id="uplbtn" onChange={this.handleChange} ref={(ref) => { this.uploadInput = ref; }}/>
-          </div>
-        );
-      }
-      else {
-        uplImg = (
-        <div id='imageUploader' style={{marginTop:'5px'}} >
-            <label htmlFor="uplbtn" id="btn-file-uploader" style = {styleBorder} className="btn btn-warning">
-                <span> <b>Save</b></span>
-            </label>
-            <label htmlFor="canbtn" id="btn-file-uploader" style = {styleBorder} className="btn btn-warning">
-                <span> <b>Cancel</b></span>
-            </label>
-            {/* <input style={styleUpl} type='file' id="uplbtn" className='fileInput' onChange={this.handleChange} ref={(ref) => { this.uploadInput = ref; }}/> */}
-            <button id="uplbtn" style = {styleUpl} onClick = {this.imageUpdate} ></button>
-            <button id="canbtn" style = {styleUpl} onClick = {this.handleCancel} ></button>
-        </div>
-        );
-    }
-      
-  
+     
       return (
         <div id="siteContainer" className="ticketBoxoffice">
         <div id="headerContainer" class="purchase detail on-order" name="HeaderContainer">
@@ -249,11 +196,7 @@ class hall extends React.Component {
         </div>
          <div className = "container">
           <div className = "row">
-           <div className = "col-md-3">
-              <h1 className="text-center">Profile Image</h1>
-              <img src = {this.state.imagePreview} alt = "This is user's display pic"/>
-              {uplImg}
-          </div>
+       
 
         <div className="col-md-9">
           <div className="form-area">  
@@ -261,67 +204,30 @@ class hall extends React.Component {
                 <br styles="clear:both" />
                 <div className="form-group">
                   <p className="errMsg">{this.state.firstNameError}</p>
-                  <input  type="text" className="form-control" placeholder="First Name" value={this.state.fname} onChange={(event)=>{
-                    this.setState({fname: event.target.value.trim(),firstNameError:"",message:""});
+                  <input  type="text" className="form-control" placeholder="Hall Name" value={this.state.hallName} onChange={(event)=>{
+                    this.setState({hallName: event.target.value.trim(),firstNameError:"",message:""});
                   }}  required />
                 </div>
                 <div className="form-group">
-                  <input  type="text" className="form-control" placeholder="Last Name" value={this.state.lname} onChange={(event)=>{
-                    this.setState({lname: event.target.value.trim(),message:""});
+                  <input  type="text" className="form-control" placeholder="Addrees" value={this.state.hallAddress} onChange={(event)=>{
+                    this.setState({hallAddress: event.target.value.trim(),message:""});
                   }} required />
                 </div>
                 <div className="form-group">
                   <p className="errMsg">{this.state.emailError}</p>
-                  <input  type="text" className="form-control" placeholder="Email" value={this.state.email} onChange={(event)=>{
-                    this.setState({email: event.target.value.trim(),message:"",emailError:""});
-                  }} required />
-                </div>
-                {showPassword}
-                <div className="form-group">
-                  <input  type="text" className="form-control" placeholder="Address" value={this.state.address} onChange={(event)=>{
-                    this.setState({address: event.target.value.trim(),message:""});
+                  <input  type="text" className="form-control" placeholder="City" value={this.state.hallCity} onChange={(event)=>{
+                    this.setState({hallCity: event.target.value.trim(),message:"",emailError:""});
                   }} required />
                 </div>
                 <div className="form-group">
-                  <input  type="text" className="form-control" placeholder="City" value={this.state.city} onChange={(event)=>{
-                    this.setState({city: event.target.value.trim(),message:""});
+                  <input  type="text" className="form-control" placeholder="State" value={this.state.hallState} onChange={(event)=>{
+                    this.setState({hallState: event.target.value.trim(),message:""});
                   }} required />
                 </div>
                 <div className="form-group">
                 <p className="errMsg">{this.state.stateError}</p>
-                  <input  type="text" className="form-control" placeholder="state" value={this.state.state} onChange={(event)=>{
-                    this.setState({state: event.target.value.trim(),stateError:"",message:""});
-                  }} required />
-                </div>
-                <div className="form-group">
-                <p className="errMsg">{this.state.zipCodeError}</p>
-                  <input  type="text" className="form-control" placeholder="postal code" value={this.state.zipCode} onChange={(event)=>{
-                    this.setState({zipCode: event.target.value.trim(),
-                      zipCodeError:"",message:""});
-                  }} required />
-                </div>
-                <div className="form-group">
-                  <input  type="text" className="form-control" placeholder="phone number" value={this.state.phoneNumber} onChange={(event)=>{
-                    this.setState({phoneNumber: event.target.value.trim(),message:""});
-                  }} required />
-                </div>
-                <div className="form-group">
-                <input  type="text" className="form-control" placeholder="user type" value={this.state.userType} onChange={(event)=>{
-                    this.setState({userType: event.target.value.trim(),message:""});
-                  }} required />
-                  <h3><b>Card Details</b></h3>
-                  <p className="errMsg">{this.state.cardNumberError}</p>
-                  <input style = {{width : '300px', height:'45px'}} type="text" className="form-control" placeholder="Card Number" value={this.state.cardnumber} onChange={(event)=>{
-                    this.setState({cardnumber: event.target.value.trim(),cardNumberError:"",message:""});
-                  }} required />
-                  <input style = {{width : '300px', height:'45px'}} type="text" className="form-control" placeholder="Name on Card" value={this.state.nameoncard} onChange={(event)=>{
-                    this.setState({nameoncard: event.target.value.trim(),message:""});
-                  }} required />
-                  <input  style = {{width : '125px', height:'45px'}}  maxlength="7" size="7" type="text" className="form-control" placeholder="Expiry MM/YYYY" value={this.state.expiry} onChange={(event)=>{
-                    this.setState({expiry: event.target.value.trim(),message:""});
-                  }} required />
-                  <input  type="password"  maxlength="3" size="3"  style = {{width:'50px',textAlign:'center', display: 'inline-block',marginRight : '20px'}}className="form-control" placeholder="CVV" value={this.state.cvv} onChange={(event)=>{
-                    this.setState({cvv: event.target.value.trim(),message:""});
+                  <input  type="text" className="form-control" placeholder="Zip Code" value={this.state.hallZipCode} onChange={(event)=>{
+                    this.setState({hallZipCode: event.target.value.trim(),stateError:"",message:""});
                   }} required />
                 </div>
                 {displayButton}
