@@ -19,6 +19,7 @@ import MovieTimeHalls from './movieTimeHalls';
 import adminBookingDash from './adminBookingDash';
 import adminViewBooking from './adminViewBooking';
 
+import PageNotFound from './pageNotFound';
 const Main = () => (
     <Switch>
         <Route exact path = '/' component={userhome}/>

@@ -16,12 +16,13 @@ module.exports.createMovie = function(req,res,next){
         newMovie.movieRating = req.body.movieRating;
         newMovie.moviePhoto = req.body.moviePhoto;
         newMovie.screen = req.body.screen;
-        newMovie.reviews=req.body.reviews;
+        newMovie.reviews=null;
         newMovie.status="active";
 
         newMovie.save(function(err,movie) {
-            console.log("Error in movie Creation");
+            
             if (err){
+                console.log("Error in movie Creation");
                 throw err;
             }
            
@@ -112,7 +113,7 @@ module.exports.getMovieByCategory =function(req,res,next){
 
 
 module.exports.getMovieById=function(req,res,next){
-
+    console.log('Req Body', req.params);
     moviesModel.findOne({_id:req.params.mid}, function(err, movie) {
 
     if(err){

@@ -97,12 +97,6 @@ class SignUp extends Component {
 
               </form>
             </div>
-            <div>
-              {this.state.fname}<br/>
-              {this.state.email}<br/>
-              {this.state.passwordOne}<br/>
-              {this.state.passwordTwo}<br/>
-            </div>
         </div>    
     )}
 }
