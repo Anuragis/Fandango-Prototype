@@ -49,7 +49,9 @@ class moviedetails extends Component{
 		console.log("Response Data : ", this.state.movieDetails);
 		let releaseData = null, movieLength = null, movieCategory = null, trailerLink = null;
 		var today = new Date();
+		let movieID = null;
 		this.state.movieDetails.map(movie => {
+			movieID = movie._id;
 			console.log("Movie Data : ", movie.releaseDate);
 			let releaseDate = new Date(movie.releaseDate);
 			
@@ -174,6 +176,7 @@ class moviedetails extends Component{
 							<a class="js-offer-cta movie-offer__flag icon-gift-box-white" data-offer-id="282">SPECIAL OFFER</a>
 						</section>
 					</section> 
+					<Link to="/movieTimeHalls">See All Theatre and Movie Times</Link>
 				</div>
 				<div id="DIV_85" style = {{width : '560px', height : '500px', float : 'left'}}>
 						<section id="SECTION_86">

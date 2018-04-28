@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import Header from './headers';
 import Footer from './footer';
 import axios from 'axios';
+import {Link} from 'react-router-dom';
 
 
 class movies extends Component{
@@ -38,7 +39,8 @@ class movies extends Component{
 	console.log("Next Sunday : ", sunday);
 	var today = new Date();
 	console.log("Todays Date : ", today);
-	let releaseDate= null;
+    let releaseDate= null;
+    console.log("Resposne Data : ", this.state.movies);
 	let openMovie = this.state.movies.map(movie => {
 		releaseDate = movie.releaseDate;
 		releaseDate = new Date(releaseDate);
@@ -46,13 +48,13 @@ class movies extends Component{
 		if(releaseDate < sunday && releaseDate > today){
 			openingMovies = (
                 <li style = {{float : 'left', margin : '0 26px 20px 0', height : '200px', width : '125px', float : 'left'}} class="visual-item">
-                    <a style = {{background : '#000', display:'block', overflow : 'hidden', width : '100%'}} class="visual-container" href="http://www.fandango.com/avengers:infinitywar_199925/movieoverview">
+                    <Link to = {"/moviedetails/"+ movie._id}  style = {{background : '#000', display:'block', overflow : 'hidden', width : '100%'}} class="visual-container" >
                         <img data-src="https://images.fandango.com/r1.0.444/ImageRenderer/168/250/redesign/static/img/default_poster.png/199925/images/masterrepository/fandango/199925/avengersinfinitywar-postera.jpg" class="visual-thumb" alt="Avengers: Infinity War showtimes and tickets" src="https://images.fandango.com/r1.0.444/ImageRenderer/168/250/redesign/static/img/default_poster.png/199925/images/masterrepository/fandango/199925/avengersinfinitywar-postera.jpg"/>
-                    </a>
+                    </Link>
                     <div style = {{display : 'block', padding : '5px', background : '#fff'}} class="visual-detail">
-                        <a style = {{fontSize : '20px', lineHeight : '20px', overflow : 'hidden', padding : '0 10px 0 0', maxHeight: '40px', whiteSpace: 'normal'}} class="visual-title dark" href="http://www.fandango.com/avengers:infinitywar_199925/movieoverview">
+                        <Link to = {"/moviedetails/"+ movie._id} style = {{fontSize : '20px', lineHeight : '20px', overflow : 'hidden', padding : '0 10px 0 0', maxHeight: '40px', whiteSpace: 'normal'}} class="visual-title dark" >
                             {movie.movieTitle}
-                        </a>
+                        </Link>
                         <span class="visual-sub-title">Opens Today</span>
                     </div>
                 </li>
@@ -62,13 +64,13 @@ class movies extends Component{
             nowPlaying = (
 					<div>
 						<li style = {{float : 'left', margin : '0 26px 20px 0', height : '200px', width : '125px', float : 'left'}} class="visual-item">
-							<a style = {{background : '#000', display:'block', overflow : 'hidden', width : '100%'}} class="visual-container" href="http://www.fandango.com/avengers:infinitywar_199925/movieoverview">
+                            <Link to = {"/moviedetails/"+ movie._id} style = {{background : '#000', display:'block', overflow : 'hidden', width : '100%'}} class="visual-container" >
 								<img data-src="https://images.fandango.com/r1.0.444/ImageRenderer/168/250/redesign/static/img/default_poster.png/199925/images/masterrepository/fandango/199925/avengersinfinitywar-postera.jpg" class="visual-thumb" alt="Avengers: Infinity War showtimes and tickets" src="https://images.fandango.com/r1.0.444/ImageRenderer/168/250/redesign/static/img/default_poster.png/199925/images/masterrepository/fandango/199925/avengersinfinitywar-postera.jpg"/>
-							</a>
+							</Link>
 							<div style = {{display : 'block', padding : '5px', background : '#fff'}} class="visual-detail">
-								<a style = {{fontSize : '20px', lineHeight : '20px', overflow : 'hidden', padding : '0 10px 0 0', maxHeight: '40px', whiteSpace: 'normal'}} class="visual-title dark" href="http://www.fandango.com/avengers:infinitywar_199925/movieoverview">
+                                <Link to = {"/moviedetails/"+ movie._id} style = {{fontSize : '20px', lineHeight : '20px', overflow : 'hidden', padding : '0 10px 0 0', maxHeight: '40px', whiteSpace: 'normal'}} class="visual-title dark" >
 									{movie.movieTitle}
-								</a>
+								</Link>
 								<span class="visual-sub-title">Opens Today</span>
 							</div>
 						</li>

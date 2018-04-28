@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { signinAction } from '../actions/actions';
 import '../css/signin.css';
+import Redirect from 'react-router-dom/Redirect';
 
 class SignIn extends Component {
   constructor(props) {
@@ -34,8 +35,13 @@ class SignIn extends Component {
     this.props.signinAction(newData);
   }
   render() {
+    let redirectVar = null;
+    if(localStorage.getItem('userid')){
+      redirectVar = <Redirect to= "/" />
+    }
     return(
       <div>
+        {redirectVar}
         <div style = {{backgroundColor : "black"}}>
           <header id="registration-header" class="registration-header" role="banner">
               <nav role="navigation" class="nav-bar">
