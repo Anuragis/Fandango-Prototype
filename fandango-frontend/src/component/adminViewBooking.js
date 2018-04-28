@@ -84,14 +84,14 @@ class booking extends React.Component {
                                 <tr>
                                 
                                 <td>Booking Tax</td>
-                                <td>{this.state.btax}</td>
+                                <td>${this.state.btax}</td>
                             
                                 </tr>
 
                                  <tr>
                                 
                                 <td>Booking Amount</td>
-                                <td>{this.state.bamount}</td>
+                                <td>${this.state.bamount}</td>
                                 </tr>
 
                                 <tr>
