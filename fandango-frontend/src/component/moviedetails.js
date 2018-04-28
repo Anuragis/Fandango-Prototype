@@ -3,20 +3,22 @@ import '../css/moviedetails.css';
 import Header from './headers';
 import Footer from './footer';
 import axios from 'axios';
+import '../css/stars.css';
+import {Link} from 'react-router-dom';
 
 
 class moviedetails extends Component{
 	constructor(props) {
         super(props);
         this.state = {
-            movieDetails : [],
+			movieDetails : []
         }
     }
 	componentDidMount(){
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Accept', 'application/json');
-        axios('http://localhost:8900/movieById/5adbab45ba59886b4baa6bc6', {
+        axios('http://localhost:8900/movieById/5ae3f7d340097e06d00bac9b', {
                 method: 'get',
                 mode: 'cors',
                 headers: headers,
@@ -26,8 +28,24 @@ class moviedetails extends Component{
                     movieDetails : this.state.movieDetails.concat(response.data)
                 });
             });
-    }
+	}
+	
     render(){
+		let rate = 0, reviewText;
+		function rateValue(events,rating){
+			rate = rating
+		}
+		function handleReviewTxt(events){
+			reviewText = events.target.value;
+		}
+
+		function submitReview(events){
+			//alert(rate + "  " + reviewText);
+			//events.preventDefualt();
+			console.log("Rating value : " + rate + " review Text : " + reviewText);
+			
+		}
+
 		console.log("Response Data : ", this.state.movieDetails);
 		let releaseData = null, movieLength = null, movieCategory = null, trailerLink = null;
 		var today = new Date();
@@ -44,6 +62,7 @@ class moviedetails extends Component{
 			movieLength = movie.movieLength;
 			movieCategory = movie.movieCategory;
 			trailerLink = movie.trailerLink;
+			console.log("Trailer Link : ", trailerLink);
 
 		})
 
@@ -66,11 +85,11 @@ class moviedetails extends Component{
 		})
 		
 		let reviewData = null;
-		this.state.movieDetails.map(movie => {
+		{/*this.state.movieDetails.map(movie => {
 			reviewData = movie.reviews.map(review =>{
 				return(
 					<li class="fan-reviews__item" style = {{paddingBottom : '20px', paddingTop : '20px'}}>
-						{/*Display Stars Logic here*/}         
+						        
 						<div class="fan-reviews__user-name">
 							{review.fName + '  ' + review.lName}
 						</div>
@@ -78,7 +97,7 @@ class moviedetails extends Component{
 					</li>
 				)
 			})
-		});
+		});*/}
     	return ( 
 			<div>
 				<Header />
@@ -159,8 +178,8 @@ class moviedetails extends Component{
 				<div id="DIV_85" style = {{width : '560px', height : '500px', float : 'left'}}>
 						<section id="SECTION_86">
 							
-								
-						<iframe width="560" height="500" src={trailerLink} frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+						
+						<iframe frameborder="0" allowfullscreen width="560" height="500" src="https://www.youtube.com/embed/Dx9DJXsQJRs" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 						
 						</section>
 					</div>
@@ -175,20 +194,40 @@ class moviedetails extends Component{
 						<div class="modal fade" id="myModal" role="dialog">
 							<div class="modal-dialog">
 							
-
+							
 							<div class="modal-content">
 								<div class="modal-header">
 								<button type="button" class="close" data-dismiss="modal">&times;</button>
 								<h4 class="modal-title">Submit Your Review</h4>
 								</div>
+								
+								<br/>
+								
 								<div class="modal-body">
 								<div class="form-group">
-  									<label for="comment">Review:</label>
-  									<textarea class="form-control" rows="5" id="comment"></textarea>
+								<label for="comment">Rating:</label>
+								<div class="rate">
+									<input onClick = {(e) => rateValue(e,5)} type="radio" id="star5" name="rate" value="5" />
+									<label for="star5" title="text"></label>
+									<input onClick = {(e) => rateValue(e,4)} type="radio" id="star4" name="rate" value="4" />
+									<label for="star4" title="text">4 stars</label>
+									<input onClick = {(e) => rateValue(e,3)} type="radio" id="star3" name="rate" value="3" />
+									<label for="star3" title="text">3 stars</label>
+									<input onClick = {(e) => rateValue(e,2)} type="radio" id="star2" name="rate" value="2" />
+									<label for="star2" title="text">2 stars</label>
+									<input onClick = {(e) => rateValue(e,1)} type="radio" id="star1" name="rate" value="1" />
+									<label for="star1" title="text"></label>
+  								</div>
 								</div>
+								<br/><br/>
+								</div>
+								<br/>
+								<div style= {{display : 'inline-block', width : '100%'}} class="form-group">
+  									<label for="comment">&nbsp;&nbsp;&nbsp;&nbsp;Review:</label>
+  									<textarea onChange = {(e) => handleReviewTxt(e)} class="form-control" rows="5" id="comment"></textarea>
 								</div>
 								<div class="modal-footer">
-								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								<Link to = "" onClick = {(e) => submitReview(e)}type="button" class="btn btn-default" data-dismiss="modal">Submit</Link>
 								</div>
 							</div>
 							

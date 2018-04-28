@@ -1,5 +1,4 @@
 import React from 'react';
-import '../css/header.css';
 
 export default class Header extends React.Component {
     constructor(props) {
@@ -8,7 +7,7 @@ export default class Header extends React.Component {
     render() {
         return (
             <div class="logged-in  no-touch">
-           x` <div>
+        <div>
       <div id="brand-bar" class="hide-on-mobile">
         <div class="row">
           <div class="width-25 right">
@@ -53,7 +52,7 @@ export default class Header extends React.Component {
                 <li id="movies-tab" class="tablet-width-20 nonstandard-width">
                     <section class="has-dropdown" style={{height:'70px',paddingTop : '25px'}}>
                         <h3><a href="/moviesintheaters" style = {{color : 'white'}}>Movies</a></h3>
-                        <div class="mega-menu">
+                        <div style = {{height : '500px'}} class="mega-menu">
                             <div class="row">
                                 <div class="width-25">
                                     <h4 class="heading-style-1 heading-size-m">Now Playing</h4>
