@@ -29,7 +29,6 @@ const Main = () => (
         <Route path = '/signup' component={signup}/>
         <Route path = '/movieTimeTicket' component={MovieTimeTicket}/>
         <Route path='/admindashboard' component={admindashboard}/>
-        <Route path = '/user' component={user}/>        
         <Route path = '/movieTimeHalls' component={MovieTimeHalls}/>
         <Route path = '/adduser' component={adminAddUser}/>        
         <Route path = '/movieTimeHalls' component={MovieTimeHalls}/>
