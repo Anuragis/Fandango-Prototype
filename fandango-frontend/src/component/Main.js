@@ -16,7 +16,7 @@ import confirmation from './confirmation';
 import adminMovieDash from './adminMovieDash';
 import adminAddMovie from './adminAddMovie';
 import MovieTimeHalls from './movieTimeHalls';
-
+import PageNotFound from './pageNotFound';
 const Main = () => (
     <Switch>
         <Route exact path = '/' component={userhome}/>
@@ -29,12 +29,13 @@ const Main = () => (
         <Route path = '/signup' component={signup}/>
         <Route path = '/movieTimeTicket' component={MovieTimeTicket}/>
         <Route path='/admindashboard' component={admindashboard}/>
-	<Route path = '/user' component={user}/>        
-	<Route path = '/movieTimeHalls' component={MovieTimeHalls}/>
+        <Route path = '/user' component={user}/>        
+        <Route path = '/movieTimeHalls' component={MovieTimeHalls}/>
         <Route path = '/transaction/checkout' component={checkout} />
         <Route path = '/transaction/confirmation' component={confirmation} />
         <Route path = '/moviedash' component={adminMovieDash} />
         <Route path = '/addmovie' component={adminAddMovie} />
+        <Route component={PageNotFound} />
     </Switch>
 )
 

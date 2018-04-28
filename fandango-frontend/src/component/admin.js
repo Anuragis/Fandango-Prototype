@@ -65,28 +65,22 @@ class admin extends Component{
     render(){
         return(
             <div>
-                 <div className="container">
-
-
-              
-               <Link to="/signup" className= "btn btn-block" style={{textDecoration:'none',color:'white'}}>Add User</Link>
-          
+                <div className="container">
+                <Link to="/signup" className= "btn btn-block" style={{textDecoration:'none',color:'white'}}>Add User</Link>
                 <table className="table table-striped">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                <th>Edit</th>
-                <th>Delete</th>
-              </tr>
-            </thead>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
             <tbody>
-                
                 {  
                     this.state.users.map((user, id=0) => {
-                    
                     return(
                         <tr key={user._id}>
                             <td>{id}</td>
