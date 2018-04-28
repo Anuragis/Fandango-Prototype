@@ -67,10 +67,6 @@ class SignIn extends Component {
 
             </form>
           </div>
-          <div>
-            {this.state.email}<br/>
-            {this.state.password}
-          </div>
         </div>
   )}
 }

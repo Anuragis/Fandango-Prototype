@@ -20,23 +20,21 @@ import PageNotFound from './pageNotFound';
 const Main = () => (
     <Switch>
         <Route exact path = '/' component={userhome}/>
-        <Route path = '/transaction/ticketboxoffice' component={ticketboxoffice} />
-        <Route path = '/transaction/seatpicker' component={seatpicker} />
-        <Route path = '/movies' component={movies}/>
-        <Route path ='/moviedetails/:mid' component={moviedetails}/>
-        <Route path = '/adminuser' component={adminUserDash}/>
-        <Route path = '/signin' component={signin}/>
-        <Route path = '/signup' component={signup}/>
-        <Route path = '/movieTimeTicket' component={MovieTimeTicket}/>
-        <Route path='/admindashboard' component={admindashboard}/>
-        <Route path = '/movieTimeHalls' component={MovieTimeHalls}/>
-        <Route path = '/adduser' component={adminAddUser}/>        
-        <Route path = '/movieTimeHalls' component={MovieTimeHalls}/>
-        <Route path = '/transaction/checkout' component={checkout} />
-        <Route path = '/transaction/confirmation' component={confirmation} />
-        <Route path = '/moviedash' component={adminMovieDash} />
-        <Route path = '/addmovie' component={adminAddMovie} />
-        <Route component={PageNotFound} />
+        <Route exact path = '/transaction/ticketboxoffice' component={ticketboxoffice} />
+        <Route exact path = '/transaction/seatpicker' component={seatpicker} />
+        <Route exact path = '/movies' component={movies}/>
+        <Route exact path ='/moviedetails/:mid' component={moviedetails}/>
+        <Route exact path = '/adminuser' component={adminUserDash}/>
+        <Route exact path = '/signin' component={signin}/>
+        <Route exact path = '/signup' component={signup}/>
+        <Route exact path = '/movieTimeTicket' component={MovieTimeTicket}/>
+        <Route exact path='/admindashboard' component={admindashboard}/>
+	    <Route exact path = '/adduser' component={adminAddUser}/>        
+	    <Route exact path = '/movieTimeHalls' component={MovieTimeHalls}/>
+        <Route exact path = '/transaction/checkout' component={checkout} />
+        <Route exact path = '/transaction/confirmation' component={confirmation} />
+        <Route exact path = '/moviedash' component={adminMovieDash} />
+        <Route exact path = '/addmovie' component={adminAddMovie} />
     </Switch>
 )
 

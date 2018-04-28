@@ -33,6 +33,10 @@ router
     .route('/bookingByHallId/:hallname')
     .get(bookings.findBookingsByHallname);
 
+router
+    .route('/bookings')
+    .get(bookings.getAllBookings);
+
 /** routes for bookings end*/
 
 /** routes for signin/up start*/

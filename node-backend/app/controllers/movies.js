@@ -113,7 +113,7 @@ module.exports.getMovieByCategory =function(req,res,next){
 
 
 module.exports.getMovieById=function(req,res,next){
-
+    console.log('Req Body', req.params);
     moviesModel.findOne({_id:req.params.mid}, function(err, movie) {
 
     if(err){
