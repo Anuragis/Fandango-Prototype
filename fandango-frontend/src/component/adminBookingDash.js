@@ -24,8 +24,8 @@ class booking extends Component{
             'Accept': 'application/json'
           }
         }).then((res) => {
-          this.setState({users: res.data});
-          //console.log(this.state.users);
+          this.setState({bookings: res.data});
+        
         })
     }
 
@@ -42,11 +42,10 @@ class booking extends Component{
                     </div>
                 </div>
             </div>
-                <Link to={{pathname:"/adduser", state:{id: "0"}}} className= "btn btn-primary buttonAlign" style={{textDecoration:'none',color:'white'}}>Add User</Link>
-                
+                              
                  <div className="container">  
 
-                  <h3><b>List of Users</b></h3>   
+                  <h3><b>List of Bookings</b></h3>   
                 <table className="table table-striped">
             <thead>
               <tr className="headerBg">
@@ -55,7 +54,7 @@ class booking extends Component{
                 <th>Booking Date</th>
                 <th>Movie Name</th>
                 <th>Hall Name</th>
-                <th>View Details</th>
+                <th>View</th>
               </tr>
             </thead>
             <tbody>
@@ -64,9 +63,9 @@ class booking extends Component{
                     this.state.bookings.map((booking, id=0) => {
                     
                     return(
-                        <tr key={user._id}>
+                        <tr key={booking._id}>
                             <td>{id}</td>
-                            <td>{booking.fName}</td>
+                            <td>{booking.fname}</td>
                             <td>{booking.bdate}</td>
                             <td>{booking.moviename}</td>
                             <td>{booking.hallname}</td>
@@ -74,7 +73,7 @@ class booking extends Component{
                               <span className="glyphicon glyphicon-pencil"><Link to="/user"></Link></span>
                             </td>*/}
                             <td>
-                                <Link to={{pathname:"/adduser", state:{id: user._id}}}><span className="glyphicon glyphicon-plus"></span></Link>
+                                <Link to={{pathname:"/viewbooking", state:{id: booking._id}}}><span className="glyphicon glyphicon-option-horizontal"></span></Link>
                             </td>
                         </tr>
                     )
