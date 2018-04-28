@@ -78,7 +78,7 @@ module.exports.getAllUsers = function(req,res,next){
 }
 
 module.exports.getUserById=function(req,res,next){
-
+   console.log("Inside Get user by id");
     usersModel.findOne({_id:req.params.uid}, function(err, user) {
 
     if(err){
@@ -87,13 +87,14 @@ module.exports.getUserById=function(req,res,next){
         res.send(JSON.stringify(user));  
         }
     })
+
 }
 
 
 module.exports.updateUser=function(req,res,next){
    
     var uid =  req.params.uid;
-   
+    console.log("Inside update user");
     usersModel.findOneAndUpdate({ _id : req.params.uid}, { $set : { 
         fName : req.body.fName,
         lName : req.body.lName,
@@ -112,7 +113,8 @@ module.exports.updateUser=function(req,res,next){
         if (err)
             throw err;
         res.end();
-    })
+        })
+    
 }
 
 

@@ -13,46 +13,55 @@ class checkout extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     handleSubmit = (events) => {
+        // alert("checkout submit");
         let submitBooking = {
             bdate: new Date().toDateString,
-            bamount: localStorage.getItem('ticketBoxOfficeState').totalSum,
-            btax: Number(localStorage.getItem('ticketBoxOfficeState').totalTickets)*1.5,
-            userid: localStorage.getItem('allDetails').userid,
-            fname: localStorage.getItem('allDetails').fname,
-            lname: localStorage.getItem('allDetails').lname,
-            showtime: localStorage.getItem('allDetails').showtime,
-            moviename: localStorage.getItem('allDetails').moviename,
-            screenid: localStorage.getItem('allDetails').screenid,
-            hallname: localStorage.getItem('allDetails').hallname,
-            seatsbooked: localStorage.getItem('seatpicker').seats,
+            bamount: JSON.parse(localStorage.getItem('ticketBoxOfficeState')).totalSum,
+            btax: Number(JSON.parse(localStorage.getItem('ticketBoxOfficeState')).totalTickets)*1.5,
+            // userid: localStorage.getItem('allDetails').userid,
+            // fname: localStorage.getItem('movieHall').fname,
+            // lname: localStorage.getItem('movieHall').lname,
+            showtime: JSON.parse(localStorage.getItem('movieHall')).movieTime,
+            moviename: JSON.parse(localStorage.getItem('movieHall')).moviename,
+            screenid: JSON.parse(localStorage.getItem('movieHall')).screenid,
+            hallname: JSON.parse(localStorage.getItem('movieHall')).hallname,
+            seatsbooked: JSON.parse(localStorage.getItem('seatpicker')).seats,
             status: 'active',
-            hallcity: localStorage.getItem('allDetails').hallcity
+            hallcity: JSON.parse(localStorage.getItem('movieHall')).hallcity
         }
+        let movieHallParse = JSON.parse(localStorage.getItem('movieHall'));
+        console.log("movieHallParse hall",movieHallParse);
         let updateHall = {
-            showtime: localStorage.getItem('allDetails').showtime,
-            moviename: localStorage.getItem('allDetails').moviename,
-            screenid: localStorage.getItem('allDetails').screenid,
-            hallname: localStorage.getItem('allDetails').hallname,
+            hallID: movieHallParse.hallID,
+            movieTime: movieHallParse.movieTime,
+            moviename: movieHallParse.movieName,
+            screenID: movieHallParse.screenID,
+            hallname: movieHallParse.hallName,
+            seatsbooked: JSON.parse(localStorage.getItem('seatpicker')).seats
         }
+        // console.log(JSON.parse(localStorage.getItem('ticketBoxOfficeState')));
+        // alert("submit Booking" + submitBooking.hallname);
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Accept', 'application/json');
-        axios('http://localhost:8900/booking', {
-            method: 'post',
+        console.log("update hall",updateHall);
+        // axios('http://localhost:8900/booking', {
+        //     method: 'post',
+        //     mode: 'cors',
+        //     redirect: 'follow',
+        //     headers: headers,
+        //     data: JSON.stringify(submitBooking)
+        // })
+        // .then((res) => {
+        //     console.log("booking res",res);
+        // })
+        // alert(updateHall.hallname);
+        axios('http://localhost:8900/hall/' + updateHall.hallID, {
+            method: 'put',
             mode: 'cors',
             redirect: 'follow',
             headers: headers,
-            data: JSON.stringify(submitBooking)
-        })
-        .then((res) => {
-            console.log("booking res",res);
-        })
-        axios('http://localhost:8900//hall/' + updateHall.hallname, {
-            method: 'post',
-            mode: 'cors',
-            redirect: 'follow',
-            headers: headers,
-            data: JSON.stringify(updateHall)
+            data: (updateHall)
         })
         .then((res) => {
             console.log("hall update res",res);
@@ -186,7 +195,7 @@ class checkout extends React.Component {
                             <div class="module-standard" id="completePurchase">
                                 <section class="completePurchasePanel completePurchase">
                                     <div class="co-buttonContainer">              
-                                        <Link to="/transaction/confirmation" onclick={this.handleSubmit} id="completePurchaseButton" class="button inline-block">Complete My Purchase</Link>
+                                        <Link to="/transaction/confirmation" onClick={this.handleSubmit} id="completePurchaseButton" class="button inline-block">Complete My Purchase</Link>
                                     </div>
                                     <p class="notes display" id="standardNotes">
                                         By clicking the Complete My Purchase button, you agree to the

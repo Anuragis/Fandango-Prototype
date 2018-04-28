@@ -1,3 +1,15 @@
 .errMsg{
     color:red
 }
+
+.success{
+    color:green
+}
+
+.headerBg{
+    background-color: #FFA500
+}
+
+.buttonAlign{
+    margin-left: 75%
+}
