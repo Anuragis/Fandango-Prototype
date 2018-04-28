@@ -1,5 +1,5 @@
 import React from 'react';
-import Head from './gauravHeader';
+import Head from './Header';
 
 const PageNotFound = () => {
     return(
