@@ -16,6 +16,7 @@ import confirmation from './confirmation';
 import adminMovieDash from './adminMovieDash';
 import adminAddMovie from './adminAddMovie';
 import MovieTimeHalls from './movieTimeHalls';
+import AdminMovieBookings from './adminMovieBookings';
 import PageNotFound from './pageNotFound';
 const Main = () => (
     <Switch>
@@ -35,6 +36,7 @@ const Main = () => (
         <Route exact path = '/transaction/confirmation' component={confirmation} />
         <Route exact path = '/moviedash' component={adminMovieDash} />
         <Route exact path = '/addmovie' component={adminAddMovie} />
+        <Route exact path = '/moviebookings' component={AdminMovieBookings} />
     </Switch>
 )
 

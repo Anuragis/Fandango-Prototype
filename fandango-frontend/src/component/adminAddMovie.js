@@ -18,16 +18,16 @@ export default class AddMovie extends Component {
         }
     }
     componentDidMount(){
+        if(this.props.location.state.id != "0") {
 
-        if(this.props.location.state.id!="0"){
         var url = 'http://localhost:8900/movieById/' + this.props.location.state.id;
         
         axios(url, {
           method: 'GET',
           mode: 'cors',
           headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
+            'Content-Type'  : 'application/json',
+            'Accept'        : 'application/json'
           }
         }).then((res) => {
 
@@ -50,8 +50,8 @@ export default class AddMovie extends Component {
         });
             console.log("Response",res);
         }
-          )
-        }
+        )
+    }
     }
     handleChange = (events) => {
         if(events.target.name === "title"){

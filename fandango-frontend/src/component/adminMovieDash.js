@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import Head from './gauravHeader';
+import MovieBookings from './adminMovieBookings';
 export default class AdminMovieDash extends Component {
     constructor(props) {
         super(props);
@@ -56,7 +57,7 @@ export default class AdminMovieDash extends Component {
                 <Head />
                 <br/>
                 <br/>
-                <Link to={{pathname:"/addmovie", }} className= "btn btn-primary buttonAlign" style={{textDecoration:'none',color:'white'}}>Add Movie</Link>
+                <Link to={{pathname:"/addmovie", state:{id: "0"}}}  className= "btn btn-primary buttonAlign" style={{textDecoration:'none',color:'white'}}>Add Movie</Link>
                 <div className="container">  
                     <h3><b>List of Movies</b></h3>   
                     <table className="table table-striped">
@@ -64,7 +65,7 @@ export default class AdminMovieDash extends Component {
                         <tr className="headerBg">
                             <th>#</th>
                             <th>Movie Name</th>
-                            <th>Description</th>
+                            <th>Genre</th>
                             <th>Release Date</th>
                             <th>Edit</th>
                             <th>Delete</th>
@@ -77,7 +78,11 @@ export default class AdminMovieDash extends Component {
                         return(
                             <tr key={movie._id}>
                                 <td>{id}</td>
-                                <td>{movie.movieTitle}</td>
+                                <td>
+                                    <Link to={"/moviebookings"}>
+                                        {movie.movieTitle}
+                                    </Link>
+                                </td>
                                 <td>{movie.movieCategory}</td>
                                 <td>{movie.releaseDate}</td>
                                 <td>
