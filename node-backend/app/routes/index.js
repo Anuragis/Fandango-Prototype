@@ -125,6 +125,10 @@ router
     .route('/user/:uid')
     .put(users.updateUser);
 
+router
+    .route('/saveImage/:uid')
+    .put(users.sImg, users.updateUser); 
+
 /**routes for user end */
 
 

@@ -27,9 +27,12 @@ class user extends React.Component {
         emailError:"",
         zipCodeError:"",
         stateError:"",
-        cardNumberError:""
+        cardNumberError:"",
+        imagePreview:"",
+        fileSelected:""
       }
        
+      this.imageUpdate = this.imageUpdate.bind(this);
     }
 
     validate = () => {
@@ -78,7 +81,7 @@ class user extends React.Component {
       return isError;
     };
 
-    componentDidMount(){
+    componentWillMount(){
 
         if(this.props.location.state.id!="0"){
         var url = 'http://localhost:8900/user/' + this.props.location.state.id;
@@ -106,9 +109,17 @@ class user extends React.Component {
           cvv:res.data.creditCard.cvv,
           userType: res.data.userType});
           console.log("Response",res);
+          if(this.state.imagePreview=="") {
+            console.log("profileImage"+this.state.fname);
+            this.setState({
+              imagePreview: "http://localhost:8900/userImages/"+this.state.profileImage
+            })
+          }
         }
           )
         }
+
+
     }
     updateProfile(){
 
@@ -194,8 +205,49 @@ class user extends React.Component {
     getProfile(){
  
     }
+
+    handleCancel = () => {
+      this.setState({
+          fileSelected: '',
+          imagePreview: "http://localhost:8900/userImages/"+this.state.profileImage
+      });
+    }
+
+    handleChange = e => {
+      e.preventDefault();
+      
+      let rdr = new FileReader();
+      let fileSelected = this.uploadInput.files[0];
+      rdr.onloadend = () => {
+        this.setState({
+          fileSelected: fileSelected,
+          imagePreview: rdr.result
+        });
+      }
+  
+      rdr.readAsDataURL(fileSelected);
+    }
+
+    imageUpdate() {
+      var url = 'http://localhost:8900/saveImage/' + this.props.location.state.id;
+      var fData = new FormData();
+        fData.append('iFile', this.state.fileSelected);
+       axios(url, {
+         method: 'PUT',
+         mode: 'cors',
+         headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+         },
+         data:fData
+        })
+        this.setState({
+          fileSelected:""
+        })
+    }
      
     render() {
+      
     let showPassword="";
     let displayButton="";
       if(this.props.location.state.id==="0") {
@@ -209,7 +261,39 @@ class user extends React.Component {
         showPassword=( <div></div>);
         displayButton=(<button type="button" id="submit" name="submit" className="btn btn-primary pull-right" onClick={this.updateProfile.bind(this)}>Update</button>);
       };
-
+      const styleUpl = {
+        display : 'none'
+    }
+    const styleBorder = {
+        marginRight: '10px'
+    }
+      let uplImg = null;
+      if(this.state.fileSelected==='') {
+        uplImg = (
+          <div id='imageUploader' style={{marginTop:'5px'}} > 
+            <label  htmlFor="uplbtn" id="btn-file-uploader" className="btn btn-warning">
+                  <span> <b>Update</b></span>
+              </label>
+            <input style={{display:'none'}} type="file" className="btn pull-left btn-block" id="uplbtn" onChange={this.handleChange} ref={(ref) => { this.uploadInput = ref; }}/>
+          </div>
+        );
+      }
+      else {
+        uplImg = (
+        <div id='imageUploader' style={{marginTop:'5px'}} >
+            <label htmlFor="uplbtn" id="btn-file-uploader" style = {styleBorder} className="btn btn-warning">
+                <span> <b>Save</b></span>
+            </label>
+            <label htmlFor="canbtn" id="btn-file-uploader" style = {styleBorder} className="btn btn-warning">
+                <span> <b>Cancel</b></span>
+            </label>
+            {/* <input style={styleUpl} type='file' id="uplbtn" className='fileInput' onChange={this.handleChange} ref={(ref) => { this.uploadInput = ref; }}/> */}
+            <button id="uplbtn" style = {styleUpl} onClick = {this.imageUpdate} ></button>
+            <button id="canbtn" style = {styleUpl} onClick = {this.handleCancel} ></button>
+        </div>
+        );
+    }
+      
   
       return (
         <div id="siteContainer" className="ticketBoxoffice">
@@ -227,7 +311,8 @@ class user extends React.Component {
          <div className = "row">
          <div className = "col-md-3">
          <h1 className="text-center">Profile Image</h1>
-         <button className="btn pull-left btn-block">Update</button>
+         <img src = {this.state.imagePreview} alt = "This is user's display pic"/>
+          {uplImg}
          </div>
 
         <div className="col-md-9">
