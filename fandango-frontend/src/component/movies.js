@@ -71,7 +71,6 @@ class movies extends Component{
                                 <Link to = {"/moviedetails/"+ movie._id} style = {{fontSize : '20px', lineHeight : '20px', overflow : 'hidden', padding : '0 10px 0 0', maxHeight: '40px', whiteSpace: 'normal'}} class="visual-title dark" >
 									{movie.movieTitle}
 								</Link>
-								<span class="visual-sub-title">Opens Today</span>
 							</div>
 						</li>
 					</div>
