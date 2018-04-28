@@ -19,6 +19,9 @@ import MovieTimeHalls from './movieTimeHalls';
 import AdminMovieBookings from './adminMovieBookings';
 import adminBookingDash from './adminBookingDash';
 import adminViewBooking from './adminViewBooking';
+import adminHallDash from './adminHallDash';
+
+
 
 import PageNotFound from './pageNotFound';
 const Main = () => (
@@ -43,6 +46,7 @@ const Main = () => (
         <Route exact path = '/moviebookings' component={AdminMovieBookings} />
         <Route exact path = '/adminbooking' component={adminBookingDash}/>
         <Route exact path = '/viewbooking' component={adminViewBooking}/>
+        <Route exact path = '/halldash' component={adminHallDash}/>
     </Switch>
 )
 

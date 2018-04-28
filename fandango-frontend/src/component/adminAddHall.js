@@ -2,38 +2,18 @@ import React,{Component} from 'react';
 import axios from 'axios';
 import '../css/admin.css';
 
-class user extends React.Component {
+class hall extends React.Component {
     constructor(props) {
       super(props);
       this.state={
-        user: {},
-        fname: '',
-        lname: '',
-        email: '',
-        address: '',
-        city: '',
-        state: '',
-        zipCode: '',
-        phoneNumber: '',
-        password: '',
-        profileImage: '',
-        message: '',
-        userType:'',
-        nameoncard:'',
-        cardnumber:'',
-        expiry:'',
-        cvv:'',
-        creditCard:'',
-        firstNameError: "",
-        emailError:"",
-        zipCodeError:"",
-        stateError:"",
-        cardNumberError:"",
-        imagePreview:"",
-        fileSelected:""
+        hallName: '',
+        hallAddress: '',
+        hallCity: '',
+        hallZipCode: '',
+        hallState: ''
       }
        
-      this.imageUpdate = this.imageUpdate.bind(this);
+      
     }
 
     validate = () => {
@@ -203,46 +183,9 @@ class user extends React.Component {
   }
   }
  
- 
-    handleCancel = () => {
-      this.setState({
-          fileSelected: '',
-          imagePreview: "http://localhost:8900/userImages/"+this.state.profileImage
-      });
-    }
-
-    handleChange = e => {
-      e.preventDefault();
-      
-      let rdr = new FileReader();
-      let fileSelected = this.uploadInput.files[0];
-      rdr.onloadend = () => {
-        this.setState({
-          fileSelected: fileSelected,
-          imagePreview: rdr.result
-        });
-      }
   
-      rdr.readAsDataURL(fileSelected);
-    }
+    
 
-    imageUpdate() {
-      var url = 'http://localhost:8900/saveImage/' + this.props.location.state.id;
-      var fData = new FormData();
-        fData.append('iFile', this.state.fileSelected);
-       axios(url, {
-         method: 'PUT',
-         mode: 'cors',
-         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-         },
-         data:fData
-        })
-        this.setState({
-          fileSelected:""
-        })
-    }
      
   render() {
     let showPassword="";
@@ -396,4 +339,4 @@ class user extends React.Component {
 }
 
 
-export default user;
+export default hall;
