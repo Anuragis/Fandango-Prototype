@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import axios from 'axios';
 import '../css/admin.css';
+
 class user extends React.Component {
     constructor(props) {
       super(props);
@@ -191,11 +192,11 @@ class user extends React.Component {
   }
   }
  
-    getProfile(){
+  getProfile(){
  
-    }
+  }
      
-    render() {
+  render() {
     let showPassword="";
     let displayButton="";
       if(this.props.location.state.id==="0") {
@@ -223,12 +224,13 @@ class user extends React.Component {
                 </div>
             </div>
         </div>
-         <div className = "container">
-         <div className = "row">
-         <div className = "col-md-3">
-         <h1 className="text-center">Profile Image</h1>
-         <button className="btn pull-left btn-block">Update</button>
-         </div>
+
+        <div className = "container">
+          <div className = "row">
+            <div className = "col-md-3">
+              <h1 className="text-center">Profile Image</h1>
+              <button className="btn pull-left btn-block">Update</button>
+            </div>
 
         <div className="col-md-9">
           <div className="form-area">  
