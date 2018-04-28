@@ -1,6 +1,18 @@
 var moviesModel = require('../models/moviesModel');
 const {ObjectId} = require('mongodb');
+var multer = require('multer');
+var path = require('path');
 
+const storage = multer.diskStorage({
+        destination: 'public/data/moviesImages',
+        filename: function (req, file, cb) {
+           console.log("req inside" + req.params.mid); 
+           cb(null, req.params.mid + path.extname(file.originalname))
+        }
+    });
+    // create the multer instance that will be used to upload/save the file
+    const upload = multer({ storage }).single('iFile');
+module.exports.sImg = multer({ storage }).single('iFile');
 
 module.exports.createMovie = function(req,res,next){    
         var newMovie = new moviesModel();
@@ -127,7 +139,18 @@ module.exports.getMovieById=function(req,res,next){
 module.exports.updateMovie=function(req,res,next){
    
     var mid =  req.params.mid;
-   
+    if(req.file!=undefined) {
+        
+            // profileImage = req.body.moviePhoto + path.extname(req.file.originalname);
+            var values = {$set : {
+                moviePhoto : req.params.mid + path.extname(req.file.originalname)}};
+                moviesModel.findOneAndUpdate({ movieTitle : req.params.mid},values, function(err, user) {
+                console.log("Movie id",req.params.mid);
+                if (err)
+                    throw err;
+                res.end();
+            })
+    } else {
 
     moviesModel.findOneAndUpdate({ _id : req.params.mid}, { $set : { 
         movieTitle:req.body.movieTitle,
@@ -139,7 +162,6 @@ module.exports.updateMovie=function(req,res,next){
         movieLength: req.body.movieLength,
         releaseDate: req.body.releaseDate,
         movieRating: req.body.movieRating,
-        moviePhoto: req.body.moviePhoto,
         screen:req.body.screen,
         reviews:req.body.reviews
     
@@ -150,4 +172,5 @@ module.exports.updateMovie=function(req,res,next){
      
         res.end();
     })
+    }
 }

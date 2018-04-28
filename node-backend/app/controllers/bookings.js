@@ -61,7 +61,7 @@ module.exports.findBookingsByMoviename = function(req,res,next){
         console.log("affected movies", booking);
         res.send(booking);
     })*/
-
+    console.log("booking by movie id"+req.params.moviename);
 
     bookingsModel.findById({_id : req.params.moviename},function(err,booking){
         if(err){

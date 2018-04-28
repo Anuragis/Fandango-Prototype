@@ -16,7 +16,9 @@ export default class AddMovie extends Component {
             releaseDate         : "",
             movieRating         : "",
             moviePhoto          : "",
-            screen              : ""
+            screen              : "",
+            imagePreview        : "",
+            fileSelected        : ""
         }
     }
     createMovie = (events) => {
@@ -57,6 +59,7 @@ export default class AddMovie extends Component {
 
     updateMovie = (events) => {
         var newData;
+        var fData = new FormData();
         events.preventDefault();
         var castAsString = this.state.cast.toString();
             var castNames=castAsString.split(", ");
@@ -65,6 +68,17 @@ export default class AddMovie extends Component {
             reqCast.push({
                 castName: CastName
             });
+            
+            fData.append('iFile', this.state.imagePreview);
+            fData.append('movieTitle', this.state.movieTitle);
+            fData.append('movieCategory', this.state.movieCategory);
+            fData.append('trailerLink', this.state.trailerLink);
+            fData.append('movieDescription', this.state.movieDescription);
+            fData.append('cast', reqCast);
+            fData.append('movieLength', this.state.movieLength);
+            fData.append('releaseDate', this.state.releaseDate);
+            fData.append('movieRating', this.state.movieRating);
+            fData.append('screen', this.state.screen);
 
             newData = {
                 movieTitle          : this.state.movieTitle,
@@ -87,9 +101,16 @@ export default class AddMovie extends Component {
            'Content-Type': 'application/json',
            'Accept': 'application/json'
           },
-          data: JSON.stringify(newData)
+          data: newData
         })
     }
+
+    handleCancel = () => {
+        this.setState({
+            fileSelected: '',
+            imagePreview: "http://localhost:8900/moviesImages/"+this.state.moviePhoto
+        });
+      }
     
     componentDidMount(){
         if(this.props.location.state.id != "0") {
@@ -120,6 +141,9 @@ export default class AddMovie extends Component {
                     moviePhoto      : res.data.moviePhoto,
                     screen          : res.data.profileImage
             });
+            this.setState({
+                imagePreview: "http://localhost:8900/moviesImages/"+this.state.moviePhoto
+            })
         }
         )
     }
@@ -169,8 +193,19 @@ export default class AddMovie extends Component {
 
         //  moviePhoto
         if(events.target.name === 'moviePhoto'){
+            let rdr = new FileReader();
+            let fileSelected = this.uploadInput.files[0];
+            rdr.onloadend = () => {
+                this.setState({
+                fileSelected: fileSelected,
+                imagePreview: rdr.result
+                });
+            }
+  
+            rdr.readAsDataURL(fileSelected);
+
             this.setState({
-                moviePhoto: events.target.value 
+                moviePhoto: this.state.movieTitle 
             });
         }
         // movieRating
@@ -188,7 +223,21 @@ export default class AddMovie extends Component {
     }
 
     handleSubmit = (events) => {
-        
+        var url = 'http://localhost:8900/savemovie/' + this.state.movieTitle;
+        var fData = new FormData();
+        fData.append('iFile', this.state.fileSelected);
+       axios(url, {
+         method: 'PUT',
+         mode: 'cors',
+         headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+         },
+         data:fData
+        })
+        this.setState({
+            fileSelected:""
+          })
     }
     render() {
         let displayButton = "";
@@ -198,6 +247,29 @@ export default class AddMovie extends Component {
         else {
             displayButton=(<button type="button" id="submit" name="submit" className="btn btn-primary pull-right" onClick={this.updateMovie.bind(this)}>Update Movie</button>);
         }
+        let movieImgDisplay = this.state.moviePhoto==""?{display:"none"}:{display:"block"};
+        const styleUpl = {
+        display : 'none'
+    }
+    const styleBorder = {
+        marginRight: '10px'
+    }
+        let uplImg = null;
+      if(this.state.fileSelected!=='') {
+        uplImg = (
+        <div id='imageUploader' style={{marginTop:'5px'}} >
+            <label htmlFor="uplbtn" id="btn-file-uploader" style = {styleBorder} className="btn btn-warning">
+                <span> <b>Save</b></span>
+            </label>
+            <label htmlFor="canbtn" id="btn-file-uploader" style = {styleBorder} className="btn btn-warning">
+                <span> <b>Cancel</b></span>
+            </label>
+            {/* <input style={styleUpl} type='file' id="uplbtn" className='fileInput' onChange={this.handleChange} ref={(ref) => { this.uploadInput = ref; }}/> */}
+            <button id="uplbtn" style = {styleUpl} onClick = {this.handleSubmit} ></button>
+            <button id="canbtn" style = {styleUpl} onClick = {this.handleCancel} ></button>
+        </div>
+        );
+    }
         return(
             <div id="siteContainer" className="ticketBoxoffice">
                 <Head />
@@ -242,8 +314,14 @@ export default class AddMovie extends Component {
                         <input onChange = {this.handleChange} value={this.state.releaseDate} type="text" className="form-control" id="releaseDate" name="releaseDate" placeholder="Release Date" required/>
                     </div>
                     <div className="form-group"> 
-                        <label htmlFor="moviePhoto" className="control-label">Movie Photo</label>
-                        <input onChange = {this.handleChange} value={this.state.moviePhoto} type="text" className="form-control" id="moviePhoto" name="moviePhoto" placeholder="Movie Photo" required/>
+                        <label className="control-label">Movie Photo</label>
+                        <img src = {this.state.imagePreview} alt = "This is movie's display pic" style={movieImgDisplay}/>
+                        <div id='imageUploader' >
+                            <label htmlFor="moviePhoto" className="btn btn-warning">Upload</label>
+                            <input style={{display:'none'}} onChange = {this.handleChange}  type="file" className="form-control" id="moviePhoto" ref={(ref) => { this.uploadInput = ref; }} name="moviePhoto" placeholder="Movie Photo" required />
+                            <input style={{display:'none'}} onChange = {this.handleChange}  type="file" className="form-control" id="moviePhoto" name="moviePhoto"  placeholder="Movie Photo" required />
+                            {uplImg}
+                        </div>
                     </div>
                     <div className="form-group"> 
                         <label htmlFor="movieRating" className="control-label">Movie Rating</label>
