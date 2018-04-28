@@ -67,29 +67,12 @@ module.exports.createMovieHall = function(req,res,next){
 }
 module.exports.getMovieHalls=function(req,res,next){
     console.log("Inside Movie Get all");
-    movieHallsModel.find({}, function(err, halls) {
+    movieHallsModel.find({status:"active"}, function(err, halls) {
 
     if(err){
        // console.log("Get movie error", err);
     }else{
-        var movieHallMap = [];
-        halls.map(hall=>{
-            var ob = {};
-        if(hall.status==="active"){
-            ob = {_id:hall._id,
-                hallName:hall.hallName,
-                hallAddress:hall.hallAddress,
-                hallCity: hall.hallCity,
-                hallZipCode: hall.hallZipCode,
-                hallState: hall.hallState,
-                screens: hall.screens,
-                status: hall.status
-            };
-            movieHallMap.push(ob);
-            }
-        });
-
-        res.send(JSON.stringify(movieHallMap));  
+        res.send(JSON.stringify(halls));  
         }
     })
 }
