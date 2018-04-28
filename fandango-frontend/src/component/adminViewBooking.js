@@ -51,7 +51,7 @@ class booking extends React.Component {
     
     render() {  
       return (
-        <div id="siteContainer" className="ticketBoxoffice">
+        <div >
         <div id="headerContainer" class="purchase detail on-order" name="HeaderContainer">
             <div id="headerPurchase">
                 <div className="commonContainer"> 
