@@ -51,7 +51,7 @@ class booking extends React.Component {
     
     render() {  
       return (
-        <div id="siteContainer" className="ticketBoxoffice">
+        <div >
         <div id="headerContainer" class="purchase detail on-order" name="HeaderContainer">
             <div id="headerPurchase">
                 <div className="commonContainer"> 
@@ -84,14 +84,14 @@ class booking extends React.Component {
                                 <tr>
                                 
                                 <td>Booking Tax</td>
-                                <td>{this.state.btax}</td>
+                                <td>${this.state.btax}</td>
                             
                                 </tr>
 
                                  <tr>
                                 
                                 <td>Booking Amount</td>
-                                <td>{this.state.bamount}</td>
+                                <td>${this.state.bamount}</td>
                                 </tr>
 
                                 <tr>

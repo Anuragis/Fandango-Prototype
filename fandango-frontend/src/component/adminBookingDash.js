@@ -10,8 +10,20 @@ class booking extends Component{
         super(props);
         this.state = {  
             bookings: [],
+            bookingscpy:[],
+            moviename:"",
+            hallname:"",
+            revenue:0,
+            date:"",
+            month:"",
+            year:""
         
         }
+
+        this.handleChange=this.handleChange.bind(this);
+        this.handleSubmitForRevenue=this.handleSubmitForRevenue.bind(this);
+        this.handleSubmitForSearch=this.handleSubmitForSearch.bind(this);
+
     }
     componentDidMount(){
         this.state.start=new Date();
@@ -24,9 +36,140 @@ class booking extends Component{
             'Accept': 'application/json'
           }
         }).then((res) => {
-          this.setState({bookings: res.data});
+          this.setState({bookings: res.data,
+            bookingscpy:res.data});
         
         })
+    }
+
+    handleChange = (events) => {
+
+        console.log("Here", events.target.name);
+        if(events.target.name === "hallname"){
+            this.setState({
+                ...this.state,
+                hallname : events.target.value.trim()
+            });
+           
+        }
+
+        if(events.target.name === "moviename"){
+            this.setState({
+                ...this.state,
+                moviename : events.target.value.trim()
+            });    
+        }
+
+        if(events.target.name === "date"){
+            this.setState({
+                ...this.state,
+                date : events.target.value.trim(),
+                bookings:this.state.bookingscpy
+            });    
+        }
+
+        if(events.target.name === "month"){
+            this.setState({
+                ...this.state,
+                month : events.target.value.trim(),
+                bookings:this.state.bookingscpy
+            });    
+        }
+
+        if(events.target.name === "year"){
+            this.setState({
+                ...this.state,
+                year : events.target.value,
+                bookings:this.state.bookingscpy
+            });    
+        }
+    }
+
+    handleSubmitForRevenue(events){
+         events.preventDefault();
+        var amt=0;
+        if(this.state.hallname=="" && this.state.moviename!=""){
+            let movieName=this.state.moviename;
+            this.state.bookings.map(function(booking){
+                if(booking.moviename.toUpperCase()===movieName.toUpperCase()){
+                    amt+=booking.bamount;
+                }
+            });
+        }else if(this.state.moviename==="" && this.state.hallname!==""){
+
+            let hallName=this.state.hallname;
+            this.state.bookings.map(function(booking){
+                if(booking.hallname.toUpperCase()===hallName.toUpperCase()){
+                    amt+=booking.bamount;
+                }
+            });
+        }else if(this.state.moviename!=="" && this.state.hallname!==""){
+            let movieName=this.state.moviename;
+            let hallName=this.state.hallname;
+            this.state.bookings.map(function(booking){
+                if((booking.hallname.toUpperCase()===hallName.toUpperCase()) && (booking.moviename.toUpperCase()===movieName.toUpperCase())){
+                    amt+=booking.bamount;
+                }
+            });
+        }
+
+        this.setState({
+            revenue:amt
+        });
+    }
+
+    handleSubmitForSearch(events){
+        events.preventDefault();
+        let newBookings=[];
+        this.state.bookingscpy.map(function(booking){
+               newBookings.push(booking);
+        });
+ 
+       if(this.state.date!==""){
+        let date=this.state.date;
+         newBookings=[];
+           this.state.bookingscpy.map(function(booking){
+           
+               if(booking.bdate===date){
+                  newBookings.push(booking);
+               }
+           });
+        }else if(this.state.month!=="" && this.state.year===""){
+            let month=this.state.month;
+            newBookings=[];
+
+            this.state.bookingscpy.map(function(booking){
+           
+                if(booking.bdate.split("/")[1]===month){
+                   newBookings.push(booking);
+                }
+            });
+        }else if(this.state.month==="" && this.state.year!==""){
+            let year=this.state.year;
+            newBookings=[];
+
+            this.state.bookingscpy.map(function(booking){
+           
+                if(booking.bdate.split("/")[2]===year){
+                   newBookings.push(booking);
+                }
+            });
+        }else if(this.state.month!=="" && this.state.year!==""){
+            let year=this.state.year;
+            let month=this.state.month;
+            newBookings=[];
+
+            this.state.bookingscpy.map(function(booking){
+           
+                if(booking.bdate.split("/")[2]===year && booking.bdate.split("/")[1]===month){
+                   newBookings.push(booking);
+                }
+            });
+        }
+        this.setState({
+            bookings:newBookings
+        });
+
     }
 
     render(){
@@ -44,8 +187,29 @@ class booking extends Component{
             </div>
                               
                  <div className="container">  
+                  
+                  <h3><b>List of Bookings</b></h3>
 
-                  <h3><b>List of Bookings</b></h3>   
+                  
+                  <h4 className="filterAlign"><b>Revenue: ${this.state.revenue}</b></h4>
+                   <table className="filterAlign">
+                        <tr>
+                            <form onSubmit = {this.handleSubmitForRevenue}> 
+                             <td>   <input type="text"  name="moviename" value={this.state.moviename} onChange = {this.handleChange}   placeholder="Enter Movie Name"/></td>
+                             <td>   <input type="text"  name="hallname" value={this.state.hallname} onChange = {this.handleChange}   placeholder="Enter Hall Name"/></td>
+                              <td>  <button className="btn btn-lg btn-primary" type="submit">Show</button></td>
+                         </form>
+                         </tr>
+                         <tr>
+                            <form onSubmit = {this.handleSubmitForSearch}> 
+                             <td>   <input type="text"  name="date" value={this.state.date} onChange = {this.handleChange}   placeholder="Enter Date"/></td>
+                             <td>   <input type="text"  name="month" value={this.state.month} onChange = {this.handleChange}   placeholder="Enter Month"/></td>
+                             <td>   <input type="text"  name="year" value={this.state.year} onChange = {this.handleChange}   placeholder="Enter Year"/></td>
+                              <td>  <button className="btn btn-lg btn-primary" type="submit">Search</button></td>
+                         </form>
+                         </tr>    
+                  </table>   
+                 
                 <table className="table table-striped">
             <thead>
               <tr className="headerBg">
