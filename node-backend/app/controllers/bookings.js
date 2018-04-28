@@ -54,13 +54,33 @@ module.exports.findBookingsByUserid = function(req,res,next){
 }
 
 module.exports.findBookingsByMoviename = function(req,res,next){
-    console.log("req body", req.params);
+   /** console.log("req body", req.params);
     bookingsModel.find({ moviename : req.params.moviename}, function(err, booking) {
         if (err)
             throw err;
         console.log("affected movies", booking);
         res.send(booking);
-    })
+    })*/
+
+
+    bookingsModel.findById({_id : req.params.moviename},function(err,booking){
+        if(err){
+
+        }else{
+            var resBooking=[];
+            bookingsModel.find({}, function(err, bookings) {
+                if (err)
+                    throw err;
+
+                    bookings.map(function(obj){ 
+                       if(booking.moviename===obj.moviename){
+                        resBooking.push(obj);
+                       }
+                    });
+                res.send(resBooking);
+            })
+        }
+    });
     
 }
 

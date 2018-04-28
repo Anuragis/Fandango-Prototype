@@ -103,6 +103,11 @@ router
     .get(moviehalls.getHallByMovieName);
 
 
+router  
+    .route('/hallById/:hid')
+    .get(moviehalls.getHallById);
+
+
 /**routes for hall end */
 
 

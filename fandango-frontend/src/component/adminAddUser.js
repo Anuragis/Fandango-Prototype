@@ -203,10 +203,7 @@ class user extends React.Component {
   }
   }
  
-  getProfile(){
  
-    }
-
     handleCancel = () => {
       this.setState({
           fileSelected: '',
@@ -246,10 +243,6 @@ class user extends React.Component {
           fileSelected:""
         })
     }
-     
-    render() {
-      
-  }
      
   render() {
     let showPassword="";
