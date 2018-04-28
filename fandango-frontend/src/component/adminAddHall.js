@@ -10,7 +10,21 @@ class hall extends React.Component {
         hallAddress: '',
         hallCity: '',
         hallZipCode: '',
-        hallState: ''
+        hallState: '',
+        hallNameError:'',
+        zipCodeError:'',
+        stateError:'',
+        screenCount:'',
+        screensArray:[],
+        screens:{
+            movieTimings:[],
+            movieName:"",
+            movieRating:"",
+            movieLength:"",
+            movieCategory:"",
+            price:""
+        },
+        hallData : []
       }
        
       
@@ -26,29 +40,20 @@ class hall extends React.Component {
         cardNumberError:""
       };
       
-      if (this.state.fname.length ===0) {
+      if (this.state.hallName.length ===0) {
         isError = true;
-        errors.firstNameError = "First Name cannot be empty";
-      }
-  
-      if (this.state.email.indexOf("@") === -1) {
-        isError = true;
-        errors.emailError = "Requires valid email";
+        errors.hallNameError = "First Name cannot be empty";
       }
 
-      if( this.state.cardnumber.length!==0 && this.state.cardnumber.length!==16){
-        isError = true;
-        errors.cardNumberError = "Card Number must be 16 digit and numeric only";
-      }
       
-      var isZipValid = /\d{5}-\d{4}$|^\d{5}$/.test(this.state.zipCode);
+      var isZipValid = /\d{5}-\d{4}$|^\d{5}$/.test(this.state.hallZipCode);
 
       if(!isZipValid){
         isError = true;
         errors.zipCodeError = "Invalid Zip Code, enter in either xxxx or xxxxx-xxxx format";
       }
 
-     var isStateValid=/^(AL|Alabama|alabama|AK|Alaska|alaska|AZ|Arizona|arizona|AR|Arkansas|arkansas|CA|California|california|CO|Colorado|colorado|CT|Connecticut|connecticut|DE|Delaware|delaware|FL|Florida|florida|GA|Georgia|georgia|HI|Hawaii|hawaii|ID|Idaho|idaho|IL|Illinois|illinois|IN|Indiana|indiana|IA|Iowa|iowa|KS|Kansas|kansas|KY|Kentucky|kentucky|LA|Louisiana|louisiana|ME|Maine|maine|MD|Maryland|maryland|MA|Massachusetts|massachusetts|MI|Michigan|michigan|MN|Minnesota|minnesota|MS|Mississippi|mississippi|MO|Missouri|missouri|MT|Montana|montana|NE|Nebraska|nebraska|NV|Nevada|nevada|NH|New Hampshire|new hampshire|NJ|New Jersey|new jersey|NM|New Mexico|new mexico|NY|New York|new york|NC|North Carolina|new carolina|ND|North Dakota|north dakota|OH|Ohio|ohio|OK|Oklahoma|oklahoma|OR|Oregon|oregon|PA|Pennsylvania|pennsylvania|RI|Rhode Island|rhode island|SC|South Carolina|south carolina|SD|South Dakota|south dakota|TN|Tennessee|tennessee|TX|Texas|texas|UT|Utah|utah|VT|Vermont|vermont|VA|Virginia|virginia|WA|Washington|washington|WV|West Virginia|west virginia|WI|Wisconsin|wisconsin|WY|Wyoming|wyoming)$/.test(this.state.state);
+     var isStateValid=/^(AL|Alabama|alabama|AK|Alaska|alaska|AZ|Arizona|arizona|AR|Arkansas|arkansas|CA|California|california|CO|Colorado|colorado|CT|Connecticut|connecticut|DE|Delaware|delaware|FL|Florida|florida|GA|Georgia|georgia|HI|Hawaii|hawaii|ID|Idaho|idaho|IL|Illinois|illinois|IN|Indiana|indiana|IA|Iowa|iowa|KS|Kansas|kansas|KY|Kentucky|kentucky|LA|Louisiana|louisiana|ME|Maine|maine|MD|Maryland|maryland|MA|Massachusetts|massachusetts|MI|Michigan|michigan|MN|Minnesota|minnesota|MS|Mississippi|mississippi|MO|Missouri|missouri|MT|Montana|montana|NE|Nebraska|nebraska|NV|Nevada|nevada|NH|New Hampshire|new hampshire|NJ|New Jersey|new jersey|NM|New Mexico|new mexico|NY|New York|new york|NC|North Carolina|new carolina|ND|North Dakota|north dakota|OH|Ohio|ohio|OK|Oklahoma|oklahoma|OR|Oregon|oregon|PA|Pennsylvania|pennsylvania|RI|Rhode Island|rhode island|SC|South Carolina|south carolina|SD|South Dakota|south dakota|TN|Tennessee|tennessee|TX|Texas|texas|UT|Utah|utah|VT|Vermont|vermont|VA|Virginia|virginia|WA|Washington|washington|WV|West Virginia|west virginia|WI|Wisconsin|wisconsin|WY|Wyoming|wyoming)$/.test(this.state.hallState);
 
       if(!isStateValid){
         isError = true;
@@ -74,13 +79,16 @@ class hall extends React.Component {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
           }
-        }).then((res) => {this.setState({hallName: res.data[0].hallName, 
-            hallAddress: res.data[0].hallAddress,
-            hallCity: res.data[0].hallCity,
-            hallZipCode: res.data[0].hallZipCode,
-            hallState: res.data[0].hallState,
-
-        
+        }).then((res) => {
+            this.setState({
+                hallData : this.state.hallData.concat(res.data[0]),
+                hallName: res.data[0].hallName, 
+                hallAddress: res.data[0].hallAddress,
+                hallCity: res.data[0].hallCity,
+                hallZipCode: res.data[0].hallZipCode,
+                hallState: res.data[0].hallState,
+                screenCount:res.data[0].screens.length,
+                screens:res.data[0].screens
                 });
             }
           )
@@ -124,7 +132,7 @@ class hall extends React.Component {
         else{
           this.setState({message: "Couldn't change the profile"});
         }
-       })
+       });
     }
   }
 
@@ -174,8 +182,17 @@ class hall extends React.Component {
 
      
   render() {
-    let showPassword="";
+
+    console.log("Response Data Recieved : ", this.state.hallData);
+    let displayScreens="";
     let displayButton="";
+    let screensArray=[];
+    /**this.state.screens.map(function(screen){
+        screensArray.push(screen);
+    });*/
+
+
+   
       if(this.props.location.state.id==="0") {
         displayButton=(<button type="button" id="submit" name="submit" className="btn btn-primary pull-right" onClick={this.createProfile.bind(this)}>Create</button>);
       }else{
@@ -183,7 +200,7 @@ class hall extends React.Component {
       };
      
       return (
-        <div id="siteContainer" className="ticketBoxoffice">
+        <div >
         <div id="headerContainer" class="purchase detail on-order" name="HeaderContainer">
             <div id="headerPurchase">
                 <div className="commonContainer"> 
@@ -203,32 +220,54 @@ class hall extends React.Component {
               <form role="form">
                 <br styles="clear:both" />
                 <div className="form-group">
-                  <p className="errMsg">{this.state.firstNameError}</p>
+                  <p className="errMsg">{this.state.hallNameError}</p>
                   <input  type="text" className="form-control" placeholder="Hall Name" value={this.state.hallName} onChange={(event)=>{
-                    this.setState({hallName: event.target.value.trim(),firstNameError:"",message:""});
+                    this.setState({hallName: event.target.value.trim(),hallNameError:"",message:""});
                   }}  required />
                 </div>
                 <div className="form-group">
-                  <input  type="text" className="form-control" placeholder="Addrees" value={this.state.hallAddress} onChange={(event)=>{
+                  <input  type="text" className="form-control" placeholder="Address" value={this.state.hallAddress} onChange={(event)=>{
                     this.setState({hallAddress: event.target.value.trim(),message:""});
                   }} required />
                 </div>
                 <div className="form-group">
-                  <p className="errMsg">{this.state.emailError}</p>
                   <input  type="text" className="form-control" placeholder="City" value={this.state.hallCity} onChange={(event)=>{
-                    this.setState({hallCity: event.target.value.trim(),message:"",emailError:""});
-                  }} required />
-                </div>
-                <div className="form-group">
-                  <input  type="text" className="form-control" placeholder="State" value={this.state.hallState} onChange={(event)=>{
-                    this.setState({hallState: event.target.value.trim(),message:""});
+                    this.setState({hallCity: event.target.value.trim(),message:""});
                   }} required />
                 </div>
                 <div className="form-group">
                 <p className="errMsg">{this.state.stateError}</p>
-                  <input  type="text" className="form-control" placeholder="Zip Code" value={this.state.hallZipCode} onChange={(event)=>{
-                    this.setState({hallZipCode: event.target.value.trim(),stateError:"",message:""});
+                  <input  type="text" className="form-control" placeholder="State" value={this.state.hallState} onChange={(event)=>{
+                    this.setState({hallState: event.target.value.trim(),message:"",stateError:""});
                   }} required />
+                </div>
+                <div className="form-group">
+                <p className="errMsg">{this.state.zipCodeError}</p>
+                  <input  type="text" className="form-control" placeholder="Zip Code" value={this.state.hallZipCode} onChange={(event)=>{
+                    this.setState({hallZipCode: event.target.value.trim(),zipCodeError:"",message:""});
+                  }} required />
+                </div>
+                <div className="form-group">
+                  <input  type="text" className="form-control" placeholder="Screen Count" value={this.state.screenCount} onChange={(event)=>{
+                    this.setState({screenCount: event.target.value.trim(),message:""});
+                  }} required />
+                </div>
+
+                <div className="form-group">
+                 {
+                   
+                   /*screensArray.map((screen) => {
+                    
+                    return(
+                        <div className="form-group">
+                        <input  type="text" className="form-control" placeholder="Screen Count" value={screen.movieName} onChange={(event)=>{
+                          this.setState({screenCount: event.target.value.trim(),message:""});
+                        }} required />
+                      </div>
+                    )
+                
+                    })
+                */}
                 </div>
                 {displayButton}
              </form>
