@@ -17,6 +17,9 @@ import adminMovieDash from './adminMovieDash';
 import adminAddMovie from './adminAddMovie';
 import MovieTimeHalls from './movieTimeHalls';
 import AdminMovieBookings from './adminMovieBookings';
+import adminBookingDash from './adminBookingDash';
+import adminViewBooking from './adminViewBooking';
+
 import PageNotFound from './pageNotFound';
 const Main = () => (
     <Switch>
@@ -29,7 +32,7 @@ const Main = () => (
         <Route exact path = '/signin' component={signin}/>
         <Route exact path = '/signup' component={signup}/>
         <Route exact path = '/movieTimeTicket' component={MovieTimeTicket}/>
-        <Route exact path='/admindashboard' component={admindashboard}/>
+        <Route exact path ='/admindashboard' component={admindashboard}/>
 	    <Route exact path = '/adduser' component={adminAddUser}/>        
 	    <Route exact path = '/movieTimeHalls' component={MovieTimeHalls}/>
         <Route exact path = '/transaction/checkout' component={checkout} />
@@ -37,6 +40,8 @@ const Main = () => (
         <Route exact path = '/moviedash' component={adminMovieDash} />
         <Route exact path = '/addmovie' component={adminAddMovie} />
         <Route exact path = '/moviebookings' component={AdminMovieBookings} />
+        <Route exact path = '/adminbooking' component={adminBookingDash}/>
+        <Route exact path = '/viewbooking' component={adminViewBooking}/>
     </Switch>
 )
 
