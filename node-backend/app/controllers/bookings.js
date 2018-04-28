@@ -74,3 +74,24 @@ module.exports.findBookingsByHallname = function(req,res,next){
     })
     
 }
+
+module.exports.getBookingById = function(req,res,next){
+    console.log("req body", req.params);
+    bookingsModel.find({ _id : req.params.bid}, function(err, booking) {
+        if (err)
+            throw err;
+        res.send(booking);
+    })
+    
+}
+
+
+module.exports.getAllBookings = function(req,res,next){
+   
+    bookingsModel.find({status: "open"}, function(err, booking) {
+        if (err)
+            throw err;
+        res.send(booking);
+    })
+    
+}

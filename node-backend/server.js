@@ -7,6 +7,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var session = require('express-session');
 var app = express();
+var mongoStore = require("connect-mongo")(session);
 
 app.use('/static', express.static('./public'));
 var corsOptions = {
@@ -20,6 +21,8 @@ app.use(cors(corsOptions))
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
+var mongoSessionURL = 'mongodb://cmpeuser:cmpepass@ds247569.mlab.com:47569/fandango_system';
+
 app.use(session({
   secret: 'secret',
   resave: false,
@@ -29,7 +32,10 @@ app.use(session({
     maxAge : 900000,
     path: '/',
     httpOnly: false
-  }
+  },
+  store: new mongoStore({
+    url: mongoSessionURL
+  })
 }));
 app.set('port', 8900);
 

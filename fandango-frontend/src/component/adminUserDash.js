@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
+import '../css/admin.css';
 //import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 
 class admin extends Component{
@@ -47,6 +48,16 @@ class admin extends Component{
             }
             
         }).then((res) => {
+            var array=[];
+            this.state.users.map(function(key){
+                if(key._id!==id){
+                    array.push(key);
+                    }
+                });
+
+            this.setState({
+                users:array
+            });
             console.log(res);
         })
     }
@@ -54,20 +65,29 @@ class admin extends Component{
 
     render(){
         return(
-            <div>
-                 <div className="container">
+            <div >
+            <div id="headerContainer" class="purchase detail on-order" name="HeaderContainer">
+                <div id="headerPurchase">
+                    <div className="commonContainer"> 
+                        <div id="logo">
+                            <a href="http://www.fandango.com/" title="Click to go to Fandango homepage">Fandango Home</a>
+                        </div>
+                        <div id="bannerMessage">You're a guaranteed ticket away from the perfect movie night.</div>
+                    </div>
+                </div>
+            </div>
+                <Link to={{pathname:"/adduser", state:{id: "0"}}} className= "btn btn-primary buttonAlign" style={{textDecoration:'none',color:'white'}}>Add User</Link>
+                
+                 <div className="container">  
 
-
-               <button className= "btn btn-block">
-               <Link to="/signup" style={{textDecoration:'none',color:'white'}}>Add User</Link>
-                </button>
+                  <h3><b>List of Users</b></h3>   
                 <table className="table table-striped">
             <thead>
-              <tr>
+              <tr className="headerBg">
                 <th>#</th>
                 <th>First Name</th>
                 <th>Last Name</th>
-                <th>?</th>
+                <th>Email</th>
                 <th>Edit</th>
                 <th>Delete</th>
               </tr>
@@ -82,12 +102,12 @@ class admin extends Component{
                             <td>{id}</td>
                             <td>{user.fName}</td>
                             <td>{user.lName}</td>
-                            <td></td>
+                            <td>{user.email}</td>
                             {/*<td>
                               <span className="glyphicon glyphicon-pencil"><Link to="/user"></Link></span>
                             </td>*/}
                             <td>
-                                <Link to={{pathname:"/user", state:{id: user._id}}}><span className="glyphicon glyphicon-pencil"></span></Link>
+                                <Link to={{pathname:"/adduser", state:{id: user._id}}}><span className="glyphicon glyphicon-pencil"></span></Link>
                             </td>
                             <td>
                               <span className="glyphicon glyphicon-remove" onClick={this.deleteUser.bind(this, user._id)}></span>
