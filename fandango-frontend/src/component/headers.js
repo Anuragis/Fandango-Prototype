@@ -30,28 +30,28 @@ export default class Header extends React.Component {
                 userTypeMenu = (
                     <li class="width-33">
                     <h4 class="width-100 heading-style-1 heading-size-m">User</h4><br/>
-                        <Link class="light" to = "">User Profile</Link><br/><br/>
-                        <Link class="light" to = "">My Booking </Link>
+                        <Link class="light" to = "/adduser">User Profile</Link><br/><br/>
+                        <Link class="light" to = "/booking">My Booking </Link>
                     </li>
                 ) 
             }else if(userType == 'movieAdmin'){
                 movieTypeMenu = (
                     <li class="width-33" >
                     <h4 class="width-100 heading-style-1 heading-size-m">Movie Hall Admin</h4><br/>
-                        <Link class="light" to = "">View Profile</Link><br/><br/>
-                        <Link class="light" to = "">Movie Dashboard</Link>
+                        <Link class="light" to = "/adduser">View Profile</Link><br/><br/>
+                        <Link class="light" to = "/moviedash">Movie Dashboard</Link>
                     </li>
                 )
             }else{
                 adminMenu = (
                     <li class="width-33">
                     <h4 class="width-100 heading-style-1 heading-size-m">Main Admin</h4><br/>
-                        <Link class="light" to = "">View Profile</Link><br/><br/>
-                        <Link class="light" to = "">Movie Dashboard</Link><br/><br/>
-                        <Link class="light" to = "">Booking Dashboard</Link><br/><br/>
-                        <Link class="light" to = "">User Dashboard</Link><br/><br/>
-                        <Link class="light" to = "">Admin Dashboard</Link><br/><br/>
-                        <Link class="light" to = "">Hall Dashboard</Link><br/><br/>
+                        <Link class="light" to = "/adduser">View Profile</Link><br/><br/>
+                        <Link class="light" to = "/moviedash">Movie Dashboard</Link><br/><br/>
+                        <Link class="light" to = "/booking">Booking Dashboard</Link><br/><br/>
+                        <Link class="light" to = "/adminuser">User Dashboard</Link><br/><br/>
+                        <Link class="light" to = "/admindashboard">Admin Dashboard</Link><br/><br/>
+                        <Link class="light" to = "/halldash">Hall Dashboard</Link><br/><br/>
                     </li>
                 )
             }
