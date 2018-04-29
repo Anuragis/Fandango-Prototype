@@ -9,7 +9,7 @@ var connection = mongoose.createConnection('mongodb://cmpeuser:cmpepass@ds247569
        movieDescription: { type : String, required : true },
        cast: [
            {
-               castName:{type:String} 
+               castName:{type:String}
            }
         ],
        movieLength: { type : String},

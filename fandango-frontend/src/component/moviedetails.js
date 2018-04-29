@@ -119,7 +119,7 @@ class moviedetails extends Component{
 				return(
 					<li style = {{float : 'left', margin : '0 26px 20px 0', height : '200px', width : '125px', float : 'left'}} class="visual-item">
 						<a style = {{background : '#000', display:'block', overflow : 'hidden', width : '100%'}} class="visual-container" href="http://www.fandango.com/avengers:infinitywar_199925/movieoverview">
-							<img data-src="https://images.fandango.com/r1.0.444/ImageRenderer/168/250/redesign/static/img/default_poster.png/199925/images/masterrepository/fandango/199925/avengersinfinitywar-postera.jpg" class="visual-thumb" alt="Avengers: Infinity War showtimes and tickets" src="https://images.fandango.com/r1.0.444/ImageRenderer/168/250/redesign/static/img/default_poster.png/199925/images/masterrepository/fandango/199925/avengersinfinitywar-postera.jpg"/>
+							<img data-src="http://localhost:8900/moviesImages/cast.jpg" class="visual-thumb" alt="Cast Image" src="http://localhost:8900/moviesImages/cast.jpg"/>
 						</a>
 						<div style = {{display : 'block', padding : '5px', background : '#fff'}} class="visual-detail">
 							<a style = {{fontSize : '20px', lineHeight : '20px', overflow : 'hidden', padding : '0 10px 0 0', maxHeight: '40px', whiteSpace: 'normal'}} class="visual-title dark" href="http://www.fandango.com/avengers:infinitywar_199925/movieoverview">
@@ -133,17 +133,20 @@ class moviedetails extends Component{
 		
 		let reviewData = null;
 		this.state.movieDetails.map(movie => {
-			reviewData = movie.reviews.map(review =>{
-				return(
-					<li class="fan-reviews__item" style = {{paddingBottom : '20px', paddingTop : '20px'}}>
-						        
-						<div class="fan-reviews__user-name">
-							{review.fName + '  ' + review.lName}
-						</div>
-						<div class="fan-reviews__review">{review.reviewText}</div>
-					</li>
-				)
-			})
+			if(movie.reviews){
+				reviewData = movie.reviews.map(review =>{
+					return(
+						<li class="fan-reviews__item" style = {{paddingBottom : '20px', paddingTop : '20px'}}>
+									
+							<div class="fan-reviews__user-name">
+								{review.fName + '  ' + review.lName}
+							</div>
+							<div class="fan-reviews__review">{review.reviewText}</div>
+						</li>
+					)
+				})
+			}
+			
 		});
     	return ( 
 			<div>
@@ -227,7 +230,7 @@ class moviedetails extends Component{
 						<section id="SECTION_86">
 							
 						
-						<iframe frameborder="0" allowfullscreen width="560" height="500" src="https://www.youtube.com/embed/Dx9DJXsQJRs" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+						<iframe frameborder="0" allowfullscreen width="500" height="400" src={trailerLink} frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 						
 						</section>
 					</div>
