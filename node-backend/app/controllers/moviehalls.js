@@ -23,6 +23,7 @@ module.exports.createMovieHall = function(req,res,next){
     for(var j=0;j<req.body.screens[i].movieTimings.length;j++)
     {
        var  movieTime={
+                screenID:req.body.screens[i].movieTimings[j].screenID,
                 movieTime:req.body.screens[i].movieTimings[j].movieTime,
                 seats:seatArr
         }
