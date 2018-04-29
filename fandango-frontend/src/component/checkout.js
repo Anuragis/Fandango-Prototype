@@ -14,23 +14,26 @@ class checkout extends React.Component {
     }
     handleSubmit = (events) => {
         // alert("checkout submit");
+        let movieHallParse = JSON.parse(localStorage.getItem('movieHall'));
+        let useridparse = JSON.parse(localStorage.getItem('userid'));
+        console.log("useridparse ",useridparse);
         let submitBooking = {
             bdate: new Date().toDateString,
             bamount: JSON.parse(localStorage.getItem('ticketBoxOfficeState')).totalSum,
             btax: Number(JSON.parse(localStorage.getItem('ticketBoxOfficeState')).totalTickets)*1.5,
-            // userid: localStorage.getItem('allDetails').userid,
-            // fname: localStorage.getItem('movieHall').fname,
-            // lname: localStorage.getItem('movieHall').lname,
-            showtime: JSON.parse(localStorage.getItem('movieHall')).movieTime,
-            moviename: JSON.parse(localStorage.getItem('movieHall')).moviename,
-            screenid: JSON.parse(localStorage.getItem('movieHall')).screenid,
-            hallname: JSON.parse(localStorage.getItem('movieHall')).hallname,
+            userid: useridparse._id,
+            fname: useridparse.fName,
+            lname: useridparse.lName,
+            showtime: movieHallParse.movieTime,
+            moviename: movieHallParse.movieName,
+            screenid: movieHallParse.screenID,
+            hallname: movieHallParse.hallName,
             seatsbooked: JSON.parse(localStorage.getItem('seatpicker')).seats,
             status: 'active',
-            hallcity: JSON.parse(localStorage.getItem('movieHall')).hallcity
+            hallcity: movieHallParse.hallCity
         }
-        let movieHallParse = JSON.parse(localStorage.getItem('movieHall'));
-        console.log("movieHallParse hall",movieHallParse);
+        
+        console.log("submitBooking ",submitBooking);
         let updateHall = {
             hallID: movieHallParse.hallID,
             movieTime: movieHallParse.movieTime,
@@ -45,16 +48,16 @@ class checkout extends React.Component {
         headers.append('Content-Type', 'application/json');
         headers.append('Accept', 'application/json');
         console.log("update hall",updateHall);
-        // axios('http://localhost:8900/booking', {
-        //     method: 'post',
-        //     mode: 'cors',
-        //     redirect: 'follow',
-        //     headers: headers,
-        //     data: JSON.stringify(submitBooking)
-        // })
-        // .then((res) => {
-        //     console.log("booking res",res);
-        // })
+        axios('http://localhost:8900/booking', {
+            method: 'post',
+            mode: 'cors',
+            redirect: 'follow',
+            headers: headers,
+            data: (submitBooking)
+        })
+        .then((res) => {
+            console.log("booking res",res);
+        })
         // alert(updateHall.hallname);
         axios('http://localhost:8900/hall/' + updateHall.hallID, {
             method: 'put',

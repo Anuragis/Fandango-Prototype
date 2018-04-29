@@ -52,8 +52,12 @@ module.exports.signIn = function(req,res,next){
           res.writeHead(200,{
               'Content-Type' : 'text/plain'
           })    
-          console.log("Response ENds : ", result._id);
-          res.end(JSON.stringify(result._id));
+          resData = {};
+          resData['_id'] = result._id;
+          resData['fName'] = result.fName;
+          resData['lName'] = result.lName;
+          console.log("Response ENds : ", resData);
+          res.end(JSON.stringify(resData));
       }else{
         resData = null;
         res.writeHead(400,{
