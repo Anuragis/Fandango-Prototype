@@ -11,7 +11,10 @@ class moviedetails extends Component{
 	constructor(props) {
         super(props);
         this.state = {
-			movieDetails : []
+			movieDetails : [],
+			rate : "",
+			reviewText: ""
+
         }
     }
 	componentDidMount(){
@@ -29,23 +32,64 @@ class moviedetails extends Component{
                 });
             });
 	}
-	
+	submitReview(events){
+		console.log("STate Movie Details : ", this.state.movieDetails[0]);
+		let localStore = JSON.parse(localStorage.getItem('userid'));
+		let review = {
+			"userID" : localStore._id,
+			"reviewText" : this.state.reviewText,
+			"star" : this.state.rate,
+			"fName" : localStore.fName,
+			"lName" : localStore.lName 
+		}
+		var reviewObj;
+		if(this.state.movieDetails[0].reviews.length > 0){
+			reviewObj = this.state.movieDetails[0].reviews
+		}
+		else{
+			reviewObj = [];
+		}
+		reviewObj.push(review);
+		var reviewsData = {
+			movieTitle: this.state.movieDetails[0].movieTitle,
+			movieCategory:this.state.movieDetails[0].movieCategory,
+			movieCategory:this.state.movieDetails[0].movieCategory,
+			trailerLink: this.state.movieDetails[0].trailerLink,
+			movieDescription: this.state.movieDetails[0].movieDescription,
+			cast: this.state.movieDetails[0].cast,
+			movieLength: this.state.movieDetails[0].movieLength,
+			releaseDate: this.state.movieDetails[0].releaseDate,
+			movieRating: this.state.movieDetails[0].movieRating,
+			screen:this.state.movieDetails[0].screen,
+			reviews:reviewObj
+		}
+		console.log("Review Data :", reviewsData);
+		var url = 'http://localhost:8900/movie/' + localStorage.getItem('movieID');
+		axios(url, {
+			method: 'PUT',
+			mode: 'cors',
+			headers: {
+				'Content-Type': 'application/json',
+				'Accept': 'application/json'
+			},
+			data : reviewsData
+		}).then((res) =>{
+			console.log("Review Added ");
+		});
+		//console.log("Rating value : " + rate + " review Text : " + reviewText);
+	}
+	rateValue(events,rating){
+		this.setState({
+			rate : rating
+		});
+	}
+	handleReviewTxt(events){
+		this.setState({
+			reviewText : events.target.value
+		});
+	}
     render(){
-		let rate = 0, reviewText;
-		function rateValue(events,rating){
-			rate = rating
-		}
-		function handleReviewTxt(events){
-			reviewText = events.target.value;
-		}
-
-		function submitReview(events){
-			//alert(rate + "  " + reviewText);
-			//events.preventDefualt();
-			console.log("Rating value : " + rate + " review Text : " + reviewText);
-			
-		}
-
+	
 		console.log("Response Data : ", this.state.movieDetails);
 		let releaseData = null, movieLength = null, movieCategory = null, trailerLink = null;
 		var today = new Date();
@@ -88,7 +132,7 @@ class moviedetails extends Component{
 		})
 		
 		let reviewData = null;
-		{/*this.state.movieDetails.map(movie => {
+		this.state.movieDetails.map(movie => {
 			reviewData = movie.reviews.map(review =>{
 				return(
 					<li class="fan-reviews__item" style = {{paddingBottom : '20px', paddingTop : '20px'}}>
@@ -100,7 +144,7 @@ class moviedetails extends Component{
 					</li>
 				)
 			})
-		});*/}
+		});
     	return ( 
 			<div>
 				<Header />
@@ -211,15 +255,15 @@ class moviedetails extends Component{
 								<div class="form-group">
 								<label for="comment">Rating:</label>
 								<div class="rate">
-									<input onClick = {(e) => rateValue(e,5)} type="radio" id="star5" name="rate" value="5" />
+									<input onClick = {(e) => this.rateValue(e,5)} type="radio" id="star5" name="rate" value="5" />
 									<label for="star5" title="text"></label>
-									<input onClick = {(e) => rateValue(e,4)} type="radio" id="star4" name="rate" value="4" />
+									<input onClick = {(e) => this.rateValue(e,4)} type="radio" id="star4" name="rate" value="4" />
 									<label for="star4" title="text">4 stars</label>
-									<input onClick = {(e) => rateValue(e,3)} type="radio" id="star3" name="rate" value="3" />
+									<input onClick = {(e) => this.rateValue(e,3)} type="radio" id="star3" name="rate" value="3" />
 									<label for="star3" title="text">3 stars</label>
-									<input onClick = {(e) => rateValue(e,2)} type="radio" id="star2" name="rate" value="2" />
+									<input onClick = {(e) => this.rateValue(e,2)} type="radio" id="star2" name="rate" value="2" />
 									<label for="star2" title="text">2 stars</label>
-									<input onClick = {(e) => rateValue(e,1)} type="radio" id="star1" name="rate" value="1" />
+									<input onClick = {(e) => this.rateValue(e,1)} type="radio" id="star1" name="rate" value="1" />
 									<label for="star1" title="text"></label>
   								</div>
 								</div>
@@ -228,10 +272,10 @@ class moviedetails extends Component{
 								<br/>
 								<div style= {{display : 'inline-block', width : '100%'}} class="form-group">
   									<label for="comment">&nbsp;&nbsp;&nbsp;&nbsp;Review:</label>
-  									<textarea onChange = {(e) => handleReviewTxt(e)} class="form-control" rows="5" id="comment"></textarea>
+  									<textarea onChange = {(e) => this.handleReviewTxt(e)} class="form-control" rows="5" id="comment"></textarea>
 								</div>
 								<div class="modal-footer">
-								<Link to = "" onClick = {(e) => submitReview(e)}type="button" class="btn btn-default" data-dismiss="modal">Submit</Link>
+								<Link to = "" onClick = {(e) => this.submitReview(e)}type="button" class="btn btn-default" data-dismiss="modal">Submit</Link>
 								</div>
 							</div>
 							
