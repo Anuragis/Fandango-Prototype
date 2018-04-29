@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import axios from 'axios';
 import '../css/admin.css';
+import {Link} from 'react-router-dom';
 
 class hall extends React.Component {
     constructor(props) {
@@ -24,7 +25,10 @@ class hall extends React.Component {
             movieCategory:"",
             price:""
         },
-        hallData : []
+        hallData : [],
+        newScreenID : "",
+        newScreenName : "",
+        newScreenTime : ""
       }
        
       
@@ -96,97 +100,166 @@ class hall extends React.Component {
 
 
     }
-    updateProfile(){
-
-      const err = this.validate();
-      if (!err) {
-
-       var url = 'http://localhost:8900/user/' + this.props.location.state.id;
-       axios(url, {
-         method: 'PUT',
-         mode: 'cors',
-         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-         },
-         data: JSON.stringify({fName: this.state.fname, lName: this.state.lname,
-          email: this.state.email, address: this.state.address, 
-          city: this.state.city, state: this.state.state,
-          zipCode: this.state.zipCode, phoneNumber: this.state.phoneNumber,
-          password: this.state.password, profileImage: this.state.profileImage,
-          userType: this.state.userType,
-          creditCard:{
-            cardNumber:this.state.cardnumber,
-            nameOnCard:this.state.nameoncard,
-            expiry:this.state.expiry,
-            cvv:this.state.cvv
-          }
-
-          })
-          
-          
-       }).then((res) => {
-        if(res.status === 200){
-          this.setState({message: "Profile changed successfully"});
-        }
-        else{
-          this.setState({message: "Couldn't change the profile"});
-        }
-       });
-    }
-  }
-
-  createProfile(){
-    console.log("Inside Create Profile");
-    const err = this.validate();
-    if (!err) {
-
-     var url = 'http://localhost:8900/signup/';
-     axios(url, {
-       method: 'POST',
-       mode: 'cors',
-       headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-       },
-       data: JSON.stringify({fName: this.state.fname, lName: this.state.lname,
-        email: this.state.email, address: this.state.address, 
-        city: this.state.city, state: this.state.state,
-        zipCode: this.state.zipCode, phoneNumber: this.state.phoneNumber,
-        password: this.state.password, profileImage: this.state.profileImage,
-        userType: this.state.userType,
-        password:this.state.password,
-        creditCard:{
-          cardNumber:this.state.cardnumber,
-          nameOnCard:this.state.nameoncard,
-          expiry:this.state.expiry,
-          cvv:this.state.cvv
-        }
-
-        })
-        
-        
-     }).then((res) => {
-      if(res.status === 200){
-        this.setState({message: "User created successfully"});
-      }
-      else{
-        this.setState({message: "Couldn't create the user"});
-      }
-     })
-  }
-  }
+    
  
   
-    
+  AddScreen = (e) =>{
+    console.log("Hall ID : ", this.props.location.state.id);
+    let hallObj = this.state.hallData;
+    let newScreenID = this.state.newScreenID, newScreenName = this.state.newScreenName, newScreenTime = this.state.newScreenTime;
+    var screenUpdate = 0;
+    this.state.hallData.map(hall => {
+        hall.screens.map(screen => {
+            if(screen.movieName == newScreenName){
+                screenUpdate = 1;
+                return;
+            }
+        })
+    }) 
+    console.log("After return : ", screenUpdate);
+      if(screenUpdate == 1){
+          var seatArr = [];
+          for(var i=0;i<169;i++){
+            seatArr[i]=0;
+          }
+          let screenObj = {
+              'seats' : seatArr,
+              'movieTime' : newScreenTime,
+              'screenID' : newScreenID
+          };
+          hallObj = hallObj.map(hall=>{
+            console.log("Hall : ", hall);
+            hall.screens = hall.screens.map(screen =>{
+              console.log("Screens :",screen);
+              
+              if(screen.movieName == newScreenName){
+               
+                  screen.movieTimings.push(screenObj);
+              
+              }
+              return screen;
+            })
+            return hall;
+          })
+          console.log("Added New Screen : ",hallObj);
+          var url = 'http://localhost:8900/hall/' + this.props.location.state.id;
+          axios(url, {
+            method: 'PUT',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            data : hallObj
+          }).then((res) =>{
+              console.log("New Screen Added to existing Hall");
+          });
+      }else{
+        let hallObj = this.state.hallData;
+        var url = 'http://localhost:8900/movieByName/' + newScreenName;
+        axios(url, {
+          method: 'GET',
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          }
+        }).then((res) => {
+              console.log("Movie Data : ", res.data);
+              let movieData = res.data[0];
+              var seatArr = [];
+              for(var i=0;i<169;i++){
+                seatArr[i]=0;
+              }
+              let sObj = {
+                  'seats' : seatArr,
+                  'movieTime' : newScreenTime,
+                  'screenID' : newScreenID
+              };
+              let screenObj =[];
+              screenObj.push(sObj);
+              let NewScreenObj = {
+                  'movieCategory' : movieData.movieCategory,
+                  'movieLength' : movieData.movieLength,
+                  'movieName' : movieData.movieTitle,
+                  'movieRating' : movieData.movieRating,
+                  'movieTimings' : screenObj
+              }
+              hallObj = hallObj.map(hall=>{
+                console.log("Hall : ", hall);
+                hall.screens.push(NewScreenObj);
+                return hall;
+              });
+              console.log("Added New Screen : ",hallObj);
+              var url = 'http://localhost:8900/hall/' + this.props.location.state.id;
+              axios(url, {
+                method: 'PUT',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                data : hallObj
+              }).then((res) =>{
+                  console.log("New Screen Added to existing Hall");
+              });
+            })
+      }    
+    }
+    AddScreenID = (e) =>{
+      this.setState({
+        newScreenID : e.target.value
+      })
+    }
 
-     
+    AddMovieName = (e) => {
+      this.setState({
+        newScreenName : e.target.value
+      })
+    }
+
+    AddMovieTime(e){
+      this.setState({
+        newScreenTime : e.target.value
+      })
+    }
+
   render() {
-
+      
     console.log("Response Data Recieved : ", this.state.hallData);
     let displayScreens="";
     let displayButton="";
     let screensArray=[];
+    let screensData = null, timings = null,movieData = null;
+    if(this.state.hallData.length > 0){
+      screensData = this.state.hallData.map(hall => {
+        movieData = hall.screens.map(screen => {
+          timings = screen.movieTimings.map(time =>{
+            return(
+              <div>
+                <div className="form-group">
+                  <label>Screen ID</label> 
+                      <input  type="text" className="form-control" placeholder="Screen ID" value={time.screenID} required />
+                </div>
+                <div className="form-group">
+                  <label>Movie Time</label> 
+                      <input  type="text" className="form-control" placeholder="Movie Time" value={time.movieTime} required />
+                </div> 
+              </div>
+            )
+          })
+          return(
+            <div> 
+              <div className="form-group">
+                  <label>Movie Name</label> 
+                      <input  type="text" className="form-control" placeholder="Movie Time" value={screen.movieName} required />
+                </div> 
+              {timings}
+            </div>
+          )
+        })
+      });
+    }
     /**this.state.screens.map(function(screen){
         screensArray.push(screen);
     });*/
@@ -194,9 +267,9 @@ class hall extends React.Component {
 
    
       if(this.props.location.state.id==="0") {
-        displayButton=(<button type="button" id="submit" name="submit" className="btn btn-primary pull-right" onClick={this.createProfile.bind(this)}>Create</button>);
+        displayButton=(<button type="button" id="submit" name="submit" className="btn btn-primary pull-right" >Create</button>);
       }else{
-        displayButton=(<button type="button" id="submit" name="submit" className="btn btn-primary pull-right" onClick={this.updateProfile.bind(this)}>Update</button>);
+        displayButton=(<button type="button" id="submit" name="submit" className="btn btn-primary pull-right">Update</button>);
       };
      
       return (
@@ -253,7 +326,7 @@ class hall extends React.Component {
                   }} required />
                 </div>
 
-                <div className="form-group">
+                {/*<div className="form-group">*}
                  {
                    
                    /*screensArray.map((screen) => {
@@ -267,9 +340,42 @@ class hall extends React.Component {
                     )
                 
                     })
-                */}
-                </div>
+                */movieData}  
+                {/*</div>*/}
                 {displayButton}
+                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add a Screen</button>
+                <div class="modal fade" id="myModal" role="dialog">
+	<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h4 class="modal-title">Add a new Screen</h4>
+		</div>
+		
+	<br/>
+	
+	<div class="modal-body">
+		<div className="form-group">
+            <label>Screen ID</label> 
+            <input onChange = {(e) => this.AddScreenID(e)} type="text" className="form-control" placeholder="Screen ID"  required />
+        </div>
+		<div className="form-group">
+            <label>Movie Name</label> 
+            <input onChange = {(e) => this.AddMovieName(e)} type="text" className="form-control" placeholder="Movie Name"  required />
+        </div>
+		<div className="form-group">
+            <label>Movie Time</label> 
+            <input onChange = {(e) => this.AddMovieTime(e)} type="text" className="form-control" placeholder="ovie Time"  required />
+        </div>
+	</div>
+	<div class="modal-footer">
+		<Link to = "" onClick = {(e) => this.AddScreen(e)} type="button" class="btn btn-default" data-dismiss="modal">Submit</Link>
+	</div>
+	</div>
+	
+</div>
+</div>
+
              </form>
               <div className="success">{this.state.message}</div>
               <br></br>

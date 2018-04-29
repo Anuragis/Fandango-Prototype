@@ -36,8 +36,8 @@ const Main = () => (
         <Route exact path = '/signup' component={signup}/>
         <Route exact path = '/movieTimeTicket' component={MovieTimeTicket}/>
         <Route exact path ='/admindashboard' component={admindashboard}/>
-	    <Route exact path = '/adduser' component={adminAddUser}/>        
-	    <Route exact path = '/movieTimeHalls' component={MovieTimeHalls}/>
+        <Route exact path = '/adduser' component={adminAddUser}/>        
+        <Route exact path = '/movieTimeHalls' component={MovieTimeHalls}/>
         <Route exact path = '/movieTimeTicket' component={MovieTimeTicket}/>
         <Route exact path = '/transaction/checkout' component={checkout} />
         <Route exact path = '/transaction/confirmation' component={confirmation} />

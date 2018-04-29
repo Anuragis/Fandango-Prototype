@@ -82,7 +82,8 @@ module.exports.getMovieHalls=function(req,res,next){
 
 module.exports.updateMovieHall=function(req,res,next){
     console.log("put request", req.body);
-    var hid =  req.params.hid;
+    if(req.body.seatsbooked){
+        var hid =  req.params.hid;
     movieHallsModel.findById({_id: req.params.hid}, function(err, result){
         if (err)
             throw err;
@@ -129,7 +130,28 @@ module.exports.updateMovieHall=function(req,res,next){
         
             res.end();
         })
-   })
+    })
+    }else{
+        console.log("Inside Else : ", req.body[0]);
+        movieHallsModel.findOneAndUpdate({ _id : req.params.hid}, { $set : { 
+            hallName:req.body[0].hallName,
+            hallAddress:req.body[0].hallAddress,
+            hallCity:req.body[0].hallCity,
+            hallZipCode: req.body[0].hallZipCode,
+            hallState: req.body[0].hallState,
+            screens: req.body[0].screens,
+            status: req.body[0].status
+        } }, {new:true}, function(err, hall) {
+           
+            if (err)
+                throw err;
+                
+            console.log("updated hall", hall);
+        
+            res.end();
+        })
+    }
+    
     
 }
 
