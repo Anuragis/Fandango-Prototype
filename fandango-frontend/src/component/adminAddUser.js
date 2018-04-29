@@ -83,8 +83,9 @@ class user extends React.Component {
     };
 
     componentWillMount(){
-      var url='http://localhost:8900/user/' + localStorage.getItem('userid')._id;
-        if(typeof(this.props.location.state.id) !== "undefined" && this.props.location.state.id!="0"){
+      console.log("usER PROFILE",localStorage.getItem('userid')._id);
+      var url='http://localhost:8900/user/' + JSON.parse(localStorage.getItem('userid'))._id;
+        if(typeof(this.props.location.state) !== "undefined" && this.props.location.state.id!="0"){
           url = 'http://localhost:8900/user/' + this.props.location.state.id;
         }
         
@@ -248,7 +249,7 @@ class user extends React.Component {
   render() {
     let showPassword="";
     let displayButton="";
-      if(typeof(this.props.location.state.id) !== "undefined" && this.props.location.state.id==="0") {
+      if(typeof(this.props.location.state) !== "undefined" && this.props.location.state.id==="0") {
         showPassword=( <div className="form-group">
                   <input  type="password" className="form-control" placeholder="Password" value={this.state.password} onChange={(event)=>{
                     this.setState({password: event.target.value,message:""});

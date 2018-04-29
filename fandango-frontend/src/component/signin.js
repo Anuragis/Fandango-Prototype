@@ -5,24 +5,29 @@ import { signinAction } from '../actions/actions';
 import '../css/signin.css';
 import Redirect from 'react-router-dom/Redirect';
 
+
 class SignIn extends Component {
   constructor(props) {
     super(props);
     this.state = {
       email     : '',
       password  : '',
+    
+     
     }
   }
   
   handleChange = (events) =>{
     if(events.target.name === 'email'){
         this.setState({
-            email : events.target.value
+            email : events.target.value,
+           
         });
     }
     if(events.target.name === 'password'){
         this.setState({
-            password : events.target.value
+            password : events.target.value,
+          
         });
     }
   }
@@ -34,11 +39,25 @@ class SignIn extends Component {
     }  
     this.props.signinAction(newData);
   }
+
+ 
+
+
+
   render() {
     let redirectVar = null;
+    let errorMsg=null;
     if(localStorage.getItem('userid')){
       redirectVar = <Redirect to= "/" />
     }
+    if(this.props.error){
+      console.log("Error Msg Value : "+this.props.error);
+      errorMsg = (
+          <div className="myErrorMsg">
+              Invalid Username/Password
+          </div>
+      );
+  }
     return(
       <div>
         {redirectVar}
@@ -63,6 +82,7 @@ class SignIn extends Component {
           <div class="container">
             <form class="form-signin" onSubmit = {this.handleSubmit.bind(this)}>
               <h2 class="form-signin-heading">Please sign in</h2><br/>
+              <p className="errMsg">{errorMsg}</p>
               <label for="inputEmail" class="sr-only">Email address</label>
               <input type="email" name = "email" id="inputEmail" onChange = {this.handleChange} class="form-control" placeholder="Email address" required="" autofocus=""/>
               <br/>

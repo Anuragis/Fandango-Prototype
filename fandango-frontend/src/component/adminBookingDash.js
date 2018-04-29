@@ -28,7 +28,12 @@ class booking extends Component{
     componentDidMount(){
         this.state.start=new Date();
         console.log("started");
-        axios('http://localhost:8900/bookings', {
+        var url='http://localhost:8900/bookings';
+
+        if(JSON.parse(localStorage.getItem("userid").userType==="user")){
+            url="http://localhost:8900/booking/"+JSON.parse(localStorage.getItem("userid")._id);
+        }
+        axios(url, {
           method: 'GET',
           mode: 'cors',
           headers: {
@@ -182,6 +187,29 @@ class booking extends Component{
     }
 
     render(){
+        let showFilter;
+        if(JSON.parse(localStorage.getItem("userid")).userType==="admin"){
+            showFilter=(<div><h4 className="filterAlign"><b>Revenue: ${this.state.revenue}</b></h4>
+        <table className="filterAlign">
+             <tr>
+                 <form onSubmit = {this.handleSubmitForRevenue}> 
+                  <td>   <input type="text"  name="moviename" value={this.state.moviename} onChange = {this.handleChange}   placeholder="Enter Movie Name"/></td>
+                  <td>   <input type="text"  name="hallname" value={this.state.hallname} onChange = {this.handleChange}   placeholder="Enter Hall Name"/></td>
+                   <td>  <button className="btn btn-lg btn-primary" type="submit">Show</button></td>
+              </form>
+              </tr>
+              <tr>
+                 <form onSubmit = {this.handleSubmitForSearch}> 
+                  <td>   <input type="text"  name="date" value={this.state.date} onChange = {this.handleChange}   placeholder="Enter Date"/></td>
+                  <td>   <input type="text"  name="month" value={this.state.month} onChange = {this.handleChange}   placeholder="Enter Month"/></td>
+                  <td>   <input type="text"  name="year" value={this.state.year} onChange = {this.handleChange}   placeholder="Enter Year"/></td>
+                   <td>  <button className="btn btn-lg btn-primary" type="submit">Search</button></td>
+              </form>
+              </tr>    
+       </table></div>  );}
+        else{
+            showFilter=(<div></div>);
+       }
         return(
             <div >
             <div id="headerContainer" class="purchase detail on-order" name="HeaderContainer">
@@ -198,26 +226,9 @@ class booking extends Component{
                  <div className="container">  
                   
                   <h3><b>List of Bookings</b></h3>
-
+                    {showFilter}
                   
-                  <h4 className="filterAlign"><b>Revenue: ${this.state.revenue}</b></h4>
-                   <table className="filterAlign">
-                        <tr>
-                            <form onSubmit = {this.handleSubmitForRevenue}> 
-                             <td>   <input type="text"  name="moviename" value={this.state.moviename} onChange = {this.handleChange}   placeholder="Enter Movie Name"/></td>
-                             <td>   <input type="text"  name="hallname" value={this.state.hallname} onChange = {this.handleChange}   placeholder="Enter Hall Name"/></td>
-                              <td>  <button className="btn btn-lg btn-primary" type="submit">Show</button></td>
-                         </form>
-                         </tr>
-                         <tr>
-                            <form onSubmit = {this.handleSubmitForSearch}> 
-                             <td>   <input type="text"  name="date" value={this.state.date} onChange = {this.handleChange}   placeholder="Enter Date"/></td>
-                             <td>   <input type="text"  name="month" value={this.state.month} onChange = {this.handleChange}   placeholder="Enter Month"/></td>
-                             <td>   <input type="text"  name="year" value={this.state.year} onChange = {this.handleChange}   placeholder="Enter Year"/></td>
-                              <td>  <button className="btn btn-lg btn-primary" type="submit">Search</button></td>
-                         </form>
-                         </tr>    
-                  </table>   
+                   
                  
                 <table className="table table-striped">
             <thead>

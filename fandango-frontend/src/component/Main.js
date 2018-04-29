@@ -44,7 +44,7 @@ const Main = () => (
         <Route exact path = '/moviedash' component={adminMovieDash} />
         <Route exact path = '/addmovie' component={adminAddMovie} />
         <Route exact path = '/moviebookings' component={AdminMovieBookings} />
-        <Route exact path = '/adminbooking' component={adminBookingDash}/>
+        <Route exact path = '/booking' component={adminBookingDash}/>
         <Route exact path = '/viewbooking' component={adminViewBooking}/>
         <Route exact path = '/halldash' component={adminHallDash}/>
         <Route exact path = '/addhall' component={adminAddHall}/>
