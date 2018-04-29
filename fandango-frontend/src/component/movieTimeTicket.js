@@ -9,9 +9,12 @@ class MovieTimeTicket extends Component {
     super(props);
     this.state = {
         halls : [],
-        term : ""
+        term : "",
+        orderBy: "bidAmt",
+        order: ""
     }
     this.inpTerm = this.inpTerm.bind(this);
+    this.toggle = this.toggle.bind(this);
   }
 
   inpTerm(inputTerm) {
@@ -61,10 +64,30 @@ class MovieTimeTicket extends Component {
     }
   }
 
-  
+    toggle(e){
+        e.preventDefault();
+        let order = this.state.order;
+        if(order==="") order = 'desc';
+        else order = (order==="asc" ? 'desc' : 'asc');
+        this.setState({order});
+        if (this.state.order !== ''){
+            this.setState({sortDirArrow : this.state.order === 'asc' ? '↓ ' : '↑ '})
+        }
+        else this.setState({sortDirArrow : '↓ '})
+    }
 
 
   render() {
+      //-------filter
+    let orderBy = this.state.orderBy;
+    let order = this.state.order;
+    // if(this.state.order==="") blist = this.props.bList;
+    //     else {
+    //         blist = _.orderBy(this.props.bList, (item) => {
+    //         return item[orderBy]
+    //       }, order); 
+    //     }
+        //------filter
     let movieData = null, movieTimings = null;
 let hallData = this.state.halls.map(hall => {
 	movieData = hall.screens.map(movie => {
@@ -806,6 +829,12 @@ let hallData = this.state.halls.map(hall => {
                     <option value="/hackworth-imax-dome-AANCI/theater-page?date=2018/4/18">Hackworth IMAX Dome</option>
                     <option value="/capitol-drive-in-AACFK/theater-page?date=2018/4/18">Capitol Drive-In</option>
                   </select>
+                    <div>
+                        <a onClick={this.toggle}>
+                        {this.state.sortDirArrow}
+                        Pricing
+                        </a>
+                    </div>
                   <div class="fd-showtimes js-theaterShowtimes-loading">
                     <div class="printer-friendly">
                         <a class="cta" href="//www.fandango.com/theaterlistings-prn.aspx?location=95101&amp;pn=1&amp;sdate=4-18-2018&amp;tid=AAFRF,AAFQQ,AASUR,AATUL,AAQND,AAPCG,AAFQS,AAWTK,AANCI,AACFK">

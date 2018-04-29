@@ -25,7 +25,7 @@ export default class AdminViewMovieRevenue extends Component {
 
     componentDidMount() {
         console.log("started");
-        axios(`http://localhost:8900/bookingByMovieId/ghanta1`, {   /** ${localStorage.getItem('movieClicked')} */
+        axios('http://localhost:8900/bookingByMovieId/'+localStorage.getItem('movieClicked'), {
           method: 'GET',
           mode: 'cors',
           headers: {
@@ -45,10 +45,25 @@ export default class AdminViewMovieRevenue extends Component {
         
     }
 
-
-
-
-
+    deleteBooking(_id) {
+        console.log("delete",_id);
+        axios('http://localhost:8900/bookingByMovieId/'+localStorage.getItem('movieClicked'), {
+          method: 'GET',
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          }
+        }).then((res) => {
+          this.setState({bookings: res.data,
+        bookingscpy:res.data});
+            let amt=0;
+            this.state.bookings.map(function(booking){
+                amt+=booking.bamount;
+            });
+            this.setState({revenue: amt});
+        });
+    }
 
 
     render(){
@@ -75,7 +90,7 @@ export default class AdminViewMovieRevenue extends Component {
                         </thead>
                         <tbody> 
                         {  
-                            this.state.bookings.map((booking, id=0) => {
+                            this.state.bookings.map((booking, id=1) => {
                             
                             return(
                                 
@@ -88,7 +103,7 @@ export default class AdminViewMovieRevenue extends Component {
                                     <td>{booking.hallname}</td>
                                     <td>{booking.hallcity}</td>
                                     <td>
-                                        <span className="glyphicon glyphicon-remove" /*onClick={this.deleteBooking.bind(this, booking._id)}*/></span>
+                                        <span className="glyphicon glyphicon-remove" onClick={this.deleteBooking.bind(this, booking._id)}></span>
                                     </td>
                                 </tr>
                             )
