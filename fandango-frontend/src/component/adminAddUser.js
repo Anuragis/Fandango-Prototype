@@ -129,7 +129,11 @@ class user extends React.Component {
       const err = this.validate();
       if (!err) {
 
-       var url = 'http://localhost:8900/user/' + this.props.location.state.id;
+        var url='http://localhost:8900/user/' + JSON.parse(localStorage.getItem('userid'))._id;
+        if(typeof(this.props.location.state) !== "undefined" && this.props.location.state.id!="0"){
+          url = 'http://localhost:8900/user/' + this.props.location.state.id;
+        }
+
        axios(url, {
          method: 'PUT',
          mode: 'cors',
