@@ -97,92 +97,9 @@ class hall extends React.Component {
             }
           )
         }
-
-
     }
-    updateProfile(){
-
-      const err = this.validate();
-      if (!err) {
-
-       var url = 'http://localhost:8900/user/' + this.props.location.state.id;
-       axios(url, {
-         method: 'PUT',
-         mode: 'cors',
-         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-         },
-         data: JSON.stringify({fName: this.state.fname, lName: this.state.lname,
-          email: this.state.email, address: this.state.address, 
-          city: this.state.city, state: this.state.state,
-          zipCode: this.state.zipCode, phoneNumber: this.state.phoneNumber,
-          password: this.state.password, profileImage: this.state.profileImage,
-          userType: this.state.userType,
-          creditCard:{
-            cardNumber:this.state.cardnumber,
-            nameOnCard:this.state.nameoncard,
-            expiry:this.state.expiry,
-            cvv:this.state.cvv
-          }
-
-          })
-          
-          
-       }).then((res) => {
-        if(res.status === 200){
-          this.setState({message: "Profile changed successfully"});
-        }
-        else{
-          this.setState({message: "Couldn't change the profile"});
-        }
-       });
-    }
-  }
-
-  createProfile(){
-    console.log("Inside Create Profile");
-    const err = this.validate();
-    if (!err) {
-
-     var url = 'http://localhost:8900/signup/';
-     axios(url, {
-       method: 'POST',
-       mode: 'cors',
-       headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-       },
-       data: JSON.stringify({fName: this.state.fname, lName: this.state.lname,
-        email: this.state.email, address: this.state.address, 
-        city: this.state.city, state: this.state.state,
-        zipCode: this.state.zipCode, phoneNumber: this.state.phoneNumber,
-        password: this.state.password, profileImage: this.state.profileImage,
-        userType: this.state.userType,
-        password:this.state.password,
-        creditCard:{
-          cardNumber:this.state.cardnumber,
-          nameOnCard:this.state.nameoncard,
-          expiry:this.state.expiry,
-          cvv:this.state.cvv
-        }
-
-        })
-        
-        
-     }).then((res) => {
-      if(res.status === 200){
-        this.setState({message: "User created successfully"});
-      }
-      else{
-        this.setState({message: "Couldn't create the user"});
-      }
-     })
-  }
-  }
- 
-  
   AddScreen = (e) =>{
+    console.log("Hall ID : ", this.props.location.state.id);
     let hallObj = this.state.hallData;
     let newScreenID = this.state.newScreenID, newScreenName = this.state.newScreenName, newScreenTime = this.state.newScreenTime;
     var screenUpdate = 0;
@@ -220,7 +137,7 @@ class hall extends React.Component {
             return hall;
           })
           console.log("Added New Screen : ",hallObj);
-          var url = 'http://localhost:8900/user/' + this.props.location.state.id;
+          var url = 'http://localhost:8900/hall/' + this.props.location.state.id;
           axios(url, {
             method: 'PUT',
             mode: 'cors',
@@ -229,7 +146,9 @@ class hall extends React.Component {
                 'Accept': 'application/json'
             },
             data : hallObj
-          })
+          }).then((res) =>{
+              console.log("New Screen Added to existing Hall");
+          });
       }else{
         let hallObj = this.state.hallData;
         var url = 'http://localhost:8900/movieByName/' + newScreenName;
@@ -241,47 +160,46 @@ class hall extends React.Component {
             'Accept': 'application/json'
           }
         }).then((res) => {
-              let movieData = res.data;
+              console.log("Movie Data : ", res.data);
+              let movieData = res.data[0];
               var seatArr = [];
               for(var i=0;i<169;i++){
                 seatArr[i]=0;
               }
-              let screenObj = {
+              let sObj = {
                   'seats' : seatArr,
                   'movieTime' : newScreenTime,
                   'screenID' : newScreenID
               };
+              let screenObj =[];
+              screenObj.push(sObj);
               let NewScreenObj = {
                   'movieCategory' : movieData.movieCategory,
                   'movieLength' : movieData.movieLength,
-                  'movieName' : movieData.movieName,
+                  'movieName' : movieData.movieTitle,
                   'movieRating' : movieData.movieRating,
-                  'movieTimgs' : screenObj
+                  'movieTimings' : screenObj
               }
               hallObj = hallObj.map(hall=>{
                 console.log("Hall : ", hall);
                 hall.screens.push(NewScreenObj);
                 return hall;
-              })
-        })
-      }
-      var resData = {
-          hallId : this.props.location.state.id,
-          screenID : newScreenID,
-          movieTime : newScreenTime,
-          movieName : newScreenName
-      }
-      var url = 'http://localhost:8900/hall';
-      axios(url, {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-         'Content-Type': 'application/json',
-         'Accept': 'application/json'
-        },
-        data : resData
-      })
-        
+              });
+              console.log("Added New Screen : ",hallObj);
+              var url = 'http://localhost:8900/hall/' + this.props.location.state.id;
+              axios(url, {
+                method: 'PUT',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                data : hallObj
+              }).then((res) =>{
+                  console.log("New Screen Added to existing Hall");
+              });
+            })
+      }    
     }
     AddScreenID = (e) =>{
       this.setState({
@@ -317,6 +235,7 @@ class hall extends React.Component {
                 <div className="form-group">
                   <label>Screen ID</label> 
                       <input  type="text" className="form-control" placeholder="Screen ID" value={time.screenID} required />
+                      
                 </div>
                 <div className="form-group">
                   <label>Movie Time</label> 
