@@ -130,11 +130,11 @@ export default class AdminMovieDash extends Component {
                     </thead>
                     <tbody> 
                     {  
-                        this.state.movies.map((movie, id=0) => {
+                        this.state.movies.map((movie,index) => {
                         
                         return(
                             <tr key={movie._id}>
-                                <td>{id}</td>
+                                <td>{index + 1}</td>
                                 <td>
                                 <Link onClick = {(e) => this.clickMovie(e,movie.movieTitle)} to={{pathname:"/allmoviebookings", state:{name: movie.movieTitle}}}>
                                     

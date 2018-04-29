@@ -100,7 +100,7 @@ module.exports.updateMovie=function(req,res,next){
             // profileImage = req.body.moviePhoto + path.extname(req.file.originalname);
             var values = {$set : {
                 moviePhoto : req.params.mid + path.extname(req.file.originalname)}};
-                moviesModel.findOneAndUpdate({ movieTitle : req.params.mid},values, function(err, user) {
+                moviesModel.findOneAndUpdate({ _id : req.params.mid},values, function(err, user) {
                 console.log("Movie id",req.params.mid);
                 if (err)
                     throw err;

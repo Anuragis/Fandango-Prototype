@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import Head from './Header';
 import '../css/admin.css';
+import {Link} from 'react-router-dom';
 
 export default class AddMovie extends Component {
     constructor(props) {
@@ -23,7 +24,7 @@ export default class AddMovie extends Component {
     }
     createMovie = (events) => {
         var newData;
-        events.preventDefault();
+        //events.preventDefault();
         var castAsString = this.state.cast.toString();
             var castNames=castAsString.split(", ");
             var reqCast=[];
@@ -60,7 +61,7 @@ export default class AddMovie extends Component {
     updateMovie = (events) => {
         var newData;
         var fData = new FormData();
-        events.preventDefault();
+        //events.preventDefault();
         var castAsString = this.state.cast.toString();
             var castNames=castAsString.split(", ");
             var reqCast=[];
@@ -242,10 +243,10 @@ export default class AddMovie extends Component {
     render() {
         let displayButton = "";
         if(this.props.location.state.id === "0") {
-            displayButton=(<button type="button" id="submit" name="submit" className="btn btn-primary pull-right" onClick={this.createMovie.bind(this)}>Create Movie</button>);
+            displayButton=(<Link  to = "/moviedash" type="button" id="submit" name="submit" className="btn btn-primary pull-right" onClick={this.createMovie.bind(this)}>Create Movie</Link>);
         }
         else {
-            displayButton=(<button type="button" id="submit" name="submit" className="btn btn-primary pull-right" onClick={this.updateMovie.bind(this)}>Update Movie</button>);
+            displayButton=(<Link  to = "/moviedash" type="button" id="submit" name="submit" className="btn btn-primary pull-right" onClick={this.updateMovie.bind(this)}>Update Movie</Link>);
         }
         let movieImgDisplay = this.state.moviePhoto==""?{display:"none"}:{display:"block"};
         const styleUpl = {
