@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Header from './headers';
 import Footer from './footer';
 import axios from 'axios';
+import {Link} from 'react-router-dom';
 
 
 class MovieTimeTicket extends Component {
@@ -134,6 +135,23 @@ class MovieTimeTicket extends Component {
 
 
   render() {
+    function handletransaction(e,hall,movie,timings){
+        var transactionData = {
+            "hallID":hall._id,
+            "movieName": movie.movieName,
+            "movieRating": movie.movieRating,
+            "movieLength": movie.movieLength,
+            "hallName": hall.hallName,
+            "screenID": timings.screenID,
+            "hallAddress": hall.hallAddress,
+            "hallCity": hall.hallCity,
+            "hallZipCode": hall.hallZipCode,
+            "hallState": hall.hallState,
+            "movieTime": timings.movieTime,
+            "seats": timings.seats
+        }
+        localStorage.setItem('movieHall', JSON.stringify(transactionData));
+    }
       //-------filter
     let orderBy = this.state.orderBy;
     let order = this.state.order;
@@ -151,7 +169,7 @@ let hallData = this.state.halls.map(hall => {
 			return(
 				
 					<li class="fd-movie__btn-list-item">
-                        <a class="btn showtime-btn showtime-btn--available" href="#">{timings.movieTime}</a>
+                        <Link onClick = {(e) => handletransaction(e,hall,movie,timings)} to = "transaction/ticketboxoffice" class="btn showtime-btn showtime-btn--available">{timings.movieTime}</Link>
                     </li>
 				
 			)

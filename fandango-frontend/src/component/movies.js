@@ -23,6 +23,7 @@ class movies extends Component{
                 headers: headers,
             })
             .then((response) => {
+                console.log("Movies Response  : ", response.data);
                 this.setState({
                     movies : this.state.movies.concat(response.data)
                 });
@@ -34,35 +35,42 @@ class movies extends Component{
         return today;
     }
     render(){
-    let openingMovies = null, nowPlaying = null;
     let sunday = this.nextDate(0);
 	console.log("Next Sunday : ", sunday);
 	var today = new Date();
 	console.log("Todays Date : ", today);
     let releaseDate= null;
     console.log("Resposne Data : ", this.state.movies);
+    let openingMovie = [], nowPlaying = [], openIndex = 0,nowPlayIndex = 0;;
 	let openMovie = this.state.movies.map(movie => {
 		releaseDate = movie.releaseDate;
 		releaseDate = new Date(releaseDate);
 		console.log("Release Date : ", releaseDate);
 		if(releaseDate < sunday && releaseDate > today){
-			openingMovies = (
-                <li style = {{float : 'left', margin : '0 26px 20px 0', height : '200px', width : '125px', float : 'left'}} class="visual-item">
-                    <Link to = {"/moviedetails/"+ movie._id}  style = {{background : '#000', display:'block', overflow : 'hidden', width : '100%'}} class="visual-container" >
-                        <img data-src="https://images.fandango.com/r1.0.444/ImageRenderer/168/250/redesign/static/img/default_poster.png/199925/images/masterrepository/fandango/199925/avengersinfinitywar-postera.jpg" class="visual-thumb" alt="Avengers: Infinity War showtimes and tickets" src="https://images.fandango.com/r1.0.444/ImageRenderer/168/250/redesign/static/img/default_poster.png/199925/images/masterrepository/fandango/199925/avengersinfinitywar-postera.jpg"/>
-                    </Link>
-                    <div style = {{display : 'block', padding : '5px', background : '#fff'}} class="visual-detail">
-                        <Link to = {"/moviedetails/"+ movie._id} style = {{fontSize : '20px', lineHeight : '20px', overflow : 'hidden', padding : '0 10px 0 0', maxHeight: '40px', whiteSpace: 'normal'}} class="visual-title dark" >
-                            {movie.movieTitle}
+            if(openIndex < 6){
+                openingMovie.push (
+                    <div onClick = {(e) => {localStorage.setItem('movieID', movie._id)}}>
+                    <li  style = {{float : 'left', margin : '0 26px 20px 0', height : '200px', width : '125px', float : 'left'}} class="visual-item">
+                        <Link to = {"/moviedetails/"+ movie._id}  style = {{background : '#000', display:'block', overflow : 'hidden', width : '100%'}} class="visual-container" >
+                            <img data-src="https://images.fandango.com/r1.0.444/ImageRenderer/168/250/redesign/static/img/default_poster.png/199925/images/masterrepository/fandango/199925/avengersinfinitywar-postera.jpg" class="visual-thumb" alt="Avengers: Infinity War showtimes and tickets" src="https://images.fandango.com/r1.0.444/ImageRenderer/168/250/redesign/static/img/default_poster.png/199925/images/masterrepository/fandango/199925/avengersinfinitywar-postera.jpg"/>
                         </Link>
-                        <span class="visual-sub-title">Opens Today</span>
+                        <div style = {{display : 'block', padding : '5px', background : '#fff'}} class="visual-detail">
+                            <Link to = {"/moviedetails/"+ movie._id} style = {{fontSize : '20px', lineHeight : '20px', overflow : 'hidden', padding : '0 10px 0 0', maxHeight: '40px', whiteSpace: 'normal'}} class="visual-title dark" >
+                                {movie.movieTitle}
+                            </Link>
+                            <span class="visual-sub-title">Opens Today</span>
+                        </div>
+                    </li>
                     </div>
-                </li>
-            );
+                );
+            }
+            openIndex++;
+			
         }else //if(releaseDate < today)
 		{
-            nowPlaying = (
-					<div>
+            if(nowPlayIndex < 6){
+                nowPlaying.push (
+					<div onClick = {(e) => {localStorage.setItem('movieID', movie._id)}}>
 						<li style = {{float : 'left', margin : '0 26px 20px 0', height : '200px', width : '125px', float : 'left'}} class="visual-item">
                             <Link to = {"/moviedetails/"+ movie._id} style = {{background : '#000', display:'block', overflow : 'hidden', width : '100%'}} class="visual-container" >
 								<img data-src="https://images.fandango.com/r1.0.444/ImageRenderer/168/250/redesign/static/img/default_poster.png/199925/images/masterrepository/fandango/199925/avengersinfinitywar-postera.jpg" class="visual-thumb" alt="Avengers: Infinity War showtimes and tickets" src="https://images.fandango.com/r1.0.444/ImageRenderer/168/250/redesign/static/img/default_poster.png/199925/images/masterrepository/fandango/199925/avengersinfinitywar-postera.jpg"/>
@@ -75,6 +83,9 @@ class movies extends Component{
 						</li>
 					</div>
 				)
+            }
+            nowPlayIndex++;
+            
         }
     });
         console.log("Movies : ", this.state.movies);
@@ -198,9 +209,9 @@ class movies extends Component{
                         </ul>
                     </div>
                 </div>
-                <div class="movie-ls-group">
+                <div class="movie-ls-group" style = {{width : '100%'}}>
                     <h2 style = {{color : '#4c4c4c', margin : '0 0 15px', padding : '0 30px', position : 'relative', textAlign : 'center'}} class="inline heading-style-stub heading-style-1 heading-size-l section-header">Opening This Week</h2>
-                    <ul style = {{margin : '0 -30px 20px 0', overflow : 'auto', lifeStyle : 'none', height : '300px'}}>
+                    <ul style = {{margin : '0 -30px 20px 0', overflow : 'auto', lifeStyle : 'none',height : '350px'}}>
                         {/*<li style = {{float : 'left', margin : '0 26px 20px 0', height : '200px', width : '125px', float : 'left'}} class="visual-item">
                             <a style = {{background : '#000', display:'block', overflow : 'hidden', width : '100%'}} class="visual-container" href="http://www.fandango.com/avengers:infinitywar_199925/movieoverview">
                                 <img data-src="https://images.fandango.com/r1.0.444/ImageRenderer/168/250/redesign/static/img/default_poster.png/199925/images/masterrepository/fandango/199925/avengersinfinitywar-postera.jpg" class="visual-thumb" alt="Avengers: Infinity War showtimes and tickets" src="https://images.fandango.com/r1.0.444/ImageRenderer/168/250/redesign/static/img/default_poster.png/199925/images/masterrepository/fandango/199925/avengersinfinitywar-postera.jpg"/>
@@ -271,12 +282,12 @@ class movies extends Component{
                                 <span class="visual-sub-title">Opens Today</span>
                             </div>
                         </li>*/}
-                        {openingMovies}                    
+                        {openingMovie}                    
                     </ul>
                 </div>
-                <div class="movie-ls-group">
+                <div class="movie-ls-group" style = {{width : '100%'}}>
                     <h2 style = {{color : '#4c4c4c', margin : '0 0 15px', padding : '0 30px', position : 'relative', textAlign : 'center'}} class="inline heading-style-stub heading-style-1 heading-size-l section-header">Now Playing</h2>
-                    <ul style = {{margin : '0 -30px 20px 0', overflow : 'auto', lifeStyle : 'none', height : '300px'}}>
+                    <ul style = {{margin : '0 -30px 20px 0', overflow : 'auto', lifeStyle : 'none', height : '350px'}}>
                         {/*<li style = {{float : 'left', margin : '0 26px 20px 0', height : '200px', width : '125px', float : 'left'}} class="visual-item">
                             <a style = {{background : '#000', display:'block', overflow : 'hidden', width : '100%'}} class="visual-container" href="http://www.fandango.com/avengers:infinitywar_199925/movieoverview">
                                 <img data-src="https://images.fandango.com/r1.0.444/ImageRenderer/168/250/redesign/static/img/default_poster.png/199925/images/masterrepository/fandango/199925/avengersinfinitywar-postera.jpg" class="visual-thumb" alt="Avengers: Infinity War showtimes and tickets" src="https://images.fandango.com/r1.0.444/ImageRenderer/168/250/redesign/static/img/default_poster.png/199925/images/masterrepository/fandango/199925/avengersinfinitywar-postera.jpg"/>
