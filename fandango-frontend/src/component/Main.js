@@ -22,11 +22,8 @@ import adminViewBooking from './adminViewBooking';
 import adminHallDash from './adminHallDash';
 import adminAddHall from './adminAddHall';
 import PageNotFound from './pageNotFound';
-<<<<<<< HEAD
 import AdminViewMovieBookings from './adminViewMovieBookings'; 
-=======
 import testTiming from './testTiming';
->>>>>>> 17b52cf123f7030c905114254f899dc5aee24c90
 const Main = () => (
     <Switch>
         <Route exact path = '/' component={userhome}/>
@@ -51,11 +48,8 @@ const Main = () => (
         <Route exact path = '/viewbooking' component={adminViewBooking}/>
         <Route exact path = '/halldash' component={adminHallDash}/>
         <Route exact path = '/addhall' component={adminAddHall}/>
-<<<<<<< HEAD
         <Route exact path = '/allmoviebookings' component={AdminViewMovieBookings}/>
-=======
         <Route exact path = '/test' component={testTiming}/>
->>>>>>> 17b52cf123f7030c905114254f899dc5aee24c90
     </Switch>
 )
 
