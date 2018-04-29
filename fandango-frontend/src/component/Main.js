@@ -22,6 +22,7 @@ import adminViewBooking from './adminViewBooking';
 import adminHallDash from './adminHallDash';
 import adminAddHall from './adminAddHall';
 import PageNotFound from './pageNotFound';
+import testTiming from './testTiming';
 const Main = () => (
     <Switch>
         <Route exact path = '/' component={userhome}/>
@@ -46,6 +47,7 @@ const Main = () => (
         <Route exact path = '/viewbooking' component={adminViewBooking}/>
         <Route exact path = '/halldash' component={adminHallDash}/>
         <Route exact path = '/addhall' component={adminAddHall}/>
+        <Route exact path = '/test' component={testTiming}/>
     </Switch>
 )
 

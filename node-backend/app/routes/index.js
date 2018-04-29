@@ -159,6 +159,5 @@ router
     .route('/log')
     .post(logs.createLog);
 
-
 /**routes for logs end */
 module.exports = router;
