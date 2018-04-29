@@ -28,7 +28,7 @@ module.exports.createUser = function(req,res,next){
         newUser.phoneNumber = req.body.phoneNumber;
         newUser.profileImage = "preview.jpg";
         newUser.creditCard = req.body.creditCard;
-        newUser.userType=req.body.userType;
+        newUser.userType="user";
         newUser.status="active";
 
         newUser.save(function(err,movie) {
