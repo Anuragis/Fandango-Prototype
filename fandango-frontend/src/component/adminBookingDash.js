@@ -126,11 +126,19 @@ class booking extends Component{
         });
  
        if(this.state.date!==""){
-        let date=this.state.date;
+        let query=this.state.date;
+        
          newBookings=[];
            this.state.bookingscpy.map(function(booking){
-           
-               if(booking.bdate===date){
+               var date=new Date(booking.bdate);
+               var month=date.getMonth()+1;
+               var bdate= date.getFullYear()+"-"+month+"-"+date.getDate();
+
+               console.log("bdate",bdate);
+
+               console.log("query",query);
+               console.log(bdate==query);
+              if(bdate==query){
                   newBookings.push(booking);
                }
            });
