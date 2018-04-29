@@ -126,21 +126,27 @@ class booking extends Component{
         });
  
        if(this.state.date!==""){
-        let date=this.state.date;
+        let query=this.state.date;
+        
          newBookings=[];
            this.state.bookingscpy.map(function(booking){
-           
-               if(booking.bdate===date){
+               var date=new Date(booking.bdate);
+               var month=date.getMonth()+1;
+               var bdate1= date.getFullYear()+"-"+month+"-"+date.getDate();
+               var bdate2= date.getFullYear()+"-0"+month+"-"+date.getDate();
+              if(bdate1==query||bdate2==query){
                   newBookings.push(booking);
                }
            });
         }else if(this.state.month!=="" && this.state.year===""){
+            
             let month=this.state.month;
             newBookings=[];
 
             this.state.bookingscpy.map(function(booking){
-           
-                if(booking.bdate.split("/")[1]===month){
+                var date=new Date(booking.bdate);
+                var bdate1= date.getMonth()+1;
+                if(bdate1==month|| bdate1+"0"==month){
                    newBookings.push(booking);
                 }
             });
@@ -149,8 +155,9 @@ class booking extends Component{
             newBookings=[];
 
             this.state.bookingscpy.map(function(booking){
-           
-                if(booking.bdate.split("/")[2]===year){
+                var date=new Date(booking.bdate);
+                var bdate1= date.getFullYear();
+                if(bdate1==year|| bdate1===year){
                    newBookings.push(booking);
                 }
             });
@@ -158,10 +165,12 @@ class booking extends Component{
             let year=this.state.year;
             let month=this.state.month;
             newBookings=[];
-
+        
             this.state.bookingscpy.map(function(booking){
-           
-                if(booking.bdate.split("/")[2]===year && booking.bdate.split("/")[1]===month){
+                var date=new Date(booking.bdate);
+                var bdate1= date.getFullYear();
+                var bdate2= date.getMonth()+1;
+                if((bdate2==month || bdate2+0===month) && (bdate1===year ||bdate1==year )){
                    newBookings.push(booking);
                 }
             });
