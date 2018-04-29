@@ -45,7 +45,7 @@ class halls extends Component{
                     </div>
                 </div>
             </div>
-                              
+            <Link to={{pathname:"/addhall", state:{id: "0"}}} className= "btn btn-primary buttonAlign" style={{textDecoration:'none',color:'white'}}>Add Hall</Link>           
                  <div className="container">  
                   
                   <h3><b>List of Halls</b></h3>

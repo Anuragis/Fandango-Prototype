@@ -7,7 +7,7 @@ var moviesModel = require('../models/moviesModel');
 
 module.exports.createMovieHall = function(req,res,next){
     
-   
+    console.log("Req Body :", req.body);
     const seatArr=[];
     for(var i=0;i<169;i++){
         seatArr[i]=0;
@@ -63,7 +63,7 @@ module.exports.createMovieHall = function(req,res,next){
             throw err;
         }
        
-        res.send();
+        res.send(hall);
     })
    
 

@@ -206,6 +206,69 @@ class hall extends React.Component {
             })
       }    
     }
+
+    handleLoopScreenID = (e,screenIndex,timeIndex) => {
+      let hallObj = this.state.hallData;
+      hallObj = hallObj.map(hall=>{
+        
+        hall.screens = hall.screens.map((screen,sIndex) =>{
+          if(sIndex == screenIndex){
+            screen.movieTimings = screen.movieTimings.map((time,tIndex) => {
+                if(tIndex == timeIndex){
+                  time.screenID = e.target.value;
+                }
+                return time;
+            })
+          }
+          return screen;
+        })
+        return hall;
+      })
+      this.setState({
+        hallData : hallObj
+      })
+      console.log("New Hall Obj",hallObj);
+    }
+
+    handleLoopMovieTime = (e,screenIndex,timeIndex) => {
+      let hallObj = this.state.hallData;
+      hallObj = hallObj.map(hall=>{
+        hall.screens = hall.screens.map((screen,sIndex) =>{
+          if(sIndex == screenIndex){
+            screen.movieTimings = screen.movieTimings.map((time,tIndex) => {
+                if(tIndex == timeIndex){
+                  time.movieTime = e.target.value;
+                }
+                return time;
+            })
+          }
+          return screen;
+        })
+        return hall;
+      })
+      this.setState({
+        hallData : hallObj
+      })
+      console.log("New Hall Obj",hallObj);
+    }
+
+    handleLoopMovieName = (e,screenIndex) =>{
+      let hallObj = this.state.hallData;
+      hallObj = hallObj.map(hall=>{
+        hall.screens = hall.screens.map((screen,sIndex) =>{
+          if(sIndex == screenIndex){
+            screen.movieName = e.target.value;
+          }
+          return screen;
+        })
+        return hall;
+      })
+      this.setState({
+        hallData : hallObj
+      })
+      console.log("New Hall Obj",hallObj);
+    }
+
     AddScreenID = (e) =>{
       this.setState({
         newScreenID : e.target.value
@@ -224,26 +287,78 @@ class hall extends React.Component {
       })
     }
 
+    handleAddHall(e){
+        var resData = {
+          hallName : this.state.hallName,
+          hallAddress :this.state.hallAddress,
+          hallCity : this.state.hallCity,
+          hallState : this.state.hallState,
+          hallZipCode : this.state.hallZipCode,
+          screens : []
+        }
+        var url = 'http://localhost:8900/hall';
+        axios(url, {
+          method: 'POST',
+          mode: 'cors',
+          headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+          },
+          data : resData
+        }).then((res) =>{
+            console.log("Response Data : ", res.data);
+            console.log("New Screen Added to existing Hall");
+        });
+    }
+
+    handleUpdateHall(e){
+      console.log("Screens : ",this.state.hallData[0].screens);
+      var hallObj = []
+      var hallRes = {
+        hallName : this.state.hallName,
+        hallAddress :this.state.hallAddress,
+        hallCity : this.state.hallCity,
+        hallState : this.state.hallState,
+        hallZipCode : this.state.hallZipCode,
+        screens : this.state.hallData[0].screens,
+        status : "active"
+      }
+      hallObj.push(hallRes);
+      var url = 'http://localhost:8900/hall/' + this.props.location.state.id;
+          axios(url, {
+            method: 'PUT',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            data : hallObj
+          }).then((res) =>{
+              console.log("New Screen Added to existing Hall");
+          });
+      console.log("Updated Obj : ", hallRes);
+    }
   render() {
       
     console.log("Response Data Recieved : ", this.state.hallData);
     let displayScreens="";
     let displayButton="";
+    let addScreenButton = "";
     let screensArray=[];
     let screensData = null, timings = null,movieData = null;
     if(this.state.hallData.length > 0){
       screensData = this.state.hallData.map(hall => {
-        movieData = hall.screens.map(screen => {
-          timings = screen.movieTimings.map(time =>{
+        movieData = hall.screens.map((screen, screenIndex) => {
+          timings = screen.movieTimings.map((time,timeIndex) =>{
             return(
               <div>
                 <div className="form-group">
                   <label>Screen ID</label> 
-                      <input  type="text" className="form-control" placeholder="Screen ID" value={time.screenID} required />
+                      <input onChange = {(e) => this.handleLoopScreenID(e,screenIndex,timeIndex)}  type="text" className="form-control" placeholder="Screen ID" value={time.screenID} required />
                 </div>
                 <div className="form-group">
                   <label>Movie Time</label> 
-                      <input  type="text" className="form-control" placeholder="Movie Time" value={time.movieTime} required />
+                      <input onChange = {(e) => this.handleLoopMovieTime(e,screenIndex,timeIndex)} type="text" className="form-control" placeholder="Movie Time" value={time.movieTime} required />
                 </div> 
               </div>
             )
@@ -252,7 +367,7 @@ class hall extends React.Component {
             <div> 
               <div className="form-group">
                   <label>Movie Name</label> 
-                      <input  type="text" className="form-control" placeholder="Movie Time" value={screen.movieName} required />
+                      <input onChange = {(e) => this.handleLoopMovieName(e,screenIndex)} type="text" className="form-control" placeholder="Movie Time" value={screen.movieName} required />
                 </div> 
               {timings}
             </div>
@@ -267,9 +382,13 @@ class hall extends React.Component {
 
    
       if(this.props.location.state.id==="0") {
-        displayButton=(<button type="button" id="submit" name="submit" className="btn btn-primary pull-right" >Create</button>);
+        displayButton=(<button onClick = {(e) => this.handleAddHall(e)} type="button" id="submit" name="submit" className="btn btn-primary pull-right" >Create</button>);
       }else{
-        displayButton=(<button type="button" id="submit" name="submit" className="btn btn-primary pull-right">Update</button>);
+        displayButton=(<button onClick = {(e) => this.handleUpdateHall(e)} type="button" id="submit" name="submit" className="btn btn-primary pull-right"> Update</button>);
+        addScreenButton = (
+          <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add a Screen</button>
+                
+        )
       };
      
       return (
@@ -295,34 +414,29 @@ class hall extends React.Component {
                 <div className="form-group">
                   <p className="errMsg">{this.state.hallNameError}</p>
                   <input  type="text" className="form-control" placeholder="Hall Name" value={this.state.hallName} onChange={(event)=>{
-                    this.setState({hallName: event.target.value.trim(),hallNameError:"",message:""});
+                    this.setState({hallName: event.target.value,hallNameError:"",message:""});
                   }}  required />
                 </div>
                 <div className="form-group">
                   <input  type="text" className="form-control" placeholder="Address" value={this.state.hallAddress} onChange={(event)=>{
-                    this.setState({hallAddress: event.target.value.trim(),message:""});
+                    this.setState({hallAddress: event.target.value,message:""});
                   }} required />
                 </div>
                 <div className="form-group">
                   <input  type="text" className="form-control" placeholder="City" value={this.state.hallCity} onChange={(event)=>{
-                    this.setState({hallCity: event.target.value.trim(),message:""});
+                    this.setState({hallCity: event.target.value,message:""});
                   }} required />
                 </div>
                 <div className="form-group">
                 <p className="errMsg">{this.state.stateError}</p>
                   <input  type="text" className="form-control" placeholder="State" value={this.state.hallState} onChange={(event)=>{
-                    this.setState({hallState: event.target.value.trim(),message:"",stateError:""});
+                    this.setState({hallState: event.target.value,message:"",stateError:""});
                   }} required />
                 </div>
                 <div className="form-group">
                 <p className="errMsg">{this.state.zipCodeError}</p>
                   <input  type="text" className="form-control" placeholder="Zip Code" value={this.state.hallZipCode} onChange={(event)=>{
-                    this.setState({hallZipCode: event.target.value.trim(),zipCodeError:"",message:""});
-                  }} required />
-                </div>
-                <div className="form-group">
-                  <input  type="text" className="form-control" placeholder="Screen Count" value={this.state.screenCount} onChange={(event)=>{
-                    this.setState({screenCount: event.target.value.trim(),message:""});
+                    this.setState({hallZipCode: event.target.value,zipCodeError:"",message:""});
                   }} required />
                 </div>
 
@@ -343,7 +457,7 @@ class hall extends React.Component {
                 */movieData}  
                 {/*</div>*/}
                 {displayButton}
-                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add a Screen</button>
+                {addScreenButton}
                 <div class="modal fade" id="myModal" role="dialog">
 	<div class="modal-dialog">
 	<div class="modal-content">
@@ -375,7 +489,6 @@ class hall extends React.Component {
 	
 </div>
 </div>
-
              </form>
               <div className="success">{this.state.message}</div>
               <br></br>
