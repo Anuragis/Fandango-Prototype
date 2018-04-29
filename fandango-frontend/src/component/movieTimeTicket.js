@@ -8,16 +8,72 @@ class MovieTimeTicket extends Component {
   constructor(props) {
     super(props);
     this.state = {
+        initialHalls:[],
         halls : [],
-        term : ""
+        term : "",
+        orderBy: "bidAmt",
+        order: ""
     }
     this.inpTerm = this.inpTerm.bind(this);
+    this.toggle = this.toggle.bind(this);
   }
 
   inpTerm(inputTerm) {
-      this.setState({
-          term:inputTerm
-      })
+    console.log("Input term", inputTerm);
+
+    this.setState({
+        term:inputTerm
+    });
+
+    let filteredHalls=[];
+    if(inputTerm!==""){
+        var city=[];
+        var state=[];
+        var zip=[];
+        var movies=[];
+        var  city= this.state.initialHalls.filter(function(hall){
+                return hall.hallCity.toLowerCase().search(
+                    inputTerm.toLowerCase()) !== -1;
+                });
+      
+          var  state= this.state.initialHalls.filter(function(hall){
+            return hall.hallState.toLowerCase().search(
+                inputTerm.toLowerCase()) !== -1;
+            });
+
+          var  zip= this.state.initialHalls.filter(function(hall){
+                return hall.hallZipCode.toLowerCase().search(
+                    inputTerm.toLowerCase()) !== -1;
+                });
+
+                this.state.initialHalls.map(function(hall){
+                      hall.screens.filter(function(screen){ 
+                             if(typeof(screen.movieName) !== "undefined" && screen.movieName.toLowerCase().search(
+                                inputTerm.toLowerCase()) !== -1){
+                                    movies.push(hall);
+                            }
+                        });
+                 });
+
+          
+          var concat1=city.concat(state);
+          var concat2=concat1.concat(movies);
+          var concat3=concat2.concat(zip);
+          filteredHalls=concat1.concat(concat3);
+
+
+          this.setState({
+            halls:filteredHalls
+        });
+
+
+        }else{
+            this.setState({
+                halls:this.state.initialHalls
+            });
+        }
+
+      
   }
   
   componentDidMount(){
@@ -33,8 +89,11 @@ class MovieTimeTicket extends Component {
         })
         .then((response) => {
             this.setState({
-                halls : this.state.halls.concat(response.data)
+                halls : this.state.halls.concat(response.data),
+                initialHalls:this.state.initialHalls.concat(response.data)
             });
+
+            console.log("Halls", this.state.halls);
         });
     document.getElementById("scroll-date-picker__list").style.left = "0px";
   }
@@ -61,10 +120,30 @@ class MovieTimeTicket extends Component {
     }
   }
 
-  
+    toggle(e){
+        e.preventDefault();
+        let order = this.state.order;
+        if(order==="") order = 'desc';
+        else order = (order==="asc" ? 'desc' : 'asc');
+        this.setState({order});
+        if (this.state.order !== ''){
+            this.setState({sortDirArrow : this.state.order === 'asc' ? '↓ ' : '↑ '})
+        }
+        else this.setState({sortDirArrow : '↓ '})
+    }
 
 
   render() {
+      //-------filter
+    let orderBy = this.state.orderBy;
+    let order = this.state.order;
+    // if(this.state.order==="") blist = this.props.bList;
+    //     else {
+    //         blist = _.orderBy(this.props.bList, (item) => {
+    //         return item[orderBy]
+    //       }, order); 
+    //     }
+        //------filter
     let movieData = null, movieTimings = null;
 let hallData = this.state.halls.map(hall => {
 	movieData = hall.screens.map(movie => {
@@ -806,6 +885,12 @@ let hallData = this.state.halls.map(hall => {
                     <option value="/hackworth-imax-dome-AANCI/theater-page?date=2018/4/18">Hackworth IMAX Dome</option>
                     <option value="/capitol-drive-in-AACFK/theater-page?date=2018/4/18">Capitol Drive-In</option>
                   </select>
+                    <div>
+                        <a onClick={this.toggle}>
+                        {this.state.sortDirArrow}
+                        Pricing
+                        </a>
+                    </div>
                   <div class="fd-showtimes js-theaterShowtimes-loading">
                     <div class="printer-friendly">
                         <a class="cta" href="//www.fandango.com/theaterlistings-prn.aspx?location=95101&amp;pn=1&amp;sdate=4-18-2018&amp;tid=AAFRF,AAFQQ,AASUR,AATUL,AAQND,AAPCG,AAFQS,AAWTK,AANCI,AACFK">
