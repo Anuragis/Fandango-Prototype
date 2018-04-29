@@ -130,34 +130,27 @@ module.exports.updateMovieHall=function(req,res,next){
 }
 
 module.exports.getHallByMovieName=function(req,res,next){
-    console.log("req body", req.params);
-    moviesModel.findById({_id : req.params.moviename},function(err,movie){
-        if(err){
+       
+       var resHall=[];
+       movieHallsModel.find({status:"active"}, function(err, halls) {
+          if (err)
+              throw err;
 
-        }else{
-            var resHall=[];
-            movieHallsModel.find({}, function(err, halls) {
-                if (err)
-                    throw err;
-
-                    halls.map(function(hall){ 
-                        return hall.screens.filter(function(screen){ 
-                                if(screen.movieName===movie.movieTitle){
-                                resHall.push(hall);
-                                }
-                            });
-                    });
-                console.log("Response : ", resHall);
-                res.send(resHall);
-            })
-        }
-    });
-    
-}
+              halls.map(function(hall){ 
+                  console.log("One hall object",hall);
+                   return hall.screens.filter(function(screen){ 
+                           if(screen.movieName===req.params.moviename){
+                              resHall.push(hall);
+                          }
+                      });
+               });
+           res.send(resHall);
+      })
+} 
 
 module.exports.getHallById=function(req,res,next){
     
-    movieHallsModel.find({_id:req.params.hid}, function(err, hall) {
+    movieHallsModel.find({_id:req.params.hid,status:"active"}, function(err, hall) {
 
     if(err){
        // console.log("Get movie error", err);
