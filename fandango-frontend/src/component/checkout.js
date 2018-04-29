@@ -22,15 +22,15 @@ class checkout extends React.Component {
             bamount: JSON.parse(localStorage.getItem('ticketBoxOfficeState')).totalSum,
             btax: Number(JSON.parse(localStorage.getItem('ticketBoxOfficeState')).totalTickets)*1.5,
             userid: useridparse._id,
-            fname: useridparse.fname,
-            lname: useridparse.lname,
+            fname: useridparse.fName,
+            lname: useridparse.lName,
             showtime: movieHallParse.movieTime,
-            moviename: movieHallParse.moviename,
-            screenid: movieHallParse.screenid,
-            hallname: movieHallParse.hallname,
+            moviename: movieHallParse.movieName,
+            screenid: movieHallParse.screenID,
+            hallname: movieHallParse.hallName,
             seatsbooked: JSON.parse(localStorage.getItem('seatpicker')).seats,
             status: 'active',
-            hallcity: movieHallParse.hallcity
+            hallcity: movieHallParse.hallCity
         }
         
         console.log("submitBooking ",submitBooking);
