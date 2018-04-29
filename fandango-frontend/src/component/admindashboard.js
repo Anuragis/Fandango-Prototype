@@ -94,7 +94,7 @@ handleChange = (events) => {
         if(events.target.name === "city"){
             this.setState({
                 ...this.state,
-                cityName : events.target.value.trim()
+                cityName : events.target.value
             });
            
         }
@@ -102,35 +102,35 @@ handleChange = (events) => {
         if(events.target.name === "username"){
             this.setState({
                 ...this.state,
-                userName : events.target.value.trim()
+                userName : events.target.value
             });    
         }
 
         if(events.target.name === "moviename"){
             this.setState({
                 ...this.state,
-                movieName : events.target.value.trim()
+                movieName : events.target.value
             });
         }
 
         if(events.target.name==="year"){
             this.setState({
                 ...this.state,
-                year : events.target.value.trim()
+                year : events.target.value
             });
         }
 
         if(events.target.name==="movie"){
             this.setState({
                 ...this.state,
-                movie : events.target.value.trim()
+                movie : events.target.value
             });
         }
 
         if(events.target.name==="movieYear"){
             this.setState({
                 ...this.state,
-                movieYear : events.target.value.trim()
+                movieYear : events.target.value
             });
         }
 
