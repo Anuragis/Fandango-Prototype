@@ -132,13 +132,9 @@ class booking extends Component{
            this.state.bookingscpy.map(function(booking){
                var date=new Date(booking.bdate);
                var month=date.getMonth()+1;
-               var bdate= date.getFullYear()+"-"+month+"-"+date.getDate();
-
-               console.log("bdate",bdate);
-
-               console.log("query",query);
-               console.log(bdate==query);
-              if(bdate==query){
+               var bdate1= date.getFullYear()+"-"+month+"-"+date.getDate();
+               var bdate2= date.getFullYear()+"-0"+month+"-"+date.getDate();
+              if(bdate1==query||bdate2==query){
                   newBookings.push(booking);
                }
            });
