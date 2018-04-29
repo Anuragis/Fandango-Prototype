@@ -63,7 +63,7 @@ export default class AddMovie extends Component {
         var fData = new FormData();
         //events.preventDefault();
         var castAsString = this.state.cast.toString();
-            var castNames=castAsString.split(", ");
+            var castNames=castAsString.split(",");
             var reqCast=[];
             castNames.map((CastName)=>{
             reqCast.push({

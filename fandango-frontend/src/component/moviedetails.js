@@ -43,7 +43,7 @@ class moviedetails extends Component{
 			"lName" : localStore.lName 
 		}
 		var reviewObj;
-		if(this.state.movieDetails[0].reviews.length > 0){
+		if(this.state.movieDetails[0].reviews){
 			reviewObj = this.state.movieDetails[0].reviews
 		}
 		else{
@@ -94,8 +94,12 @@ class moviedetails extends Component{
 		let releaseData = null, movieLength = null, movieCategory = null, trailerLink = null;
 		var today = new Date();
 		let movieID = null;
+		let movieName = "", moviePhoto = "";
 		this.state.movieDetails.map(movie => {
 			movieID = movie._id;
+			movieName = movie.movieTitle;
+			moviePhoto = movie.moviePhoto;
+			releaseDate = new Date(movie.releaseDate);
 			console.log("Movie Data : ", movie.releaseDate);
 			let releaseDate = new Date(movie.releaseDate);
 			
@@ -156,7 +160,7 @@ class moviedetails extends Component{
 						<div class="row">
 							<div class="width-100">
 								<h3  style = {{color : 'white', fontSize : '35px'}} class="subnav__title heading-style-1 heading-size-xl timing-header">
-									{localStorage.getItem('movieName') + '   '}
+									{movieName +  '   '}
 									<span class="subnav__title--accent">
 										NOW PLAYING
 										<span class="js-subnav__user-location"></span>
@@ -196,7 +200,7 @@ class moviedetails extends Component{
 					<div style = {{width : '370px', float : 'left', paddingLeft : '50px'}} class="msp__movie-details-container">
 					<section class="movie-details">
 						<a class="movie-details__mop-link" href="/avengers-infinity-war-199925/movie-overview">
-							<img class="movie-details__movie-img visual-thumb" src="//images.fandango.com/ImageRenderer/200/0/redesign/static/img/default_poster.png/0/images/masterrepository/Fandango/199925/AvengersInfinityWar-postera.jpg" alt="Avengers: Infinity War Movie Poster"/>
+							<img class="movie-details__movie-img visual-thumb" src={"http://localhost:8900/moviesImages/"+moviePhoto} alt="Movie Poster"/>
 						</a>
 						<ul class="movie-details__detail">
 							<li></li> 
