@@ -3,12 +3,12 @@ const Schema = mongoose.Schema;
 var connection = mongoose.createConnection('mongodb://cmpeuser:cmpepass@ds247569.mlab.com:47569/fandango_system');
        
     var movieTimingSchema=new Schema({
+        screenID : {type:Number},
         movieTime:{type:String},
         seats:[]
     });
 
     var screensSchema=new Schema({
-        screenID : {type:Number},
         movieName : {type:String},
         movieTimings:[movieTimingSchema],
         movieRating:{type:String},

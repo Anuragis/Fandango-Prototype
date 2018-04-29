@@ -23,6 +23,7 @@ module.exports.createMovieHall = function(req,res,next){
     for(var j=0;j<req.body.screens[i].movieTimings.length;j++)
     {
        var  movieTime={
+                screenID:req.body.screens[i].movieTimings[j].screenID,
                 movieTime:req.body.screens[i].movieTimings[j].movieTime,
                 seats:seatArr
         }
@@ -109,22 +110,25 @@ module.exports.updateMovieHall=function(req,res,next){
             return screen;
         })
         console.log("result",result.screens[0].movieTimings[0]);
-        res.send(result);
-        // movieHallsModel.findOneAndUpdate({ _id : req.params.hid}, { $set : { 
-        //     hallName:req.body.hallName,
-        //     hallAddress:req.body.hallAddress,
-        //     hallCity:req.body.hallCity,
-        //     hallZipCode: req.body.hallZipCode,
-        //     hallState: req.body.hallState,
-        //     screens: req.body.screens,
-        //     status: req.body.status
-        // } }, {new:true}, function(err, hall) {
-           
-        //     if (err)
-        //         throw err;
         
-        //     res.end();
-        // })
+        // res.send(result);
+        movieHallsModel.findOneAndUpdate({ _id : result._id}, { $set : { 
+            hallName:result.hallName,
+            hallAddress:result.hallAddress,
+            hallCity:result.hallCity,
+            hallZipCode: result.hallZipCode,
+            hallState: result.hallState,
+            screens: result.screens,
+            status: result.status
+        } }, {new:true}, function(err, hall) {
+           
+            if (err)
+                throw err;
+                
+            console.log("updated hall", hall);
+        
+            res.end();
+        })
    })
     
 }

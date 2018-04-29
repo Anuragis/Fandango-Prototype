@@ -36,7 +36,7 @@ class SignIn extends Component {
   }
   render() {
     let redirectVar = null;
-    if(localStorage.getItem('userid')){
+    if(localStorage.getItem('userid')._id){
       redirectVar = <Redirect to= "/" />
     }
     return(
