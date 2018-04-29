@@ -8,8 +8,16 @@ class MovieTimeTicket extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        halls : []
+        halls : [],
+        term : ""
     }
+    this.inpTerm = this.inpTerm.bind(this);
+  }
+
+  inpTerm(inputTerm) {
+      this.setState({
+          term:inputTerm
+      })
   }
   
   componentDidMount(){
@@ -113,7 +121,10 @@ let hallData = this.state.halls.map(hall => {
 			</ul>
 		);
 		
-	})
+    })
+    if(this.state.term!="") {
+        console.log("term",this.state.term);
+    }
 	return(
 		<ul>
 			<li class="fd-theater" data-theater-id="AAFRF">
@@ -147,7 +158,7 @@ let hallData = this.state.halls.map(hall => {
     console.log("Response Recieved : ", this.state.halls);
     return (
     <div>
-      <Header />
+      <Header inpTerm={this.inpTerm}/>
       <div id="page" role="main">
         <div class="tsp">
             <section class="subnav">
