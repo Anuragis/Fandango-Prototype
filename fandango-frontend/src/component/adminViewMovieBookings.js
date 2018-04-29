@@ -47,22 +47,37 @@ export default class AdminViewMovieRevenue extends Component {
 
     deleteBooking(_id) {
         console.log("delete",_id);
-        axios('http://localhost:8900/bookingByMovieId/'+localStorage.getItem('movieClicked'), {
-          method: 'GET',
+        var bookingObj = this.state.bookings.find(function (obj) { return obj._id === _id; });
+        console.log("bookingObj",bookingObj);
+        axios('http://localhost:8900/booking/'+bookingObj._id, {
+          method: 'DELETE',
           mode: 'cors',
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
           }
         }).then((res) => {
-          this.setState({bookings: res.data,
-        bookingscpy:res.data});
-            let amt=0;
-            this.state.bookings.map(function(booking){
-                amt+=booking.bamount;
-            });
-            this.setState({revenue: amt});
+          
         });
+        let updateHall = {
+            moviename: bookingObj.moviename,
+            screenID: bookingObj.screenid,
+            hallname: bookingObj.hallname,
+            seatsbooked: bookingObj.seatsbooked
+        }
+        axios('http://localhost:8900/hall/' + bookingObj.hallname, {
+            method: 'put',
+            mode: 'cors',
+            redirect: 'follow',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              },
+            data: (updateHall)
+        })
+        .then((res) => {
+            console.log("hall update res",res);
+        })
     }
 
 

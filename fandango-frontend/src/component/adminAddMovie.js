@@ -223,7 +223,7 @@ export default class AddMovie extends Component {
     }
 
     handleSubmit = (events) => {
-        var url = 'http://localhost:8900/savemovie/' + this.state.movieTitle;
+        var url = 'http://localhost:8900/savemovie/' + this.props.location.state.id;
         var fData = new FormData();
         fData.append('iFile', this.state.fileSelected);
        axios(url, {

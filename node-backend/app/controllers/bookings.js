@@ -30,7 +30,7 @@ module.exports.createBooking = function(req,res,next){
 
 module.exports.deleteBooking = function(req,res,next){
     console.log("req body", req.params);
-    var bid =  req.params.bid;
+    var bid =  req.params._id;
     bookingsModel.findByIdAndUpdate({ _id : req.params._id}, { $set : { status : 'cancel' } }, {new:true}, function(err, booking) {
         console.log("asd",bid);
         if (err)
