@@ -18,7 +18,7 @@ class moviedetails extends Component{
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Accept', 'application/json');
-        axios('http://localhost:8900/movieById/5ae3f7d340097e06d00bac9b', {
+        axios('http://localhost:8900/movieById/'+ localStorage.getItem('movieID'), {
                 method: 'get',
                 mode: 'cors',
                 headers: headers,
@@ -70,6 +70,7 @@ class moviedetails extends Component{
 
 		let castData = null;
 		this.state.movieDetails.map(movie => {
+			console.log("Cast Data : ", movie.cast);
 			castData = movie.cast.map(cast =>{
 				return(
 					<li style = {{float : 'left', margin : '0 26px 20px 0', height : '200px', width : '125px', float : 'left'}} class="visual-item">
