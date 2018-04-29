@@ -5,7 +5,7 @@ const {ObjectId} = require('mongodb');
 module.exports.createBooking = function(req,res,next){
     console.log("req body", req.body);
         var newBooking = new bookingsModel();
-        newBooking.bdate = new Date().toDateString();
+        newBooking.bdate = new Date().toISOString().slice(0,19);
         newBooking.bamount = req.body.bamount;
         newBooking.btax = req.body.btax;
         newBooking.userid = req.body.userid;
