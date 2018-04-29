@@ -21,9 +21,40 @@ export default class Header extends React.Component {
             alert('User Signed Out Successfully!!!');
         }
         let userID = null, barToggle = null;
-        userID = localStorage.getItem('userid');
+        userID = JSON.parse(localStorage.getItem('userid'));
+        let userType = "", userTypeMenu = null, movieTypeMenu = "", adminMenu = "";
         if (userID) {
+            userType = userID.userType;
             barToggle = <Link onClick={(e) => handleSignout(e)} to="/" class="show-logged-in">Sign Out</Link>
+            if(userType == 'user'){
+                userTypeMenu = (
+                    <li class="width-33">
+                    <h4 class="width-100 heading-style-1 heading-size-m">User</h4><br/>
+                        <Link class="light" to = "">User Profile</Link><br/><br/>
+                        <Link class="light" to = "">My Booking </Link>
+                    </li>
+                ) 
+            }else if(userType == 'movieAdmin'){
+                movieTypeMenu = (
+                    <li class="width-33" >
+                    <h4 class="width-100 heading-style-1 heading-size-m">Movie Hall Admin</h4><br/>
+                        <Link class="light" to = "">View Profile</Link><br/><br/>
+                        <Link class="light" to = "">Movie Dashboard</Link>
+                    </li>
+                )
+            }else{
+                adminMenu = (
+                    <li class="width-33">
+                    <h4 class="width-100 heading-style-1 heading-size-m">Main Admin</h4><br/>
+                        <Link class="light" to = "">View Profile</Link><br/><br/>
+                        <Link class="light" to = "">Movie Dashboard</Link><br/><br/>
+                        <Link class="light" to = "">Booking Dashboard</Link><br/><br/>
+                        <Link class="light" to = "">User Dashboard</Link><br/><br/>
+                        <Link class="light" to = "">Admin Dashboard</Link><br/><br/>
+                        <Link class="light" to = "">Hall Dashboard</Link><br/><br/>
+                    </li>
+                )
+            }
         } else {
             barToggle = <Link to="/signin" class="show-logged-in">Sign In</Link>
         }
@@ -46,7 +77,7 @@ export default class Header extends React.Component {
                                 <ul class="inline-items tablet-width-100 left nonstandard-width">
                                     <li>
                                         <div class="ad" data-unit="homepagelogo" data-responsive="false" data-media="">
-                                            <div id="div-gpt-homepagelogo-1" class="mps-slot" data-mps-slot="homepagelogo" data-mps-loadset="0" data-google-query-id="CPX734DxzNoCFYerZAodjroMrQ">
+                                               <div id="div-gpt-homepagelogo-1" class="mps-slot" data-mps-slot="homepagelogo" data-mps-loadset="0" data-google-query-id="CPX734DxzNoCFYerZAodjroMrQ">
                                                 <div id="google_ads_iframe_/2620/fandango.dart/homepage_5__container__" style={{ border: '0pt none' }}>
                                                     <iframe id="google_ads_iframe_/2620/fandango.dart/homepage_5" title="3rd party ad content" name="google_ads_iframe_/2620/fandango.dart/homepage_5" width="242" height="56" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" srcdoc="" style={{ border: '0px', verticalAlign: 'bottom' }}>
                                                     </iframe>
@@ -496,6 +527,23 @@ export default class Header extends React.Component {
                                                 <a href="https://www.fandango.com/account/dashboard" style={{ color: 'white' }}>My VIP Account</a>
                                             </h3>
                                             <div class="mega-menu1">
+                                                    <div class="row">
+                                                    <div id="featured-movie-news" class="width-75 mobile-width-100 grid-parent">
+                                                        
+                                                        <ul>
+                                                            {userTypeMenu}
+                                                            {movieTypeMenu}
+                                                            {adminMenu}
+
+                                                            
+
+                                                            
+
+                                                        </ul>
+                                                    </div>
+                                                    </div>
+                                            </div>
+                                            {/*<div class="mega-menu1">
                                                 <div class="row">
                                                     <div class="width-25" id="vip-my-purchases"><div class="vip-content">
 
@@ -503,7 +551,6 @@ export default class Header extends React.Component {
                                                         <a href="/95126_movietimes">Edit Zip Code</a>
 
                                                         <ul>
-
                                                             <li>
                                                                 <a class="light" href="http://www.fandango.com/aquietplace_207769/movieoverview">A Quiet Place</a>
                                                             </li>
@@ -573,9 +620,9 @@ export default class Header extends React.Component {
                                                         <a class="cta" href="https://www.fandango.com/account/dashboard">Manage my VIP account</a>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>*/}
                                         </section>
-                                        <section class="show-logged-out nav-account-wrapper has-dropdown" >
+                                        {/*<section class="show-logged-out nav-account-wrapper has-dropdown" >
                                             <h3>
                                                 <a href="https://www.fandango.com/fandangovip?source=web_globalnav_join"><span class="nav-description">Join Fandango<span class="page-header-emphasis">VIP</span></span></a>
                                             </h3>
@@ -629,7 +676,7 @@ export default class Header extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                        </section>
+                                        </section>*/}
                                     </li>
                                     <li class="mobile-sub-nav hide-on-tablet hide-on-desktop">
 
