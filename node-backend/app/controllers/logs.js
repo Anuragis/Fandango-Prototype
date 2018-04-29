@@ -39,12 +39,8 @@ module.exports.getLogs = function(req,res,next){
         if (err)
             throw err;
         res.send(logs);
-    });
-
-
-
-
-    
+    });    
 }
+
 
 

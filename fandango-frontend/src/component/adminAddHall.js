@@ -97,7 +97,12 @@ class hall extends React.Component {
             }
           )
         }
+
+
     }
+    
+ 
+  
   AddScreen = (e) =>{
     console.log("Hall ID : ", this.props.location.state.id);
     let hallObj = this.state.hallData;
@@ -235,7 +240,6 @@ class hall extends React.Component {
                 <div className="form-group">
                   <label>Screen ID</label> 
                       <input  type="text" className="form-control" placeholder="Screen ID" value={time.screenID} required />
-                      
                 </div>
                 <div className="form-group">
                   <label>Movie Time</label> 
@@ -263,9 +267,9 @@ class hall extends React.Component {
 
    
       if(this.props.location.state.id==="0") {
-        displayButton=(<button type="button" id="submit" name="submit" className="btn btn-primary pull-right" onClick={this.createProfile.bind(this)}>Create</button>);
+        displayButton=(<button type="button" id="submit" name="submit" className="btn btn-primary pull-right" >Create</button>);
       }else{
-        displayButton=(<button type="button" id="submit" name="submit" className="btn btn-primary pull-right" onClick={this.updateProfile.bind(this)}>Update</button>);
+        displayButton=(<button type="button" id="submit" name="submit" className="btn btn-primary pull-right">Update</button>);
       };
      
       return (
