@@ -4,6 +4,15 @@ import { Link } from 'react-router-dom';
 export default class Header extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            term:""
+        }
+        this.termChange = this.termChange.bind(this);
+    }
+    termChange(e) {
+        this.setState({
+            term:e.target.value
+        })
     }
     render() {
         function handleSignout(e) {
@@ -51,11 +60,11 @@ export default class Header extends React.Component {
                                         <form action="/search" autocomplete="off" role="search" novalidate="">
                                             <div class="fan-autocomplete">
                                                 <div class="fan-autocomplete-results"></div>
-                                                <input class="fan-input style-search" type="text" name="q" placeholder="Enter City + State, ZIP Code, or Movie" />
+                                                <input class="fan-input style-search" type="text" onChange={this.termChange} name="q" placeholder="Enter City + State, ZIP Code, or Movie" />
                                                 <div class="csspinner double-up no-overlay"></div>
                                             </div>
                                             <input type="hidden" name="mode" value="general" />
-                                            <button class="fan-btn fan-btn-style-go" type="button">Go</button>
+                                            <button onClick={(e) => this.props.inpTerm(this.state.term)} class="fan-btn fan-btn-style-go" type="button">Go</button>
                                         </form>
                                     </li>
                                 </ul>
