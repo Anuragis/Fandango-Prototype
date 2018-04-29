@@ -8,6 +8,7 @@ class MovieTimeTicket extends Component {
   constructor(props) {
     super(props);
     this.state = {
+        initialHalls:[],
         halls : [],
         term : "",
         orderBy: "bidAmt",
@@ -18,9 +19,61 @@ class MovieTimeTicket extends Component {
   }
 
   inpTerm(inputTerm) {
-      this.setState({
-          term:inputTerm
-      })
+    console.log("Input term", inputTerm);
+
+    this.setState({
+        term:inputTerm
+    });
+
+    let filteredHalls=[];
+    if(inputTerm!==""){
+        var city=[];
+        var state=[];
+        var zip=[];
+        var movies=[];
+        var  city= this.state.initialHalls.filter(function(hall){
+                return hall.hallCity.toLowerCase().search(
+                    inputTerm.toLowerCase()) !== -1;
+                });
+      
+          var  state= this.state.initialHalls.filter(function(hall){
+            return hall.hallState.toLowerCase().search(
+                inputTerm.toLowerCase()) !== -1;
+            });
+
+          var  zip= this.state.initialHalls.filter(function(hall){
+                return hall.hallZipCode.toLowerCase().search(
+                    inputTerm.toLowerCase()) !== -1;
+                });
+
+                this.state.initialHalls.map(function(hall){
+                      hall.screens.filter(function(screen){ 
+                             if(typeof(screen.movieName) !== "undefined" && screen.movieName.toLowerCase().search(
+                                inputTerm.toLowerCase()) !== -1){
+                                    movies.push(hall);
+                            }
+                        });
+                 });
+
+          
+          var concat1=city.concat(state);
+          var concat2=concat1.concat(movies);
+          var concat3=concat2.concat(zip);
+          filteredHalls=concat1.concat(concat3);
+
+
+          this.setState({
+            halls:filteredHalls
+        });
+
+
+        }else{
+            this.setState({
+                halls:this.state.initialHalls
+            });
+        }
+
+      
   }
   
   componentDidMount(){
@@ -36,8 +89,11 @@ class MovieTimeTicket extends Component {
         })
         .then((response) => {
             this.setState({
-                halls : this.state.halls.concat(response.data)
+                halls : this.state.halls.concat(response.data),
+                initialHalls:this.state.initialHalls.concat(response.data)
             });
+
+            console.log("Halls", this.state.halls);
         });
     document.getElementById("scroll-date-picker__list").style.left = "0px";
   }
