@@ -9,9 +9,89 @@ class movies extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            movies : [],
+            initialMovies:[],
+            movies : []
+            
         }
+
+        this.filterGenre = this.filterGenre.bind(this);
     }
+
+    
+
+    filterGenre(events){
+        events.preventDefault();
+        
+        var  filteredMovies=this.state.initialMovies;
+        if(events.target.name==="all"){
+            this.setState({
+                ...this.state,
+                movies:this.state.initialMovies
+            })
+        }else if(events.target.name==="action"){
+            filteredMovies=[];
+            filteredMovies = this.state.initialMovies.filter(function(movie){
+                return movie.movieCategory.toLowerCase().search(
+                    events.target.name.toLowerCase()) !== -1;
+                });
+        }else if(events.target.name==="drama"){
+            filteredMovies=[];
+            filteredMovies = this.state.initialMovies.filter(function(movie){
+                return movie.movieCategory.toLowerCase().search(
+                    events.target.name.toLowerCase()) !== -1;
+                });
+        }else if(events.target.name==="comedy"){
+            filteredMovies=[];
+            filteredMovies = this.state.initialMovies.filter(function(movie){
+                return movie.movieCategory.toLowerCase().search(
+                    events.target.name.toLowerCase()) !== -1;
+                });
+        }else if(events.target.name==="kids"){
+            filteredMovies=[];
+            filteredMovies = this.state.initialMovies.filter(function(movie){
+                return movie.movieCategory.toLowerCase().search(
+                    events.target.name.toLowerCase()) !== -1;
+                });
+        }else if(events.target.name==="horror"){
+            filteredMovies=[];
+            filteredMovies = this.state.initialMovies.filter(function(movie){
+                return movie.movieCategory.toLowerCase().search(
+                    events.target.name.toLowerCase()) !== -1;
+                });
+        }else if(events.target.name==="romance"){
+            filteredMovies=[];
+            filteredMovies = this.state.initialMovies.filter(function(movie){
+                return movie.movieCategory.toLowerCase().search(
+                    events.target.name.toLowerCase()) !== -1;
+                });
+        }else if(events.target.name==="sci-fi"){
+            filteredMovies=[];
+            filteredMovies = this.state.initialMovies.filter(function(movie){
+                return movie.movieCategory.toLowerCase().search(
+                    events.target.name.toLowerCase()) !== -1;
+                });
+        }else if(events.target.name==="animated"){
+            filteredMovies=[];
+            filteredMovies = this.state.initialMovies.filter(function(movie){
+                return movie.movieCategory.toLowerCase().search(
+                    events.target.name.toLowerCase()) !== -1;
+                });
+        }else if(events.target.name==="suspense"){
+            filteredMovies=[];
+            filteredMovies = this.state.initialMovies.filter(function(movie){
+                return movie.movieCategory.toLowerCase().search(
+                    events.target.name.toLowerCase()) !== -1;
+                });
+        }
+
+       
+            this.setState({
+                ...this.state,
+                movies:filteredMovies
+            });
+        
+    }
+
     componentDidMount(){
 
         var headers = new Headers();
@@ -25,7 +105,8 @@ class movies extends Component{
             .then((response) => {
                 console.log("Movies Response  : ", response.data);
                 this.setState({
-                    movies : this.state.movies.concat(response.data)
+                    movies : this.state.movies.concat(response.data),
+                    initialMovies:this.state.initialMovies.concat(response.data)
                 });
             });
       }
@@ -151,61 +232,45 @@ class movies extends Component{
                     <h3 style = {{fontSize : '14px', fontFamily : 'proxima novs'}}class="heading-size-xs heading-style-3">Filter by Movie Genres</h3><br/>
                     <div style = {{height : '45px', overflow : 'hidden'}} class="filter-wrap">
                         <ul>
-                            <li style = {styleLI}>
-                                <a id="GenreName" href="http://www.fandango.com/moviesintheaters?GenreFilter=Action%2FAdventure">ACTION</a>
+                        <li style = {styleLI}>
+                                <a id="GenreName" name="all" onClick = {this.filterGenre} >ALL</a>
+                            </li>  
+                            <li style = {styleLI} >
+                                <a id="GenreName"  name="action" onClick = {this.filterGenre} >ACTION</a>
                             </li>
                         
                             <li style = {styleLI}>
-                                <a id="GenreName" href="http://www.fandango.com/moviesintheaters?GenreFilter=Drama">DRAMA</a>
+                                <a id="GenreName"  name="drama" onClick = {this.filterGenre}>DRAMA</a>
                             </li>
                         
                             <li style = {styleLI}>
-                                <a id="GenreName" href="http://www.fandango.com/moviesintheaters?GenreFilter=Comedy">COMEDY</a>
+                                <a id="GenreName"name="comedy" onClick = {this.filterGenre}>COMEDY</a>
                             </li>
                         
                             <li style = {styleLI}>
-                                <a id="GenreName" href="http://www.fandango.com/moviesintheaters?GenreFilter=Family">KIDS</a>
+                                <a id="GenreName" name="kids" onClick = {this.filterGenre}>KIDS</a>
                             </li>
                         
                             <li style = {styleLI}>
-                                <a id="GenreName" href="http://www.fandango.com/moviesintheaters?GenreFilter=Horror">HORROR</a>
+                                <a id="GenreName" name="horror" onClick = {this.filterGenre}>HORROR</a>
                             </li>
                         
                             <li style = {styleLI}>
-                                <a id="GenreName" href="http://www.fandango.com/moviesintheaters?GenreFilter=Romance">ROMANCE</a>
+                                <a id="GenreName" name="romance" onClick = {this.filterGenre}>ROMANCE</a>
                             </li>
                         
                             <li style = {styleLI}>
-                                <a id="GenreName" href="http://www.fandango.com/moviesintheaters?GenreFilter=Sci-Fi%2FFantasy">SCI-FI</a>
+                                <a id="GenreName" name="sci-fi" onClick = {this.filterGenre}>SCI-FI</a>
                             </li>
                         
                             <li style = {styleLI}>
-                                <a id="GenreName" href="http://www.fandango.com/moviesintheaters?GenreFilter=Animated">ANIMATED</a>
+                                <a id="GenreName" name="animated" onClick = {this.filterGenre}>ANIMATED</a>
                             </li>
                         
                             <li style = {styleLI}>
-                                <a id="GenreName" href="http://www.fandango.com/moviesintheaters?GenreFilter=Documentary">DOCUMENTARIES</a>
+                                <a id="GenreName" name="suspense" onClick = {this.filterGenre}>SUSPENSE</a>
                             </li>
                         
-                            <li style = {styleLI}>
-                                <a id="GenreName" href="http://www.fandango.com/moviesintheaters?GenreFilter=Suspense%2FThriller">SUSPENSE</a>
-                            </li>
-                        
-                            <li style = {styleLI}>
-                                <a id="GenreName" href="http://www.fandango.com/moviesintheaters?GenreFilter=Indie">INDIE</a>
-                            </li>
-                        
-                            <li style = {styleLI}>
-                                <a id="GenreName" href="http://www.fandango.com/moviesintheaters?GenreFilter=Concert%2FSpecial%20Events">SPECIAL EVENTS</a>
-                            </li>
-                        
-                            <li style = {styleLI}>
-                                <a id="GenreName" href="http://www.fandango.com/moviesintheaters?GenreFilter=Western">WESTERN</a>
-                            </li>
-                        
-                            <li style = {styleLI}>
-                                <a id="GenreName" href="http://www.fandango.com/moviesintheaters?GenreFilter=Music%2FPerforming%20Arts">MUSIC/PERFORMING ARTS</a>
-                            </li>      
                         </ul>
                     </div>
                 </div>
