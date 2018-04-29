@@ -162,9 +162,10 @@ class MovieTimeTicket extends Component {
     //       }, order); 
     //     }
         //------filter
-    let movieData = null, movieTimings = null;
+    let movieData = null, movieTimings = null, moviePhoto = "";
 let hallData = this.state.halls.map(hall => {
 	movieData = hall.screens.map(movie => {
+        moviePhoto = movie.moviePhoto
 		movieTimings = movie.movieTimings.map(timings => {
 			return(
 				
@@ -178,13 +179,13 @@ let hallData = this.state.halls.map(hall => {
 			<ul>
 				<li class="fd-movie">
 					<div class="fd-movie__poster">
-						<a href="/mercury-2018-210358/movie-overview">
-							<img src="https://images.fandango.com/ImageRenderer/200/0/redesign/static/img/default_poster.png/0/images/MasterRepository/fandango/210358/mercury-Vertical3.jpg" alt="" />
+						<a href="#">
+							<img src={"http://localhost:8900/moviesImages/"+movie.moviePhoto} alt="" />
 						</a>
 					</div>
 					<div class="fd-movie__details">
 						<h3 class="fd-movie__title font-sans-serif font-lg font-300 uppercase">
-							<a class="dark" href="/mercury-2018-210358/movie-overview">{movie.movieName}</a>
+							<a class="dark" href="#">{movie.movieName}</a>
 							{/*<button class="icon icon-follow-gray fd-movie__follow-icon js-heartsAndStars-heart" data-type="Movie" data-id="210358" data-name="Mercury (2018)" data-is-favorite="false"></button>*/}
 						</h3>
 						<div class="fd-star-rating__container">

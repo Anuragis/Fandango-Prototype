@@ -187,6 +187,7 @@ class hall extends React.Component {
                   'movieLength' : movieData.movieLength,
                   'movieName' : movieData.movieTitle,
                   'movieRating' : movieData.movieRating,
+                  'moviePhoto' : movieData.moviePhoto,
                   'movieTimings' : screenObj
               }
               hallObj = hallObj.map(hall=>{
