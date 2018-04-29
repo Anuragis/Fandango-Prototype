@@ -12,6 +12,7 @@ var connection = mongoose.createConnection('mongodb://cmpeuser:cmpepass@ds247569
         movieName : {type:String},
         movieTimings:[movieTimingSchema],
         movieRating:{type:String},
+        moviePhoto: { type : String},
         movieLength:{type:String},
         movieCategory: { type :  String},
         price:{type: Number}

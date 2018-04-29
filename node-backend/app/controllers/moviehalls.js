@@ -104,8 +104,11 @@ module.exports.updateMovieHall=function(req,res,next){
                         req.body.seatsbooked.map((seat) => {
                             if(req.body.hallID)
                                 mTime.seats[seatArray.indexOf(seat)] = 1;
-                            else
+                            else{
                                 mTime.seats[seatArray.indexOf(seat)] = 0;
+                                if(seat=='D3' || seat=='D4' || seat=='D5' || seat=='D6' || seat=='D9' || seat=='D10' || seat=='D11' || seat=='D12')
+                                    mTime.seats[seatArray.indexOf(seat)] = 2;
+                            }
                         })
                     }
                     console.log("mTime.",mTime);
