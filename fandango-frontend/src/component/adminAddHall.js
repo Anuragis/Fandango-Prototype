@@ -287,6 +287,30 @@ class hall extends React.Component {
       })
     }
 
+    handleAddHall(e){
+        var resData = {
+          hallName : this.state.hallName,
+          hallAddress :this.state.hallAddress,
+          hallCity : this.state.hallCity,
+          hallState : this.state.hallState,
+          hallZipCode : this.state.hallZipCode,
+          screens : []
+        }
+        var url = 'http://localhost:8900/hall';
+        axios(url, {
+          method: 'POST',
+          mode: 'cors',
+          headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+          },
+          data : resData
+        }).then((res) =>{
+            console.log("Response Data : ", res.data);
+            console.log("New Screen Added to existing Hall");
+        });
+    }
+
     handleUpdateHall(e){
       console.log("Screens : ",this.state.hallData[0].screens);
       var hallObj = []
@@ -319,6 +343,7 @@ class hall extends React.Component {
     console.log("Response Data Recieved : ", this.state.hallData);
     let displayScreens="";
     let displayButton="";
+    let addScreenButton = "";
     let screensArray=[];
     let screensData = null, timings = null,movieData = null;
     if(this.state.hallData.length > 0){
@@ -357,9 +382,13 @@ class hall extends React.Component {
 
    
       if(this.props.location.state.id==="0") {
-        displayButton=(<button type="button" id="submit" name="submit" className="btn btn-primary pull-right" >Create</button>);
+        displayButton=(<button onClick = {(e) => this.handleAddHall(e)} type="button" id="submit" name="submit" className="btn btn-primary pull-right" >Create</button>);
       }else{
         displayButton=(<button onClick = {(e) => this.handleUpdateHall(e)} type="button" id="submit" name="submit" className="btn btn-primary pull-right"> Update</button>);
+        addScreenButton = (
+          <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add a Screen</button>
+                
+        )
       };
      
       return (
@@ -428,7 +457,7 @@ class hall extends React.Component {
                 */movieData}  
                 {/*</div>*/}
                 {displayButton}
-                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add a Screen</button>
+                {addScreenButton}
                 <div class="modal fade" id="myModal" role="dialog">
 	<div class="modal-dialog">
 	<div class="modal-content">
@@ -460,7 +489,6 @@ class hall extends React.Component {
 	
 </div>
 </div>
-
              </form>
               <div className="success">{this.state.message}</div>
               <br></br>
