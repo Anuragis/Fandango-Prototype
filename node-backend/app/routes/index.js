@@ -81,6 +81,10 @@ router
     .put(movies.sImg,movies.updateMovie);
 
 router
+    .route('/movieByName/:moviename')
+    .get(movies.getMovieByName);
+
+router
     .route('/savemovie/:mid')
     .put(movies.sImg,movies.updateMovie);
 

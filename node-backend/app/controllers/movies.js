@@ -56,68 +56,24 @@ module.exports.deleteMovie = function(req,res,next){
 
 
 module.exports.getAllMovies = function(req,res,next){
-    moviesModel.find({}, function(err, movies) {
+    moviesModel.find({status:"active"}, function(err, movies) {
 
     if(err){
         console.log("Get movie error", err);
     }else{
-        var movieMap = [];
-        movies.map(movie=>{
-            var ob = {};
-        if(movie.status==="active"){
-            ob = {_id:movie._id,
-                movieTitle:movie.movieTitle,
-                movieCategory:movie.movieCategory,
-                trailerLink: movie.trailerLink,
-                movieDescription: movie.movieDescription,
-                cast: movie.cast,
-                movieLength: movie.movieLength,
-                releaseDate: movie.releaseDate,
-                movieRating: movie.movieRating,
-                moviePhoto: movie.moviePhoto,
-                screen:movie.screen,
-                reviews:movie.reviews,
-                status:movie.status
-            };
-                movieMap.push(ob);
-            }
-        });
-
-        res.send(JSON.stringify(movieMap));  
+        res.send(JSON.stringify(movies));  
         }
     })
 }
 
 module.exports.getMovieByCategory =function(req,res,next){
     
-    moviesModel.find({}, function(err, movies) {
+    moviesModel.find({status:"active",movieCategory:req.params.category}, function(err, movies) {
 
     if(err){
         console.log("Get movie category error", err);
     }else{
-        var movieMap = [];
-        movies.map(movie=>{
-            var ob = {};
-        if(movie.status==="active" && movie.movieCategory===req.params.category){
-            ob = {_id:movie._id,
-                movieTitle:movie.movieTitle,
-                movieCategory:movie.movieCategory,
-                trailerLink: movie.trailerLink,
-                movieDescription: movie.movieDescription,
-                cast: movie.cast,
-                movieLength: movie.movieLength,
-                releaseDate: movie.releaseDate,
-                movieRating: movie.movieRating,
-                moviePhoto: movie.moviePhoto,
-                screen:movie.screen,
-                reviews:movie.reviews,
-                status:movie.status
-            };
-                movieMap.push(ob);
-            }
-        });
-
-        res.send(JSON.stringify(movieMap));  
+        res.send(JSON.stringify(movies));  
         }
     })
 }
@@ -125,7 +81,7 @@ module.exports.getMovieByCategory =function(req,res,next){
 
 module.exports.getMovieById=function(req,res,next){
     console.log('Req Body', req.params);
-    moviesModel.findOne({_id:req.params.mid}, function(err, movie) {
+    moviesModel.findOne({_id:req.params.mid,  status:"active"}, function(err, movie) {
 
     if(err){
         console.log("Get movie id error", err);
@@ -173,4 +129,16 @@ module.exports.updateMovie=function(req,res,next){
         res.end();
     })
     }
+}
+
+module.exports.getMovieByName=function(req,res,next){
+    console.log("req body", req.params);
+    moviesModel.find({movieTitle : req.params.moviename,status:"active"},function(err,movies){
+        if(err){
+            throw err;
+        }else{
+                res.send(movies);
+        }
+    });
+    
 }

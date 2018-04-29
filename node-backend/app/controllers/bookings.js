@@ -44,7 +44,7 @@ module.exports.deleteBooking = function(req,res,next){
 module.exports.findBookingsByUserid = function(req,res,next){
     console.log("req body", req.params);
     var bid =  req.params.bid;
-    bookingsModel.find({ userid : req.params.userid}, function(err, booking) {
+    bookingsModel.find({ userid : req.params.userid, status:"active"}, function(err, booking) {
         if (err)
             throw err;
         console.log("affected users", booking);
@@ -55,7 +55,7 @@ module.exports.findBookingsByUserid = function(req,res,next){
 
 module.exports.findBookingsByMoviename = function(req,res,next){
    console.log("req body", req.params);
-    bookingsModel.find({ moviename : req.params.moviename}, function(err, booking) {
+    bookingsModel.find({ moviename : req.params.moviename, status:"active"}, function(err, booking) {
         if (err)
             throw err;
         console.log("affected movies", booking);
@@ -67,7 +67,7 @@ module.exports.findBookingsByMoviename = function(req,res,next){
 
 module.exports.findBookingsByHallname = function(req,res,next){
     console.log("req body", req.params);
-    bookingsModel.find({ hallname : req.params.hallname}, function(err, booking) {
+    bookingsModel.find({ hallname : req.params.hallname, status:"active"}, function(err, booking) {
         if (err)
             throw err;
         console.log("affected halls", booking);
@@ -78,7 +78,7 @@ module.exports.findBookingsByHallname = function(req,res,next){
 
 module.exports.getBookingById = function(req,res,next){
     console.log("req body", req.params);
-    bookingsModel.find({ _id : req.params.bid}, function(err, booking) {
+    bookingsModel.find({ _id : req.params.bid, status:"active"}, function(err, booking) {
         if (err)
             throw err;
         res.send(booking);
@@ -89,7 +89,7 @@ module.exports.getBookingById = function(req,res,next){
 
 module.exports.getAllBookings = function(req,res,next){
    
-    bookingsModel.find({status: "open"}, function(err, booking) {
+    bookingsModel.find({status: "active"}, function(err, booking) {
         if (err)
             throw err;
         res.send(booking);
