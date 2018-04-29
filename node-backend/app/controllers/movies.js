@@ -1,6 +1,18 @@
 var moviesModel = require('../models/moviesModel');
 const {ObjectId} = require('mongodb');
+var multer = require('multer');
+var path = require('path');
 
+const storage = multer.diskStorage({
+        destination: 'public/data/moviesImages',
+        filename: function (req, file, cb) {
+           console.log("req inside" + req.params.mid); 
+           cb(null, req.params.mid + path.extname(file.originalname))
+        }
+    });
+    // create the multer instance that will be used to upload/save the file
+    const upload = multer({ storage }).single('iFile');
+module.exports.sImg = multer({ storage }).single('iFile');
 
 module.exports.createMovie = function(req,res,next){    
         var newMovie = new moviesModel();
@@ -44,68 +56,24 @@ module.exports.deleteMovie = function(req,res,next){
 
 
 module.exports.getAllMovies = function(req,res,next){
-    moviesModel.find({}, function(err, movies) {
+    moviesModel.find({status:"active"}, function(err, movies) {
 
     if(err){
         console.log("Get movie error", err);
     }else{
-        var movieMap = [];
-        movies.map(movie=>{
-            var ob = {};
-        if(movie.status==="active"){
-            ob = {_id:movie._id,
-                movieTitle:movie.movieTitle,
-                movieCategory:movie.movieCategory,
-                trailerLink: movie.trailerLink,
-                movieDescription: movie.movieDescription,
-                cast: movie.cast,
-                movieLength: movie.movieLength,
-                releaseDate: movie.releaseDate,
-                movieRating: movie.movieRating,
-                moviePhoto: movie.moviePhoto,
-                screen:movie.screen,
-                reviews:movie.reviews,
-                status:movie.status
-            };
-                movieMap.push(ob);
-            }
-        });
-
-        res.send(JSON.stringify(movieMap));  
+        res.send(JSON.stringify(movies));  
         }
     })
 }
 
 module.exports.getMovieByCategory =function(req,res,next){
     
-    moviesModel.find({}, function(err, movies) {
+    moviesModel.find({status:"active",movieCategory:req.params.category}, function(err, movies) {
 
     if(err){
         console.log("Get movie category error", err);
     }else{
-        var movieMap = [];
-        movies.map(movie=>{
-            var ob = {};
-        if(movie.status==="active" && movie.movieCategory===req.params.category){
-            ob = {_id:movie._id,
-                movieTitle:movie.movieTitle,
-                movieCategory:movie.movieCategory,
-                trailerLink: movie.trailerLink,
-                movieDescription: movie.movieDescription,
-                cast: movie.cast,
-                movieLength: movie.movieLength,
-                releaseDate: movie.releaseDate,
-                movieRating: movie.movieRating,
-                moviePhoto: movie.moviePhoto,
-                screen:movie.screen,
-                reviews:movie.reviews,
-                status:movie.status
-            };
-                movieMap.push(ob);
-            }
-        });
-
-        res.send(JSON.stringify(movieMap));  
+        res.send(JSON.stringify(movies));  
         }
     })
 }
@@ -113,7 +81,7 @@ module.exports.getMovieByCategory =function(req,res,next){
 
 module.exports.getMovieById=function(req,res,next){
     console.log('Req Body', req.params);
-    moviesModel.findOne({_id:req.params.mid}, function(err, movie) {
+    moviesModel.findOne({_id:req.params.mid,  status:"active"}, function(err, movie) {
 
     if(err){
         console.log("Get movie id error", err);
@@ -127,7 +95,18 @@ module.exports.getMovieById=function(req,res,next){
 module.exports.updateMovie=function(req,res,next){
    
     var mid =  req.params.mid;
-   
+    if(req.file!=undefined) {
+        
+            // profileImage = req.body.moviePhoto + path.extname(req.file.originalname);
+            var values = {$set : {
+                moviePhoto : req.params.mid + path.extname(req.file.originalname)}};
+                moviesModel.findOneAndUpdate({ movieTitle : req.params.mid},values, function(err, user) {
+                console.log("Movie id",req.params.mid);
+                if (err)
+                    throw err;
+                res.end();
+            })
+    } else {
 
     moviesModel.findOneAndUpdate({ _id : req.params.mid}, { $set : { 
         movieTitle:req.body.movieTitle,
@@ -139,7 +118,6 @@ module.exports.updateMovie=function(req,res,next){
         movieLength: req.body.movieLength,
         releaseDate: req.body.releaseDate,
         movieRating: req.body.movieRating,
-        moviePhoto: req.body.moviePhoto,
         screen:req.body.screen,
         reviews:req.body.reviews
     
@@ -150,4 +128,17 @@ module.exports.updateMovie=function(req,res,next){
      
         res.end();
     })
+    }
+}
+
+module.exports.getMovieByName=function(req,res,next){
+    console.log("req body", req.params);
+    moviesModel.find({movieTitle : req.params.moviename,status:"active"},function(err,movies){
+        if(err){
+            throw err;
+        }else{
+                res.send(movies);
+        }
+    });
+    
 }

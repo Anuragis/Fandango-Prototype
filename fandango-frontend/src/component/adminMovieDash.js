@@ -7,8 +7,14 @@ export default class AdminMovieDash extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            movies : []
+            moviescpy:[],
+            movies : [],
+            moviename:""
         }
+
+
+        this.handleChange=this.handleChange.bind(this);
+        this.handleSubmitForSearch=this.handleSubmitForSearch.bind(this);
 
     }
     componentDidMount(){
@@ -22,10 +28,49 @@ export default class AdminMovieDash extends Component {
             'Accept': 'application/json'
           }
         }).then((res) => {
-          this.setState({movies: res.data});
+          this.setState({
+              movies: res.data,
+              moviescpy:res.data
+        });
           //console.log(this.state.users);
         })
     }
+
+
+    handleChange = (events) => {
+        if(events.target.name === "moviename"){
+            this.setState({
+                ...this.state,
+                moviename : events.target.value,
+                movies:this.state.moviescpy
+            });
+           
+        }
+    }
+
+
+    handleSubmitForSearch(events){
+        events.preventDefault();
+        let newMovies=[];
+        
+       if(this.state.moviename!==""){
+           let moviename=this.state.moviename;
+            newMovies= this.state.movies.filter(function(movieItem){
+                return movieItem.movieTitle.toLowerCase().search(
+                    moviename.toLowerCase()) !== -1;
+          });
+        }else{
+            this.state.moviescpy.map(function(movie){
+                newMovies.push(movie);
+            });
+        }
+
+        this.setState({
+            movies:newMovies
+        });
+
+    }
+
     deleteMovie = (id) => {
         var url = 'http://localhost:8900/movie/' + id;
         axios(url, {
@@ -51,6 +96,10 @@ export default class AdminMovieDash extends Component {
         })
     }
 
+    clickMovie = (e, movieTitle) => {
+        localStorage.setItem('movieClicked',movieTitle);
+    }
+
     render() {
         return(
             <div>
@@ -59,7 +108,15 @@ export default class AdminMovieDash extends Component {
                 <br/>
                 <Link to={{pathname:"/addmovie", state:{id: "0"}}}  className= "btn btn-primary buttonAlign" style={{textDecoration:'none',color:'white'}}>Add Movie</Link>
                 <div className="container">  
-                    <h3><b>List of Movies</b></h3>   
+                    <h3><b>List of Movies</b></h3> 
+                    <table className="filterAlign">
+                        <tr>
+                            <form onSubmit = {this.handleSubmitForSearch}> 
+                             <td>   <input type="text"  name="moviename" value={this.state.moviename} onChange = {this.handleChange}   placeholder="Enter Movie Name"/></td>
+                              <td>  <button className="btn btn-lg btn-primary" type="submit">Search</button></td>
+                         </form>
+                         </tr>    
+                  </table>  
                     <table className="table table-striped">
                     <thead>
                         <tr className="headerBg">
@@ -79,7 +136,8 @@ export default class AdminMovieDash extends Component {
                             <tr key={movie._id}>
                                 <td>{id}</td>
                                 <td>
-                                <Link to={{pathname:"/addmovie", state:{name: movie.movieTitle}}}>
+                                <Link onClick = {(e) => this.clickMovie(e,movie.movieTitle)} to={{pathname:"/allmoviebookings", state:{name: movie.movieTitle}}}>
+                                    
                                     {movie.movieTitle}
                                 </Link>
                                 </td>

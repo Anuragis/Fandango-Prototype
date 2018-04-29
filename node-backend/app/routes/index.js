@@ -78,7 +78,15 @@ router
 
 router
     .route('/movie/:mid')
-    .put(movies.updateMovie);
+    .put(movies.sImg,movies.updateMovie);
+
+router
+    .route('/movieByName/:moviename')
+    .get(movies.getMovieByName);
+
+router
+    .route('/savemovie/:mid')
+    .put(movies.sImg,movies.updateMovie);
 
 /** routes for movie end*/
 
@@ -150,7 +158,6 @@ router
 router
     .route('/log')
     .post(logs.createLog);
-
 
 /**routes for logs end */
 module.exports = router;
