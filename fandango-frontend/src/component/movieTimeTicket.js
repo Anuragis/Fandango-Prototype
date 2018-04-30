@@ -4,6 +4,7 @@ import Footer from './footer';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
 import _ from 'lodash';
+import Redirect from 'react-router-dom/Redirect';
 
 
 class MovieTimeTicket extends Component {
@@ -136,6 +137,10 @@ class MovieTimeTicket extends Component {
 
 
   render() {
+    let redirectVar = null;
+		if(!localStorage.getItem('userid')){
+			redirectVar = <Redirect to= "/signin" />
+	}
     function handletransaction(e,hall,movie,timings){
         var transactionData = {
             "hallID":hall._id,
@@ -266,6 +271,7 @@ let hallData = hallFilter.map(hall => {
     }
     return (
     <div>
+        {redirectVar}
       <Header inpTerm={this.inpTerm}/>
       <div id="page" role="main">
         <div class="tsp">
