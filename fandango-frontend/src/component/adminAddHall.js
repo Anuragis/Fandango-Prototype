@@ -480,7 +480,11 @@ class hall extends React.Component {
         </div>
 		<div className="form-group">
             <label>Movie Time</label> 
-            <input onChange = {(e) => this.AddMovieTime(e)} type="text" className="form-control" placeholder="ovie Time"  required />
+            <input onChange = {(e) => this.AddMovieTime(e)} type="text" className="form-control" placeholder="Movie Time"  required />
+        </div>
+    		<div className="form-group">
+            <label>Movie Price</label> 
+            <input onChange = {(e) => this.AddMovieTime(e)} type="text" className="form-control" placeholder="Movie Price"  required />
         </div>
 	</div>
 	<div class="modal-footer">
