@@ -146,6 +146,9 @@ class moviedetails extends Component{
 								{review.fName + '  ' + review.lName}
 							</div>
 							<div class="fan-reviews__review">{review.reviewText}</div>
+							<div>
+								<img src = {require('../assets/images/' + review.star + '.jpg')}/>
+							</div>
 						</li>
 					)
 				})

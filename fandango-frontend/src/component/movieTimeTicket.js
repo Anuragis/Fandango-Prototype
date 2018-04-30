@@ -148,7 +148,8 @@ class MovieTimeTicket extends Component {
             "hallZipCode": hall.hallZipCode,
             "hallState": hall.hallState,
             "movieTime": timings.movieTime,
-            "seats": timings.seats
+            "seats": timings.seats,
+            "moviePhoto" : movie.moviePhoto
         }
         localStorage.setItem('movieHall', JSON.stringify(transactionData));
     }
