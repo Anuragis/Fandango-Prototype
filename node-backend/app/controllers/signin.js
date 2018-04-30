@@ -10,7 +10,7 @@ passport.use(new LocalStrategy( function(username, password, done) {
       email:username
     }).then(user => {
       if(!user){
-        return done(null,"Cannot connect to db");
+        return done(null,"");
       }
       // Match password
       bcrypt.compare(password, user.password, (err, isMatch) => {
