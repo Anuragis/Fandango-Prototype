@@ -271,6 +271,21 @@ export default class AddMovie extends Component {
         </div>
         );
     }
+    let moviePhotoDiv = null;
+    if(this.props.location.state.id != "0") {
+        moviePhotoDiv = (
+            <div className="form-group"> 
+                <label className="control-label">Movie Photo</label>
+                <img src = {this.state.imagePreview} alt = "This is movie's display pic" style={movieImgDisplay}/>
+                <div id='imageUploader' >
+                    <label htmlFor="moviePhoto" className="btn btn-warning">Upload</label>
+                    <input style={{display:'none'}} onChange = {this.handleChange}  type="file" className="form-control" id="moviePhoto" ref={(ref) => { this.uploadInput = ref; }} name="moviePhoto" placeholder="Movie Photo" required />
+                    <input style={{display:'none'}} onChange = {this.handleChange}  type="file" className="form-control" id="moviePhoto" name="moviePhoto"  placeholder="Movie Photo" required />
+                    {uplImg}
+                </div>
+            </div>
+        )
+    }
         return(
             <div id="siteContainer" className="ticketBoxoffice">
                 <Head />
@@ -314,16 +329,7 @@ export default class AddMovie extends Component {
                         <label htmlFor="releaseDate" className="control-label">Release Date</label>
                         <input onChange = {this.handleChange} value={this.state.releaseDate} type="text" className="form-control" id="releaseDate" name="releaseDate" placeholder="Release Date" required/>
                     </div>
-                    <div className="form-group"> 
-                        <label className="control-label">Movie Photo</label>
-                        <img src = {this.state.imagePreview} alt = "This is movie's display pic" style={movieImgDisplay}/>
-                        <div id='imageUploader' >
-                            <label htmlFor="moviePhoto" className="btn btn-warning">Upload</label>
-                            <input style={{display:'none'}} onChange = {this.handleChange}  type="file" className="form-control" id="moviePhoto" ref={(ref) => { this.uploadInput = ref; }} name="moviePhoto" placeholder="Movie Photo" required />
-                            <input style={{display:'none'}} onChange = {this.handleChange}  type="file" className="form-control" id="moviePhoto" name="moviePhoto"  placeholder="Movie Photo" required />
-                            {uplImg}
-                        </div>
-                    </div>
+                    {moviePhotoDiv}
                     <div className="form-group"> 
                         <label htmlFor="movieRating" className="control-label">Movie Rating</label>
                         <input onChange = {this.handleChange} value={this.state.movieRating} type="text" className="form-control" id="movieRating" name="movieRating" placeholder="Movie Rating" required/>
