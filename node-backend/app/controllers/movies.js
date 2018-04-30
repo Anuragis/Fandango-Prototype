@@ -96,18 +96,20 @@ module.exports.getMovieById=function(req,res,next){
 module.exports.updateMovie=function(req,res,next){
    
     var mid =  req.params.mid;
-    if(req.file!=undefined) {
+    if(req.file) {
         
             // profileImage = req.body.moviePhoto + path.extname(req.file.originalname);
             var values = {$set : {
                 moviePhoto : req.params.mid + path.extname(req.file.originalname)}};
-                moviesModel.findOneAndUpdate({ _id : req.params.mid},values, function(err, user) {
+            moviesModel.findOneAndUpdate({ _id : req.params.mid},values, function(err, user) {
                 console.log("Movie id",req.params.mid);
                 if (err)
                     throw err;
                 res.end();
             })
-    } else {
+            
+    } 
+    else {
 
     moviesModel.findOneAndUpdate({ _id : req.params.mid}, { $set : { 
         movieTitle:req.body.movieTitle,

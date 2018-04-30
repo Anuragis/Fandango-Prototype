@@ -173,7 +173,7 @@ export default class ticketboxoffice extends React.Component {
                             <div class="module-standard">  
                                 <div id="movieTicketSummary"> 
                                     <div class="moviePoster">
-                                        <img id="moviePosterImage" alt="" src="https://images.fandango.com/r1.0.589/ImageRenderer/180/272/redesign/static/img/default_poster_128x190.png/209375/images/masterrepository/fandango/209375/ifeelpretty_onesheet_rgb_10.jpg"/>
+                                        <img id="moviePosterImage" alt="" src={"http://localhost:8900/moviesImages/"+this.state.movieHall.moviePhoto}/>
                                     </div>
                                     <div class="movieInfo"> 
                                         <ul class="movie-specs">

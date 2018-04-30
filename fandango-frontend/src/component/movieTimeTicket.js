@@ -3,6 +3,8 @@ import Header from './headers';
 import Footer from './footer';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
+import _ from 'lodash';
+import Redirect from 'react-router-dom/Redirect';
 
 
 class MovieTimeTicket extends Component {
@@ -12,7 +14,7 @@ class MovieTimeTicket extends Component {
         initialHalls:[],
         halls : [],
         term : "",
-        orderBy: "bidAmt",
+        orderBy: "hallPrice",
         order: ""
     }
     this.inpTerm = this.inpTerm.bind(this);
@@ -135,6 +137,10 @@ class MovieTimeTicket extends Component {
 
 
   render() {
+    let redirectVar = null;
+		if(!localStorage.getItem('userid')){
+			redirectVar = <Redirect to= "/signin" />
+	}
     function handletransaction(e,hall,movie,timings){
         var transactionData = {
             "hallID":hall._id,
@@ -148,22 +154,24 @@ class MovieTimeTicket extends Component {
             "hallZipCode": hall.hallZipCode,
             "hallState": hall.hallState,
             "movieTime": timings.movieTime,
-            "seats": timings.seats
+            "seats": timings.seats,
+            "moviePhoto" : movie.moviePhoto
         }
         localStorage.setItem('movieHall', JSON.stringify(transactionData));
     }
       //-------filter
     let orderBy = this.state.orderBy;
     let order = this.state.order;
-    // if(this.state.order==="") blist = this.props.bList;
-    //     else {
-    //         blist = _.orderBy(this.props.bList, (item) => {
-    //         return item[orderBy]
-    //       }, order); 
-    //     }
+    let hallFilter = null;
+    if(this.state.order==="") hallFilter = this.state.halls;
+        else {
+            hallFilter = _.orderBy(this.state.halls, (item) => {
+            return item[orderBy]
+          }, order); 
+        }
         //------filter
     let movieData = null, movieTimings = null, moviePhoto = "";
-let hallData = this.state.halls.map(hall => {
+let hallData = hallFilter.map(hall => {
 	movieData = hall.screens.map(movie => {
         moviePhoto = movie.moviePhoto
 		movieTimings = movie.movieTimings.map(timings => {
@@ -254,8 +262,16 @@ let hallData = this.state.halls.map(hall => {
 	
 })
     console.log("Response Recieved : ", this.state.halls);
+    const stylePricing = {
+        display: 'inline',
+        textAlign: 'right',
+        marginLeft: '260px',
+        fontSize: 'large',
+        fontWeight: '700'
+    }
     return (
     <div>
+        {redirectVar}
       <Header inpTerm={this.inpTerm}/>
       <div id="page" role="main">
         <div class="tsp">
@@ -882,33 +898,35 @@ let hallData = this.state.halls.map(hall => {
                     </div>
                   </div>
                   <div class="js-spotlight-ad"></div>
-                  <label class="nearby-theaters__label">Nearby Theaters: </label>
-                  <select class="nearby-theaters__select js-nearby-theaters">
-                    <option value="#">Select Theater</option>
-                    <option value="/towne-3-cinemas-AAFRF/theater-page?date=2018/4/18">Towne 3 Cinemas</option>
-                    <option value="/cinelux-almaden-cafe-and-lounge-AAFQQ/theater-page?date=2018/4/18">CineLux Almaden Cafe &amp; Lounge</option>
-                    <option value="/cinearts-santana-row-AASUR/theater-page?date=2018/4/18">CinéArts @ Santana Row</option>
-                    <option value="/amc-eastridge-15-AATUL/theater-page?date=2018/4/18">AMC Eastridge 15</option>
-                    <option value="/pruneyard-cinemas-AAQND/theater-page?date=2018/4/18">Pruneyard Cinemas</option>
-                    <option value="/century-20-great-mall-and-xd-AAPCG/theater-page?date=2018/4/18">Century 20 Great Mall and XD</option>
-                    <option value="/cinelux-plaza-theatre-AAFQS/theater-page?date=2018/4/18">CineLux Plaza Theatre</option>
-                    <option value="/8k-cinemas-milpitas-AAWTK/theater-page?date=2018/4/18">8K Cinemas Milpitas</option>
-                    <option value="/amc-mercado-20-AADYN/theater-page?date=2018/4/18">AMC Mercado 20</option>
-                    <option value="/century-20-oakridge-and-xd-AARBX/theater-page?date=2018/4/18">Century 20 Oakridge and XD</option>
-                    <option value="/amc-saratoga-14-AAECU/theater-page?date=2018/4/18">AMC Saratoga 14</option>
-                    <option value="/los-gatos-theatre-AAFRG/theater-page?date=2018/4/18">Los Gatos Theatre</option>
-                    <option value="/century-cinemas-16-AACFX/theater-page?date=2018/4/18">Century Cinemas 16</option>
-                    <option value="/century-at-pacific-commons-and-xd-AAWQB/theater-page?date=2018/4/18">Century at Pacific Commons and XD</option>
-                    <option value="/amc-newpark-12-AAXSE/theater-page?date=2018/4/18">AMC NewPark 12</option>
-                    <option value="/cinearts-palo-alto-square-AAPZL/theater-page?date=2018/4/18">CinéArts @ Palo Alto Square</option>
-                    <option value="/hackworth-imax-dome-AANCI/theater-page?date=2018/4/18">Hackworth IMAX Dome</option>
-                    <option value="/capitol-drive-in-AACFK/theater-page?date=2018/4/18">Capitol Drive-In</option>
-                  </select>
-                    <div>
-                        <a onClick={this.toggle}>
-                        {this.state.sortDirArrow}
-                        Pricing
-                        </a>
+                    <div style={{display:'inline-block', width: '850px'}} >
+                        <label class="nearby-theaters__label">Nearby Theaters: </label>
+                        <select class="nearby-theaters__select js-nearby-theaters">
+                            <option value="#">Select Theater</option>
+                            <option value="/towne-3-cinemas-AAFRF/theater-page?date=2018/4/18">Towne 3 Cinemas</option>
+                            <option value="/cinelux-almaden-cafe-and-lounge-AAFQQ/theater-page?date=2018/4/18">CineLux Almaden Cafe &amp; Lounge</option>
+                            <option value="/cinearts-santana-row-AASUR/theater-page?date=2018/4/18">CinéArts @ Santana Row</option>
+                            <option value="/amc-eastridge-15-AATUL/theater-page?date=2018/4/18">AMC Eastridge 15</option>
+                            <option value="/pruneyard-cinemas-AAQND/theater-page?date=2018/4/18">Pruneyard Cinemas</option>
+                            <option value="/century-20-great-mall-and-xd-AAPCG/theater-page?date=2018/4/18">Century 20 Great Mall and XD</option>
+                            <option value="/cinelux-plaza-theatre-AAFQS/theater-page?date=2018/4/18">CineLux Plaza Theatre</option>
+                            <option value="/8k-cinemas-milpitas-AAWTK/theater-page?date=2018/4/18">8K Cinemas Milpitas</option>
+                            <option value="/amc-mercado-20-AADYN/theater-page?date=2018/4/18">AMC Mercado 20</option>
+                            <option value="/century-20-oakridge-and-xd-AARBX/theater-page?date=2018/4/18">Century 20 Oakridge and XD</option>
+                            <option value="/amc-saratoga-14-AAECU/theater-page?date=2018/4/18">AMC Saratoga 14</option>
+                            <option value="/los-gatos-theatre-AAFRG/theater-page?date=2018/4/18">Los Gatos Theatre</option>
+                            <option value="/century-cinemas-16-AACFX/theater-page?date=2018/4/18">Century Cinemas 16</option>
+                            <option value="/century-at-pacific-commons-and-xd-AAWQB/theater-page?date=2018/4/18">Century at Pacific Commons and XD</option>
+                            <option value="/amc-newpark-12-AAXSE/theater-page?date=2018/4/18">AMC NewPark 12</option>
+                            <option value="/cinearts-palo-alto-square-AAPZL/theater-page?date=2018/4/18">CinéArts @ Palo Alto Square</option>
+                            <option value="/hackworth-imax-dome-AANCI/theater-page?date=2018/4/18">Hackworth IMAX Dome</option>
+                            <option value="/capitol-drive-in-AACFK/theater-page?date=2018/4/18">Capitol Drive-In</option>
+                        </select>
+                        <div style={stylePricing} >
+                            <a id="filterPrice" onClick={this.toggle} >
+                            {this.state.sortDirArrow}
+                            PRICING
+                            </a>
+                        </div>
                     </div>
                   <div class="fd-showtimes js-theaterShowtimes-loading">
                     <div class="printer-friendly">

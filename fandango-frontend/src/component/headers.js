@@ -1,18 +1,83 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 export default class Header extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            term:""
+            term:"",
+            elapsed: 0,
+            start:new Date(),
+            count: 0
         }
         this.termChange = this.termChange.bind(this);
+        this.tick=this.tick.bind(this);
+        this.handleSubmitForTime=this.handleSubmitForTime.bind(this);
+        this.incrementCount=this.incrementCount.bind(this);
     }
     termChange(e) {
         this.setState({
             term:e.target.value
         })
+    }
+
+    incrementCount = () => {
+		this.setState(
+            {...this.state, count: this.state.count + 1 }
+        );
+	};
+
+    componentDidMount(){
+        this.timer = setInterval(this.tick, 50);
+    }
+    
+    componentWillUnmount(){
+        clearInterval(this.timer);
+    }
+
+    tick(){
+        this.setState({...this.state,elapsed: new Date() - this.state.start});
+    }
+
+    handleSubmitForTime(events,nextPage){
+        //events.preventDefault();
+        let prevPage = localStorage.getItem('currentPage');
+        localStorage.setItem('currentPage', nextPage);
+        var elapsed = Math.round(this.state.elapsed / 100);
+        var seconds = (elapsed / 10).toFixed(1);  
+        console.log("Inside Time ");
+        var url = 'http://localhost:8900/log/';
+        axios(url, {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        data: JSON.stringify({
+                time: seconds,
+                page :prevPage,
+                pageclick : this.state.count,
+                hallticketcount:0,
+                movierating:0,
+                movie : "",
+                movieclick : 0,
+                fname : "Anuui",
+                lname : "jggsd",
+                state : "CA",
+                city : "New York",
+                hall : "",
+                hallbooking:0,
+                moviebooking:0,
+                bookingdate:""
+
+            })
+            
+            
+        }).then((res) => {
+            console.log("Response : ",res);
+        });
     }
     render() {
         function handleSignout(e) {
@@ -59,14 +124,14 @@ export default class Header extends React.Component {
             barToggle = <Link to="/signin" class="show-logged-in">Sign In</Link>
         }
         return (
-            <div class="logged-in  no-touch">
+            <div onClick={this.incrementCount} class="logged-in  no-touch">
                 <div>
                     <div id="brand-bar" class="hide-on-mobile">
                         <div class="row">
                             <div class="width-25 right">
                                 <a href="/fandango-gift-cards">Gift Cards</a> |
-            <a href="/freemovietickets">Offers</a> |
-            {barToggle}
+                                <a href="/freemovietickets">Offers</a> |
+                                {barToggle}
                             </div>
                         </div>
                     </div>
@@ -102,7 +167,7 @@ export default class Header extends React.Component {
                                 <ul id="global-menu" class="inline-items tablet-width-100 right nonstandard-width">
                                     <li id="movies-tab" class="tablet-width-20 nonstandard-width">
                                         <section class="has-dropdown" style={{ height: '70px', paddingTop: '25px' }}>
-                                            <h3><Link to="/movies" style={{ color: 'white' }}>Movies</Link></h3>
+                                            <h3><Link onClick = {(e) => this.handleSubmitForTime(e,'movies')} to="/movies" style={{ color: 'white' }} >Movies</Link></h3>
                                             <div class="mega-menu1">
                                                 <div class="row">
                                                     <div class="width-25">
@@ -318,7 +383,7 @@ export default class Header extends React.Component {
                                     </li>
                                     <li id="theatersTab" class="tablet-width-30 nonstandard-width">
                                         <section class="has-dropdown" style={{ height: '70px', paddingTop: '25px' }}>
-                                            <h3><Link to="/movieTimeTicket" style={{ color: 'white' }} id="local-movies-link" >Movie Times + Tickets</Link></h3>
+                                            <h3><Link onClick = {(e) => this.handleSubmitForTime(e,'movieTimeTicket')} to="/movieTimeTicket" style={{ color: 'white' }} id="local-movies-link" >Movie Times + Tickets</Link></h3>
                                             <div class="mega-menu1">
                                                 <div class="row">
                                                     <div id="theatersList" class="width-75 tablet-width-100"><header class="list-local-theaters">

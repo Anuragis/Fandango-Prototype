@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { signinAction } from '../actions/actions';
 import '../css/signin.css';
 import Redirect from 'react-router-dom/Redirect';
+import axios from 'axios';
 
 
 class SignIn extends Component {
@@ -12,9 +13,22 @@ class SignIn extends Component {
     this.state = {
       email     : '',
       password  : '',
-    
-     
+      count: 0,
+      elapsed: 0,
+      start:new Date(),
     }
+    this.tick=this.tick.bind(this);
+    //this.handleSubmitForTime=this.handleSubmitForTime.bind(this);
+    this.incrementCount=this.incrementCount.bind(this);
+  }
+
+  componentDidMount(){
+    this.timer = setInterval(this.tick, 50);
+  }
+
+
+  componentWillUnmount(){
+    clearInterval(this.timer);
   }
   
   handleChange = (events) =>{
@@ -33,16 +47,56 @@ class SignIn extends Component {
   }
   handleSubmit = (events) =>{
     events.preventDefault();
-    const newData = {
-        username : this.state.email,
-        password : this.state.password
-    }  
-    this.props.signinAction(newData);
+    var elapsed = Math.round(this.state.elapsed / 100);
+    var seconds = (elapsed / 10).toFixed(1);  
+    localStorage.setItem('currentPage','userHome');
+    console.log("Inside Time ");
+    var url = 'http://localhost:8900/log/';
+    axios(url, {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+    },
+    data: JSON.stringify({
+        time: seconds,
+        page :"signin",
+        pageclick : this.state.count,
+        hallticketcount:0,
+        movierating:0,
+        movie : "",
+        movieclick : 0,
+        fname : "Anuui",
+        lname : "jggsd",
+        state : "CA",
+        city : "New York",
+        hall : "",
+        hallbooking:0,
+        moviebooking:0,
+        bookingdate:""
+
+    })
+    }).then((res) => {
+        console.log("AFter Response : ", res);
+        const newData = {
+          username : this.state.email,
+          password : this.state.password
+      }  
+      this.props.signinAction(newData);
+    });
+    
   }
 
- 
+  incrementCount = () => {
+		this.setState(
+            {...this.state, count: this.state.count + 1 }
+        );
+	};
 
-
+  tick(){
+    this.setState({...this.state,elapsed: new Date() - this.state.start});
+  }
 
   render() {
     let redirectVar = null;
@@ -59,7 +113,7 @@ class SignIn extends Component {
       );
   }
     return(
-      <div>
+      <div onClick={this.incrementCount}>
         {redirectVar}
         <div style = {{backgroundColor : "black"}}>
           <header id="registration-header" class="registration-header" role="banner">

@@ -106,7 +106,7 @@ module.exports.updateUser=function(req,res,next){
    
     var uid =  req.params.uid;
     console.log("Inside update user");
-    if(req.file.originalname!=undefined) {
+    if(req.file) {
         var values = {$set : {
             profileImage : req.params.uid + path.extname(req.file.originalname)}};
         usersModel.findOneAndUpdate({ _id : req.params.uid},values, function(err, user) {

@@ -121,6 +121,8 @@ class hall extends React.Component {
           var seatArr = [];
           for(var i=0;i<169;i++){
             seatArr[i]=0;
+            if(i==108 || i==109 || i==110 || i==111 || i==114 || i==115 || i==116 || i==117)
+              seatArr[i]=2;
           }
           let screenObj = {
               'seats' : seatArr,
@@ -170,6 +172,8 @@ class hall extends React.Component {
               var seatArr = [];
               for(var i=0;i<169;i++){
                 seatArr[i]=0;
+                if(i==108 || i==109 || i==110 || i==111 || i==114 || i==115 || i==116 || i==117)
+                  seatArr[i]=2;
               }
               let sObj = {
                   'seats' : seatArr,
@@ -480,7 +484,11 @@ class hall extends React.Component {
         </div>
 		<div className="form-group">
             <label>Movie Time</label> 
-            <input onChange = {(e) => this.AddMovieTime(e)} type="text" className="form-control" placeholder="ovie Time"  required />
+            <input onChange = {(e) => this.AddMovieTime(e)} type="text" className="form-control" placeholder="Movie Time"  required />
+        </div>
+    		<div className="form-group">
+            <label>Movie Price</label> 
+            <input onChange = {(e) => this.AddMovieTime(e)} type="text" className="form-control" placeholder="Movie Price"  required />
         </div>
 	</div>
 	<div class="modal-footer">

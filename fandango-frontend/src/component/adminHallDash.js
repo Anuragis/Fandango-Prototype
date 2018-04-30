@@ -65,11 +65,11 @@ class halls extends Component{
             <tbody>
                 
                 {  
-                    this.state.halls.map((hall, id=0) => {
+                    this.state.halls.map((hall, id=1) => {
                     
                     return(
                         <tr key={hall._id}>
-                            <td>{id}</td>
+                            <td>{id + 1}</td>
                             <td>{hall.hallName}</td>
                             <td>{hall.hallAddress}</td>
                             <td>{hall.hallCity}</td>
