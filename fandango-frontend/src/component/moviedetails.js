@@ -5,6 +5,7 @@ import Footer from './footer';
 import axios from 'axios';
 import '../css/stars.css';
 import {Link} from 'react-router-dom';
+import Redirect from 'react-router-dom/Redirect';
 
 
 class moviedetails extends Component{
@@ -89,7 +90,10 @@ class moviedetails extends Component{
 		});
 	}
     render(){
-	
+		let redirectVar = null;
+		if(!localStorage.getItem('userid')){
+			redirectVar = <Redirect to= "/signin" />
+		}
 		console.log("Response Data : ", this.state.movieDetails);
 		let releaseData = null, movieLength = null, movieCategory = null, trailerLink = null;
 		var today = new Date();
@@ -157,6 +161,7 @@ class moviedetails extends Component{
 		});
     	return ( 
 			<div>
+				{redirectVar}
 				<Header />
 				<div>
 					<section class="subnav">

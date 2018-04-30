@@ -3,6 +3,7 @@ import Header from './headers';
 import Footer from './footer';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
+import Redirect from 'react-router-dom/Redirect';
 
 
 class movies extends Component{
@@ -116,6 +117,10 @@ class movies extends Component{
         return today;
     }
     render(){
+    let redirectVar = null;
+    if(!localStorage.getItem('userid')){
+        redirectVar = <Redirect to= "/signin" />
+    }
     let sunday = this.nextDate(0);
 	console.log("Next Sunday : ", sunday);
 	var today = new Date();
@@ -186,6 +191,7 @@ class movies extends Component{
         }
        return ( 
         <div>
+        {redirectVar}
         <Header />
         <div id="page" role="main">
             <section class="subnav">
