@@ -11,16 +11,72 @@ class movies extends Component{
         super(props);
         this.state = {
             initialMovies:[],
-            movies : []
+            movies : [],
+            elapsed: 0,
+            start:new Date(),
+            count: 0
             
         }
 
         this.filterGenre = this.filterGenre.bind(this);
+        this.tick=this.tick.bind(this);
+        this.handleSubmitForTime=this.handleSubmitForTime.bind(this);
+        this.incrementCount=this.incrementCount.bind(this);
+    }
+    componentWillUnmount(){
+        clearInterval(this.timer);
+    }
+    
+    tick(){
+        this.setState({...this.state,elapsed: new Date() - this.state.start});
     }
 
-    
+    handleSubmitForTime(events,nextPage){
+        console.log("Page Count : ", this.state.count);
+        //events.preventDefault();
+        let userDetails = JSON.parse(localStorage.getItem('userid'));
+        let prevPage = localStorage.getItem('currentPage');
+        localStorage.setItem('currentPage',nextPage);
+        var elapsed = Math.round(this.state.elapsed / 100);
+        var seconds = (elapsed / 10).toFixed(1);  
+        console.log("Inside Time ");
+        //alert("Page Count Value : " + this.state.count);
+        var url = 'http://localhost:8900/log/';
+        axios(url, {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        data: JSON.stringify({
+                time: seconds,
+                page :prevPage,
+                pageclick : this.state.count,
+                hallticketcount:0,
+                movierating:0,
+                movie : "",
+                movieclick : 0,
+                fname : userDetails.fName,
+                lname : userDetails.lName,
+                state : "CA",
+                city : "New York",
+                hall : "",
+                hallbooking:0,
+                moviebooking:0,
+                bookingdate:""
+
+            })
+            
+            
+        }).then((res) => {
+            console.log("Response sent");
+        });
+
+}
 
     filterGenre(events){
+        //alert("Inide Genre Click");
         events.preventDefault();
         
         var  filteredMovies=this.state.initialMovies;
@@ -93,8 +149,16 @@ class movies extends Component{
         
     }
 
+    incrementCount = () => {
+        
+        this.setState(
+            {...this.state, count: this.state.count + 1 }
+        );
+        //alert("Count Value : " + this.state.count);
+    };
+    
     componentDidMount(){
-
+        this.timer = setInterval(this.tick, 50);
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Accept', 'application/json');
@@ -139,11 +203,11 @@ class movies extends Component{
                     
                     <div onClick = {(e) => {localStorage.setItem('movieID', movie._id)}}>
                     <li  style = {{float : 'left', margin : '0 26px 20px 0', height : '200px', width : '125px', float : 'left'}} class="visual-item">
-                        <Link to = {"/moviedetails/"+ movie._id}  style = {{background : '#000', display:'block', overflow : 'hidden', width : '100%'}} class="visual-container" >
+                        <Link to = {"/moviedetails/"+ movie._id}  onClick = {(e)=> {this.handleSubmitForTime(e,'moviedetails')}} style = {{background : '#000', display:'block', overflow : 'hidden', width : '100%'}} class="visual-container" >
                             <img data-src={"http://localhost:8900/moviesImages/"+movie.moviePhoto} class="visual-thumb" alt="Movie Image" src={"http://localhost:8900/moviesImages/"+movie.moviePhoto}/>
                         </Link>
                         <div style = {{display : 'block', padding : '5px', background : '#fff'}} class="visual-detail">
-                            <Link to = {"/moviedetails/"+ movie._id} style = {{fontSize : '20px', lineHeight : '20px', overflow : 'hidden', padding : '0 10px 0 0', maxHeight: '40px', whiteSpace: 'normal'}} class="visual-title dark" >
+                            <Link to = {"/moviedetails/"+ movie._id} onClick = {(e)=> {this.handleSubmitForTime(e,'moviedetails')}}  style = {{fontSize : '20px', lineHeight : '20px', overflow : 'hidden', padding : '0 10px 0 0', maxHeight: '40px', whiteSpace: 'normal'}} class="visual-title dark" >
                                 {movie.movieTitle}
                             </Link>
                         </div>
@@ -160,11 +224,11 @@ class movies extends Component{
                 nowPlaying.push (
 					<div onClick = {(e) => {localStorage.setItem('movieID', movie._id)}}>
 						<li style = {{float : 'left', margin : '0 26px 20px 0', height : '200px', width : '125px', float : 'left'}} class="visual-item">
-                            <Link to = {"/moviedetails/"+ movie._id} style = {{background : '#000', display:'block', overflow : 'hidden', width : '100%'}} class="visual-container" >
+                            <Link onClick = {(e) => this.handleSubmitForTime(e,'moviedetails')} to = {"/moviedetails/"+ movie._id}  style = {{background : '#000', display:'block', overflow : 'hidden', width : '100%'}} class="visual-container" >
                                 <img data-src= {"http://localhost:8900/moviesImages/"+movie.moviePhoto} class="visual-thumb" alt="movie Image" src={"http://localhost:8900/moviesImages/"+movie.moviePhoto}/>
 							</Link>
 							<div style = {{display : 'block', padding : '5px', background : '#fff'}} class="visual-detail">
-                                <Link to = {"/moviedetails/"+ movie._id} style = {{fontSize : '20px', lineHeight : '20px', overflow : 'hidden', padding : '0 10px 0 0', maxHeight: '40px', whiteSpace: 'normal'}} class="visual-title dark" >
+                                <Link onClick = {(e) => this.handleSubmitForTime(e,'moviedetails')} to = {"/moviedetails/"+ movie._id}  style = {{fontSize : '20px', lineHeight : '20px', overflow : 'hidden', padding : '0 10px 0 0', maxHeight: '40px', whiteSpace: 'normal'}} class="visual-title dark" >
 									{movie.movieTitle}
 								</Link>
 							</div>
@@ -190,7 +254,7 @@ class movies extends Component{
             fontWeight : '700'
         }
        return ( 
-        <div>
+        <div onHover={this.incrementCount}> 
         {redirectVar}
         <Header />
         <div id="page" role="main">

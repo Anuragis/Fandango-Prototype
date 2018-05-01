@@ -23,6 +23,7 @@ export default class Header extends React.Component {
     }
 
     incrementCount = () => {
+        //alert("Inside Increment" + this.state.count);
 		this.setState(
             {...this.state, count: this.state.count + 1 }
         );
@@ -44,6 +45,7 @@ export default class Header extends React.Component {
         //events.preventDefault();
         let userDetails = JSON.parse(localStorage.getItem('userid'));
         let prevPage = localStorage.getItem('currentPage');
+        console.log("Prev Page : ", prevPage);
         localStorage.setItem('currentPage', nextPage);
         var elapsed = Math.round(this.state.elapsed / 100);
         var seconds = (elapsed / 10).toFixed(1);  
@@ -74,8 +76,6 @@ export default class Header extends React.Component {
                 bookingdate:""
 
             })
-            
-            
         }).then((res) => {
             console.log("Response : ",res);
         });
@@ -112,11 +112,11 @@ export default class Header extends React.Component {
                 adminMenu = (
                     <li class="width-33">
                     <h4 class="width-100 heading-style-1 heading-size-m">Main Admin</h4><br/>
-                        <Link class="light" to = "/adduser">View Profile</Link><br/><br/>
-                        <Link class="light" to = "/moviedash">Movie Dashboard</Link><br/><br/>
-                        <Link class="light" to = "/booking">Booking Dashboard</Link><br/><br/>
-                        <Link class="light" to = "/adminuser">User Dashboard</Link><br/><br/>
-                        <Link class="light" to = "/admindashboard">Admin Dashboard</Link><br/><br/>
+                        <Link class="light" to = "/adduser">View Profile</Link><br/>
+                        <Link class="light" to = "/moviedash">Movie Dashboard</Link><br/>
+                        <Link class="light" to = "/booking">Booking Dashboard</Link><br/>
+                        <Link class="light" to = "/adminuser">User Dashboard</Link><br/>
+                        <Link class="light" to = "/admindashboard">Admin Dashboard</Link><br/>
                         <Link class="light" to = "/halldash">Hall Dashboard</Link><br/><br/>
                     </li>
                 )
