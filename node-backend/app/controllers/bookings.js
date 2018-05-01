@@ -15,6 +15,7 @@ module.exports.createBooking = function(req,res,next){
         newBooking.moviename = req.body.moviename;
         newBooking.screenid = req.body.screenid; 
         newBooking.hallname = req.body.hallname;
+        newBooking.movieDate = req.body.movieDate;
         newBooking.seatsbooked = req.body.seatsbooked;
         newBooking.status = req.body.status;
         newBooking.hallcity = req.body.hallcity;

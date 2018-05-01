@@ -17,6 +17,7 @@ var bookingSchema = new Schema({
    moviename: { type : String, required : true },
    screenid: { type : String, required : true },
    hallname: { type : String, required : true },
+   movieDate: { type : String, required : true },
    seatsbooked: { type : Array , default : [] , required : true },
    status: { type : String, required : true },
    hallcity: { type : String, required : true }

@@ -1,6 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import '../css/ticketboxoffice.css';
+import Redirect from 'react-router-dom/Redirect';
+import axios from 'axios';
 
 export default class ticketboxoffice extends React.Component {
     constructor(props) {
@@ -11,11 +13,73 @@ export default class ticketboxoffice extends React.Component {
             row1Sum: 0,
             row2Sum: 0,
             row3Sum: 0,
-            movieHall: null
+            movieHall: null,
+            elapsed: 0,
+            start:new Date(),
+            count: 0
         }
         this.ticketNumberChange = this.ticketNumberChange.bind(this);
         this.HandleState = this.HandleState.bind(this);
+        this.tick=this.tick.bind(this);
+        this.handleSubmitForTime=this.handleSubmitForTime.bind(this);
+        this.incrementCount=this.incrementCount.bind(this);
     }
+
+    componentWillUnmount(){
+        clearInterval(this.timer);
+    }
+    
+    tick(){
+        this.setState({...this.state,elapsed: new Date() - this.state.start});
+    }
+
+    handleSubmitForTime(){
+        let userDetails = JSON.parse(localStorage.getItem('userid'));
+        var elapsed = Math.round(this.state.elapsed / 100);
+        var seconds = (elapsed / 10).toFixed(1);  
+        console.log("Inside Time ");
+        //alert("Page Count Value : " + this.state.count);
+        var url = 'http://localhost:8900/log/';
+        axios(url, {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        data: JSON.stringify({
+                time: seconds,
+                page : 'ticketbooking',
+                pageclick : this.state.count,
+                hallticketcount:0,
+                movierating:0,
+                movie : "",
+                movieclick : 0,
+                fname : userDetails.fName,
+                lname : userDetails.lName,
+                state : "CA",
+                city : "New York",
+                hall : "",
+                hallbooking:0,
+                moviebooking:0,
+                bookingdate:""
+
+            })
+            
+            
+        }).then((res) => {
+            console.log("Response sent");
+        });
+
+    }
+
+    incrementCount = () => {
+        
+        this.setState(
+            {...this.state, count: this.state.count + 1 }
+        );
+        //alert("Count Value : " + this.state.count);
+    };
 
     componentWillMount() {
         this.setState({
@@ -25,50 +89,61 @@ export default class ticketboxoffice extends React.Component {
 
     ticketNumberChange = (events, heading) => {
         console.log("changed");
-        let newNum = Number(this.state.totalTickets) + Number(events.target.value);
-        this.setState({
-            totalTickets: newNum
-        })
         if(heading=="General") {
-            let newTo = Number(this.state.totalSum) + Number(events.target.value)*10;
-            let rsum = (Number(events.target.value)*10);
+            let newTo = Number(this.state.row2Sum+this.state.row3Sum) + Number(events.target.value)*this.state.movieHall.hallPrice;
+            let rsum = (Number(events.target.value)*this.state.movieHall.hallPrice);
+            let newNum = Number(this.state.totalTickets) + Number(events.target.value) - Number(this.state.row1Sum)/this.state.movieHall.hallPrice;
             this.setState({
-                totalSum: newTo, row1Sum: rsum
+                totalSum: newTo, row1Sum: rsum, totalTickets: newNum
             })
         }
         else if (heading=="Student") {
             console.log("events",events.target.value);
-            let newTo = Number(this.state.totalSum) + Number(events.target.value)*5;
-            let rsum = (Number(events.target.value)*5);
+            let newTo = Number(this.state.row1Sum+this.state.row3Sum) + Number(events.target.value)*Math.floor(this.state.movieHall.hallPrice/2);
+            let rsum = (Number(events.target.value)*Math.floor(this.state.movieHall.hallPrice/2));
+            let newNum = Number(this.state.totalTickets) + Number(events.target.value) - Number(this.state.row2Sum)/Math.floor(this.state.movieHall.hallPrice/2);
             console.log("Student", newTo);
             console.log("StudentSum", rsum);
             this.setState({
-                totalSum: newTo, row2Sum: rsum
+                totalSum: newTo, row2Sum: rsum, totalTickets: newNum
             })
         }
         else {
-            let newTo = Number(this.state.totalSum) + Number(events.target.value)*5;
-            let rsum = (Number(events.target.value)*5);
+            let newTo = Number(this.state.row2Sum+this.state.row1Sum) + Number(events.target.value)*Math.floor(this.state.movieHall.hallPrice/2);
+            let rsum = (Number(events.target.value)*Math.floor(this.state.movieHall.hallPrice/2));
+            let newNum = Number(this.state.totalTickets) + Number(events.target.value) - Number(this.state.row3Sum)/Math.floor(this.state.movieHall.hallPrice/2);
             this.setState({
-                totalSum: newTo, row3Sum: rsum
+                totalSum: newTo, row3Sum: rsum, totalTickets: newNum
             })
         }
     }
 
     HandleState = () => {
-        localStorage.setItem('ticketBoxOfficeState', JSON.stringify(this.state));
+        localStorage.setItem('ticketBoxOfficeState', JSON.stringify({totalTickets: this.state.totalTickets,
+            totalSum: this.state.totalSum,
+            row1Sum: this.state.row1Sum,
+            row2Sum: this.state.row2Sum,
+            row3Sum: this.state.row3Sum}));
+        this.handleSubmitForTime();
+    }
+
+    componentDidMount(){
+        this.timer = setInterval(this.tick, 50);
     }
 
     render() {
-
+        let redirectVar = null;
+        if(!localStorage.getItem('userid')){
+            redirectVar = <Redirect to= "/signin" />
+        }
         const styleborder = {
             border:'0px'
         }
         const ticketRow = (heading) => {
-            let pPerTic = 5;
+            let pPerTic = Math.floor(this.state.movieHall.hallPrice/2);
             let rowTo;
             if(heading=="General") {
-                pPerTic = 10;
+                pPerTic = this.state.movieHall.hallPrice;
                 rowTo = "$"+this.state.row1Sum+".00";
             }
             else if (heading=="Student") {
@@ -105,6 +180,7 @@ export default class ticketboxoffice extends React.Component {
         }
         return (
             <div id="siteContainer" className="ticketBoxoffice">
+                {redirectVar}
                 <div id="headerContainer" class="purchase detail on-order" name="HeaderContainer">
                     <div id="headerPurchase">
                         <div className="commonContainer"> 
@@ -140,7 +216,7 @@ export default class ticketboxoffice extends React.Component {
                                 <section className="newShowtimeContainer">
                                     <a href="">Select new showtime</a>
                                 </section>
-                                <section>
+                                <section onClick={this.incrementCount}>
                                     <h2 className="tb-header-secondary">HOW MANY TICKETS?</h2>
                                     <div className="reservedMessage">You can request up to 9 reserved seats per transaction.</div>
                                     <table className="section tb-quantityTable">
@@ -173,7 +249,7 @@ export default class ticketboxoffice extends React.Component {
                             <div class="module-standard">  
                                 <div id="movieTicketSummary"> 
                                     <div class="moviePoster">
-                                        <img id="moviePosterImage" alt="" src={"http://localhost:8900/moviesImages/"+this.state.movieHall.moviePhoto}/>
+                                        <img id="moviePosterImage" alt="" src={"http://localhost:8900/moviesImages/"+this.state.movieHall.moviePhoto} />
                                     </div>
                                     <div class="movieInfo"> 
                                         <ul class="movie-specs">
@@ -191,7 +267,7 @@ export default class ticketboxoffice extends React.Component {
                                 </div>
                             </div>
                             <div class="module-standard module-cutout">  
-                                <p><a class="help helplink" href="" onclick="">Need Help With Checkout?</a></p>                
+                                <p><a class="help helplink" href="">Need Help With Checkout?</a></p>                
                             </div>
                         </div>
                     </div>

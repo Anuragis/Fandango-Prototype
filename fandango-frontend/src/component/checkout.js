@@ -1,78 +1,188 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { submitBooking } from '../actions/actions';
 import { updateHall } from '../actions/actions';
+import Redirect from 'react-router-dom/Redirect';
 import axios from 'axios';
 import '../css/checkout.css';
 
 class checkout extends React.Component {
     constructor(props) {
         super();
+        this.state = {
+            elapsed: 0,
+            start:new Date(),
+            count: 0,
+            message: '',
+            error : true
+        }
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.tick=this.tick.bind(this);
+        this.handleSubmitForTime=this.handleSubmitForTime.bind(this);
+        this.incrementCount=this.incrementCount.bind(this);
     }
     handleSubmit = (events) => {
         // alert("checkout submit");
-        let movieHallParse = JSON.parse(localStorage.getItem('movieHall'));
-        let useridparse = JSON.parse(localStorage.getItem('userid'));
-        console.log("useridparse ",useridparse);
-        let submitBooking = {
-            bdate: new Date().toDateString,
-            bamount: JSON.parse(localStorage.getItem('ticketBoxOfficeState')).totalSum,
-            btax: Number(JSON.parse(localStorage.getItem('ticketBoxOfficeState')).totalTickets)*1.5,
-            userid: useridparse._id,
-            fname: useridparse.fName,
-            lname: useridparse.lName,
-            showtime: movieHallParse.movieTime,
-            moviename: movieHallParse.movieName,
-            screenid: movieHallParse.screenID,
-            hallname: movieHallParse.hallName,
-            seatsbooked: JSON.parse(localStorage.getItem('seatpicker')).seats,
-            status: 'active',
-            hallcity: movieHallParse.hallCity
+        let isError = false;
+        const errors = {
+            firstNameError: "",
+            emailError: "",
+            zipCodeError: "",
+            stateError: "",
+            cardNumberError:""
+        };
+        if( this.state.cardnumber.length!==16){
+            isError = true;
+            errors.cardNumberError = "Card Number must be 16 digit and numeric only";
         }
-        
-        console.log("submitBooking ",submitBooking);
-        let updateHall = {
-            hallID: movieHallParse.hallID,
-            movieTime: movieHallParse.movieTime,
-            moviename: movieHallParse.movieName,
-            screenID: movieHallParse.screenID,
-            hallname: movieHallParse.hallName,
-            seatsbooked: JSON.parse(localStorage.getItem('seatpicker')).seats
+
+        this.setState({
+            ...this.state,
+            ...errors,
+            error: isError
+          });
+      
+         
+        if(isError) {
+            let movieHallParse = JSON.parse(localStorage.getItem('movieHall'));
+            let useridparse = JSON.parse(localStorage.getItem('userid'));
+            console.log("useridparse ",useridparse);
+            let submitBooking = {
+                bdate: new Date().toDateString,
+                bamount: JSON.parse(localStorage.getItem('ticketBoxOfficeState')).totalSum,
+                btax: Number(JSON.parse(localStorage.getItem('ticketBoxOfficeState')).totalTickets)*1.5,
+                userid: useridparse._id,
+                fname: useridparse.fName,
+                lname: useridparse.lName,
+                showtime: movieHallParse.movieTime,
+                moviename: movieHallParse.movieName,
+                screenid: movieHallParse.screenID,
+                hallname: movieHallParse.hallName,
+                movieDate: movieHallParse.movieDate,
+                seatsbooked: JSON.parse(localStorage.getItem('seatpicker')).seats,
+                status: 'active',
+                hallcity: movieHallParse.hallCity
+            }
+            
+            console.log("submitBooking ",submitBooking);
+            let updateHall = {
+                hallID: movieHallParse.hallID,
+                movieTime: movieHallParse.movieTime,
+                moviename: movieHallParse.movieName,
+                screenID: movieHallParse.screenID,
+                hallname: movieHallParse.hallName,
+                movieDate: movieHallParse.movieDate,
+                seatsbooked: JSON.parse(localStorage.getItem('seatpicker')).seats
+            }
+            // console.log(JSON.parse(localStorage.getItem('ticketBoxOfficeState')));
+            // alert("submit Booking" + submitBooking.hallname);
+            var headers = new Headers();
+            headers.append('Content-Type', 'application/json');
+            headers.append('Accept', 'application/json');
+            console.log("update hall",updateHall);
+            axios('http://localhost:8900/booking', {
+                method: 'post',
+                mode: 'cors',
+                redirect: 'follow',
+                headers: headers,
+                data: (submitBooking)
+            })
+            .then((res) => {
+                console.log("booking res",res);
+            })
+            // alert(updateHall.hallname);
+            axios('http://localhost:8900/hall/' + updateHall.hallID, {
+                method: 'put',
+                mode: 'cors',
+                redirect: 'follow',
+                headers: headers,
+                data: (updateHall)
+            })
+            .then((res) => {
+                console.log("hall update res",res);
+            })
+            this.handleSubmitForTime();
         }
-        // console.log(JSON.parse(localStorage.getItem('ticketBoxOfficeState')));
-        // alert("submit Booking" + submitBooking.hallname);
-        var headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        headers.append('Accept', 'application/json');
-        console.log("update hall",updateHall);
-        axios('http://localhost:8900/booking', {
-            method: 'post',
-            mode: 'cors',
-            redirect: 'follow',
-            headers: headers,
-            data: (submitBooking)
-        })
-        .then((res) => {
-            console.log("booking res",res);
-        })
-        // alert(updateHall.hallname);
-        axios('http://localhost:8900/hall/' + updateHall.hallID, {
-            method: 'put',
-            mode: 'cors',
-            redirect: 'follow',
-            headers: headers,
-            data: (updateHall)
-        })
-        .then((res) => {
-            console.log("hall update res",res);
-        })
+
+        return isError;
     } 
+    componentWillUnmount(){
+        clearInterval(this.timer);
+    }
+    
+    tick(){
+        this.setState({...this.state,elapsed: new Date() - this.state.start});
+    }
+
+    handleSubmitForTime(){
+        let userDetails = JSON.parse(localStorage.getItem('userid'));
+        var elapsed = Math.round(this.state.elapsed / 100);
+        var seconds = (elapsed / 10).toFixed(1);  
+        console.log("Inside Time ");
+        //alert("Page Count Value : " + this.state.count);
+        var url = 'http://localhost:8900/log/';
+        axios(url, {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        data: JSON.stringify({
+                time: seconds,
+                page : 'checkout',
+                pageclick : this.state.count,
+                hallticketcount: JSON.parse(localStorage.getItem('ticketBoxOfficeState')).totalTickets,
+                movierating:0,
+                movie : this.state.movieHall.movieName,
+                movieclick : 0,
+                fname : userDetails.fName,
+                lname : userDetails.lName,
+                state : "CA",
+                city : "New York",
+                hall : this.state.movieHall.movieName,
+                hallbooking: JSON.parse(localStorage.getItem('ticketBoxOfficeState')).totalSum,
+                moviebooking: JSON.parse(localStorage.getItem('ticketBoxOfficeState')).totalSum,
+                bookingdate: new Date().toISOString().slice(0,10)
+
+            })
+            
+            
+        }).then((res) => {
+            console.log("Response sent");
+        });
+
+    }
+
+    incrementCount = () => {
+        
+        this.setState(
+            {...this.state, count: this.state.count + 1 }
+        );
+        //alert("Count Value : " + this.state.count);
+    };
+
+    componentWillMount() {
+        this.setState({
+            movieHall: JSON.parse(localStorage.getItem('movieHall'))
+        })
+    }
+
+    componentDidMount(){
+        this.timer = setInterval(this.tick, 50);
+    }
     render() {
+        let redirectVar = null;
+        if(!localStorage.getItem('userid')){
+            redirectVar = <Redirect to= "/signin" />
+        }
+        var ConditionalLink = !this.state.error ? Link : ReactDOM.findDOM.div;
         return (
             <div id="siteContainer" className="ticketBoxoffice">
+                {redirectVar}
                 <div id="headerContainer" class="purchase detail on-order" name="HeaderContainer">
                     <div id="headerPurchase">
                         <div className="commonContainer"> 
@@ -96,7 +206,7 @@ class checkout extends React.Component {
                     </div>
                     <div className="row">
                         <div className="main">
-                            <div className="module-standard">
+                            <div className="module-standard" onClick={this.incrementCount}>
                                 <div> 
                                     <h3 class="offerHeading">For Fandango VIPs</h3>
                                     <ul class="offerList">
@@ -132,12 +242,16 @@ class checkout extends React.Component {
                                             </label>
                                             <div class="cvvDetail card display">
                                                 <label for="creditCardNoInput" class="card display">Card number</label>
-                                                <input name="ExpressWebCheckout$PaymentView$creditCardNoInput" type="text" id="creditCardNoInput" class="input card display" min="20" maxlength="19" title="Card number"/>
+                                                <input name="ExpressWebCheckout$PaymentView$creditCardNoInput" type="text" id="creditCardNoInput" class="input card display" min="20" maxlength="19" title="Card number" value={this.state.cardnumber} onChange={(event)=>{
+                                                    this.setState({cardnumber: event.target.value,cardNumberError:"",message:""})
+                                                }} />
                                             </div>
                                             <div class="card fieldContainer display">
                                                 <label id="expLabel" class="card display" for="expMonthDropdown">Expiration date</label>  
                                                 <div class="expMonthDropdown">   
-                                                    <select name="ExpressWebCheckout$PaymentView$expMonthDropdown" id="expMonthDropdown" size="1" class="card inline">
+                                                    <select name="ExpressWebCheckout$PaymentView$expMonthDropdown" id="expMonthDropdown" size="1" class="card inline" value={this.state.expirymonth} onChange={(event)=>{
+                                                        this.setState({expirymonth: event.target.value,message:""});
+                                                    }} >
                                                         <option selected="selected" value="0">Month</option>
                                                         <option value="1">01 - January</option>
                                                         <option value="2">02 - February</option>
@@ -154,7 +268,9 @@ class checkout extends React.Component {
                                                     </select>
                                                 </div> 
                                                 <div class="expYearDropdown"> 
-                                                    <select name="ExpressWebCheckout$PaymentView$expYearDropdown" id="expYearDropdown" class="card inline">
+                                                    <select name="ExpressWebCheckout$PaymentView$expYearDropdown" id="expYearDropdown" class="card inline" value={this.state.expiryyear} onChange={(event)=>{
+                                                        this.setState({expiryyear: event.target.value,message:""});
+                                                    }} >
                                                         <option selected="selected" value="Year">Year</option>
                                                         <option value="2018">18</option>
                                                         <option value="2019">19</option>
@@ -174,12 +290,16 @@ class checkout extends React.Component {
                                                     <div class="fieldContainer  card display">
                                                         <div class="errorText remove" id="firstNameError"></div>
                                                         <label id="firstNameLabel" class="card name display" for="firstNameInput">First name</label>
-                                                        <input name="ExpressWebCheckout$PaymentView$firstNameInput" type="text" id="firstNameInput" class="input card name display" maxlength="50" title="First Name"/>
+                                                        <input name="ExpressWebCheckout$PaymentView$firstNameInput" type="text" id="firstNameInput" class="input card name display" maxlength="50" title="First Name" value={this.state.firstcard} onChange={(event)=>{
+                                                            this.setState({firstcard: event.target.value,message:""});
+                                                        }}/>
                                                     </div>
                                                     <div class="fieldContainer  card display">
                                                         <div class="errorText remove" id="lastNameError"></div>
                                                         <label id="lastNameLabel" class="card name display" for="lastNameInput">Last name</label>
-                                                        <input name="ExpressWebCheckout$PaymentView$lastNameInput" type="text" id="lastNameInput" class="input card name display" maxlength="50" title="Last Name"/>
+                                                        <input name="ExpressWebCheckout$PaymentView$lastNameInput" type="text" id="lastNameInput" class="input card name display" maxlength="50" title="Last Name" value={this.state.lastcard} onChange={(event)=>{
+                                                            this.setState({lastcard: event.target.value,message:""});
+                                                        }}/>
                                                     </div>
                                                 </div>
                                                 <div class="fieldContainer card display">
@@ -187,10 +307,13 @@ class checkout extends React.Component {
                                                     <label id="zipLabel" class="card display" for="zipInput">Billing ZIP code</label>
                                                     <input name="ExpressWebCheckout$PaymentView$zipInput" type="text" id="zipInput" class="input card display" title="Last Name" maxlength="8"/>
                                                     <label for="saveCreditCardCheckBox" class="save card co-checkbox inline" id="saveCreditCardCheckBoxContainer">
-                                                        <input name="ExpressWebCheckout$PaymentView$saveCreditCardCheckBox" type="checkbox" id="saveCreditCardCheckBox" class="save card inline"/>
+                                                        <input name="ExpressWebCheckout$PaymentView$saveCreditCardCheckBox" type="checkbox" id="saveCreditCardCheckBox" class="save card inline" value={this.state.zip} onChange={(event)=>{
+                                                            this.setState({zip: event.target.value,message:""});
+                                                        }} />
                                                         Save my credit card information
                                                     </label>
                                                 </div>
+                                                <div className="success">{this.state.message}</div>
                                             </li>
                                         </ul>
                                     </fieldset>
@@ -198,7 +321,7 @@ class checkout extends React.Component {
                             <div class="module-standard" id="completePurchase">
                                 <section class="completePurchasePanel completePurchase">
                                     <div class="co-buttonContainer">              
-                                        <Link to="/transaction/confirmation" onClick={this.handleSubmit} id="completePurchaseButton" class="button inline-block">Complete My Purchase</Link>
+                                        <ConditionalLink to="/transaction/confirmation" onClick={this.handleSubmit} id="completePurchaseButton" class="button inline-block">Complete My Purchase</ConditionalLink>
                                     </div>
                                     <p class="notes display" id="standardNotes">
                                         By clicking the Complete My Purchase button, you agree to the
