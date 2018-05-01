@@ -142,16 +142,16 @@ handleChange = (events) => {
         let city=this.state.cityName;
         this.state.masterRepo.map(function(log){ 
 
-           if(log.city.toUpperCase()===city.toUpperCase()){
-                if(log.page==="home"){
+           if(log.city !=null && log.city.toUpperCase()===city.toUpperCase()){
+                if(log.page !=null && log.page==="home"){
                     pagesTimeArray[0]+=(log.time);
-                }else  if(log.page==="movies"){
+                }else  if(log.page !=null && log.page==="movies"){
                     pagesTimeArray[1]+=(log.time);
-                }else if(log.page==="moviedetails"){
+                }else if(log.page !=null && log.page==="moviedetails"){
                     pagesTimeArray[2]+=(log.time);
-                }else if(log.page==="ticketbooking"){
+                }else if(log.page !=null && log.page==="ticketbooking"){
                     pagesTimeArray[3]+=(log.time);
-                }else if(log.page==="checkout"){
+                }else if(log.page !=null && log.page==="checkout"){
                     pagesTimeArray[4]+=(log.time);
                 }
             }
@@ -180,16 +180,16 @@ handleChange = (events) => {
         let movie=this.state.movieName;
         this.state.masterRepo.map(function(log){ 
 
-           if(log.movie.toUpperCase()===movie.toUpperCase()){
-                if(log.movierating===1){
+           if(log.movie !=null && log.movie.toUpperCase()===movie.toUpperCase()){
+                if(log.movierating!=null && log.movierating===1){
                     pagesTimeArray[0]++;
-                }else  if(log.movierating===2){
+                }else  if(log.movierating!=null && log.movierating===2){
                     pagesTimeArray[1]++;
-                }else if(log.movierating===3){
+                }else if(log.movierating!=null && log.movierating===3){
                     pagesTimeArray[2]++;
-                }else if(log.movierating===4){
+                }else if(log.movierating!=null && log.movierating===4){
                     pagesTimeArray[3]++;
-                }else if(log.movierating===5){
+                }else if(log.movierating!=null && log.movierating===5){
                     pagesTimeArray[4]++;
                 }
             }
@@ -216,16 +216,16 @@ handleChange = (events) => {
         let username=this.state.userName;
         this.state.masterRepo.map(function(log){ 
 
-           if(log.fname.toUpperCase()===username.toUpperCase()){
-                if(log.page==="home"){
+           if(log.fname!=null && log.fname.toUpperCase()===username.toUpperCase()){
+                if(log.page!=null && log.page==="home"){
                     pagesTimeArray[0]+=(log.time);
-                }else  if(log.page==="movies"){
+                }else  if(log.page!=null && log.page==="movies"){
                     pagesTimeArray[1]+=(log.time);
-                }else if(log.page==="moviedetails"){
+                }else if(log.page!=null && log.page==="moviedetails"){
                     pagesTimeArray[2]+=(log.time);
-                }else if(log.page==="ticketbooking"){
+                }else if(log.page!=null && log.page==="ticketbooking"){
                     pagesTimeArray[3]+=(log.time);
-                }else if(log.page==="checkout"){
+                }else if(log.page!=null && log.page==="checkout"){
                     pagesTimeArray[4]+=(log.time);
                 }
             }
@@ -252,7 +252,7 @@ handleChange = (events) => {
         let year=this.state.year;
         var movieMap= new Map();
         this.state.masterRepo.map(function(log){ 
-        if(log.movie!=="" && log.bookingdate.split("-")[0]===year){
+        if(log.movie !=null && log.movie!=="" && log.bookingdate !=null && log.bookingdate.split("-")[0]===year){
             if(movieMap.has(log.movie)){
                 movieMap.set(log.movie, movieMap.get(log.movie)+log.moviebooking);
             }else{
@@ -326,8 +326,12 @@ handleChange = (events) => {
         let year=this.state.movieYear;
         let movie=this.state.movie;
         var cityMap= new Map();
+
+    
         this.state.masterRepo.map(function(log){ 
-        if(log.movie.toUpperCase()===movie.toUpperCase() && log.bookingdate.split("-")[0]===year){
+
+            console.log("Here",log.movie!=null && log.movie.toUpperCase()===movie.toUpperCase() && log.bookingdate!=null && log.bookingdate.split("-")[0]===year);
+        if(log.movie!=null && log.movie!="" && log.movie.toUpperCase()===movie.toUpperCase() && log.bookingdate!=null && log.bookingdate.split("-")[0]===year){
             if(cityMap.has(log.city)){
                 cityMap.set(log.city, cityMap.get(log.city)+log.moviebooking);
             }else{
@@ -439,15 +443,15 @@ handleChange = (events) => {
         let pageClicks=[0,0,0,0,0];
         if(this.state.masterRepo){
         this.state.masterRepo.map(function(log){ 
-            if(log.page==="home"){
+            if(log.page!=null && log.page==="home"){
                 pagesTimeArray[0]+=(log.time);
-            }else  if(log.page==="movies"){
+            }else  if(log.page!=null &&log.page==="movies"){
                 pagesTimeArray[1]+=(log.time);
-            }else if(log.page==="moviedetails"){
+            }else if(log.page!=null &&log.page==="moviedetails"){
                 pagesTimeArray[2]+=(log.time);
-            }else if(log.page==="ticketbooking"){
+            }else if(log.page!=null &&log.page==="ticketbooking"){
                 pagesTimeArray[3]+=(log.time);
-            }else if(log.page==="checkout"){
+            }else if(log.page!=null && log.page==="checkout"){
                 pagesTimeArray[4]+=(log.time);
             }
             
@@ -455,20 +459,20 @@ handleChange = (events) => {
             
 
 
-            if(log.page==="home"){
+            if(log.page!=null && log.page==="home"){
                 pageClicks[0]+=log.pageclick;
-            }else  if(log.page==="movies"){
+            }else  if(log.page!=null && log.page==="movies"){
                 pageClicks[1]+=log.pageclick;
-            }else if(log.page==="moviedetails"){
+            }else if(log.page!=null && log.page==="moviedetails"){
                 pageClicks[2]+=log.pageclick;
-            }else if(log.page==="ticketbooking"){
+            }else if(log.page!=null && log.page==="ticketbooking"){
                 pageClicks[3]+=log.pageclick;
-            }else if(log.page==="checkout"){
+            }else if(log.page!=null && log.page==="checkout"){
                 pageClicks[4]+=log.pageclick;
             }
 
             console.log("condition",Number(log.bookingdate.split("-")[1])==month);
-            if(log.hall !=="" && Number(log.bookingdate.split("-")[1])==month){
+            if(log.hall!=null && log.hall !=="" && log.bookingdate!=null && Number(log.bookingdate.split("-")[1])==month){
                 if(hallMap.has(log.hall)){
                         hallMap.set(log.hall, hallMap.get(log.hall)+log.hallbooking);
                         hallBookingMap.set(log.hall, hallMap.get(log.hallticketcount)+log.hallticketcount);
