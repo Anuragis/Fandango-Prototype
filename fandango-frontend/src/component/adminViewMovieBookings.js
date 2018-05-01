@@ -57,6 +57,16 @@ export default class AdminViewMovieRevenue extends Component {
             'Accept': 'application/json'
           }
         }).then((res) => {
+            var array=[];
+            this.state.bookings.map(function(key){
+                if(key._id!==_id){
+                    array.push(key);
+                    }
+                });
+
+            this.setState({
+                bookings:array
+            });
           
         });
         let updateHall = {

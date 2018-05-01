@@ -485,15 +485,15 @@ handleChange = (events) => {
 
     let pageName='';
     if(index===0){
-        pageName="Home Page";
+        pageName="Home";
     }else if(index===1){
-        pageName="Movies Page";   
+        pageName="Movies";   
     }else if(index===2){
-        pageName="Movie Details Page";   
+        pageName="Movie Details";   
     }else if(index===3){
-        pageName="Ticket Booking Page";   
+        pageName="Ticket Booking";   
     }else{
-        pageName="CheckOut Page";
+        pageName="CheckOut";
     }
 
     console.log(
