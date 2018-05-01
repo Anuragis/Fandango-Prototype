@@ -86,7 +86,7 @@ class user extends React.Component {
       
       var url;
       if(localStorage.getItem('userid')!=null){
-          'http://localhost:8900/user/' + JSON.parse(localStorage.getItem('userid'))._id;
+          url = 'http://localhost:8900/user/' + JSON.parse(localStorage.getItem('userid'))._id;
         }
         if(typeof(this.props.location.state) !== "undefined" && this.props.location.state.id!="0"){
           url = 'http://localhost:8900/user/' + this.props.location.state.id;
@@ -304,7 +304,14 @@ class user extends React.Component {
         );
     }
       
-  
+    const imageUpload = {
+      border: '1px solid',
+      width: '200px',
+      height: '200px',
+      maxWidth:'100%',
+      maxHeight:'100%',
+      objectFit: 'contain'
+    }
       return (
         <div id="siteContainer" className="ticketBoxoffice">
         {redirectVar}
@@ -322,7 +329,7 @@ class user extends React.Component {
           <div className = "row">
            <div className = "col-md-3">
               <h1 className="text-center">Profile Image</h1>
-              <img src = {this.state.imagePreview} alt = "This is user's display pic"/>
+              <img style={imageUpload} src = {this.state.imagePreview} alt = "This is user's display pic"/>
               {uplImg}
           </div>
 

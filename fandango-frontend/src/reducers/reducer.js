@@ -34,7 +34,7 @@ const reducer = (state = initialState, action) => {
        
         console.log("Action Payload:  ",action.payload.data);
         if(action.payload.data !== undefined && action.payload.data !== null){
-            localStorage.setItem('userid',JSON.stringify(action.payload.data));
+            window.localStorage.setItem('userid',JSON.stringify(action.payload.data));
             return{
                 id : action.payload.data,
                 error : false
