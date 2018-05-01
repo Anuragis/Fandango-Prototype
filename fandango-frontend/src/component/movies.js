@@ -254,7 +254,7 @@ class movies extends Component{
             fontWeight : '700'
         }
        return ( 
-        <div onHover={this.incrementCount}> 
+        <div> 
         {redirectVar}
         <Header />
         <div id="page" role="main">
@@ -346,7 +346,7 @@ class movies extends Component{
                         </ul>
                     </div>
                 </div>
-                <div class="movie-ls-group" style = {{width : '100%'}}>
+                <div onClick={this.incrementCount} class="movie-ls-group" style = {{width : '100%'}}>
                     <h2 style = {{color : '#4c4c4c', margin : '0 0 15px', padding : '0 30px', position : 'relative', textAlign : 'center'}} class="inline heading-style-stub heading-style-1 heading-size-l section-header">Opening This Week</h2>
                     <ul style = {{margin : '0 -30px 20px 0', overflow : 'auto', lifeStyle : 'none',height : '350px'}}>
                         {/*<li style = {{float : 'left', margin : '0 26px 20px 0', height : '200px', width : '125px', float : 'left'}} class="visual-item">
