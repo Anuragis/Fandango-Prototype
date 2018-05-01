@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import axios from 'axios';
 import Head from './Header';
 import MovieBookings from './adminMovieBookings';
+import {Redirect} from 'react-router-dom';
 export default class AdminMovieDash extends Component {
     constructor(props) {
         super(props);
@@ -101,8 +102,14 @@ export default class AdminMovieDash extends Component {
     }
 
     render() {
+
+        let redirectVar = null;
+        if(!localStorage.getItem('userid')){
+            redirectVar = <Redirect to= "/signin" />
+        }
         return(
             <div>
+                {redirectVar}
                 <Head />
                 <br/>
                 <br/>

@@ -12,7 +12,9 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import Head from './Header';
 import '../css/admin.css';
+import {Redirect} from 'react-router-dom';
 export default class AdminViewMovieRevenue extends Component {
+
 
     constructor(props) {
         super(props);
@@ -92,8 +94,14 @@ export default class AdminViewMovieRevenue extends Component {
 
 
     render(){
+
+        let redirectVar = null;
+        if(!localStorage.getItem('userid')){
+            redirectVar = <Redirect to= "/signin" />
+        }
         return(
             <div>
+                {redirectVar}
                 <Head />
                 <br/>
                 <br/>
