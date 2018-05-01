@@ -89,18 +89,18 @@ export default class ticketboxoffice extends React.Component {
     ticketNumberChange = (events, heading) => {
         console.log("changed");
         if(heading=="General") {
-            let newTo = Number(this.state.totalSum) + Number(events.target.value)*10;
-            let rsum = (Number(events.target.value)*10);
-            let newNum = Number(this.state.totalTickets) + Number(events.target.value) - Number(this.state.row1Sum)/10;
+            let newTo = Number(this.state.row2Sum+this.state.row3Sum) + Number(events.target.value)*this.state.movieHall.hallPrice;
+            let rsum = (Number(events.target.value)*this.state.movieHall.hallPrice);
+            let newNum = Number(this.state.totalTickets) + Number(events.target.value) - Number(this.state.row1Sum)/this.state.movieHall.hallPrice;
             this.setState({
                 totalSum: newTo, row1Sum: rsum, totalTickets: newNum
             })
         }
         else if (heading=="Student") {
             console.log("events",events.target.value);
-            let newTo = Number(this.state.totalSum) + Number(events.target.value)*5;
-            let rsum = (Number(events.target.value)*5);
-            let newNum = Number(this.state.totalTickets) + Number(events.target.value) - Number(this.state.row2Sum)/5;
+            let newTo = Number(this.state.row1Sum+this.state.row3Sum) + Number(events.target.value)*Math.floor(this.state.movieHall.hallPrice/2);
+            let rsum = (Number(events.target.value)*Math.floor(this.state.movieHall.hallPrice/2));
+            let newNum = Number(this.state.totalTickets) + Number(events.target.value) - Number(this.state.row2Sum)/Math.floor(this.state.movieHall.hallPrice/2);
             console.log("Student", newTo);
             console.log("StudentSum", rsum);
             this.setState({
@@ -108,9 +108,9 @@ export default class ticketboxoffice extends React.Component {
             })
         }
         else {
-            let newTo = Number(this.state.totalSum) + Number(events.target.value)*5;
-            let rsum = (Number(events.target.value)*5);
-            let newNum = Number(this.state.totalTickets) + Number(events.target.value) - Number(this.state.row3Sum)/5;
+            let newTo = Number(this.state.row2Sum+this.state.row1Sum) + Number(events.target.value)*Math.floor(this.state.movieHall.hallPrice/2);
+            let rsum = (Number(events.target.value)*Math.floor(this.state.movieHall.hallPrice/2));
+            let newNum = Number(this.state.totalTickets) + Number(events.target.value) - Number(this.state.row3Sum)/Math.floor(this.state.movieHall.hallPrice/2);
             this.setState({
                 totalSum: newTo, row3Sum: rsum, totalTickets: newNum
             })
@@ -136,10 +136,10 @@ export default class ticketboxoffice extends React.Component {
             border:'0px'
         }
         const ticketRow = (heading) => {
-            let pPerTic = 5;
+            let pPerTic = Math.floor(this.state.movieHall.hallPrice/2);
             let rowTo;
             if(heading=="General") {
-                pPerTic = 10;
+                pPerTic = this.state.movieHall.hallPrice;
                 rowTo = "$"+this.state.row1Sum+".00";
             }
             else if (heading=="Student") {
@@ -244,7 +244,7 @@ export default class ticketboxoffice extends React.Component {
                             <div class="module-standard">  
                                 <div id="movieTicketSummary"> 
                                     <div class="moviePoster">
-                                        <img id="moviePosterImage" alt="" src={"http://localhost:8900/moviesImages/"+this.state.movieHall.moviePhoto}/>
+                                        <img id="moviePosterImage" alt="" src={"http://localhost:8900/moviesImages/"+this.state.movieHall.moviePhoto} />
                                     </div>
                                     <div class="movieInfo"> 
                                         <ul class="movie-specs">
