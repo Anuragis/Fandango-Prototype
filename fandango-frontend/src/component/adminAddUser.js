@@ -330,7 +330,7 @@ class user extends React.Component {
                 </div>
                 <div className="form-group">
                   <input  type="text" className="form-control" placeholder="Last Name" value={this.state.lname} onChange={(event)=>{
-                    this.setState({lname: event.target.value,message:""});
+                    this.setState({lName: event.target.value,message:""});
                   }} required />
                 </div>
                 <div className="form-group">

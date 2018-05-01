@@ -12,7 +12,7 @@ var bookingSchema = new Schema({
    btax: { type : Number, required : true },
    userid: { type : String, required : true },
    fname: { type : String, required : true },
-   lname: { type : String, required : true },
+   lname: { type : String },
    showtime: { type : String, required : true },
    moviename: { type : String, required : true },
    screenid: { type : String, required : true },
