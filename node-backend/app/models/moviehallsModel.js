@@ -5,7 +5,8 @@ var connection = mongoose.createConnection('mongodb://cmpeuser:cmpepass@ds247569
     var movieTimingSchema=new Schema({
         screenID : {type:Number},
         movieTime:{type:String},
-        seats:[]
+        seats:[],
+        movieDate:{type: String}
     });
 
     var screensSchema=new Schema({
@@ -14,8 +15,8 @@ var connection = mongoose.createConnection('mongodb://cmpeuser:cmpepass@ds247569
         movieRating:{type:String},
         moviePhoto: { type : String},
         movieLength:{type:String},
-        movieCategory: { type :  String},
-        movieDate:{type: String}
+        movieCategory: { type :  String}
+        
     });
 
     var moviehallsSchema = new Schema({

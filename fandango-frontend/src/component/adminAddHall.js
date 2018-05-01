@@ -183,7 +183,8 @@ class hall extends React.Component {
               let sObj = {
                   'seats' : seatArr,
                   'movieTime' : newScreenTime,
-                  'screenID' : newScreenID
+                  'screenID' : newScreenID,
+                  'movieDate': newScreenDate
               };
               let screenObj =[];
               screenObj.push(sObj);
@@ -212,9 +213,11 @@ class hall extends React.Component {
                 data : hallObj
               }).then((res) =>{
                   console.log("New Screen Added to existing Hall");
+                  alert("Screen AddedSuccessfully !!!!"); 
               });
             })
-      }    
+      }   
+      
     }
 
     handleLoopScreenID = (e,screenIndex,timeIndex) => {
@@ -375,6 +378,7 @@ class hall extends React.Component {
             data : hallObj
           }).then((res) =>{
               console.log("New Screen Added to existing Hall");
+              alert("Hall Data Updated!!!!");
           });
       console.log("Updated Obj : ", hallRes);
     }
