@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Header from './headers';
 import Footer from './footer';
 import axios from 'axios';
+import moment from 'moment';
+import {Link} from 'react-router-dom';
 
 
 class MovieTimeHalls extends Component {
@@ -55,40 +57,60 @@ class MovieTimeHalls extends Component {
     }
   }
 
-  handleTimeClick(events,checkoutData){
-      events.preventDefault();
-      console.log("Checkout Data : ", checkoutData);
-      localStorage.setItem('ChecoutData', JSON.stringify(checkoutData));
+  handleTimeClick(e,hall,movie,timings){
+      //e.preventDefault();
+      console.log("Inside Transaction : ", timings);
+        var transactionData = {
+            "hallID":hall._id,
+            "movieName": movie.movieName,
+            "movieRating": movie.movieRating,
+            "movieLength": movie.movieLength,
+            "hallName": hall.hallName,
+            "screenID": timings.screenID,
+            "hallAddress": hall.hallAddress,
+            "hallCity": hall.hallCity,
+            "hallZipCode": hall.hallZipCode,
+            "hallState": hall.hallState,
+            "movieTime": timings.movieTime,
+            "seats": timings.seats,
+            "moviePhoto" : movie.moviePhoto,
+            "hallPrice" : hall.hallPrice,
+            "movieDate" : timings.movieDate
+        }
+        localStorage.setItem('movieHall', JSON.stringify(transactionData));
   }
 
 
   render() {
 	console.log("Response : " + this.state.movieHallsData);
-	let movieData = null, movieTimings= null;
+	let movieData = null, movieTimings= null,moviePhoto = null;
 	let movieReleaseDate = '26 April 2018', movieCategory = null, movieDuration = null;
 	let hallData = this.state.movieHallsData.map(hall => {
 		movieData = hall.screens.map(movie => {
 			if(movie.movieName === localStorage.getItem('movieName')){
 				movieCategory = movie.movieCategory;
-				movieDuration = movie.movieLength	
+				movieDuration = movie.movieLength;
+				moviePhoto = movie.moviePhoto;	
 			}
 		})
-    });
-    hallData = this.state.movieHallsData.map(hall => {
+	});
+	let hallDataCopy = this.state.movieHallsData;
+	let timingData = null, timeData = [];
+    hallData = hallDataCopy.map(hall => {
         movieData = hall.screens.map(movie => {
             if(movie.movieName === localStorage.getItem('movieName')){
-                let timingData = movie.movieTimings.map(time => {
+                timingData = movie.movieTimings.map(time => {
                     let checkoutData = {
                         movieName : movie.movieName,
                         time : time.movieTime
                     }
                     return(
                         <li class="fd-movie__btn-list-item">
-                            <a onClick = {(e) => this.handleTimeClick(e,checkoutData)} class="btn showtime-btn showtime-btn--available" href="#">{time.movieTime}</a>
+                            <Link onClick = {(e) => this.handleTimeClick(e,hall,movie,time)} to = "/transaction/ticketboxoffice" class="btn showtime-btn showtime-btn--available">{time.movieTime}</Link>
                         </li>
                     )
                 })
-                return(
+                timeData.push(
                     <div style = {{marginBottom : '15px', width : 'auto', marginLeft : '320px', padding : '0.5rem'}} class="theater__wrap">
                         <div style = {{background: '#262626',color: '#fff', padding : '10px'}} class="theater__header">
                             <div class="theater__name-wrap">
@@ -126,7 +148,41 @@ class MovieTimeHalls extends Component {
                 )	
             }
         })
-    });
+	});
+	
+	let dates = [];
+    var weekdays = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
+    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    for(var i = 0;i<6;i++){
+        let d1 =  new Date();
+        d1.setDate(d1.getDate() + i);
+        let d2 = moment().add(i,'days').format('YYYY-MM-DD').toString();
+        console.log("D 2: ",d2);
+        if(i == 0){
+            dates.push(
+
+                <li class="date-picker__date date-picker__date--selected" data-show-time-date="2018-04-18">
+                    <a onClick = {(e) => this.handleFilterMovieByDate(e,d2)}  class="date-picker__link">
+                    <span class="date-picker__date-weekday">{weekdays[d1.getDay()]}</span>
+                    <span class="date-picker__date-month">{months[d1.getMonth()]}</span>
+                    <span class="date-picker__date-day">{d1.getDate()}</span>
+                    </a>
+                </li>
+            )
+        }else{
+            dates.push(
+
+                <li class="date-picker__date " data-show-time-date="2018-04-20">
+                    <a onClick = {(e) => this.handleFilterMovieByDate(e,d2)}  class="date-picker__link">
+                        <span class="date-picker__date-weekday">{weekdays[d1.getDay()]}</span>
+                        <span class="date-picker__date-month">{months[d1.getMonth()]}</span>
+                        <span class="date-picker__date-day">{d1.getDate()}</span>
+                    </a>
+                </li>
+            )
+        }
+        
+    }
     return (
         <div>
     <Header />
@@ -177,55 +233,7 @@ class MovieTimeHalls extends Component {
 				<div class="date-picker__wrap">
 					<section class="date-picker carousel js-movie-calendar carousel-style-strip" data-jcarousel="true">
 						<ul id="scroll-date-picker__list" class="carousel-items" >
-							<li class="date-picker__date date-picker__date--selected" data-show-time-date="2018-04-18">
-								<a href="?date=2018-04-18" class="date-picker__link">
-									<span class="date-picker__date-weekday">Today</span>
-									<span class="date-picker__date-month">Apr</span>
-									<span class="date-picker__date-day">18</span>
-								</a>
-							</li>
-							<li class="date-picker__date " data-show-time-date="2018-04-20">
-								<a href="?date=2018-04-20" class="date-picker__link">
-									<span class="date-picker__date-weekday">Fri</span>
-									<span class="date-picker__date-month">Apr</span>
-									<span class="date-picker__date-day">19</span>
-								</a>
-							</li>
-                            <li class="date-picker__date " data-show-time-date="2018-04-20">
-								<a href="?date=2018-04-20" class="date-picker__link">
-									<span class="date-picker__date-weekday">Fri</span>
-									<span class="date-picker__date-month">Apr</span>
-									<span class="date-picker__date-day">21</span>
-								</a>
-							</li>
-                            <li class="date-picker__date " data-show-time-date="2018-04-20">
-								<a href="?date=2018-04-20" class="date-picker__link">
-									<span class="date-picker__date-weekday">Fri</span>
-									<span class="date-picker__date-month">Apr</span>
-									<span class="date-picker__date-day">22</span>
-								</a>
-							</li>
-                            <li class="date-picker__date " data-show-time-date="2018-04-20">
-								<a href="?date=2018-04-20" class="date-picker__link">
-									<span class="date-picker__date-weekday">Fri</span>
-									<span class="date-picker__date-month">Apr</span>
-									<span class="date-picker__date-day">23</span>
-								</a>
-							</li>
-                            <li class="date-picker__date " data-show-time-date="2018-04-20">
-								<a href="?date=2018-04-20" class="date-picker__link">
-									<span class="date-picker__date-weekday">Fri</span>
-									<span class="date-picker__date-month">Apr</span>
-									<span class="date-picker__date-day">24</span>
-								</a>
-							</li>
-                            <li class="date-picker__date " data-show-time-date="2018-04-20">
-								<a href="?date=2018-04-20" class="date-picker__link">
-									<span class="date-picker__date-weekday">Fri</span>
-									<span class="date-picker__date-month">Apr</span>
-									<span class="date-picker__date-day">25</span>
-								</a>
-							</li>
+							{dates}
 						</ul>
 						<button id = "date-left" class="icon style-none left js-calendar-flipper-left flipper--hide" data-jcarouselcontrol="true" onClick = {this.handleLeftClick.bind(this)}>Previous</button>
 						<button id = "date-right" class="icon style-none right js-calendar-flipper-right" data-jcarouselcontrol="true" onClick={this.handleRightClick.bind(this)}>Next</button>
@@ -263,8 +271,8 @@ class MovieTimeHalls extends Component {
 				<section class="js-filteredChain-lazy"></section>
 				<div style = {{width : '320px', float : 'left'}} class="msp__movie-details-container">
 					<section class="movie-details">
-						<a class="movie-details__mop-link" href="/avengers-infinity-war-199925/movie-overview">
-							<img class="movie-details__movie-img visual-thumb" src="//images.fandango.com/ImageRenderer/200/0/redesign/static/img/default_poster.png/0/images/masterrepository/Fandango/199925/AvengersInfinityWar-postera.jpg" alt="Avengers: Infinity War Movie Poster"/>
+						<a class="movie-details__mop-link">
+							<img class="movie-details__movie-img visual-thumb" src = {"http://localhost:8900/moviesImages/"+moviePhoto} alt="Movie Photo"/>
 						</a>
 						<ul class="movie-details__detail">
 							<li>Released</li> 
@@ -294,7 +302,7 @@ class MovieTimeHalls extends Component {
 					</section> 
 				</div>
 				<section class="js-theaterShowtimes-loading theaters-lazy-load"><section class="theaters">
-					{movieData}
+					{timeData}
 				</section>
 			</section>
 			</div>

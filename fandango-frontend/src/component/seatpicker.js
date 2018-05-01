@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Countdown from 'react-countdown-now';
 import {Link} from 'react-router-dom';
+import Redirect from 'react-router-dom/Redirect';
 import '../css/seatpicker.css';
 
 class Seathover extends React.Component {
@@ -174,6 +175,10 @@ export default class seatpicker extends React.Component {
     }
 
     render() {
+        let redirectVar = null;
+        if(!localStorage.getItem('userid')){
+            redirectVar = <Redirect to= "/signin" />
+        }
         const styleseatPicker = {
             height: '700px', top: '0px'
         }
@@ -226,14 +231,18 @@ export default class seatpicker extends React.Component {
             // onePrice = () => {
                 index += 1;
                 if(this.state.prevState['row'+index+'Sum']!=0 && !isNaN(this.state.prevState['row'+index+'Sum'])) {
-                    let num = Number(this.state.prevState['row'+index+'Sum'])/10;
-                    if(index!=1) num *= 2;
+                    let num = Number(this.state.prevState['row'+index+'Sum'])/Math.floor(this.state.movieHall.hallPrice/2);
+                    let priceDollar = Math.floor(this.state.movieHall.hallPrice/2);
+                    if(heading=="General") {
+                        num = Number(this.state.prevState['row'+index+'Sum'])/this.state.movieHall.hallPrice;
+                        priceDollar = this.state.movieHall.hallPrice;
+                    }
                     ticketPricing.push(
                         <tr className="ticketTypeRow pricing">
                             <td className="type heading">
                                 <span className="ticketTypeHeading">{heading}</span>
                             </td>
-                            <td className="price">{num} x $10.00  = </td>
+                            <td className="price">{num} x ${priceDollar}.00  = </td>
                             <td className="math">${this.state.prevState['row'+index+'Sum'].toFixed(2)}</td>
                         </tr>
                     )
@@ -279,6 +288,7 @@ export default class seatpicker extends React.Component {
         
         return (
             <div id="siteContainer" className="ticketBoxoffice">
+                {redirectVar}
                 <div id="headerContainer" className="purchase detail on-order" name="HeaderContainer">
                     <div id="headerPurchase">
                         <div className="commonContainer"> 
@@ -351,7 +361,7 @@ export default class seatpicker extends React.Component {
                             <div style={styleModuleStandard} className="module-standard">  
                                 <div id="movieTicketSummary"> 
                                     <div className="moviePoster">
-                                        <img id="moviePosterImage" alt="" src="https://images.fandango.com/r1.0.589/ImageRenderer/180/272/redesign/static/img/default_poster_128x190.png/209375/images/masterrepository/fandango/209375/ifeelpretty_onesheet_rgb_10.jpg"/>
+                                        <img id="moviePosterImage" alt="" src={"http://localhost:8900/moviesImages/"+this.state.movieHall.moviePhoto} />
                                     </div>
                                     <div className="movieInfo"> 
                                         <ul class="movie-specs">
@@ -363,7 +373,7 @@ export default class seatpicker extends React.Component {
                                             <li id="theaterAddress">
                                                 <a id="maplink" href="#" target="_blank" class="emptyCheck">{this.state.movieHall.hallAddress}<br/>{this.state.movieHall.hallCity}, {this.state.movieHall.hallState} {this.state.movieHall.hallZipCode}</a> 
                                             </li>
-                                            <li className="auditorium"><h2 id="auditoriumInfo" className="emptyCheck">Auditorium 1</h2></li>
+                                            <li className="auditorium"><h2 id="auditoriumInfo" className="emptyCheck">Auditorium {this.state.movieHall.screenID}</h2></li>
                                             <li className="seats"><div id="selectedSeatIDsLabel" className="faded">Seats {this.state.selected.length==0?"not selected":this.state.selected.toString()}</div> <div id="selectedSeatIDs"></div></li>
                                             <li className="agePolicy emptyCheck"><a href="#">{this.state.movieHall.hallName.split(" ")[0]} Theatres Age Policy</a></li>
                                         </ul>

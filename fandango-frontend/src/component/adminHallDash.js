@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import '../css/admin.css';
+import {Redirect} from 'react-router-dom';
 //import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 
 class halls extends Component{
@@ -33,8 +34,13 @@ class halls extends Component{
     
    
     render(){
+        let redirectVar = null;
+        if(!localStorage.getItem('userid')){
+            redirectVar = <Redirect to= "/signin" />
+        }
         return(
             <div >
+                {redirectVar}
             <div id="headerContainer" class="purchase detail on-order" name="HeaderContainer">
                 <div id="headerPurchase">
                     <div className="commonContainer"> 

@@ -1,9 +1,9 @@
-
-
 var movieHallsModel = require('../models/moviehallsModel');
 const {ObjectId} = require('mongodb');
 var mongoose = require('../connections/mongo');
 var moviesModel = require('../models/moviesModel');
+
+const client = require('../connections/redis_cache');
 
 module.exports.createMovieHall = function(req,res,next){
     
@@ -78,6 +78,7 @@ module.exports.getMovieHalls=function(req,res,next){
     if(err){
        // console.log("Get movie error", err);
     }else{
+        client.setex(req.url, 100, JSON.stringify(halls));
         res.send(JSON.stringify(halls));  
         }
     })
@@ -103,7 +104,7 @@ module.exports.updateMovieHall=function(req,res,next){
             if(screen.movieName==req.body.moviename) {
                 tempTimings = screen.movieTimings.map((mTime) => {
                     mTime = JSON.parse(JSON.stringify(mTime));
-                    if(mTime.screenID == req.body.screenID) {
+                    if(mTime.screenID == req.body.screenID && mTime.movieDate == req.body.movieDate) {
                         req.body.seatsbooked.map((seat) => {
                             if(req.body.hallID)
                                 mTime.seats[seatArray.indexOf(seat)] = 1;
@@ -171,7 +172,6 @@ module.exports.updateMovieHall=function(req,res,next){
 }
 
 module.exports.getHallByMovieName=function(req,res,next){
-       
        var resHall=[];
        movieHallsModel.find({status:"active"}, function(err, halls) {
           if (err)
@@ -185,6 +185,7 @@ module.exports.getHallByMovieName=function(req,res,next){
                           }
                       });
                });
+           client.setex(req.url, 20, JSON.stringify(resHall));
            res.send(resHall);
       })
 } 
@@ -196,6 +197,7 @@ module.exports.getHallById=function(req,res,next){
     if(err){
        // console.log("Get movie error", err);
     }else{
+        client.setex(req.url, 20, JSON.stringify(hall));
         res.send(JSON.stringify(hall));  
         }
     });

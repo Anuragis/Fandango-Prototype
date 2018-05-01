@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import {Redirect} from 'react-router-dom';
 export default class MovieBookings extends Component {
     constructor(props) {
         super(props);
@@ -40,8 +41,13 @@ export default class MovieBookings extends Component {
         )
     }
     render() {
+        let redirectVar = null;
+        if(!localStorage.getItem('userid')){
+            redirectVar = <Redirect to= "/signin" />
+        }
         return(
             <h3>
+                {redirectVar}
                 {this.props.params.testvalue}
             </h3>
         )
