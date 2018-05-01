@@ -10,7 +10,15 @@ import '../css/checkout.css';
 class checkout extends React.Component {
     constructor(props) {
         super();
+        this.state = {
+            elapsed: 0,
+            start:new Date(),
+            count: 0,
+        }
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.tick=this.tick.bind(this);
+        this.handleSubmitForTime=this.handleSubmitForTime.bind(this);
+        this.incrementCount=this.incrementCount.bind(this);
     }
     handleSubmit = (events) => {
         // alert("checkout submit");
@@ -69,7 +77,73 @@ class checkout extends React.Component {
         .then((res) => {
             console.log("hall update res",res);
         })
+        this.handleSubmitForTime();
     } 
+    componentWillUnmount(){
+        clearInterval(this.timer);
+    }
+    
+    tick(){
+        this.setState({...this.state,elapsed: new Date() - this.state.start});
+    }
+
+    handleSubmitForTime(){
+        let userDetails = JSON.parse(localStorage.getItem('userid'));
+        var elapsed = Math.round(this.state.elapsed / 100);
+        var seconds = (elapsed / 10).toFixed(1);  
+        console.log("Inside Time ");
+        //alert("Page Count Value : " + this.state.count);
+        var url = 'http://localhost:8900/log/';
+        axios(url, {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        data: JSON.stringify({
+                time: seconds,
+                page : 'checkout',
+                pageclick : this.state.count,
+                hallticketcount: JSON.parse(localStorage.getItem('ticketBoxOfficeState')).totalTickets,
+                movierating:0,
+                movie : this.state.movieHall.movieName,
+                movieclick : 0,
+                fname : userDetails.fName,
+                lname : userDetails.lName,
+                state : "CA",
+                city : "New York",
+                hall : this.state.movieHall.movieName,
+                hallbooking: JSON.parse(localStorage.getItem('ticketBoxOfficeState')).totalSum,
+                moviebooking: JSON.parse(localStorage.getItem('ticketBoxOfficeState')).totalSum,
+                bookingdate: new Date().toISOString().slice(0,10)
+
+            })
+            
+            
+        }).then((res) => {
+            console.log("Response sent");
+        });
+
+    }
+
+    incrementCount = () => {
+        
+        this.setState(
+            {...this.state, count: this.state.count + 1 }
+        );
+        //alert("Count Value : " + this.state.count);
+    };
+
+    componentWillMount() {
+        this.setState({
+            movieHall: JSON.parse(localStorage.getItem('movieHall'))
+        })
+    }
+
+    componentDidMount(){
+        this.timer = setInterval(this.tick, 50);
+    }
     render() {
         return (
             <div id="siteContainer" className="ticketBoxoffice">
@@ -96,7 +170,7 @@ class checkout extends React.Component {
                     </div>
                     <div className="row">
                         <div className="main">
-                            <div className="module-standard">
+                            <div className="module-standard" onClick={this.incrementCount}>
                                 <div> 
                                     <h3 class="offerHeading">For Fandango VIPs</h3>
                                     <ul class="offerList">
