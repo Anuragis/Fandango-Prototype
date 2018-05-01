@@ -14,11 +14,17 @@ class moviedetails extends Component{
         this.state = {
 			movieDetails : [],
 			rate : "",
-			reviewText: ""
-
-        }
+			reviewText: "",
+			elapsed: 0,
+            start:new Date(),
+            count: 0
+		}
+		this.tick=this.tick.bind(this);
+        this.handleSubmitForTime=this.handleSubmitForTime.bind(this);
+        this.incrementCount=this.incrementCount.bind(this);
     }
 	componentDidMount(){
+		this.timer = setInterval(this.tick, 50);
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Accept', 'application/json');
@@ -33,6 +39,14 @@ class moviedetails extends Component{
                 });
             });
 	}
+
+	componentWillUnmount(){
+        clearInterval(this.timer);
+    }
+
+    tick(){
+        this.setState({...this.state,elapsed: new Date() - this.state.start});
+    }
 	submitReview(events){
 		console.log("STate Movie Details : ", this.state.movieDetails[0]);
 		let localStore = JSON.parse(localStorage.getItem('userid'));
@@ -98,6 +112,58 @@ class moviedetails extends Component{
 			reviewText : events.target.value
 		});
 	}
+
+	incrementCount = () => {
+		this.setState(
+            {...this.state, count: this.state.count + 1 }
+        );
+	};
+
+	handleSubmitForTime(events,nextPage,movieName){
+        console.log("Page Count : ", this.state.count);
+        //events.preventDefault();
+        let userDetails = JSON.parse(localStorage.getItem('userid'));
+		let prevPage = localStorage.getItem('currentPage');
+		console.log("Page Value to Set : ",prevPage);
+        localStorage.setItem('currentPage',nextPage);
+        var elapsed = Math.round(this.state.elapsed / 100);
+        var seconds = (elapsed / 10).toFixed(1);  
+        console.log("Inside Time ");
+        //alert("Page Count Value : " + this.state.count);
+        var url = 'http://localhost:8900/log/';
+        axios(url, {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        data: JSON.stringify({
+                time: seconds,
+                page :prevPage,
+                pageclick : this.state.count,
+                hallticketcount:0,
+                movierating:0,
+                movie : "",
+                movieclick : 0,
+                fname : userDetails.fName,
+                lname : userDetails.lName,
+                state : userDetails.state,
+                city : userDetails.city,
+                hall : "",
+                hallbooking:0,
+                moviebooking:0,
+                bookingdate:""
+
+            })
+            
+            
+        }).then((res) => {
+            console.log("Response sent");
+        });
+
+}
+
     render(){
 		let redirectVar = null;
 		if(!localStorage.getItem('userid')){
@@ -214,7 +280,7 @@ class moviedetails extends Component{
 						</div>
 					</section>
 					<br/>
-					<div style = {{width : '370px', float : 'left', paddingLeft : '50px'}} class="msp__movie-details-container">
+					<div onClick={this.incrementCount} style = {{width : '370px', float : 'left', paddingLeft : '50px'}} class="msp__movie-details-container">
 					<section class="movie-details">
 						<a class="movie-details__mop-link" href="/avengers-infinity-war-199925/movie-overview">
 							<img class="movie-details__movie-img visual-thumb" src={"http://localhost:8900/moviesImages/"+moviePhoto} alt="Movie Poster"/>
@@ -244,7 +310,7 @@ class moviedetails extends Component{
 							<a class="js-offer-cta movie-offer__flag icon-gift-box-white" data-offer-id="282">SPECIAL OFFER</a>
 						</section>
 					</section> 
-					<Link to="/movieTimeHalls">See All Theatre and Movie Times</Link>
+					<Link onClick = {(e) => this.handleSubmitForTime(e,'movieTimeHalls',movieName)} to="/movieTimeHalls">See All Theatre and Movie Times</Link>
 				</div>
 				<div id="DIV_85" style = {{width : '560px', height : '500px', float : 'left'}}>
 						<section id="SECTION_86">

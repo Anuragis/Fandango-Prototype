@@ -307,7 +307,7 @@ class MovieTimeTicket extends Component {
             dates.push(
 
                 <li class="date-picker__date date-picker__date--selected" data-show-time-date="2018-04-18">
-                    <a onClick = {(e) => this.handleFilterMovieByDate(e,d2)} href="?date=2018-04-18" class="date-picker__link">
+                    <a onClick = {(e) => this.handleFilterMovieByDate(e,d2)}  class="date-picker__link">
                     <span class="date-picker__date-weekday">{weekdays[d1.getDay()]}</span>
                     <span class="date-picker__date-month">{months[d1.getMonth()]}</span>
                     <span class="date-picker__date-day">{d1.getDate()}</span>
@@ -318,7 +318,7 @@ class MovieTimeTicket extends Component {
             dates.push(
 
                 <li class="date-picker__date " data-show-time-date="2018-04-20">
-                    <a href="?date=2018-04-20" class="date-picker__link">
+                    <a onClick = {(e) => this.handleFilterMovieByDate(e,d2)}  class="date-picker__link">
                         <span class="date-picker__date-weekday">{weekdays[d1.getDay()]}</span>
                         <span class="date-picker__date-month">{months[d1.getMonth()]}</span>
                         <span class="date-picker__date-day">{d1.getDate()}</span>

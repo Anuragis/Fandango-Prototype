@@ -7,6 +7,7 @@ import '../css/foundation.css';
 import '../css/nav.css';
 import '../css/vipregistration.css';
 import { Link } from 'react-router-dom';
+import Redirect from 'react-router-dom/Redirect';
 
 class SignUp extends Component {
     constructor(props) {
@@ -66,8 +67,13 @@ class SignUp extends Component {
     }
 
     render() {
+        let redirectVar = null;
+        if(this.props.id){
+          redirectVar = <Redirect to="signin"/>
+        }
         return (
           <div>
+            {redirectVar}
             <div style = {{backgroundColor : "black"}}>
               <header id="registration-header" className="registration-header" role="banner">
                 <nav role="navigation" className="nav-bar">
@@ -112,6 +118,7 @@ class SignUp extends Component {
 
 const mapStateToProps = state => {
   return {
+      id : state.id,
       fname       : state.fname,
       passwordOne : state.passwordOne,
       passwordTwo :state.passwordTwo,
