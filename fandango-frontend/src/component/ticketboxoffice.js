@@ -118,8 +118,16 @@ export default class ticketboxoffice extends React.Component {
     }
 
     HandleState = () => {
-        localStorage.setItem('ticketBoxOfficeState', JSON.stringify(this.state));
+        localStorage.setItem('ticketBoxOfficeState', JSON.stringify({totalTickets: this.state.totalTickets,
+            totalSum: this.state.totalSum,
+            row1Sum: this.state.row1Sum,
+            row2Sum: this.state.row2Sum,
+            row3Sum: this.state.row3Sum}));
         this.handleSubmitForTime();
+    }
+
+    componentDidMount(){
+        this.timer = setInterval(this.tick, 50);
     }
 
     render() {
