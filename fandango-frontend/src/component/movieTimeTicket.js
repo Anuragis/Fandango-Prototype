@@ -5,6 +5,7 @@ import axios from 'axios';
 import {Link} from 'react-router-dom';
 import _ from 'lodash';
 import Redirect from 'react-router-dom/Redirect';
+import StarRatings from 'react-star-ratings';
 
 
 class MovieTimeTicket extends Component {
@@ -135,6 +136,9 @@ class MovieTimeTicket extends Component {
         else this.setState({sortDirArrow : '↓ '})
     }
 
+    handleFilterMovieByDate(e,Date){
+
+    }
 
   render() {
     let redirectVar = null;
@@ -173,10 +177,11 @@ class MovieTimeTicket extends Component {
           }, order); 
         }
         //------filter
-    let movieData = null, movieTimings = null, moviePhoto = "";
-let hallData = hallFilter.map(hall => {
+    let movieData = null, movieTimings = null, moviePhoto = "",avgRating = 0;
+    let hallData = hallFilter.map(hall => {
 	movieData = hall.screens.map(movie => {
-        moviePhoto = movie.moviePhoto
+        moviePhoto = movie.moviePhoto;
+        avgRating = movie.avgReviewRating;
 		movieTimings = movie.movieTimings.map(timings => {
 			return(
 				
@@ -210,7 +215,14 @@ let hallData = hallFilter.map(hall => {
 						</div>
 						<p class="fd-movie__rating-runtime">
 								{movie.movieLength}<br />
-								{movie.movieCategory}
+                                {movie.movieCategory}<br/><br/>
+                                <StarRatings
+                                    rating={avgRating}
+                                    starRatedColor="gold"
+                                    numberOfStars={5}
+                                    starDimension="20px"
+                                    starSpacing="5px"
+                                />
 							  </p>
 						</div>
 						<ul class="fd-movie__showtimes">
@@ -330,7 +342,7 @@ let hallData = hallFilter.map(hall => {
                     <section class="date-picker carousel js-movie-calendar carousel-style-strip" data-jcarousel="true">
                         <ul id="scroll-date-picker__list" class="carousel-items" >
                           <li class="date-picker__date date-picker__date--selected" data-show-time-date="2018-04-18">
-                              <a href="?date=2018-04-18" class="date-picker__link">
+                              <a onClick = {(e) => this.handleFilterMovieByDate(e,'2018-04-30')} href="?date=2018-04-18" class="date-picker__link">
                               <span class="date-picker__date-weekday">Today</span>
                               <span class="date-picker__date-month">Apr</span>
                               <span class="date-picker__date-day">18</span>
@@ -339,7 +351,7 @@ let hallData = hallFilter.map(hall => {
                           <li class="
                               date-picker__date 
                               " data-show-time-date="2018-04-19">
-                              <a href="?date=2018-04-19" class="date-picker__link">
+                              <a onClick = {(e) => this.handleFilterMovieByDate(e,'2018-04-30')}  href="?date=2018-04-19" class="date-picker__link">
                               <span class="date-picker__date-weekday">Thur</span>
                               <span class="date-picker__date-month">Apr</span>
                               <span class="date-picker__date-day">19</span>
@@ -348,7 +360,7 @@ let hallData = hallFilter.map(hall => {
                           <li class="
                               date-picker__date 
                               " data-show-time-date="2018-04-20">
-                              <a href="?date=2018-04-20" class="date-picker__link">
+                              <a  onClick = {(e) => this.handleFilterMovieByDate(e,'2018-04-30')}  href="?date=2018-04-20" class="date-picker__link">
                               <span class="date-picker__date-weekday">Fri</span>
                               <span class="date-picker__date-month">Apr</span>
                               <span class="date-picker__date-day">20</span>
@@ -357,7 +369,7 @@ let hallData = hallFilter.map(hall => {
                           <li class="
                               date-picker__date 
                               " data-show-time-date="2018-04-21">
-                              <a href="?date=2018-04-21" class="date-picker__link">
+                              <a onClick = {(e) => this.handleFilterMovieByDate(e,'2018-04-30')}  href="?date=2018-04-21" class="date-picker__link">
                               <span class="date-picker__date-weekday">Sat</span>
                               <span class="date-picker__date-month">Apr</span>
                               <span class="date-picker__date-day">21</span>
@@ -366,7 +378,7 @@ let hallData = hallFilter.map(hall => {
                           <li class="
                               date-picker__date 
                               " data-show-time-date="2018-04-22">
-                              <a href="?date=2018-04-22" class="date-picker__link">
+                              <a onClick = {(e) => this.handleFilterMovieByDate(e,'2018-04-30')}  href="?date=2018-04-22" class="date-picker__link">
                               <span class="date-picker__date-weekday">Sun</span>
                               <span class="date-picker__date-month">Apr</span>
                               <span class="date-picker__date-day">22</span>
@@ -375,7 +387,7 @@ let hallData = hallFilter.map(hall => {
                           <li class="
                               date-picker__date 
                               " data-show-time-date="2018-04-23">
-                              <a href="?date=2018-04-23" class="date-picker__link">
+                              <a onClick = {(e) => this.handleFilterMovieByDate(e,'2018-04-30')}  href="?date=2018-04-23" class="date-picker__link">
                               <span class="date-picker__date-weekday">Mon</span>
                               <span class="date-picker__date-month">Apr</span>
                               <span class="date-picker__date-day">23</span>
@@ -384,7 +396,7 @@ let hallData = hallFilter.map(hall => {
                           <li class="
                               date-picker__date 
                               " data-show-time-date="2018-04-24">
-                              <a href="?date=2018-04-24" class="date-picker__link">
+                              <a onClick = {(e) => this.handleFilterMovieByDate(e,'2018-04-30')}  href="?date=2018-04-24" class="date-picker__link">
                               <span class="date-picker__date-weekday">Tues</span>
                               <span class="date-picker__date-month">Apr</span>
                               <span class="date-picker__date-day">24</span>
@@ -393,7 +405,7 @@ let hallData = hallFilter.map(hall => {
                           <li class="
                               date-picker__date 
                               " data-show-time-date="2018-04-25">
-                              <a href="?date=2018-04-25" class="date-picker__link">
+                              <a  onClick = {(e) => this.handleFilterMovieByDate(e,'2018-04-30')}  href="?date=2018-04-25" class="date-picker__link">
                               <span class="date-picker__date-weekday">Wed</span>
                               <span class="date-picker__date-month">Apr</span>
                               <span class="date-picker__date-day">25</span>
@@ -402,7 +414,7 @@ let hallData = hallFilter.map(hall => {
                           <li class="
                               date-picker__date 
                               " data-show-time-date="2018-04-26">
-                              <a href="?date=2018-04-26" class="date-picker__link">
+                              <a onClick = {(e) => this.handleFilterMovieByDate(e,'2018-04-30')}  href="?date=2018-04-26" class="date-picker__link">
                               <span class="date-picker__date-weekday">Thur</span>
                               <span class="date-picker__date-month">Apr</span>
                               <span class="date-picker__date-day">26</span>
@@ -411,7 +423,7 @@ let hallData = hallFilter.map(hall => {
                           <li class="
                               date-picker__date 
                               " data-show-time-date="2018-04-27">
-                              <a href="?date=2018-04-27" class="date-picker__link">
+                              <a onClick = {(e) => this.handleFilterMovieByDate(e,'2018-04-30')}  href="?date=2018-04-27" class="date-picker__link">
                               <span class="date-picker__date-weekday">Fri</span>
                               <span class="date-picker__date-month">Apr</span>
                               <span class="date-picker__date-day">27</span>
@@ -420,7 +432,7 @@ let hallData = hallFilter.map(hall => {
                           <li class="
                               date-picker__date 
                               " data-show-time-date="2018-04-28">
-                              <a href="?date=2018-04-28" class="date-picker__link">
+                              <a onClick = {(e) => this.handleFilterMovieByDate(e,'2018-04-30')}  href="?date=2018-04-28" class="date-picker__link">
                               <span class="date-picker__date-weekday">Sat</span>
                               <span class="date-picker__date-month">Apr</span>
                               <span class="date-picker__date-day">28</span>
@@ -429,7 +441,7 @@ let hallData = hallFilter.map(hall => {
                           <li class="
                               date-picker__date 
                               " data-show-time-date="2018-04-29">
-                              <a href="?date=2018-04-29" class="date-picker__link">
+                              <a onClick = {(e) => this.handleFilterMovieByDate(e,'2018-04-30')}  href="?date=2018-04-29" class="date-picker__link">
                               <span class="date-picker__date-weekday">Sun</span>
                               <span class="date-picker__date-month">Apr</span>
                               <span class="date-picker__date-day">29</span>
@@ -438,7 +450,7 @@ let hallData = hallFilter.map(hall => {
                           <li class="
                               date-picker__date 
                               " data-show-time-date="2018-04-30">
-                              <a href="?date=2018-04-30" class="date-picker__link">
+                              <a onClick = {(e) => this.handleFilterMovieByDate(e,'2018-04-30')}  href="?date=2018-04-30" class="date-picker__link">
                               <span class="date-picker__date-weekday">Mon</span>
                               <span class="date-picker__date-month">Apr</span>
                               <span class="date-picker__date-day">30</span>
@@ -447,7 +459,7 @@ let hallData = hallFilter.map(hall => {
                           <li class="
                               date-picker__date 
                               " data-show-time-date="2018-05-01">
-                              <a href="?date=2018-05-01" class="date-picker__link">
+                              <a onClick = {(e) => this.handleFilterMovieByDate(e,'2018-04-30')}  href="?date=2018-05-01" class="date-picker__link">
                               <span class="date-picker__date-weekday">Tues</span>
                               <span class="date-picker__date-month">May</span>
                               <span class="date-picker__date-day">01</span>
@@ -456,7 +468,7 @@ let hallData = hallFilter.map(hall => {
                           <li class="
                               date-picker__date 
                               " data-show-time-date="2018-05-02">
-                              <a href="?date=2018-05-02" class="date-picker__link">
+                              <a onClick = {(e) => this.handleFilterMovieByDate(e,'2018-04-30')}  href="?date=2018-05-02" class="date-picker__link">
                               <span class="date-picker__date-weekday">Wed</span>
                               <span class="date-picker__date-month">May</span>
                               <span class="date-picker__date-day">02</span>
@@ -465,7 +477,7 @@ let hallData = hallFilter.map(hall => {
                           <li class="
                               date-picker__date 
                               " data-show-time-date="2018-05-03">
-                              <a href="?date=2018-05-03" class="date-picker__link">
+                              <a onClick = {(e) => this.handleFilterMovieByDate(e,'2018-04-30')}  href="?date=2018-05-03" class="date-picker__link">
                               <span class="date-picker__date-weekday">Thur</span>
                               <span class="date-picker__date-month">May</span>
                               <span class="date-picker__date-day">03</span>

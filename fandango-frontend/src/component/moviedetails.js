@@ -6,7 +6,7 @@ import axios from 'axios';
 import '../css/stars.css';
 import {Link} from 'react-router-dom';
 import Redirect from 'react-router-dom/Redirect';
-
+import StarRatings from 'react-star-ratings';
 
 class moviedetails extends Component{
 	constructor(props) {
@@ -43,6 +43,14 @@ class moviedetails extends Component{
 			"fName" : localStore.fName,
 			"lName" : localStore.lName 
 		}
+		var avgReviewRating = 0;
+		if(this.state.movieDetails[0].reviews){
+			avgReviewRating = (((this.state.movieDetails[0].avgReviewRating * this.state.movieDetails[0].reviews.length) + Number(this.state.rate))/(this.state.movieDetails[0].reviews.length + 1))
+		}else{
+			avgReviewRating = (Number(this.state.rate));
+		}
+		console.log("Average Rating : ",avgReviewRating);
+		alert("Average rating : " + avgReviewRating);
 		var reviewObj;
 		if(this.state.movieDetails[0].reviews){
 			reviewObj = this.state.movieDetails[0].reviews
@@ -62,7 +70,8 @@ class moviedetails extends Component{
 			releaseDate: this.state.movieDetails[0].releaseDate,
 			movieRating: this.state.movieDetails[0].movieRating,
 			screen:this.state.movieDetails[0].screen,
-			reviews:reviewObj
+			reviews:reviewObj,
+			avgReviewRating : avgReviewRating
 		}
 		console.log("Review Data :", reviewsData);
 		var url = 'http://localhost:8900/movie/' + localStorage.getItem('movieID');
@@ -217,7 +226,6 @@ class moviedetails extends Component{
 								{movieLength}
 							</li>
 							<li>{movieCategory}</li>
-							
 						<li>
 						</li>
 						
