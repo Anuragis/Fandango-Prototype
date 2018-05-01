@@ -39,7 +39,7 @@ class halls extends Component{
                 <div id="headerPurchase">
                     <div className="commonContainer"> 
                         <div id="logo">
-                            <a href="http://www.fandango.com/" title="Click to go to Fandango homepage">Fandango Home</a>
+                        <Link to = "/"></Link>
                         </div>
                         <div id="bannerMessage">You're a guaranteed ticket away from the perfect movie night.</div>
                     </div>

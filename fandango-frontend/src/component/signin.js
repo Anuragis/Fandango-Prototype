@@ -5,6 +5,7 @@ import { signinAction } from '../actions/actions';
 import '../css/signin.css';
 import Redirect from 'react-router-dom/Redirect';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 class SignIn extends Component {
@@ -131,7 +132,7 @@ class SignIn extends Component {
                       </li>
                     </ul>
                     <div class="registration-mode right">
-                      <span>Already have a Fandango VIP Account?</span> &nbsp;<a href="#" class="cta">Sign In</a>
+                      <span>Do not have a Fandango Account?</span> &nbsp;<Link to = "/signup" class="cta">Sign Up</Link>
                     </div>
                   </div>
                 </div>

@@ -6,6 +6,7 @@ import { signupAction } from '../actions/actions';
 import '../css/foundation.css';
 import '../css/nav.css';
 import '../css/vipregistration.css';
+import { Link } from 'react-router-dom';
 
 class SignUp extends Component {
     constructor(props) {
@@ -78,7 +79,7 @@ class SignUp extends Component {
                         </li>
                       </ul>
                       <div className="registration-mode right">
-                        <span>Already have a Fandango VIP Account?</span> &nbsp;<a href="#" className="cta">Sign In</a>
+                        <span>Already have a Fandango VIP Account?</span> &nbsp;<Link to = "/signin" class="cta">Sign In</Link>
                       </div>
                     </div>
                   </div>
