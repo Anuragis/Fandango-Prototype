@@ -54,6 +54,9 @@ class SignUp extends Component {
     }
 
     handleSubmit = (events) =>{
+        if(this.state.passwordOne !== this.state.passwordTwo){
+          alert("Passwords do not match");
+        }
         events.preventDefault();
         const newData = {
             fName : this.state.fname,

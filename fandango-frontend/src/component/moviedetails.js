@@ -120,6 +120,7 @@ class moviedetails extends Component{
 	};
 
 	handleSubmitForTime(events,nextPage,movieName){
+		localStorage.setItem('movieName',movieName);
         console.log("Page Count : ", this.state.count);
         //events.preventDefault();
         let userDetails = JSON.parse(localStorage.getItem('userid'));
