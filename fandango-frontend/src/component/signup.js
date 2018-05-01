@@ -70,7 +70,6 @@ class SignUp extends Component {
     }
 
     render() {
-<<<<<<< HEAD
       let errorMsg=null;
       if(this.props.error){
         console.log("Error Msg Value : "+this.props.error);
@@ -80,12 +79,10 @@ class SignUp extends Component {
             </div>
         );
       }
-=======
         let redirectVar = null;
         if(this.props.id){
           redirectVar = <Redirect to="signin"/>
         }
->>>>>>> 73d35dbe3b4b603ff104d24ae4fd35002676f868
         return (
           <div>
             {redirectVar}
