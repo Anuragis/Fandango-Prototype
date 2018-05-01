@@ -142,6 +142,7 @@ class MovieTimeTicket extends Component {
 			redirectVar = <Redirect to= "/signin" />
 	}
     function handletransaction(e,hall,movie,timings){
+        console.log("Inside Transaction : ", timings);
         var transactionData = {
             "hallID":hall._id,
             "movieName": movie.movieName,
@@ -155,7 +156,9 @@ class MovieTimeTicket extends Component {
             "hallState": hall.hallState,
             "movieTime": timings.movieTime,
             "seats": timings.seats,
-            "moviePhoto" : movie.moviePhoto
+            "moviePhoto" : movie.moviePhoto,
+            "hallPrice" : hall.hallPrice,
+            "movieDate" : timings.movieDate
         }
         localStorage.setItem('movieHall', JSON.stringify(transactionData));
     }

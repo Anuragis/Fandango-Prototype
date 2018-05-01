@@ -38,7 +38,7 @@ module.exports.createMovieHall = function(req,res,next){
             movieLength:req.body.screens[i].movieLength,
             movieCategory:req.body.screens[i].movieCategory,
             moviePhoto : req.body.screens[i].moviePhoto,
-            price:req.body.screens[i].price
+            avgReviewRating : req.body[i].avgReviewRating
         }
         screenArr.push(screen);    
       

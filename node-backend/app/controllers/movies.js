@@ -29,6 +29,7 @@ module.exports.createMovie = function(req,res,next){
         newMovie.moviePhoto = req.body.moviePhoto;
         newMovie.screen = req.body.screen;
         newMovie.reviews=null;
+        newMovie.avgReviewRating = req.body.avgReviewRating;
         newMovie.status="active";
         console.log('before save', newData);
         newMovie.save(function(err,movie) {
@@ -122,7 +123,8 @@ module.exports.updateMovie=function(req,res,next){
         releaseDate: req.body.releaseDate,
         movieRating: req.body.movieRating,
         screen:req.body.screen,
-        reviews:req.body.reviews
+        reviews:req.body.reviews,
+        avgReviewRating : req.body.avgReviewRating
     
     } }, {new:true}, function(err, movie) {
         console.log("Movie id",mid);

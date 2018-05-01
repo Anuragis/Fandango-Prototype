@@ -15,8 +15,8 @@ var connection = mongoose.createConnection('mongodb://cmpeuser:cmpepass@ds247569
         movieRating:{type:String},
         moviePhoto: { type : String},
         movieLength:{type:String},
-        movieCategory: { type :  String}
-        
+        movieCategory: { type :  String},
+        avgReviewRating : {type : Number}
     });
 
     var moviehallsSchema = new Schema({
