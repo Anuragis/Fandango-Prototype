@@ -57,7 +57,7 @@ class SignUp extends Component {
         if(this.state.passwordOne !== this.state.passwordTwo){
           alert("Passwords do not match");
         }
-        events.preventDefault();
+        // events.preventDefault();
         const newData = {
             fName : this.state.fname,
             lName : this.state.lname,
@@ -106,7 +106,7 @@ class SignUp extends Component {
             </div>  
             <div className="container">
 
-              <form className="form-signin" onSubmit = {this.handleSubmit.bind(this)}>
+              <form className="form-signin" >
 
                 <h2 className="form-signin-heading">Sign Up</h2><br/>
 
@@ -122,7 +122,7 @@ class SignUp extends Component {
 
                 <input type="password" onChange = {this.handleChange} id="inputPasswordTwo" name = "inputPasswordTwo" className="form-control" placeholder="Confirm Password" required /> <br/>             
                 
-                <Link to="/signin" type="submit" className="btn btn-primary form-control">Sign Up</Link>
+                <Link to="/signin" onClick = {this.handleSubmit.bind(this)} className="btn btn-primary form-control">Sign Up</Link>
 
                 
 
