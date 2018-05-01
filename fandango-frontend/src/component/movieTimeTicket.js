@@ -6,8 +6,6 @@ import {Link} from 'react-router-dom';
 import _ from 'lodash';
 import Redirect from 'react-router-dom/Redirect';
 import StarRatings from 'react-star-ratings';
-
-
 class MovieTimeTicket extends Component {
   constructor(props) {
     super(props);
@@ -20,6 +18,8 @@ class MovieTimeTicket extends Component {
     }
     this.inpTerm = this.inpTerm.bind(this);
     this.toggle = this.toggle.bind(this);
+    this.handleFilterMovieByDate = this.handleFilterMovieByDate.bind(this);
+
   }
 
   inpTerm(inputTerm) {
@@ -98,6 +98,7 @@ class MovieTimeTicket extends Component {
             });
 
             console.log("Halls", this.state.halls);
+            console.log("Initial state Halls", this.state.initialHalls);
         });
     document.getElementById("scroll-date-picker__list").style.left = "0px";
   }
@@ -136,7 +137,13 @@ class MovieTimeTicket extends Component {
         else this.setState({sortDirArrow : '↓ '})
     }
 
-    handleFilterMovieByDate(e,Date){
+    handleFilterMovieByDate(e,Date1){
+        e.preventDefault();
+       
+       let updatedHalls =_.filter(this.state.initialHalls, {screens:[{movieTimings:[{movieDate:Date1}]}]});
+       this.setState({
+            halls:updatedHalls
+        });
 
     }
 
