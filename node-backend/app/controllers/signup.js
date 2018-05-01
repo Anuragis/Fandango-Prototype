@@ -18,7 +18,7 @@ module.exports.signUp = function(req,res,next){
 
         if(user){
             console.log('email already exist');
-            res.send();
+            res.send(400);
         } else {
                 newUser.fName = req.body.fName;
                 newUser.lName = req.body.lName;

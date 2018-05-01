@@ -5,10 +5,22 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     if(action.type === 'SUCCESS'){
-        return{
-            ...initialState,
-            id : action.payload.data
+        console.log('Inside reducer', action);
+        console.log('Payload', action.payload.data);
+
+        if(action.payload.data != null) {
+            return{
+                ...initialState,
+                id : action.payload.data
+            }
         }
+        else {
+            return{
+                ...initialState,
+                error : true
+            }
+        }
+        
 
     }
     if(action.type === 'ERROR'){

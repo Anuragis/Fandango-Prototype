@@ -66,6 +66,15 @@ class SignUp extends Component {
     }
 
     render() {
+      let errorMsg=null;
+      if(this.props.error){
+        console.log("Error Msg Value : "+this.props.error);
+        errorMsg = (
+            <div className="myErrorMsg">
+                Email already in use.
+            </div>
+        );
+      }
         return (
           <div>
             <div style = {{backgroundColor : "black"}}>
@@ -96,6 +105,8 @@ class SignUp extends Component {
 
                 <input type="text" onChange = {this.handleChange} id="Lname" name = "Lname" className="form-control" placeholder="Last Name" required />
 
+                <p className="errMsg">{errorMsg}</p>
+
                 <input type="email" onChange = {this.handleChange} id="Email" name = "Email" className="form-control" placeholder="Email" required/><br/>
 
                 <input type="password" onChange = {this.handleChange} id="inputPasswordOne" name = "inputPasswordOne" className="form-control" placeholder="Password" required /><br/>
@@ -104,17 +115,20 @@ class SignUp extends Component {
                 
                 <input type="submit" value="Sign Up" className="btn btn-primary form-control"/>
 
+                
+
               </form>
             </div>
         </div>    
     )}
-}
-
+  }
+  
 const mapStateToProps = state => {
   return {
       fname       : state.fname,
       passwordOne : state.passwordOne,
       passwordTwo :state.passwordTwo,
+      error : state.error
   };
 };
 

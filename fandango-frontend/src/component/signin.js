@@ -122,32 +122,32 @@ class SignIn extends Component {
       <div onClick={this.incrementCount}>
         {redirectVar}
         <div style = {{backgroundColor : "black"}}>
-          <header id="registration-header" class="registration-header" role="banner">
-              <nav role="navigation" class="nav-bar">
-                <div class="row">
-                  <div class="large-11 large-centered columns">
-                    <ul class="inline-items">
-                      <li class="site-logo">
-                          <img src="https://images.fandango.com/r1.0.431/redesign/static/img/fandango-logo.svg" alt="Fandango Logo" class="brand-img"/>
+          <header id="registration-header" className="registration-header" role="banner">
+              <nav role="navigation" className="nav-bar">
+                <div className="row">
+                  <div className="large-11 large-centered columns">
+                    <ul className="inline-items">
+                      <li className="site-logo">
+                          <img src="https://images.fandango.com/r1.0.431/redesign/static/img/fandango-logo.svg" alt="Fandango Logo" className="brand-img"/>
                       </li>
                     </ul>
-                    <div class="registration-mode right">
-                      <span>Do not have a Fandango Account?</span> &nbsp;<Link to = "/signup" class="cta">Sign Up</Link>
+                    <div className="registration-mode right">
+                      <span>Do not have a Fandango Account?</span> &nbsp;<Link to = "/signup" className="cta">Sign Up</Link>
                     </div>
                   </div>
                 </div>
               </nav>
             </header>
           </div>
-          <div class="container">
-            <form class="form-signin" onSubmit = {this.handleSubmit.bind(this)}>
-              <h2 class="form-signin-heading">Please sign in</h2><br/>
+          <div className="container">
+            <form className="form-signin" onSubmit = {this.handleSubmit.bind(this)}>
+              <h2 className="form-signin-heading">Please sign in</h2><br/>
               <p className="errMsg">{errorMsg}</p>
-              <label for="inputEmail" class="sr-only">Email address</label>
-              <input type="email" name = "email" id="inputEmail" onChange = {this.handleChange} class="form-control" placeholder="Email address" required="" autofocus=""/>
+              <label htmlFor="inputEmail" className="sr-only">Email address</label>
+              <input type="email" name = "email" id="inputEmail" onChange = {this.handleChange} className="form-control" placeholder="Email address" required="" autoFocus=""/>
               <br/>
-              <label for="inputPassword" class="sr-only">Password</label>
-              <input onChange = {this.handleChange} type="email" name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required=""/>
+              <label htmlFor="inputPassword" className="sr-only">Password</label>
+              <input onChange = {this.handleChange} type="email" name="password" type="password" id="inputPassword" className="form-control" placeholder="Password" required=""/>
               
               <input type="submit" value="Sign In" className="btn btn-primary form-control"/>
 
