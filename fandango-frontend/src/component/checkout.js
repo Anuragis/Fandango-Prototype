@@ -17,6 +17,18 @@ class checkout extends React.Component {
             start:new Date(),
             count: 0,
             message: '',
+            cardnumber:'',
+            cardNumberError:'',
+            expirymonthError:'',
+            expiryyearError:'',
+            firstcardError:'',
+            lastcardError:'',
+            zipError:'',
+            firstcard:'',
+            lastcard:'',
+            expirymonth:'',
+            expiryyear:'',
+            zip:'',
             error : true
         }
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -28,15 +40,36 @@ class checkout extends React.Component {
         // alert("checkout submit");
         let isError = false;
         const errors = {
-            firstNameError: "",
-            emailError: "",
-            zipCodeError: "",
-            stateError: "",
+            firstcardError: "",
+            lastcardError: "",
+            zipError: "",
+            expirymonthError: "",
+            expiryyearError:"",
             cardNumberError:""
         };
         if( this.state.cardnumber.length!==16){
             isError = true;
             errors.cardNumberError = "Card Number must be 16 digit and numeric only";
+        }
+        if( this.state.expirymonth==0){
+            isError = true;
+            errors.expirymonthError = "Expiry Month Invalid";
+        }
+        if( this.state.expiryyear==0){
+            isError = true;
+            errors.expiryyearError = "Expiry Year Invalid";
+        }
+        if( this.state.firstcard.length==0){
+            isError = true;
+            errors.firstcardError = "Invalid FirstName";
+        }
+        if( this.state.lastcard.length==0){
+            isError = true;
+            errors.lastcardError = "Invalid LastName";
+        }
+        if( this.state.zip.length!=5){
+            isError = true;
+            errors.zipError = "Invalid Zip Code";
         }
 
         this.setState({
@@ -46,7 +79,7 @@ class checkout extends React.Component {
           });
       
          
-        if(isError) {
+        if(!isError) {
             let movieHallParse = JSON.parse(localStorage.getItem('movieHall'));
             let useridparse = JSON.parse(localStorage.getItem('userid'));
             console.log("useridparse ",useridparse);
@@ -141,8 +174,8 @@ class checkout extends React.Component {
                 movieclick : 0,
                 fname : userDetails.fName,
                 lname : userDetails.lName,
-                state : "CA",
-                city : "New York",
+                state : userDetails.state,
+                city : userDetails.city,
                 hall : this.state.movieHall.movieName,
                 hallbooking: JSON.parse(localStorage.getItem('ticketBoxOfficeState')).totalSum,
                 moviebooking: JSON.parse(localStorage.getItem('ticketBoxOfficeState')).totalSum,
@@ -173,16 +206,21 @@ class checkout extends React.Component {
 
     componentDidMount(){
         this.timer = setInterval(this.tick, 50);
+        //console.log("link",ReactDOM.findDOMNode(this.refs.checkPay));
     }
     render() {
         let redirectVar = null;
         if(!localStorage.getItem('userid')){
             redirectVar = <Redirect to= "/signin" />
         }
-        var ConditionalLink = !this.state.error ? Link : ReactDOM.findDOM.div;
+        var ConditionalLink = !this.state.error ? "/transaction/confirmation" : "/transaction/checkout";//Link : 'div';
+        let redirectLink = null;
+        if(!this.state.error)
+            redirectLink = <Redirect to= "/transaction/confirmation" />
         return (
             <div id="siteContainer" className="ticketBoxoffice">
                 {redirectVar}
+                {redirectLink}
                 <div id="headerContainer" class="purchase detail on-order" name="HeaderContainer">
                     <div id="headerPurchase">
                         <div className="commonContainer"> 
@@ -245,6 +283,7 @@ class checkout extends React.Component {
                                                 <input name="ExpressWebCheckout$PaymentView$creditCardNoInput" type="text" id="creditCardNoInput" class="input card display" min="20" maxlength="19" title="Card number" value={this.state.cardnumber} onChange={(event)=>{
                                                     this.setState({cardnumber: event.target.value,cardNumberError:"",message:""})
                                                 }} />
+                                                <p className="errMsg">{this.state.cardNumberError}</p>
                                             </div>
                                             <div class="card fieldContainer display">
                                                 <label id="expLabel" class="card display" for="expMonthDropdown">Expiration date</label>  
@@ -266,6 +305,7 @@ class checkout extends React.Component {
                                                         <option value="11">11 - November</option>
                                                         <option value="12">12 - December</option>
                                                     </select>
+                                                    <p className="errMsg">{this.state.expirymonthError}</p>
                                                 </div> 
                                                 <div class="expYearDropdown"> 
                                                     <select name="ExpressWebCheckout$PaymentView$expYearDropdown" id="expYearDropdown" class="card inline" value={this.state.expiryyear} onChange={(event)=>{
@@ -284,6 +324,7 @@ class checkout extends React.Component {
                                                         <option value="2027">27</option>
                                                         <option value="2028">28</option>
                                                     </select>
+                                                    <p className="errMsg">{this.state.expiryyearError}</p>
                                                 </div>
                                                     </div>
                                                     <div class="fieldCol2 customerInfo card display">
@@ -293,6 +334,7 @@ class checkout extends React.Component {
                                                         <input name="ExpressWebCheckout$PaymentView$firstNameInput" type="text" id="firstNameInput" class="input card name display" maxlength="50" title="First Name" value={this.state.firstcard} onChange={(event)=>{
                                                             this.setState({firstcard: event.target.value,message:""});
                                                         }}/>
+                                                        <p className="errMsg">{this.state.firstcardError}</p>
                                                     </div>
                                                     <div class="fieldContainer  card display">
                                                         <div class="errorText remove" id="lastNameError"></div>
@@ -300,20 +342,22 @@ class checkout extends React.Component {
                                                         <input name="ExpressWebCheckout$PaymentView$lastNameInput" type="text" id="lastNameInput" class="input card name display" maxlength="50" title="Last Name" value={this.state.lastcard} onChange={(event)=>{
                                                             this.setState({lastcard: event.target.value,message:""});
                                                         }}/>
+                                                        <p className="errMsg">{this.state.lastcardError}</p>
                                                     </div>
                                                 </div>
                                                 <div class="fieldContainer card display">
                                                     <div class="errorText remove" id="zipError"></div>
                                                     <label id="zipLabel" class="card display" for="zipInput">Billing ZIP code</label>
-                                                    <input name="ExpressWebCheckout$PaymentView$zipInput" type="text" id="zipInput" class="input card display" title="Last Name" maxlength="8"/>
-                                                    <label for="saveCreditCardCheckBox" class="save card co-checkbox inline" id="saveCreditCardCheckBoxContainer">
-                                                        <input name="ExpressWebCheckout$PaymentView$saveCreditCardCheckBox" type="checkbox" id="saveCreditCardCheckBox" class="save card inline" value={this.state.zip} onChange={(event)=>{
+                                                    <input name="ExpressWebCheckout$PaymentView$zipInput" type="text" id="zipInput" class="input card display" title="Last Name" maxlength="8" value={this.state.zip} onChange={(event)=>{
                                                             this.setState({zip: event.target.value,message:""});
                                                         }} />
+                                                    <p className="errMsg">{this.state.zipError}</p>
+                                                    <label for="saveCreditCardCheckBox" class="save card co-checkbox inline" id="saveCreditCardCheckBoxContainer">
+                                                        <input name="ExpressWebCheckout$PaymentView$saveCreditCardCheckBox" type="checkbox" id="saveCreditCardCheckBox" class="save card inline" />
                                                         Save my credit card information
                                                     </label>
                                                 </div>
-                                                <div className="success">{this.state.message}</div>
+                                                <div className="success" style={{color:'green'}}>{this.state.message}</div>
                                             </li>
                                         </ul>
                                     </fieldset>
@@ -321,7 +365,7 @@ class checkout extends React.Component {
                             <div class="module-standard" id="completePurchase">
                                 <section class="completePurchasePanel completePurchase">
                                     <div class="co-buttonContainer">              
-                                        <ConditionalLink to="/transaction/confirmation" onClick={this.handleSubmit} id="completePurchaseButton" class="button inline-block">Complete My Purchase</ConditionalLink>
+                                        <Link to={ConditionalLink} onClick={this.handleSubmit} id="completePurchaseButton" class="button inline-block">Complete My Purchase</Link>
                                     </div>
                                     <p class="notes display" id="standardNotes">
                                         By clicking the Complete My Purchase button, you agree to the
