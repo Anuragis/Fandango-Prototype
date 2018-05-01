@@ -417,6 +417,12 @@ handleChange = (events) => {
 
 
     render(){
+
+
+        let redirectVar = null;
+        if(!localStorage.getItem('userid')){
+            redirectVar = <Redirect to= "/signin" />
+        }
         console.log("Data receieved: inside render ",this.state.masterRepo);
 
         var date=new Date();
@@ -608,6 +614,7 @@ handleChange = (events) => {
         return (
 
             <div id="siteContainer" className="ticketBoxoffice">
+             {redirectVar}
             <div id="headerContainer" class="purchase detail on-order" name="HeaderContainer">
                 <div id="headerPurchase">
                     <div className="commonContainer"> 
