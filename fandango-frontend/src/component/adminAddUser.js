@@ -85,12 +85,16 @@ class user extends React.Component {
     componentWillMount(){
       
       var url;
+      if(typeof(this.props.location.state) !== "undefined" && this.props.location.state.id==="0"){
+        url = 'http://localhost:8900/user/' + this.props.location.state.id;
+      }else{
       if(localStorage.getItem('userid')!=null){
           url = 'http://localhost:8900/user/' + JSON.parse(localStorage.getItem('userid'))._id;
         }
         if(typeof(this.props.location.state) !== "undefined" && this.props.location.state.id!="0"){
           url = 'http://localhost:8900/user/' + this.props.location.state.id;
         }
+
         
         axios(url, {
           method: 'GET',
@@ -124,7 +128,7 @@ class user extends React.Component {
         }
           )
         
-
+        }
 
     }
     updateProfile(){
@@ -348,7 +352,7 @@ class user extends React.Component {
                 </div>
                 <div className="form-group">
                   <input  type="text" className="form-control" placeholder="Last Name" value={this.state.lname} onChange={(event)=>{
-                    this.setState({lName: event.target.value,message:""});
+                    this.setState({lname: event.target.value,message:""});
                   }} required />
                 </div>
                 <div className="form-group">
