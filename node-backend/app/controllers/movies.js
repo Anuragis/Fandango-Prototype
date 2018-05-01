@@ -14,7 +14,8 @@ const storage = multer.diskStorage({
     const upload = multer({ storage }).single('iFile');
 module.exports.sImg = multer({ storage }).single('iFile');
 
-module.exports.createMovie = function(req,res,next){    
+module.exports.createMovie = function(req,res,next){   
+        console.log('Inside movie creation');
         var newMovie = new moviesModel();
         console.log('req', req.body.cast);
         newMovie.movieTitle = req.body.movieTitle;
@@ -29,7 +30,7 @@ module.exports.createMovie = function(req,res,next){
         newMovie.screen = req.body.screen;
         newMovie.reviews=null;
         newMovie.status="active";
-
+        console.log('before save', newData);
         newMovie.save(function(err,movie) {
             
             if (err){
