@@ -1,6 +1,6 @@
 var bookingsModel = require('../models/bookingsModel');
 const {ObjectId} = require('mongodb');
-
+const client = require('../connections/redis_cache');
 
 module.exports.createBooking = function(req,res,next){
     console.log("req body", req.body);
@@ -48,7 +48,8 @@ module.exports.findBookingsByUserid = function(req,res,next){
     bookingsModel.find({ userid : req.params.userid, status:"active"}, function(err, booking) {
         if (err)
             throw err;
-        console.log("affected users", booking);
+       // console.log("affected users", booking);
+        client.setex(req.url, 20, JSON.stringify(booking));
         res.send(booking);
     })
     
@@ -71,7 +72,8 @@ module.exports.findBookingsByHallname = function(req,res,next){
     bookingsModel.find({ hallname : req.params.hallname, status:"active"}, function(err, booking) {
         if (err)
             throw err;
-        console.log("affected halls", booking);
+       // console.log("affected halls", booking);
+        client.setex(req.url, 20, JSON.stringify(booking));
         res.send(booking);
     })
     
@@ -82,6 +84,7 @@ module.exports.getBookingById = function(req,res,next){
     bookingsModel.find({ _id : req.params.bid, status:"active"}, function(err, booking) {
         if (err)
             throw err;
+        client.setex(req.url, 20, JSON.stringify(booking));
         res.send(booking);
     })
     
@@ -91,8 +94,10 @@ module.exports.getBookingById = function(req,res,next){
 module.exports.getAllBookings = function(req,res,next){
    
     bookingsModel.find({status: "active"}, function(err, booking) {
-        if (err)
+        if (err){
             throw err;
+        }
+        client.setex(req.url, 100, JSON.stringify(booking));
         res.send(booking);
     })
     

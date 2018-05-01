@@ -3,6 +3,7 @@ import axios from 'axios';
 import Head from './Header';
 import '../css/admin.css';
 import {Link} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 
 export default class AddMovie extends Component {
     constructor(props) {
@@ -114,7 +115,7 @@ export default class AddMovie extends Component {
       }
     
     componentDidMount(){
-        if(this.props.location.state.id != "0") {
+        if(typeof(this.props.location.state) !== "undefined" && this.props.location.state.id != "0") {
 
             var url = 'http://localhost:8900/movieById/' + this.props.location.state.id;
             axios(url, {
@@ -241,8 +242,13 @@ export default class AddMovie extends Component {
           })
     }
     render() {
+
+        let redirectVar = null;
+        if(!localStorage.getItem('userid')){
+            redirectVar = <Redirect to= "/signin" />
+        }
         let displayButton = "";
-        if(this.props.location.state.id === "0") {
+        if(typeof(this.props.location.state) !== "undefined" && this.props.location.state.id === "0") {
             displayButton=(<Link  to = "/moviedash" type="button" id="submit" name="submit" className="btn btn-primary pull-right" onClick={this.createMovie.bind(this)}>Create Movie</Link>);
         }
         else {
@@ -272,7 +278,7 @@ export default class AddMovie extends Component {
         );
     }
     let moviePhotoDiv = null;
-    if(this.props.location.state.id != "0") {
+    if(typeof(this.props.location.state) !== "undefined" &&this.props.location.state.id != "0") {
         moviePhotoDiv = (
             <div className="form-group"> 
                 <label className="control-label">Movie Photo</label>
@@ -288,6 +294,7 @@ export default class AddMovie extends Component {
     }
         return(
             <div id="siteContainer" className="ticketBoxoffice">
+            {redirectVar}
                 <Head />
                 {/* <div className = "container">
                     <div className = "row">

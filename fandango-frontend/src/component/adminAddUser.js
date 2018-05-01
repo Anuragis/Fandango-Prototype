@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import axios from 'axios';
 import '../css/admin.css';
-
+import {Redirect} from 'react-router-dom';
 class user extends React.Component {
     constructor(props) {
       super(props);
@@ -83,8 +83,11 @@ class user extends React.Component {
     };
 
     componentWillMount(){
-      console.log("usER PROFILE",localStorage.getItem('userid')._id);
-      var url='http://localhost:8900/user/' + JSON.parse(localStorage.getItem('userid'))._id;
+      
+      var url;
+      if(localStorage.getItem('userid')!=null){
+          'http://localhost:8900/user/' + JSON.parse(localStorage.getItem('userid'))._id;
+        }
         if(typeof(this.props.location.state) !== "undefined" && this.props.location.state.id!="0"){
           url = 'http://localhost:8900/user/' + this.props.location.state.id;
         }
@@ -251,6 +254,10 @@ class user extends React.Component {
     }
      
   render() {
+    let redirectVar = null;
+        if(!localStorage.getItem('userid')){
+            redirectVar = <Redirect to= "/signin" />
+        }
     let showPassword="";
     let displayButton="";
       if(typeof(this.props.location.state) !== "undefined" && this.props.location.state.id==="0") {
@@ -300,11 +307,12 @@ class user extends React.Component {
   
       return (
         <div id="siteContainer" className="ticketBoxoffice">
+        {redirectVar}
         <div id="headerContainer" class="purchase detail on-order" name="HeaderContainer">
             <div id="headerPurchase">
                 <div className="commonContainer"> 
                     <div id="logo">
-                        <a href="http://www.fandango.com/" title="Click to go to Fandango homepage">Fandango Home</a>
+                        <a href="/" title="Click to go to Fandango homepage">Fandango Home</a>
                     </div>
                     <div id="bannerMessage">You're a guaranteed ticket away from the perfect movie night.</div>
                 </div>
