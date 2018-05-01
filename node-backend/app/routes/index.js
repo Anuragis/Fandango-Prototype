@@ -10,6 +10,7 @@ var signin = require('../controllers/signin.js');
 var signup = require('../controllers/signup.js');
 var logout = require('../controllers/logout.js');
 var logs=require('../controllers/logs.js');
+var redis = require('../controllers/redis_cache.js');
 
 
 /**routes for bookings start */
@@ -23,23 +24,23 @@ router
 
 router
     .route('/bookingByUserId/:userid')
-    .get(bookings.findBookingsByUserid);
+    .get(redis.cache,bookings.findBookingsByUserid);
     
 router
     .route('/bookingByMovieId/:moviename')
-    .get(bookings.findBookingsByMoviename);
+    .get(redis.cache,bookings.findBookingsByMoviename);
 
 router
     .route('/bookingByHallId/:hallname')
-    .get(bookings.findBookingsByHallname);
+    .get(redis.cache,bookings.findBookingsByHallname);
 
 router
     .route('/bookings')
-    .get(bookings.getAllBookings);
+    .get(redis.cache,bookings.getAllBookings);
 
 router
     .route('/booking/:bid')
-    .get(bookings.getBookingById);
+    .get(redis.cache,bookings.getBookingById);
 
 /** routes for bookings end*/
 
@@ -66,7 +67,7 @@ router
 
 router
     .route('/movies')
-    .get(movies.getAllMovies);
+    .get(redis.cache,movies.getAllMovies);
 
 router
     .route('/movieByCategory/:category')
@@ -74,7 +75,7 @@ router
 
 router
     .route('/movieById/:mid')
-    .get(movies.getMovieById);
+    .get(redis.cache,movies.getMovieById);
 
 router
     .route('/movie/:mid')
@@ -82,7 +83,7 @@ router
 
 router
     .route('/movieByName/:moviename')
-    .get(movies.getMovieByName);
+    .get(redis.cache,movies.getMovieByName);
 
 router
     .route('/savemovie/:mid')
@@ -99,7 +100,7 @@ router
 
 router
     .route('/halls')
-    .get(moviehalls.getMovieHalls);
+    .get(redis.cache,moviehalls.getMovieHalls);
 
 
 router
@@ -108,12 +109,12 @@ router
 
 router
     .route('/hall/:moviename')
-    .get(moviehalls.getHallByMovieName);
+    .get(redis.cache,moviehalls.getHallByMovieName);
 
 
 router  
     .route('/hallById/:hid')
-    .get(moviehalls.getHallById);
+    .get(redis.cache,moviehalls.getHallById);
 
 
 /**routes for hall end */
@@ -123,7 +124,7 @@ router
 /**routes for user start */
 router
     .route('/users')
-    .get(users.getAllUsers);
+    .get(redis.cache,users.getAllUsers);
 
 router
     .route('/user/:uid')
@@ -136,7 +137,7 @@ router
 
 router
     .route('/user/:uid')
-    .get(users.getUserById);
+    .get(redis.cache,users.getUserById);
 
 router
     .route('/user/:uid')

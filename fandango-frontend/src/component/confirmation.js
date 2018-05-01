@@ -1,10 +1,16 @@
 import React from 'react';
+import Redirect from 'react-router-dom/Redirect';
 import '../css/checkout.css';
 
 class confirmation extends React.Component {
     render() {
+        let redirectVar = null;
+        if(!localStorage.getItem('userid')){
+            redirectVar = <Redirect to= "/signin" />
+        }
         return (
             <div id="siteContainer" className="ticketBoxoffice">
+                {redirectVar}
                 <div id="headerContainer" class="purchase detail on-order" name="HeaderContainer">
                     <div id="headerPurchase">
                         <div className="commonContainer"> 

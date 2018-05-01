@@ -61,12 +61,17 @@ class MovieTimeTicket extends Component {
                             }
                         });
                  });
-
+                 
+         var hall=this.state.initialHalls.filter(function(hall){
+            return hall.hallName.toLowerCase().search(
+                inputTerm.toLowerCase()) !== -1;
+            });
           
           var concat1=city.concat(state);
           var concat2=concat1.concat(movies);
           var concat3=concat2.concat(zip);
-          filteredHalls=concat1.concat(concat3);
+          filteredHalls =concat3.concat(hall);
+         
 
 
           this.setState({

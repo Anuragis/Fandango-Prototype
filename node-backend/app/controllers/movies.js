@@ -2,6 +2,7 @@ var moviesModel = require('../models/moviesModel');
 const {ObjectId} = require('mongodb');
 var multer = require('multer');
 var path = require('path');
+const client = require('../connections/redis_cache');
 
 const storage = multer.diskStorage({
         destination: 'public/data/moviesImages',
@@ -63,6 +64,7 @@ module.exports.getAllMovies = function(req,res,next){
     if(err){
         console.log("Get movie error", err);
     }else{
+        client.setex(req.url, 100, JSON.stringify(movies));
         res.send(JSON.stringify(movies));  
         }
     })
@@ -75,6 +77,7 @@ module.exports.getMovieByCategory =function(req,res,next){
     if(err){
         console.log("Get movie category error", err);
     }else{
+        client.setex(req.url, 20, JSON.stringify(movies));
         res.send(JSON.stringify(movies));  
         }
     })
@@ -88,6 +91,7 @@ module.exports.getMovieById=function(req,res,next){
     if(err){
         console.log("Get movie id error", err);
     }else{
+        client.setex(req.url, 20, JSON.stringify(movie));
         res.send(JSON.stringify(movie));  
         }
     });

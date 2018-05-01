@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import axios from 'axios';
 import '../css/admin.css';
 import {Link} from 'react-router-dom';
-
+import {Redirect} from 'react-router-dom';
 class hall extends React.Component {
     constructor(props) {
       super(props);
@@ -75,7 +75,7 @@ class hall extends React.Component {
 
     componentWillMount(){
 
-        if(this.props.location.state.id!="0"){
+        if(typeof(this.props.location.state)!=="undefined"&&this.props.location.state.id!="0"){
         var url = 'http://localhost:8900/hallById/' + this.props.location.state.id;
         
         axios(url, {
@@ -383,6 +383,10 @@ class hall extends React.Component {
       console.log("Updated Obj : ", hallRes);
     }
   render() {
+    let redirectVar = null;
+        if(!localStorage.getItem('userid')){
+            redirectVar = <Redirect to= "/signin" />
+        }
       
     console.log("Response Data Recieved : ", this.state.hallData);
     let displayScreens="";
@@ -429,7 +433,7 @@ class hall extends React.Component {
 
 
    
-      if(this.props.location.state.id==="0") {
+      if(typeof(this.props.location.state)!=="undefined" &&this.props.location.state.id==="0") {
         displayButton=(<button onClick = {(e) => this.handleAddHall(e)} type="button" id="submit" name="submit" className="btn btn-primary pull-right" >Create</button>);
       }else{
         displayButton=(<button onClick = {(e) => this.handleUpdateHall(e)} type="button" id="submit" name="submit" className="btn btn-primary pull-right"> Update</button>);
@@ -441,6 +445,7 @@ class hall extends React.Component {
      
       return (
         <div >
+          {redirectVar}
         <div id="headerContainer" class="purchase detail on-order" name="HeaderContainer">
             <div id="headerPurchase">
                 <div className="commonContainer"> 

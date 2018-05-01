@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Countdown from 'react-countdown-now';
 import {Link} from 'react-router-dom';
+import Redirect from 'react-router-dom/Redirect';
 import '../css/seatpicker.css';
 
 class Seathover extends React.Component {
@@ -174,6 +175,10 @@ export default class seatpicker extends React.Component {
     }
 
     render() {
+        let redirectVar = null;
+        if(!localStorage.getItem('userid')){
+            redirectVar = <Redirect to= "/signin" />
+        }
         const styleseatPicker = {
             height: '700px', top: '0px'
         }
@@ -283,6 +288,7 @@ export default class seatpicker extends React.Component {
         
         return (
             <div id="siteContainer" className="ticketBoxoffice">
+                {redirectVar}
                 <div id="headerContainer" className="purchase detail on-order" name="HeaderContainer">
                     <div id="headerPurchase">
                         <div className="commonContainer"> 

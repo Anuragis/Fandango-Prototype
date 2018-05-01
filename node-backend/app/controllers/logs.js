@@ -1,5 +1,6 @@
 var logsModel = require('../models/logsModel');
 const {ObjectId} = require('mongodb');
+const client = require('../connections/redis_cache');
 
 module.exports.createLog = function(req,res,next){
     console.log("req body", req.body);
@@ -38,6 +39,7 @@ module.exports.getLogs = function(req,res,next){
     logsModel.find({}, function(err, logs) {
         if (err)
             throw err;
+        client.setex(req.url, 100, JSON.stringify(logs));
         res.send(logs);
     });    
 }

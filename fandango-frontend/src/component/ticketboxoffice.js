@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import '../css/ticketboxoffice.css';
+import Redirect from 'react-router-dom/Redirect';
 import axios from 'axios';
 
 export default class ticketboxoffice extends React.Component {
@@ -131,7 +132,10 @@ export default class ticketboxoffice extends React.Component {
     }
 
     render() {
-
+        let redirectVar = null;
+        if(!localStorage.getItem('userid')){
+            redirectVar = <Redirect to= "/signin" />
+        }
         const styleborder = {
             border:'0px'
         }
@@ -176,6 +180,7 @@ export default class ticketboxoffice extends React.Component {
         }
         return (
             <div id="siteContainer" className="ticketBoxoffice">
+                {redirectVar}
                 <div id="headerContainer" class="purchase detail on-order" name="HeaderContainer">
                     <div id="headerPurchase">
                         <div className="commonContainer"> 

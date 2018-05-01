@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import axios from 'axios';
 import '../css/admin.css';
+import {Redirect} from 'react-router-dom';
 class booking extends React.Component {
     constructor(props) {
       super(props);
@@ -22,7 +23,7 @@ class booking extends React.Component {
  
     componentDidMount(){
 
-        
+        if(typeof(this.props.location.state) !== "undefined"){
         var url = 'http://localhost:8900/booking/' + this.props.location.state.id;
         
         axios(url, {
@@ -46,17 +47,23 @@ class booking extends React.Component {
          
         }
           )
+        }
         
     }
     
     render() {  
+        let redirectVar = null;
+        if(!localStorage.getItem('userid')){
+            redirectVar = <Redirect to= "/signin" />
+        }
       return (
         <div >
+            {redirectVar}
         <div id="headerContainer" class="purchase detail on-order" name="HeaderContainer">
             <div id="headerPurchase">
                 <div className="commonContainer"> 
                     <div id="logo">
-                        <a href="http://www.fandango.com/" title="Click to go to Fandango homepage">Fandango Home</a>
+                        <a href="/" title="Click to go to Fandango homepage">Fandango Home</a>
                     </div>
                     <div id="bannerMessage">You're a guaranteed ticket away from the perfect movie night.</div>
                 </div>

@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import '../css/admin.css';
+import {Redirect} from 'react-router-dom';
 //import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 
 class admin extends Component{
@@ -64,13 +65,18 @@ class admin extends Component{
 
 
     render(){
+        let redirectVar = null;
+        if(!localStorage.getItem('userid')){
+            redirectVar = <Redirect to= "/signin" />
+        }
         return(
             <div >
+                {redirectVar}
             <div id="headerContainer" class="purchase detail on-order" name="HeaderContainer">
                 <div id="headerPurchase">
                     <div className="commonContainer"> 
                         <div id="logo">
-                            <a href="http://www.fandango.com/" title="Click to go to Fandango homepage">Fandango Home</a>
+                            <a href="/" title="Click to go to Fandango homepage">Fandango Home</a>
                         </div>
                         <div id="bannerMessage">You're a guaranteed ticket away from the perfect movie night.</div>
                     </div>
