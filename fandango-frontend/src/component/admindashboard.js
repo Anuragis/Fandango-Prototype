@@ -144,15 +144,15 @@ handleChange = (events) => {
 
            if(log.city.toUpperCase()===city.toUpperCase()){
                 if(log.page==="home"){
-                    pagesTimeArray[0]+=(log.time/1000);
+                    pagesTimeArray[0]+=(log.time);
                 }else  if(log.page==="movies"){
-                    pagesTimeArray[1]+=(log.time/1000);
+                    pagesTimeArray[1]+=(log.time);
                 }else if(log.page==="moviedetails"){
-                    pagesTimeArray[2]+=(log.time/1000);
+                    pagesTimeArray[2]+=(log.time);
                 }else if(log.page==="ticketbooking"){
-                    pagesTimeArray[3]+=(log.time/1000);
+                    pagesTimeArray[3]+=(log.time);
                 }else if(log.page==="checkout"){
-                    pagesTimeArray[4]+=(log.time/1000);
+                    pagesTimeArray[4]+=(log.time);
                 }
             }
         });
@@ -218,15 +218,15 @@ handleChange = (events) => {
 
            if(log.fname.toUpperCase()===username.toUpperCase()){
                 if(log.page==="home"){
-                    pagesTimeArray[0]+=(log.time/1000);
+                    pagesTimeArray[0]+=(log.time);
                 }else  if(log.page==="movies"){
-                    pagesTimeArray[1]+=(log.time/1000);
+                    pagesTimeArray[1]+=(log.time);
                 }else if(log.page==="moviedetails"){
-                    pagesTimeArray[2]+=(log.time/1000);
+                    pagesTimeArray[2]+=(log.time);
                 }else if(log.page==="ticketbooking"){
-                    pagesTimeArray[3]+=(log.time/1000);
+                    pagesTimeArray[3]+=(log.time);
                 }else if(log.page==="checkout"){
-                    pagesTimeArray[4]+=(log.time/1000);
+                    pagesTimeArray[4]+=(log.time);
                 }
             }
         });
@@ -434,15 +434,15 @@ handleChange = (events) => {
         if(this.state.masterRepo){
         this.state.masterRepo.map(function(log){ 
             if(log.page==="home"){
-                pagesTimeArray[0]+=(log.time/1000);
+                pagesTimeArray[0]+=(log.time);
             }else  if(log.page==="movies"){
-                pagesTimeArray[1]+=(log.time/1000);
+                pagesTimeArray[1]+=(log.time);
             }else if(log.page==="moviedetails"){
-                pagesTimeArray[2]+=(log.time/1000);
+                pagesTimeArray[2]+=(log.time);
             }else if(log.page==="ticketbooking"){
-                pagesTimeArray[3]+=(log.time/1000);
+                pagesTimeArray[3]+=(log.time);
             }else if(log.page==="checkout"){
-                pagesTimeArray[4]+=(log.time/1000);
+                pagesTimeArray[4]+=(log.time);
             }
             
 

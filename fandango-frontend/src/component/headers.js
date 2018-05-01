@@ -42,6 +42,7 @@ export default class Header extends React.Component {
 
     handleSubmitForTime(events,nextPage){
         //events.preventDefault();
+        let userDetails = JSON.parse(localStorage.getItem('userid'));
         let prevPage = localStorage.getItem('currentPage');
         localStorage.setItem('currentPage', nextPage);
         var elapsed = Math.round(this.state.elapsed / 100);
@@ -63,8 +64,8 @@ export default class Header extends React.Component {
                 movierating:0,
                 movie : "",
                 movieclick : 0,
-                fname : "Anuui",
-                lname : "jggsd",
+                fname : userDetails.fName,
+                lname : userDetails.lName,
                 state : "CA",
                 city : "New York",
                 hall : "",

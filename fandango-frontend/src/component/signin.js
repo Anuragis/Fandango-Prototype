@@ -49,9 +49,9 @@ class SignIn extends Component {
     events.preventDefault();
     var elapsed = Math.round(this.state.elapsed / 100);
     var seconds = (elapsed / 10).toFixed(1);  
-    localStorage.setItem('currentPage','userHome');
+    localStorage.setItem('currentPage','home');
     console.log("Inside Time ");
-    var url = 'http://localhost:8900/log/';
+    /*var url = 'http://localhost:8900/log/';
     axios(url, {
     method: 'POST',
     mode: 'cors',
@@ -85,7 +85,12 @@ class SignIn extends Component {
       }  
       this.props.signinAction(newData);
     });
-    
+    */
+        const newData = {
+          username : this.state.email,
+          password : this.state.password
+        }
+        this.props.signinAction(newData);
   }
 
   incrementCount = () => {
