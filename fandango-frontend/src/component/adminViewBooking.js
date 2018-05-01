@@ -9,6 +9,7 @@ class booking extends React.Component {
         bdate:"",
         bamount: 0,
         btax: 0,
+        seatsbooked:'',
         fname: "",
         lname: "",
         showtime: "",
@@ -36,6 +37,7 @@ class booking extends React.Component {
         }).then((res) => {this.setState({bdate: res.data[0].bdate, 
            bamount: res.data[0].bamount,
            btax: res.data[0].btax,
+           seatsbooked: res.data[0].seatsbooked,
           fname: res.data[0].fname,
           lname: res.data[0].lname,
           showtime: res.data[0].showtime,
@@ -99,6 +101,12 @@ class booking extends React.Component {
                                 
                                 <td>Booking Amount</td>
                                 <td>${this.state.bamount}</td>
+                                </tr>
+
+                                <tr>
+                                    
+                                <td>Seats Booked</td>
+                                <td>{this.state.seatsbooked}</td>
                                 </tr>
 
                                 <tr>

@@ -75,6 +75,7 @@ export default class AdminViewMovieRevenue extends Component {
             moviename: bookingObj.moviename,
             screenID: bookingObj.screenid,
             hallname: bookingObj.hallname,
+            movieDate: bookingObj.movieDate,
             seatsbooked: bookingObj.seatsbooked
         }
         axios('http://localhost:8900/hall/' + bookingObj.hallname, {
