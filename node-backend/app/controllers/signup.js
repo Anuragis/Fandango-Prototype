@@ -12,7 +12,7 @@ module.exports.signUp = function(req,res,next){
     
     usersModel.findOne({email: req.body.email},function(err, user) {
 
-        console.log("Inside Signu p");
+        console.log("Inside Signup");
         let type= req.body.userType;
         type=type||"user";
 
