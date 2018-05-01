@@ -52,13 +52,13 @@ module.exports.signIn = function(req,res,next){
           res.writeHead(200,{
               'Content-Type' : 'text/plain'
           })    
-          resData = {};
-          resData['_id'] = result._id;
-          resData['fName'] = result.fName;
-          resData['lName'] = result.lName;
-          resData['userType'] = result.userType;
-          console.log("Response ENds : ", resData);
-          res.end(JSON.stringify(resData));
+          // resData = {};
+          // resData['_id'] = result._id;
+          // resData['fName'] = result.fName;
+          // resData['lName'] = result.lName;
+          // resData['userType'] = result.userType;
+          // console.log("Response ENds : ", resData);
+          res.end(JSON.stringify(result));
       }else{
         resData = null;
         res.writeHead(400,{

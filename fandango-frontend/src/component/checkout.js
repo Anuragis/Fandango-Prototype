@@ -36,6 +36,7 @@ class checkout extends React.Component {
             moviename: movieHallParse.movieName,
             screenid: movieHallParse.screenID,
             hallname: movieHallParse.hallName,
+            movieDate: movieHallParse.movieDate,
             seatsbooked: JSON.parse(localStorage.getItem('seatpicker')).seats,
             status: 'active',
             hallcity: movieHallParse.hallCity
@@ -48,6 +49,7 @@ class checkout extends React.Component {
             moviename: movieHallParse.movieName,
             screenID: movieHallParse.screenID,
             hallname: movieHallParse.hallName,
+            movieDate: movieHallParse.movieDate,
             seatsbooked: JSON.parse(localStorage.getItem('seatpicker')).seats
         }
         // console.log(JSON.parse(localStorage.getItem('ticketBoxOfficeState')));

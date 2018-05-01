@@ -103,7 +103,7 @@ module.exports.updateMovieHall=function(req,res,next){
             if(screen.movieName==req.body.moviename) {
                 tempTimings = screen.movieTimings.map((mTime) => {
                     mTime = JSON.parse(JSON.stringify(mTime));
-                    if(mTime.screenID == req.body.screenID) {
+                    if(mTime.screenID == req.body.screenID && mTime.movieDate == req.body.movieDate) {
                         req.body.seatsbooked.map((seat) => {
                             if(req.body.hallID)
                                 mTime.seats[seatArray.indexOf(seat)] = 1;
