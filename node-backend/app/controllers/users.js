@@ -2,7 +2,7 @@ var usersModel = require('../models/usersModel');
 var multer = require('multer');
 var path = require('path');
 const {ObjectId} = require('mongodb');
-
+const client = require('../connections/redis_cache');
 const storage = multer.diskStorage({
         destination: 'public/data/userImages',
         filename: function (req, file, cb) {
@@ -56,34 +56,14 @@ module.exports.deleteUser = function(req,res,next){
 }
 
 module.exports.getAllUsers = function(req,res,next){
-    usersModel.find({}, function(err, users) {
+    usersModel.find({status:"active"}, function(err, users) {
 
     if(err){
-        console.log("Get movie error", err);
+        console.log("Get user error", err);
     }else{
-        var userMap = [];
-        users.map(user=>{
-            var ob = {};
-        if(user.status==="active"){
-            ob = {_id:user._id,
-                fName:user.fName,
-                lName:user.lName,
-                email: user.email,
-                address: user.address,
-                city: user.city,
-                state: user.state,
-                zipCode: user.zipCode,
-                phoneNumber: user.phoneNumber,
-                profileImage: user.profileImage,
-                creditCard:user.creditCard,
-                userType:user.userType,
-                status:user.status
-            };
-                 userMap.push(ob);
-            }
-        });
-
-        res.send(JSON.stringify(userMap));  
+        
+        client.setex(req.url, 100, JSON.stringify(users));
+        res.send(JSON.stringify(users));  
         }
     })
 }
@@ -95,6 +75,7 @@ module.exports.getUserById=function(req,res,next){
     if(err){
         console.log("Get user id error", err);
     }else{
+        client.setex(req.url, 10, JSON.stringify(user));
         res.send(JSON.stringify(user));  
         }
     })
