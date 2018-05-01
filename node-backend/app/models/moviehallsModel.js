@@ -15,7 +15,7 @@ var connection = mongoose.createConnection('mongodb://cmpeuser:cmpepass@ds247569
         moviePhoto: { type : String},
         movieLength:{type:String},
         movieCategory: { type :  String},
-        price:{type: Number}
+        movieDate:{type: String}
     });
 
     var moviehallsSchema = new Schema({
@@ -24,6 +24,7 @@ var connection = mongoose.createConnection('mongodb://cmpeuser:cmpepass@ds247569
         hallCity: { type : String, required : true },
         hallZipCode: { type : String, required : true },
         hallState: { type : String, required : true },
+        hallPrice: { type : Number, required : true },
         screens: [screensSchema],
         status:{type: String}
     });
