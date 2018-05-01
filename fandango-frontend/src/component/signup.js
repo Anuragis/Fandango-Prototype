@@ -13,6 +13,7 @@ class SignUp extends Component {
 
         this.state = {
           fname       : '',
+          lname       : '',
           email       : '',
           passwordOne : '',
           passwordTwo : '',
@@ -26,7 +27,11 @@ class SignUp extends Component {
               fname : events.target.value
           });
       }
-
+      if(events.target.name === "Lname"){
+        this.setState({
+            lname : events.target.value
+        });
+      }
       if(events.target.name === "Email"){
           this.setState({
               email : events.target.value
@@ -50,6 +55,7 @@ class SignUp extends Component {
         events.preventDefault();
         const newData = {
             fName : this.state.fname,
+            lName : this.state.lname,
             email : this.state.email,
             password : this.state.passwordOne,
             passwordTwo : this.state.passwordTwo
@@ -86,6 +92,8 @@ class SignUp extends Component {
                 <h2 className="form-signin-heading">Sign Up</h2><br/>
 
                 <input type="text" onChange = {this.handleChange} id="Fname" name = "Fname" className="form-control" placeholder="First Name" required autoFocus/>
+
+                <input type="text" onChange = {this.handleChange} id="Lname" name = "Lname" className="form-control" placeholder="Last Name" required />
 
                 <input type="email" onChange = {this.handleChange} id="Email" name = "Email" className="form-control" placeholder="Email" required/><br/>
 
