@@ -236,7 +236,10 @@ class user extends React.Component {
     }
 
     imageUpdate() {
-      var url = 'http://localhost:8900/saveImage/' + this.props.location.state.id;
+      var url='http://localhost:8900/saveImage/' + JSON.parse(localStorage.getItem('userid'))._id;
+        if(typeof(this.props.location.state) !== "undefined" && this.props.location.state.id!="0") {
+           url = 'http://localhost:8900/saveImage/' + this.props.location.state.id;
+        }
       var fData = new FormData();
         fData.append('iFile', this.state.fileSelected);
        axios(url, {

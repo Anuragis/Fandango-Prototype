@@ -23,12 +23,12 @@ module.exports.signUp = function(req,res,next){
                 newUser.fName = req.body.fName;
                 newUser.lName = req.body.lName;
                 newUser.email = req.body.email;
-                newUser.address = req.body.address;
-                newUser.city = req.body.city;
-                newUser.state = req.body.state;
-                newUser.zipCode = req.body.zipCode;
-                newUser.phoneNumber = req.body.phoneNumber;
-                newUser.profileImage = req.body.profileImage;
+                newUser.address = req.body.address||"";
+                newUser.city = req.body.city||"";
+                newUser.state = req.body.state||"";
+                newUser.zipCode = req.body.zipCode||"";
+                newUser.phoneNumber = req.body.phoneNumber||"";
+                newUser.profileImage = req.body.profileImage||"preview.jpg";
                 newUser.creditCard = {
                   cardNumber:req.body.cardnumber||"",
                   nameOnCard:req.body.nameoncard||"",
