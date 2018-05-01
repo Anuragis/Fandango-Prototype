@@ -3,6 +3,13 @@ import Redirect from 'react-router-dom/Redirect';
 import '../css/checkout.css';
 
 class confirmation extends React.Component {
+    componentWillMount() {
+        window.history.pushState(null, null, window.location.href);
+        window.onpopstate = function(event) {
+            console.log("history pop up");
+            window.history.go(1);
+        };
+    }
     render() {
         let redirectVar = null;
         if(!localStorage.getItem('userid')){
@@ -15,7 +22,7 @@ class confirmation extends React.Component {
                     <div id="headerPurchase">
                         <div className="commonContainer"> 
                             <div id="logo">
-                                <a href="" title="Click to go to Fandango homepage">Fandango Home</a>
+                                <a href="http://localhost:3000" title="Click to go to Fandango homepage">Fandango Home</a>
                             </div>
                             <div id="bannerMessage">You're a guaranteed ticket away from the perfect movie night.</div>
                         </div>
