@@ -193,11 +193,12 @@ class MovieTimeTicket extends Component {
           }, order); 
         }
         //------filter
-    let movieData = null, movieTimings = null, moviePhoto = "",avgRating = 0;
+    let movieData = null, movieTimings = null, moviePhoto = "",avgRating = 0,hallPrice = "";
     let hallData = hallFilter.map(hall => {
 	movieData = hall.screens.map(movie => {
         moviePhoto = movie.moviePhoto;
         avgRating = movie.avgReviewRating;
+        hallPrice = hall.hallPrice;
 		movieTimings = movie.movieTimings.map(timings => {
 			return(
 				
@@ -251,6 +252,7 @@ class MovieTimeTicket extends Component {
 								<ol class="fd-movie__btn-list">
 									{movieTimings}
 								</ol>
+                                <label style={{ marginTop:'8px' }} >Ticket Price: ${hallPrice}</label>
 								
 							</li>
 						</ul>

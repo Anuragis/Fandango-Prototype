@@ -122,7 +122,7 @@ class SignUp extends Component {
 
                 <input type="password" onChange = {this.handleChange} id="inputPasswordTwo" name = "inputPasswordTwo" className="form-control" placeholder="Confirm Password" required /> <br/>             
                 
-                <input type="submit" value="Sign Up" className="btn btn-primary form-control"/>
+                <Link to="/signin" type="submit" className="btn btn-primary form-control">Sign Up</Link>
 
                 
 
