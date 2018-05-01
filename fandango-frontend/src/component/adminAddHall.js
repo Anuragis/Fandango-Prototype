@@ -12,6 +12,7 @@ class hall extends React.Component {
         hallCity: '',
         hallZipCode: '',
         hallState: '',
+        hallPrice : '',
         hallNameError:'',
         zipCodeError:'',
         stateError:'',
@@ -28,7 +29,8 @@ class hall extends React.Component {
         hallData : [],
         newScreenID : "",
         newScreenName : "",
-        newScreenTime : ""
+        newScreenTime : "",
+        newScreenDate : "",
       }
        
       
@@ -92,6 +94,7 @@ class hall extends React.Component {
                 hallZipCode: res.data[0].hallZipCode,
                 hallState: res.data[0].hallState,
                 screenCount:res.data[0].screens.length,
+                hallPrice : res.data[0].hallPrice,
                 screens:res.data[0].screens
                 });
             }
@@ -107,6 +110,7 @@ class hall extends React.Component {
     console.log("Hall ID : ", this.props.location.state.id);
     let hallObj = this.state.hallData;
     let newScreenID = this.state.newScreenID, newScreenName = this.state.newScreenName, newScreenTime = this.state.newScreenTime;
+    let newScreenDate = this.state.newScreenDate;
     var screenUpdate = 0;
     this.state.hallData.map(hall => {
         hall.screens.map(screen => {
@@ -127,7 +131,8 @@ class hall extends React.Component {
           let screenObj = {
               'seats' : seatArr,
               'movieTime' : newScreenTime,
-              'screenID' : newScreenID
+              'screenID' : newScreenID,
+              'movieDate' : newScreenDate
           };
           hallObj = hallObj.map(hall=>{
             console.log("Hall : ", hall);
@@ -235,6 +240,29 @@ class hall extends React.Component {
       console.log("New Hall Obj",hallObj);
     }
 
+    handleLoopMovieDate = (e,screenIndex,timeIndex) => {
+      let hallObj = this.state.hallData;
+      hallObj = hallObj.map(hall=>{
+        hall.screens = hall.screens.map((screen,sIndex) =>{
+          if(sIndex == screenIndex){
+            screen.movieTimings = screen.movieTimings.map((time,tIndex) => {
+                if(tIndex == timeIndex){
+                  time.movieDate = e.target.value;
+                }
+                return time;
+            })
+          }
+          return screen;
+        })
+        return hall;
+      })
+      this.setState({
+        hallData : hallObj
+      })
+      console.log("New Hall Obj",hallObj);
+    }
+
+
     handleLoopMovieTime = (e,screenIndex,timeIndex) => {
       let hallObj = this.state.hallData;
       hallObj = hallObj.map(hall=>{
@@ -291,6 +319,11 @@ class hall extends React.Component {
         newScreenTime : e.target.value
       })
     }
+    AddMovieDate(e){
+      this.setState({
+        newScreenDate : e.target.value
+      })
+    }
 
     handleAddHall(e){
         var resData = {
@@ -299,6 +332,7 @@ class hall extends React.Component {
           hallCity : this.state.hallCity,
           hallState : this.state.hallState,
           hallZipCode : this.state.hallZipCode,
+          hallPrice : this.state.hallPrice,
           screens : []
         }
         var url = 'http://localhost:8900/hall';
@@ -325,6 +359,7 @@ class hall extends React.Component {
         hallCity : this.state.hallCity,
         hallState : this.state.hallState,
         hallZipCode : this.state.hallZipCode,
+        hallPrice : this.state.hallPrice,
         screens : this.state.hallData[0].screens,
         status : "active"
       }
@@ -364,6 +399,10 @@ class hall extends React.Component {
                 <div className="form-group">
                   <label>Movie Time</label> 
                       <input onChange = {(e) => this.handleLoopMovieTime(e,screenIndex,timeIndex)} type="text" className="form-control" placeholder="Movie Time" value={time.movieTime} required />
+                </div> 
+                <div className="form-group">
+                  <label>Movie Date</label> 
+                      <input onChange = {(e) => this.handleLoopMovieDate(e,screenIndex,timeIndex)} type="text" className="form-control" placeholder="Movie Time" value={time.movieDate} required />
                 </div> 
               </div>
             )
@@ -445,6 +484,13 @@ class hall extends React.Component {
                   }} required />
                 </div>
 
+                <div className="form-group">
+                <p className="errMsg">{this.state.zipCodeError}</p>
+                  <input  type="text" className="form-control" placeholder="Hall Price" value={this.state.hallPrice} onChange={(event)=>{
+                    this.setState({hallPrice: event.target.value,message:""});
+                  }} required />
+                </div>
+
                 {/*<div className="form-group">*}
                  {
                    
@@ -487,8 +533,8 @@ class hall extends React.Component {
             <input onChange = {(e) => this.AddMovieTime(e)} type="text" className="form-control" placeholder="Movie Time"  required />
         </div>
     		<div className="form-group">
-            <label>Movie Price</label> 
-            <input onChange = {(e) => this.AddMovieTime(e)} type="text" className="form-control" placeholder="Movie Price"  required />
+            <label>Movie Date</label> 
+            <input onChange = {(e) => this.AddMovieDate(e)} type="text" className="form-control" placeholder="Movie Date"  required />
         </div>
 	</div>
 	<div class="modal-footer">
