@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom';
 import _ from 'lodash';
 import Redirect from 'react-router-dom/Redirect';
 import StarRatings from 'react-star-ratings';
+import moment from 'moment';
 
 
 class MovieTimeTicket extends Component {
@@ -141,6 +142,7 @@ class MovieTimeTicket extends Component {
     }
 
   render() {
+    
     let redirectVar = null;
 		if(!localStorage.getItem('userid')){
 			redirectVar = <Redirect to= "/signin" />
@@ -284,6 +286,39 @@ class MovieTimeTicket extends Component {
         fontSize: 'large',
         fontWeight: '700'
     }
+    let dates = [];
+    var weekdays = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
+    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    for(var i = 0;i<6;i++){
+        let d1 =  new Date();
+        d1.setDate(d1.getDate() + i);
+        let d2 = moment().add(i,'days').format('YYYY-MM-DD').toString();
+        console.log("D 2: ",d2);
+        if(i == 0){
+            dates.push(
+
+                <li class="date-picker__date date-picker__date--selected" data-show-time-date="2018-04-18">
+                    <a onClick = {(e) => this.handleFilterMovieByDate(e,d2)} href="?date=2018-04-18" class="date-picker__link">
+                    <span class="date-picker__date-weekday">{weekdays[d1.getDay()]}</span>
+                    <span class="date-picker__date-month">{months[d1.getMonth()]}</span>
+                    <span class="date-picker__date-day">{d1.getDate()}</span>
+                    </a>
+                </li>
+            )
+        }else{
+            dates.push(
+
+                <li class="date-picker__date " data-show-time-date="2018-04-20">
+                    <a href="?date=2018-04-20" class="date-picker__link">
+                        <span class="date-picker__date-weekday">{weekdays[d1.getDay()]}</span>
+                        <span class="date-picker__date-month">{months[d1.getMonth()]}</span>
+                        <span class="date-picker__date-day">{d1.getDate()}</span>
+                    </a>
+                </li>
+            )
+        }
+        
+    }
     return (
     <div>
         {redirectVar}
@@ -341,549 +376,12 @@ class MovieTimeTicket extends Component {
                   <div class="date-picker__wrap">
                     <section class="date-picker carousel js-movie-calendar carousel-style-strip" data-jcarousel="true">
                         <ul id="scroll-date-picker__list" class="carousel-items" >
-                          <li class="date-picker__date date-picker__date--selected" data-show-time-date="2018-04-18">
-                              <a onClick = {(e) => this.handleFilterMovieByDate(e,'2018-04-30')} href="?date=2018-04-18" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Today</span>
-                              <span class="date-picker__date-month">Apr</span>
-                              <span class="date-picker__date-day">18</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-04-19">
-                              <a onClick = {(e) => this.handleFilterMovieByDate(e,'2018-04-30')}  href="?date=2018-04-19" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Thur</span>
-                              <span class="date-picker__date-month">Apr</span>
-                              <span class="date-picker__date-day">19</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-04-20">
-                              <a  onClick = {(e) => this.handleFilterMovieByDate(e,'2018-04-30')}  href="?date=2018-04-20" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Fri</span>
-                              <span class="date-picker__date-month">Apr</span>
-                              <span class="date-picker__date-day">20</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-04-21">
-                              <a onClick = {(e) => this.handleFilterMovieByDate(e,'2018-04-30')}  href="?date=2018-04-21" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Sat</span>
-                              <span class="date-picker__date-month">Apr</span>
-                              <span class="date-picker__date-day">21</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-04-22">
-                              <a onClick = {(e) => this.handleFilterMovieByDate(e,'2018-04-30')}  href="?date=2018-04-22" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Sun</span>
-                              <span class="date-picker__date-month">Apr</span>
-                              <span class="date-picker__date-day">22</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-04-23">
-                              <a onClick = {(e) => this.handleFilterMovieByDate(e,'2018-04-30')}  href="?date=2018-04-23" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Mon</span>
-                              <span class="date-picker__date-month">Apr</span>
-                              <span class="date-picker__date-day">23</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-04-24">
-                              <a onClick = {(e) => this.handleFilterMovieByDate(e,'2018-04-30')}  href="?date=2018-04-24" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Tues</span>
-                              <span class="date-picker__date-month">Apr</span>
-                              <span class="date-picker__date-day">24</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-04-25">
-                              <a  onClick = {(e) => this.handleFilterMovieByDate(e,'2018-04-30')}  href="?date=2018-04-25" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Wed</span>
-                              <span class="date-picker__date-month">Apr</span>
-                              <span class="date-picker__date-day">25</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-04-26">
-                              <a onClick = {(e) => this.handleFilterMovieByDate(e,'2018-04-30')}  href="?date=2018-04-26" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Thur</span>
-                              <span class="date-picker__date-month">Apr</span>
-                              <span class="date-picker__date-day">26</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-04-27">
-                              <a onClick = {(e) => this.handleFilterMovieByDate(e,'2018-04-30')}  href="?date=2018-04-27" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Fri</span>
-                              <span class="date-picker__date-month">Apr</span>
-                              <span class="date-picker__date-day">27</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-04-28">
-                              <a onClick = {(e) => this.handleFilterMovieByDate(e,'2018-04-30')}  href="?date=2018-04-28" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Sat</span>
-                              <span class="date-picker__date-month">Apr</span>
-                              <span class="date-picker__date-day">28</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-04-29">
-                              <a onClick = {(e) => this.handleFilterMovieByDate(e,'2018-04-30')}  href="?date=2018-04-29" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Sun</span>
-                              <span class="date-picker__date-month">Apr</span>
-                              <span class="date-picker__date-day">29</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-04-30">
-                              <a onClick = {(e) => this.handleFilterMovieByDate(e,'2018-04-30')}  href="?date=2018-04-30" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Mon</span>
-                              <span class="date-picker__date-month">Apr</span>
-                              <span class="date-picker__date-day">30</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-05-01">
-                              <a onClick = {(e) => this.handleFilterMovieByDate(e,'2018-04-30')}  href="?date=2018-05-01" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Tues</span>
-                              <span class="date-picker__date-month">May</span>
-                              <span class="date-picker__date-day">01</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-05-02">
-                              <a onClick = {(e) => this.handleFilterMovieByDate(e,'2018-04-30')}  href="?date=2018-05-02" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Wed</span>
-                              <span class="date-picker__date-month">May</span>
-                              <span class="date-picker__date-day">02</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-05-03">
-                              <a onClick = {(e) => this.handleFilterMovieByDate(e,'2018-04-30')}  href="?date=2018-05-03" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Thur</span>
-                              <span class="date-picker__date-month">May</span>
-                              <span class="date-picker__date-day">03</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-05-04">
-                              <a href="?date=2018-05-04" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Fri</span>
-                              <span class="date-picker__date-month">May</span>
-                              <span class="date-picker__date-day">04</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-05-05">
-                              <a href="?date=2018-05-05" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Sat</span>
-                              <span class="date-picker__date-month">May</span>
-                              <span class="date-picker__date-day">05</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-05-06">
-                              <a href="?date=2018-05-06" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Sun</span>
-                              <span class="date-picker__date-month">May</span>
-                              <span class="date-picker__date-day">06</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-05-07">
-                              <a href="?date=2018-05-07" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Mon</span>
-                              <span class="date-picker__date-month">May</span>
-                              <span class="date-picker__date-day">07</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-05-08">
-                              <a href="?date=2018-05-08" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Tues</span>
-                              <span class="date-picker__date-month">May</span>
-                              <span class="date-picker__date-day">08</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-05-09">
-                              <a href="?date=2018-05-09" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Wed</span>
-                              <span class="date-picker__date-month">May</span>
-                              <span class="date-picker__date-day">09</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-05-10">
-                              <a href="?date=2018-05-10" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Thur</span>
-                              <span class="date-picker__date-month">May</span>
-                              <span class="date-picker__date-day">10</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-05-11">
-                              <a href="?date=2018-05-11" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Fri</span>
-                              <span class="date-picker__date-month">May</span>
-                              <span class="date-picker__date-day">11</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-05-12">
-                              <a href="?date=2018-05-12" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Sat</span>
-                              <span class="date-picker__date-month">May</span>
-                              <span class="date-picker__date-day">12</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-05-13">
-                              <a href="?date=2018-05-13" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Sun</span>
-                              <span class="date-picker__date-month">May</span>
-                              <span class="date-picker__date-day">13</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-05-14">
-                              <a href="?date=2018-05-14" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Mon</span>
-                              <span class="date-picker__date-month">May</span>
-                              <span class="date-picker__date-day">14</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-05-15">
-                              <a href="?date=2018-05-15" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Tues</span>
-                              <span class="date-picker__date-month">May</span>
-                              <span class="date-picker__date-day">15</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-05-16">
-                              <a href="?date=2018-05-16" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Wed</span>
-                              <span class="date-picker__date-month">May</span>
-                              <span class="date-picker__date-day">16</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-05-17">
-                              <a href="?date=2018-05-17" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Thur</span>
-                              <span class="date-picker__date-month">May</span>
-                              <span class="date-picker__date-day">17</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-05-18">
-                              <a href="?date=2018-05-18" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Fri</span>
-                              <span class="date-picker__date-month">May</span>
-                              <span class="date-picker__date-day">18</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-05-19">
-                              <a href="?date=2018-05-19" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Sat</span>
-                              <span class="date-picker__date-month">May</span>
-                              <span class="date-picker__date-day">19</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-05-20">
-                              <a href="?date=2018-05-20" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Sun</span>
-                              <span class="date-picker__date-month">May</span>
-                              <span class="date-picker__date-day">20</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-05-21">
-                              <a href="?date=2018-05-21" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Mon</span>
-                              <span class="date-picker__date-month">May</span>
-                              <span class="date-picker__date-day">21</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-05-22">
-                              <a href="?date=2018-05-22" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Tues</span>
-                              <span class="date-picker__date-month">May</span>
-                              <span class="date-picker__date-day">22</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-05-23">
-                              <a href="?date=2018-05-23" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Wed</span>
-                              <span class="date-picker__date-month">May</span>
-                              <span class="date-picker__date-day">23</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-05-24">
-                              <a href="?date=2018-05-24" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Thur</span>
-                              <span class="date-picker__date-month">May</span>
-                              <span class="date-picker__date-day">24</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-05-25">
-                              <a href="?date=2018-05-25" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Fri</span>
-                              <span class="date-picker__date-month">May</span>
-                              <span class="date-picker__date-day">25</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-05-26">
-                              <a href="?date=2018-05-26" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Sat</span>
-                              <span class="date-picker__date-month">May</span>
-                              <span class="date-picker__date-day">26</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-05-27">
-                              <a href="?date=2018-05-27" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Sun</span>
-                              <span class="date-picker__date-month">May</span>
-                              <span class="date-picker__date-day">27</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-05-28">
-                              <a href="?date=2018-05-28" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Mon</span>
-                              <span class="date-picker__date-month">May</span>
-                              <span class="date-picker__date-day">28</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-05-29">
-                              <a href="?date=2018-05-29" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Tues</span>
-                              <span class="date-picker__date-month">May</span>
-                              <span class="date-picker__date-day">29</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-05-30">
-                              <a href="?date=2018-05-30" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Wed</span>
-                              <span class="date-picker__date-month">May</span>
-                              <span class="date-picker__date-day">30</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-05-31">
-                              <a href="?date=2018-05-31" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Thur</span>
-                              <span class="date-picker__date-month">May</span>
-                              <span class="date-picker__date-day">31</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-06-01">
-                              <a href="?date=2018-06-01" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Fri</span>
-                              <span class="date-picker__date-month">Jun</span>
-                              <span class="date-picker__date-day">01</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-06-02">
-                              <a href="?date=2018-06-02" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Sat</span>
-                              <span class="date-picker__date-month">Jun</span>
-                              <span class="date-picker__date-day">02</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-06-03">
-                              <a href="?date=2018-06-03" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Sun</span>
-                              <span class="date-picker__date-month">Jun</span>
-                              <span class="date-picker__date-day">03</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-06-04">
-                              <a href="?date=2018-06-04" class="date-picker__link">
-                              <span class="date-picker__date-weekday">Mon</span>
-                              <span class="date-picker__date-month">Jun</span>
-                              <span class="date-picker__date-day">04</span>
-                              </a>
-                          </li>
-                          <li class="
-                              date-picker__date 
-                              " data-show-time-date="2018-06-05">
-                              <a href="?date=2018-06-05" class="date-picker__link">
-            <span class="date-picker__date-weekday">Tues</span>
-            <span class="date-picker__date-month">Jun</span>
-            <span class="date-picker__date-day">05</span>
-            </a>
-         </li>
-         <li class="
-            date-picker__date 
-            " data-show-time-date="2018-06-06">
-            <a href="?date=2018-06-06" class="date-picker__link">
-            <span class="date-picker__date-weekday">Wed</span>
-            <span class="date-picker__date-month">Jun</span>
-            <span class="date-picker__date-day">06</span>
-            </a>
-         </li>
-         <li class="
-            date-picker__date 
-            " data-show-time-date="2018-06-07">
-            <a href="?date=2018-06-07" class="date-picker__link">
-            <span class="date-picker__date-weekday">Thur</span>
-            <span class="date-picker__date-month">Jun</span>
-            <span class="date-picker__date-day">07</span>
-            </a>
-         </li>
-         <li class="
-            date-picker__date 
-            " data-show-time-date="2018-06-08">
-            <a href="?date=2018-06-08" class="date-picker__link">
-            <span class="date-picker__date-weekday">Fri</span>
-            <span class="date-picker__date-month">Jun</span>
-            <span class="date-picker__date-day">08</span>
-            </a>
-         </li>
-         <li class="
-            date-picker__date 
-            " data-show-time-date="2018-06-09">
-            <a href="?date=2018-06-09" class="date-picker__link">
-            <span class="date-picker__date-weekday">Sat</span>
-            <span class="date-picker__date-month">Jun</span>
-            <span class="date-picker__date-day">09</span>
-            </a>
-         </li>
-         <li class="
-            date-picker__date 
-            " data-show-time-date="2018-06-10">
-            <a href="?date=2018-06-10" class="date-picker__link">
-            <span class="date-picker__date-weekday">Sun</span>
-            <span class="date-picker__date-month">Jun</span>
-            <span class="date-picker__date-day">10</span>
-            </a>
-         </li>
-         <li class="
-            date-picker__date 
-            " data-show-time-date="2018-06-11">
-            <a href="?date=2018-06-11" class="date-picker__link">
-            <span class="date-picker__date-weekday">Mon</span>
-            <span class="date-picker__date-month">Jun</span>
-            <span class="date-picker__date-day">11</span>
-            </a>
-         </li>
-         <li class="
-            date-picker__date 
-            " data-show-time-date="2018-06-12">
-            <a href="?date=2018-06-12" class="date-picker__link">
-            <span class="date-picker__date-weekday">Tues</span>
-            <span class="date-picker__date-month">Jun</span>
-            <span class="date-picker__date-day">12</span>
-            </a>
-         </li>
-         <li class="
-            date-picker__date 
-            " data-show-time-date="2018-06-13">
-            <a href="?date=2018-06-13" class="date-picker__link">
-            <span class="date-picker__date-weekday">Wed</span>
-            <span class="date-picker__date-month">Jun</span>
-            <span class="date-picker__date-day">13</span>
-            </a>
-         </li>
-         <li class="
-            date-picker__date 
-            " data-show-time-date="2018-06-14">
-            <a href="?date=2018-06-14" class="date-picker__link">
-            <span class="date-picker__date-weekday">Thur</span>
-            <span class="date-picker__date-month">Jun</span>
-            <span class="date-picker__date-day">14</span>
-            </a>
-         </li>
-         <li class="
-            date-picker__date 
-            " data-show-time-date="2018-06-15">
-            <a href="?date=2018-06-15" class="date-picker__link">
-            <span class="date-picker__date-weekday">Fri</span>
-            <span class="date-picker__date-month">Jun</span>
-            <span class="date-picker__date-day">15</span>
-            </a>
-         </li>
-         <li class="
-            date-picker__date 
-            " data-show-time-date="2018-06-16">
-            <a href="?date=2018-06-16" class="date-picker__link">
-            <span class="date-picker__date-weekday">Sat</span>
-            <span class="date-picker__date-month">Jun</span>
-            <span class="date-picker__date-day">16</span>
-            </a>
-         </li>
-      </ul>
-      <button id = "date-left" class="icon style-none left js-calendar-flipper-left flipper--hide" data-jcarouselcontrol="true" onClick = {this.handleLeftClick.bind(this)}>Previous</button>
-      <button id = "date-right" class="icon style-none right js-calendar-flipper-right" data-jcarouselcontrol="true" onClick={this.handleRightClick.bind(this)}>Next</button>
-   </section>
-</div>
+                            {dates}
+                        </ul>
+                    <button id = "date-left" class="icon style-none left js-calendar-flipper-left flipper--hide" data-jcarouselcontrol="true" onClick = {this.handleLeftClick.bind(this)}>Previous</button>
+                    <button id = "date-right" class="icon style-none right js-calendar-flipper-right" data-jcarouselcontrol="true" onClick={this.handleRightClick.bind(this)}>Next</button>
+                    </section>
+                </div>
                   <div class="worry-free-cta__wrap">
                     <a href="#" class="cta worry-free-cta js-worry-free-cta">
                     <img src="https://images.fandango.com/fandango-www/screenplay/assets/images/desktop/global/wft-badge.be9fca955da.png" alt="Worry Free Ticketing" />
